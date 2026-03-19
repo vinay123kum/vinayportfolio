@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>InterviewBuddy. Vinay Kumar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #FAF8F4; color: #141414; overflow-x: hidden; }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: #C4622D; }
+    #bar { position: fixed; top: 0; left: 0; height: 2px; background: #C4622D; z-index: 999; width: 0; }
+
+    .back {
+      position: fixed; top: 24px; left: 32px; z-index: 100;
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: rgba(20,20,20,0.35); text-decoration: none;
+      display: flex; align-items: center; gap: 6px; transition: color .2s;
+    }
+    .back:hover { color: #C4622D; }
+
+    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .r.on { opacity: 1; transform: none; }
+    .r1 { transition-delay: .08s; } .r2 { transition-delay: .16s; } .r3 { transition-delay: .24s; }
+
+    /* ── HEADER ── */
+    header { padding: 96px 40px 0; max-width: 800px; margin: 0 auto; text-align: center; }
+    .h-title {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(36px, 5.5vw, 76px); font-weight: 700; line-height: 1.04; letter-spacing: -.02em;
+      color: #141414; animation: up .7s .2s both;
+    }
+    .h-title b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; color: #C4622D; }
+    .h-meta { font-size: 13px; color: rgba(20,20,20,0.35); margin-top: 16px; letter-spacing: .02em; animation: up .5s .35s both; }
+    .h-intro { font-size: 15px; line-height: 1.85; color: rgba(20,20,20,0.5); max-width: 580px; margin: 22px auto 0; animation: up .5s .45s both; }
+    .h-intro em { color: #C4622D; font-style: italic; }
+
+    /* ── BODY ── */
+    .body-wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
+
+    .slabel {
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: #C4622D; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .slabel::before { content: ''; width: 18px; height: 2px; background: #C4622D; display: block; flex-shrink: 0; }
+
+    .narrative-big {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(26px, 4vw, 44px); font-weight: 700; line-height: 1.2;
+      color: #141414; margin-bottom: 24px;
+    }
+    .narrative-big .hi { color: #C4622D; }
+    .narrative-big .hl { background: #C4622D; color: #fff; padding: 0 10px 4px; border-radius: 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
+    .body-text + .body-text { margin-top: 14px; }
+    .body-text strong { color: #141414; font-weight: 600; }
+
+    .pull { margin: 36px 0; padding-left: 24px; border-left: 3px solid #C4622D; }
+    .pull-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 26px); font-weight: 700; line-height: 1.35; color: rgba(20,20,20,0.65); }
+    .pull-text em { color: #C4622D; }
+
+    /* ── DARK BAND ── */
+    .dark-band {
+      background: #141414; color: #fff;
+      padding: 72px 40px; margin: 72px 0;
+      position: relative; overflow: hidden;
+    }
+    .dark-band::after {
+      content: attr(data-char);
+      position: absolute; right: -8px; top: -80px;
+      font-family: 'Syne', sans-serif; font-size: 380px; font-weight: 800;
+      color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none;
+    }
+    .dark-band-inner { max-width: 720px; margin: 0 auto; }
+    .dark-band .slabel { color: #C4622D; }
+    .dark-band-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 40px); font-weight: 700; line-height: 1.25; color: #fff; margin-bottom: 18px; }
+    .dark-band-title em { color: #E07A46; }
+    .dark-band-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.45); max-width: 600px; }
+    .pain-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .pain-pill { font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+    .pain-pill.lit { background: rgba(196,98,45,0.2); border-color: rgba(196,98,45,0.4); color: #E07A46; }
+
+    /* ── STEPS (playbook steps) ── */
+    .steps { display: flex; flex-direction: column; gap: 3px; margin: 28px 0; }
+    .step {
+      display: grid; grid-template-columns: 52px 1fr; gap: 0;
+      border-radius: 16px; overflow: hidden;
+    }
+    .step-n {
+      background: #141414; display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800;
+      color: rgba(255,255,255,0.2); writing-mode: vertical-lr; letter-spacing: .1em;
+    }
+    .step-n.accent { background: #C4622D; color: rgba(255,255,255,0.7); }
+    .step-body {
+      background: #fff; border: 1px solid rgba(20,20,20,0.07); border-left: none;
+      padding: 20px 24px;
+    }
+    .step-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: #141414; margin-bottom: 6px; }
+    .step-desc { font-size: 13px; line-height: 1.7; color: rgba(20,20,20,0.5); }
+    .step-output {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 10px; font-size: 11px; font-weight: 700;
+      color: #C4622D; background: rgba(196,98,45,0.08);
+      border: 1px solid rgba(196,98,45,0.18); padding: 4px 12px; border-radius: 100px;
+    }
+
+    /* ── STAT LIST ── */
+    .stat-list { margin: 20px 0; }
+    .stat-row { display: flex; align-items: baseline; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(20,20,20,0.07); }
+    .stat-row-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(20,20,20,0.3); min-width: 160px; flex-shrink: 0; }
+    .stat-row-n { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1; letter-spacing: -.04em; color: #141414; flex-shrink: 0; }
+    .stat-row-note { font-family: 'Caveat', cursive; font-size: 16px; color: rgba(20,20,20,0.3); }
+
+    /* ── WHY IT WORKED — 3 cards ── */
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
+    .why-card { border-radius: 18px; padding: 28px 22px; }
+    .why-card:nth-child(1) { background: #141414; }
+    .why-card:nth-child(2) { background: #EDE8DF; border: 1px solid rgba(20,20,20,0.08); }
+    .why-card:nth-child(3) { background: #C4622D; }
+    .why-n { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; line-height: 1; margin-bottom: 12px; }
+    .why-card:nth-child(1) .why-n { color: rgba(255,255,255,0.06); }
+    .why-card:nth-child(2) .why-n { color: rgba(20,20,20,0.06); }
+    .why-card:nth-child(3) .why-n { color: rgba(255,255,255,0.15); }
+    .why-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+    .why-card:nth-child(1) .why-title { color: #fff; }
+    .why-card:nth-child(2) .why-title { color: #141414; }
+    .why-card:nth-child(3) .why-title { color: #fff; }
+    .why-desc { font-size: 12px; line-height: 1.7; }
+    .why-card:nth-child(1) .why-desc { color: rgba(255,255,255,0.35); }
+    .why-card:nth-child(2) .why-desc { color: rgba(20,20,20,0.45); }
+    .why-card:nth-child(3) .why-desc { color: rgba(255,255,255,0.6); }
+
+    /* ── TAKEAWAY ── */
+    .takeaway { background: #141414; border-radius: 24px; padding: 56px 48px; position: relative; overflow: hidden; margin: 28px 0; }
+    .takeaway::before { content: '✦'; position: absolute; right: 32px; bottom: -20px; font-size: 160px; color: rgba(255,255,255,0.03); pointer-events: none; line-height: 1; }
+    .takeaway-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(26px, 4vw, 48px); font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 24px; }
+    .takeaway-big em { color: #C4622D; }
+    .takeaway-sub { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.35); max-width: 520px; }
+    .rule { margin-top: 32px; padding: 20px 24px; border-left: 3px solid #C4622D; background: rgba(255,255,255,0.03); border-radius: 0 12px 12px 0; }
+    .rule-text { font-family: 'Syne', sans-serif; font-size: clamp(13px, 1.6vw, 17px); font-weight: 700; color: rgba(255,255,255,0.6); line-height: 1.45; }
+
+    /* ── FOOTER ── */
+    .foot { padding: 80px 32px; text-align: center; }
+    .foot-h { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: #141414; margin-bottom: 10px; }
+    .foot-h em { color: #C4622D; }
+    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
+    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fbtn { padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all .2s; }
+    .fbtn-fill { background: #C4622D; color: #fff; }
+    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
+    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
+    .fbtn-line:hover { color: #141414; border-color: rgba(20,20,20,0.35); }
+    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
+
+    @keyframes up { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;} }
+
+    @media (max-width: 760px) {
+      .back { top: 16px; left: 20px; }
+      header { padding: 80px 24px 0; }
+      .body-wrap { padding: 0 20px; }
+      .dark-band { padding: 52px 24px; margin: 52px 0; }
+      .why-grid { grid-template-columns: 1fr; }
+      .stat-row { flex-wrap: wrap; gap: 8px; }
+      .stat-row-label { min-width: 100%; }
+      .takeaway { padding: 40px 28px; }
+      .foot { padding: 60px 20px; }
+    }
+  
+    /* ── MOBILE NAV BAR ── */
+    .mob-nav { display: none; }
+    @media(max-width: 768px) {
+      .mob-nav {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 500;
+        background: rgba(250,248,244,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(20,20,20,0.08);
+        padding: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px; font-weight: 800;
+        letter-spacing: -.02em; color: #141414;
+        text-decoration: none;
+      }
+      .mob-nav-home {
+        display: flex; align-items: center; gap: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px; font-weight: 600;
+        color: rgba(20,20,20,0.5);
+        text-decoration: none;
+        padding: 7px 14px;
+        border: 1px solid rgba(20,20,20,0.12);
+        border-radius: 100px;
+        transition: all .2s;
+      }
+      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
+      .back { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+<nav class="mob-nav">
+  <a href="index.html" class="mob-nav-logo">VK.</a>
+  <a href="index.html" class="mob-nav-home">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </a>
+</nav>
+
+<div id="bar"></div>
+<a href="index.html#work" class="back">← back</a>
+
+<header>
+  <h1 class="h-title">
+    When <b>Strategy</b><br>
+    Beats Budget
+  </h1>
+  <div class="h-meta">InterviewBuddy · Freelance · Ed-Tech · COVID-19 · 2020</div>
+  <p class="h-intro">
+    No money for ads. So instead of running campaigns, I figured out exactly where the right people were already assembled, <em>and went there.</em>
+  </p>
+  <div style="display:flex; justify-content:center; gap:0; flex-wrap:wrap; margin-top:28px; max-width:720px; margin-left:auto; margin-right:auto; border:1px solid rgba(20,20,20,0.08); border-radius:16px; overflow:hidden; background:#fff;">
+    <div style="flex:1; min-width:140px; padding:20px 18px; text-align:center; border-right:1px solid rgba(20,20,20,0.07);">
+      <div style="font-family:'Syne',sans-serif; font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:rgba(20,20,20,0.3); margin-bottom:8px;">Pre-qualified audience</div>
+      <div style="font-size:13px; color:rgba(20,20,20,0.55); line-height:1.5;">Group membership = intent signal. Self-selected before first contact.</div>
+    </div>
+    <div style="flex:1; min-width:140px; padding:20px 18px; text-align:center; border-right:1px solid rgba(20,20,20,0.07);">
+      <div style="font-family:'Syne',sans-serif; font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:rgba(20,20,20,0.3); margin-bottom:8px;">Channel arbitrage</div>
+      <div style="font-size:13px; color:rgba(20,20,20,0.55); line-height:1.5;">No one else was doing this. Zero CPL competition.</div>
+    </div>
+    <div style="flex:1; min-width:140px; padding:20px 18px; text-align:center;">
+      <div style="font-family:'Syne',sans-serif; font-size:11px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:rgba(20,20,20,0.3); margin-bottom:8px;">Timing × relevance</div>
+      <div style="font-size:13px; color:rgba(20,20,20,0.55); line-height:1.5;">COVID peak anxiety. The product was exactly what they needed.</div>
+    </div>
+  </div>
+</header>
+
+<div class="body-wrap">
+  <div class="div"></div>
+
+  <!-- CONTEXT -->
+  <div class="slabel r">Context</div>
+  <div class="narrative-big r r1">
+    Perfect product.<br>
+    Perfect timing.<br>
+    <span class="hl">Zero budget.</span>
+  </div>
+  <p class="body-text r r2">COVID-19. Millions suddenly out of work or pivoting careers. InterviewBuddy, a mock interview platform, was perfectly timed for the moment. The demand was real. The budget wasn't. Management wasn't yet convinced that structured marketing spend would pay off. The credibility to run campaigns had to be earned first.</p>
+  <p class="body-text r r3">The brief: <strong>prove that marketing works, without the budget that usually makes marketing work.</strong></p>
+
+  <div class="div"></div>
+
+</div>
+
+<!-- PROBLEM, dark band -->
+<div class="dark-band" data-char="0">
+  <div class="dark-band-inner">
+    <div class="slabel r">The Problem</div>
+    <div class="dark-band-title r r1">
+      The standard playbook was<br>
+      <em>entirely off the table.</em>
+    </div>
+    <p class="dark-band-body r r2">Paid social, Google ads, influencer partnerships, none of it was available. So the question shifted: where do the exact right people already exist, and how do I reach them directly? During COVID, niche Facebook groups were some of the most active corners of the internet. Data Science, Marketing, Product, full of professionals actively discussing career moves and job hunting. These weren't cold audiences. They were people already living the problem InterviewBuddy solved.</p>
+    <div class="pain-row r r3">
+      <span class="pain-pill lit">No paid budget</span>
+      <span class="pain-pill lit">No existing audience</span>
+      <span class="pain-pill lit">No brand credibility yet</span>
+      <span class="pain-pill">Cold market</span>
+      <span class="pain-pill">Management skeptical of marketing</span>
+    </div>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <div class="slabel r">The Insight</div>
+  <div class="pull r r1">
+    <div class="pull-text">The audience was <em>already assembled.</em><br>I just needed a way in.</div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- THE PLAYBOOK, 5 steps -->
+  <div class="slabel r">The Playbook</div>
+  <div class="narrative-big r r1" style="font-size: clamp(22px, 3vw, 36px);">
+    Five steps.<br>
+    <span class="hi">One precise funnel.</span>
+  </div>
+
+  <div class="steps r r2">
+    <div class="step">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <div class="step-title">Targeted a Single Facebook Group</div>
+        <div class="step-desc">Chose a Data Science group, high career mobility, strong demand for interview prep, enough scale to generate meaningful volume. Kept it to one group to stay clean and measurable.</div>
+        <div class="step-output">~8,000 members</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <div class="step-title">Scraped Member Profiles via Phantom Buster</div>
+        <div class="step-desc">Extracted first and last names of group members using Phantom Buster's Facebook scraper.</div>
+        <div class="step-output">~8,000 profiles extracted</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <div class="step-title">Cross-Referenced on LinkedIn</div>
+        <div class="step-desc">Fed those names back into Phantom Buster to match against LinkedIn's database, identifying which group members had a verified professional presence.</div>
+        <div class="step-output">~3,700 matched profiles</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">04</div>
+      <div class="step-body">
+        <div class="step-title">Extracted Email Addresses</div>
+        <div class="step-desc">Ran Phantom Buster's email extraction on the matched LinkedIn profiles. 25% yield from group member to reachable lead, exceptional for a zero-dollar acquisition channel.</div>
+        <div class="step-output">~2,000 verified emails</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n accent">05</div>
+      <div class="step-body">
+        <div class="step-title">Targeted Email Campaign</div>
+        <div class="step-desc">Wrote and executed a direct email sequence to the 2,000 addresses. Messaging was sharp: you're preparing for interviews in one of the most competitive job markets in years, here's a tool built for exactly that moment. No fluff. No generic nurture. Just relevant, timely, human.</div>
+        <div class="step-output">641 signups · 18% CVR</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- RESULTS -->
+  <div class="slabel r">Results</div>
+  <div class="stat-list r r1">
+    <div class="stat-row">
+      <div class="stat-row-label">Signups</div>
+      <div class="stat-row-n" style="color:#C4622D;">641</div>
+      <div class="stat-row-note">from a single email campaign</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-row-label">Conversion Rate</div>
+      <div class="stat-row-n">18%</div>
+      <div class="stat-row-note">vs 1–3% industry average for cold email</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-row-label">Email → Lead Yield</div>
+      <div class="stat-row-n" style="color:#C4622D;">25%</div>
+      <div class="stat-row-note">from group member to reachable contact</div>
+    </div>
+    <div class="stat-row" style="border-bottom:none;">
+      <div class="stat-row-label">Budget</div>
+      <div class="stat-row-n" style="font-size:clamp(22px,3vw,38px); letter-spacing:-.02em;">~Zero</div>
+      <div class="stat-row-note">no paid acquisition spend</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- WHY IT WORKED -->
+  <div class="slabel r">Why It Worked</div>
+  <div class="narrative-big r r1" style="font-size: clamp(20px, 2.8vw, 32px);">
+    Not luck. Three reasons it<br>
+    <span class="hi">outperformed paid.</span>
+  </div>
+
+  <div class="why-grid r r2">
+    <div class="why-card">
+      <div class="why-n">01</div>
+      <div class="why-title">Pre-Qualified Audience</div>
+      <div class="why-desc">Facebook group membership was a proxy for intent. Someone in a Data Science career group during COVID wasn't casually browsing, they were actively managing their career. The audience self-selected before I ever reached them.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-n">02</div>
+      <div class="why-title">Channel Arbitrage</div>
+      <div class="why-desc">Everyone was running LinkedIn ads. Nobody was doing this. No competition, no audience fatigue, no CPL bidding war. Being the only person in the channel is the best possible position.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-n">03</div>
+      <div class="why-title">Timing × Relevance</div>
+      <div class="why-desc">The email landed during peak career anxiety. InterviewBuddy's value prop, practice before the real thing, was exactly what this audience needed and knew it needed. Relevance and timing did the conversion work.</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway r">
+    <div class="takeaway-big">
+      641 signups was the metric.<br>
+      The real outcome was<br>
+      <em>bigger than that.</em>
+    </div>
+    <p class="takeaway-sub">Management saw that a structured, creative marketing approach could generate real pipeline with minimal spend. That credibility opened the door to larger campaigns with actual budgets behind them. The constraint wasn't a limitation, it forced a better strategy.</p>
+    <div class="rule">
+      <div class="rule-text">Sometimes the constraint is the strategy.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot r">
+    <div class="foot-h">Looking for a marketer who<br>finds <em>the angle others miss?</em></div>
+    <div class="foot-sub">Open to full-time PMM and Growth Marketing roles.</div>
+    <div class="foot-btns">
+      <a href="mailto:vinayavk8@gmail.com" class="fbtn fbtn-fill">Get in touch →</a>
+      <a href="index.html#work" class="fbtn fbtn-line">← More Case Studies</a>
+    </div>
+    <div class="foot-credits">Vinay Kumar · Growth Marketing · 2020 &nbsp;·&nbsp; Early-career project — the thinking here shaped how I approach channel strategy today.</div>
+  </div>
+
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('bar').style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+}, { passive: true });
+
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+}), { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

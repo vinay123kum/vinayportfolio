@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Builds. Vinay Kumar</title>
+  <meta name="description" content="Four AI agents built to eliminate manual marketing loops. Each one replaces a recurring human task with automated, scheduled output."/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --rust:   #C4622D;
+      --rust-lt: rgba(196,98,45,0.1);
+      --rust-md: rgba(196,98,45,0.2);
+      --black:  #141414;
+      --cream:  #FAF8F4;
+      --border: rgba(20,20,20,0.08);
+      --muted:  rgba(20,20,20,0.45);
+      --z-bar:    100;
+      --z-back:   50;
+      --z-base:   1;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      opacity: .03; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px;
+      z-index: var(--z-bar);
+    }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: var(--rust); }
+
+    /* ── PROGRESS BAR ── */
+    #bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--rust); z-index: var(--z-bar); width: 0; transition: width .1s linear; }
+
+    /* ── SKIP LINK ── */
+    .skip-link {
+      position: fixed; top: -100%; left: 16px;
+      background: var(--rust); color: #fff;
+      padding: 8px 18px; border-radius: 0 0 10px 10px;
+      font-size: 13px; font-weight: 700;
+      text-decoration: none; z-index: calc(var(--z-bar) + 10);
+      transition: top .2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── BACK LINK ── */
+    .back {
+      position: fixed; top: 24px; left: 32px; z-index: var(--z-back);
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: rgba(20,20,20,0.35); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .back:hover { color: var(--rust); }
+
+    /* ── REVEAL ── */
+    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .r.on { opacity: 1; transform: none; }
+    .r1 { transition-delay: .08s; }
+    .r2 { transition-delay: .16s; }
+    .r3 { transition-delay: .24s; }
+
+    /* ════════════════════════════
+       HEADER
+    ════════════════════════════ */
+    header {
+      padding: 120px 40px 16px;
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .h-tags {
+      display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 28px;
+      animation: up .5s .1s both;
+    }
+    @keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+
+    .h-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 100px;
+      color: var(--rust); border: 1.5px solid rgba(196,98,45,0.3); background: rgba(196,98,45,0.06);
+    }
+    .h-tag.gray { color: rgba(20,20,20,0.4); border-color: rgba(20,20,20,0.15); background: transparent; }
+
+    .h-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(38px, 6vw, 80px);
+      font-weight: 700; line-height: 1.18; letter-spacing: -.02em;
+      color: var(--black);
+      text-wrap: balance;
+      animation: up .7s .2s both;
+    }
+    .h-title b {
+      font-family: 'Syne', sans-serif;
+      font-style: normal; font-weight: 800;
+      color: var(--rust);
+    }
+    .h-meta {
+      font-size: 13px; color: rgba(20,20,20,0.35); margin-top: 16px; letter-spacing: .02em;
+      animation: up .5s .35s both;
+    }
+
+    /* ── MOSAIC (stat grid) ── */
+    .mosaic {
+      margin: 48px auto 0;
+      max-width: 860px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      grid-template-rows: 200px 180px;
+      gap: 8px;
+      animation: up .6s .4s both;
+    }
+    .mc { border-radius: 18px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+    .mc:nth-child(1) { grid-row: span 2; background: #1A1A1A; }
+    .mc:nth-child(2) { background: var(--rust); }
+    .mc:nth-child(3) { background: #EDE8DF; border: 1px solid var(--border); }
+    .mc:nth-child(4) { background: #EDE8DF; border: 1px solid var(--border); }
+    .mc:nth-child(5) { background: #2A2A2A; }
+    .mc-inner { text-align: center; padding: 20px; }
+    .mc-n { font-family: 'Syne', sans-serif; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+    .mc-l { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-top: 7px; }
+    .mc-note { font-family: 'Caveat', cursive; font-size: 14px; margin-top: 6px; }
+
+    /* ════════════════════════════
+       BODY
+    ════════════════════════════ */
+    .body-wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
+
+    /* ── SECTION LABEL ── */
+    .slabel {
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: var(--rust); display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .slabel::before { content: ''; width: 18px; height: 2px; background: var(--rust); display: block; flex-shrink: 0; }
+
+    /* ── NARRATIVE BIG ── */
+    .narrative-big {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(26px, 4vw, 44px); font-weight: 700; line-height: 1.2;
+      color: var(--black); margin-bottom: 24px;
+      text-wrap: balance;
+    }
+    .narrative-big b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; }
+    .narrative-big .hl {
+      background: var(--rust); color: #fff;
+      padding: 0 10px 4px; border-radius: 6px;
+      -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    }
+    .narrative-big .hi { color: var(--rust); }
+
+    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
+    .body-text + .body-text { margin-top: 14px; }
+    .body-text strong { color: var(--black); font-weight: 600; }
+
+    /* ── PULL QUOTE ── */
+    .pull {
+      margin: 36px 0; padding-left: 24px;
+      border-left: 3px solid var(--rust);
+    }
+    .pull-text {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(18px, 2.5vw, 26px); font-weight: 700; line-height: 1.35;
+      color: rgba(20,20,20,0.65);
+    }
+    .pull-text em { color: var(--rust); }
+
+    /* ── DARK BAND ── */
+    .dark-band {
+      background: var(--black); color: #fff;
+      padding: 72px 40px; margin: 72px 0;
+      position: relative; overflow: hidden;
+    }
+    .dark-band::after {
+      content: '∞';
+      position: absolute; right: -20px; top: -60px;
+      font-family: 'Syne', sans-serif; font-size: 380px; font-weight: 800;
+      color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none;
+    }
+    .dark-band-inner { max-width: 860px; margin: 0 auto; }
+    .dark-band .slabel { color: var(--rust); }
+    .dark-band-title {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(22px, 3.5vw, 40px); font-weight: 700; line-height: 1.25;
+      color: #fff; margin-bottom: 18px;
+    }
+    .dark-band-title em { color: #E07A46; }
+    .dark-band-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.45); max-width: 600px; }
+    .pain-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .pain-pill {
+      font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 100px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+    }
+    .pain-pill.lit { background: rgba(196,98,45,0.2); border-color: rgba(196,98,45,0.4); color: #E07A46; }
+
+    /* ════════════════════════════
+       AI BUILD CARDS — the 4 agents
+    ════════════════════════════ */
+    .builds-wrap { margin: 28px 0; display: flex; flex-direction: column; gap: 12px; }
+
+    .build-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 24px rgba(196,152,100,0.08);
+      transition: box-shadow .25s, transform .25s;
+    }
+    .build-card:hover {
+      box-shadow: 0 8px 40px rgba(196,152,100,0.15);
+      transform: translateY(-2px);
+    }
+
+    /* header row */
+    .build-header { padding: 28px 28px 20px; }
+    .build-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+    .build-rank {
+      font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--rust); background: var(--rust-lt); border: 1px solid rgba(196,98,45,0.2);
+      padding: 4px 12px; border-radius: 100px; white-space: nowrap; margin-top: 3px; flex-shrink: 0;
+    }
+    .build-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(15px, 1.8vw, 18px); font-weight: 800; line-height: 1.25;
+      color: var(--black);
+    }
+    .build-desc {
+      font-size: 14px; color: var(--muted); line-height: 1.8;
+      margin-top: 4px;
+    }
+    .build-desc strong { color: var(--black); font-weight: 600; }
+
+    /* metrics strip */
+    .build-metrics {
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .bm-cell {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .bm-cell:last-child { border-right: none; }
+    .bm-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(20,20,20,0.28); margin-bottom: 8px; }
+    /* single row: before → after, never wraps */
+    .bm-row {
+      display: flex; align-items: baseline; gap: 6px;
+      flex-wrap: nowrap; white-space: nowrap; overflow: hidden;
+    }
+    .bm-before {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500;
+      color: rgba(20,20,20,0.25); text-decoration: line-through;
+      flex-shrink: 0;
+    }
+    .bm-arrow { font-size: 11px; color: rgba(20,20,20,0.18); flex-shrink: 0; }
+    .bm-after {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px; font-weight: 800; line-height: 1;
+      color: #16a34a; letter-spacing: -.01em; font-variant-numeric: tabular-nums;
+      flex-shrink: 0;
+    }
+
+    /* ── FEATURED CARD (Card 1) ── */
+    .build-card--featured { overflow: visible; }
+    .build-card--featured .build-header { padding-bottom: 20px; }
+
+    /* inline stat chips in the header */
+    .build-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .build-chip {
+      font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 100px;
+      background: rgba(20,20,20,0.04); border: 1px solid var(--border);
+      color: rgba(20,20,20,0.45);
+    }
+    .build-chip.hi { background: rgba(22,163,74,0.08); border-color: rgba(22,163,74,0.2); color: #15803d; }
+
+    /* dark screenshot panel */
+    .build-artifact {
+      background: #0D1117;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 0;
+    }
+    .artifact-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .artifact-bar-left { display: flex; align-items: center; gap: 8px; }
+    .artifact-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #3fb950; flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(63,185,80,0.6);
+    }
+    .artifact-bar-left span {
+      font-size: 10px; font-weight: 600; letter-spacing: .06em;
+      color: rgba(255,255,255,0.3);
+    }
+    .artifact-bar-right {
+      font-size: 10px; color: rgba(255,255,255,0.18);
+      font-family: 'Inter', monospace; letter-spacing: .04em;
+    }
+    .artifact-img {
+      display: block; width: 100%;
+      border-radius: 0 0 19px 19px;
+    }
+
+    /* PMM insight footer */
+    .build-footer {
+      background: rgba(20,20,20,0.025);
+      padding: 14px 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: rgba(20,20,20,0.38);
+      font-style: italic;
+      line-height: 1.7;
+    }
+    .build-footer strong { color: var(--rust); font-style: normal; font-weight: 700; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+
+    /* ════════════════════════════
+       RESULTS — BIG NUMBERS
+    ════════════════════════════ */
+    .results-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
+    .rn {
+      border-radius: 18px; padding: 28px 24px;
+      border: 1px solid var(--border); background: #fff;
+      box-shadow: 0 2px 16px rgba(196,152,100,0.06);
+    }
+    .rn.rust { background: var(--rust); border-color: transparent; }
+    .rn.dark { background: var(--black); border-color: transparent; }
+    .rn-e { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(20,20,20,0.28); margin-bottom: 10px; }
+    .rn.rust .rn-e, .rn.dark .rn-e { color: rgba(255,255,255,0.35); }
+    .rn-n { font-family: 'Syne', sans-serif; font-size: clamp(30px, 4vw, 48px); font-weight: 800; line-height: 1; letter-spacing: -.04em; color: var(--black); font-variant-numeric: tabular-nums; }
+    .rn-n.acc { color: var(--rust); }
+    .rn.rust .rn-n, .rn.dark .rn-n { color: #fff; }
+    .rn-l { font-size: 12px; color: rgba(20,20,20,0.38); margin-top: 6px; font-weight: 500; }
+    .rn.rust .rn-l, .rn.dark .rn-l { color: rgba(255,255,255,0.45); }
+
+    /* ── STAT LIST ── */
+    .stat-list { margin: 20px 0; }
+    .stat-row {
+      display: flex; align-items: baseline; gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(20,20,20,0.07);
+    }
+    .stat-row-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(20,20,20,0.3); min-width: 180px; flex-shrink: 0;
+    }
+    .stat-row-n {
+      font-family: 'Syne', sans-serif; font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800; line-height: 1; letter-spacing: -.04em; color: var(--black);
+      flex-shrink: 0; font-variant-numeric: tabular-nums;
+    }
+    .stat-row-note { font-family: 'Caveat', cursive; font-size: 16px; color: rgba(20,20,20,0.3); }
+
+    /* ── TAKEAWAY ── */
+    .takeaway {
+      background: var(--black); border-radius: 24px; padding: 56px 48px;
+      position: relative; overflow: hidden; margin: 28px 0;
+    }
+    .takeaway::before {
+      content: '✦';
+      position: absolute; right: 32px; bottom: -20px;
+      font-size: 160px; color: rgba(255,255,255,0.03); pointer-events: none; line-height: 1;
+    }
+    .takeaway-big {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(24px, 3.8vw, 46px); font-weight: 700; line-height: 1.1;
+      color: #fff; margin-bottom: 24px; text-wrap: balance;
+    }
+    .takeaway-big em { color: var(--rust); }
+    .takeaway-big b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; }
+    .takeaway-sub { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.35); max-width: 520px; }
+    .rule { margin-top: 32px; padding: 20px 24px; border-left: 3px solid var(--rust); background: rgba(255,255,255,0.03); border-radius: 0 12px 12px 0; }
+    .rule-text { font-family: 'Syne', sans-serif; font-size: clamp(13px, 1.6vw, 16px); font-weight: 700; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    /* ── FOOTER ── */
+    .foot { padding: 80px 32px; text-align: center; }
+    .foot-h {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1;
+      color: var(--black); margin-bottom: 10px;
+    }
+    .foot-h em { color: var(--rust); }
+    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
+    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fbtn {
+      padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: all .2s;
+    }
+    .fbtn:active { transform: scale(0.97); }
+    .fbtn-fill { background: var(--rust); color: #fff; }
+    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
+    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
+    .fbtn-line:hover { color: var(--black); border-color: rgba(20,20,20,0.35); }
+    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
+
+    /* ── FINDINGS ── */
+    .findings { display: flex; flex-direction: column; gap: 10px; margin: 28px 0; }
+    .finding {
+      padding: 18px 22px; background: #fff;
+      border: 1px solid var(--border); border-radius: 14px;
+      box-shadow: 0 1px 8px rgba(196,152,100,0.06);
+    }
+    .finding-tag { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(20,20,20,0.28); margin-bottom: 6px; }
+    .finding-text { font-size: 14px; color: rgba(20,20,20,0.6); line-height: 1.65; }
+    .finding-text strong { color: var(--black); font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      header { padding: 80px 24px 0; }
+      .mosaic {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .mc:nth-child(1) { grid-row: span 1; grid-column: span 2; }
+      .body-wrap { padding: 0 20px; }
+      .build-metrics { grid-template-columns: 1fr; }
+      .bm-cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .bm-cell:last-child { border-bottom: none; }
+      .results-row { grid-template-columns: 1fr 1fr; }
+      .stat-row { flex-direction: column; gap: 6px; }
+      .stat-row-label { min-width: auto; }
+      .takeaway { padding: 40px 28px; }
+      .dark-band { padding: 56px 24px; }
+      .back { left: 20px; top: 20px; }
+      .build-top { flex-direction: column; gap: 6px; }
+    }
+  
+    /* ── MOBILE NAV BAR ── */
+    .mob-nav { display: none; }
+    @media(max-width: 768px) {
+      .mob-nav {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 500;
+        background: rgba(250,248,244,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(20,20,20,0.08);
+        padding: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px; font-weight: 800;
+        letter-spacing: -.02em; color: #141414;
+        text-decoration: none;
+      }
+      .mob-nav-home {
+        display: flex; align-items: center; gap: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px; font-weight: 600;
+        color: rgba(20,20,20,0.5);
+        text-decoration: none;
+        padding: 7px 14px;
+        border: 1px solid rgba(20,20,20,0.12);
+        border-radius: 100px;
+        transition: all .2s;
+      }
+      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
+      .back { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+<nav class="mob-nav">
+  <a href="index.html" class="mob-nav-logo">VK.</a>
+  <a href="index.html" class="mob-nav-home">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </a>
+</nav>
+
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="bar" aria-hidden="true"></div>
+<a href="index.html" class="back" aria-label="Back to portfolio">← portfolio</a>
+
+<header>
+  <div class="h-tags r">
+    <span class="h-tag">AI Tooling</span>
+    <span class="h-tag">Marketing Automation</span>
+    <span class="h-tag gray">2024 – 2025</span>
+    <span class="h-tag gray">Solo Build</span>
+  </div>
+  <h1 class="h-title r r1">
+    Four tasks that ran<br>on a <span class="hl" style="background:var(--rust);color:#fff;padding:4px 14px 8px;border-radius:8px;display:inline-block;line-height:1.1">human every week.</span><br>
+    Now they don't.
+  </h1>
+  <p class="h-meta r r2">AI Tooling · Google Ads · Competitive Intel · Proposals · Outbound</p>
+</header>
+
+
+<!-- ══════════════════════════════════
+     BODY
+══════════════════════════════════ -->
+<main id="main" class="body-wrap">
+
+  <div class="div"></div>
+
+  <!-- CONTEXT -->
+  <section>
+    <div class="slabel r">The Problem</div>
+    <div class="narrative-big r r1">
+      The most expensive work isn't the hard work, it's the <span class="hl">predictable work</span> that runs every week.
+    </div>
+    <p class="body-text r r2">
+      Four tasks kept recurring: daily reporting, competitor ad monitoring, proposal builds, and personalized outbound. Each one followed the exact same steps every time, same inputs, same output format, same person doing it. Nothing was hard. Everything was slow.
+    </p>
+    <p class="body-text r r3">
+      <strong>The question was which ones had enough structure to encode once and run without intervention.</strong> Four did.
+    </p>
+
+    <div class="pull r">
+      <div class="pull-text">Fixed inputs. Fixed output format. Fixed cadence. <em>That's the definition of a system waiting to be built.</em></div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+</main>
+
+<!-- DARK BAND: the pattern -->
+<div class="dark-band" aria-label="The recurring pattern across all four builds">
+  <div class="dark-band-inner">
+    <div class="slabel r">The pattern</div>
+    <div class="dark-band-title r r1">
+      Collect. Format. Deliver. <em>Repeat next week.</em>
+    </div>
+    <p class="dark-band-body r r2">
+      Competitive intel: open the Ad Library, scroll, screenshot, copy into a doc, summarize. Proposals: pull research, apply a template, adjust tone per client. Reporting: check the dashboard, note the drops, send an update. Each task had structure. The structure never changed. The only variable was which human did it that week, and how long it took them.
+    </p>
+    <div class="pain-row r r3">
+      <span class="pain-pill">Daily reporting</span>
+      <span class="pain-pill">Ad library scrapes</span>
+      <span class="pain-pill lit">Proposals rebuilt each time</span>
+      <span class="pain-pill">Generic outbound</span>
+      <span class="pain-pill lit">20-hour intel cycles</span>
+      <span class="pain-pill">Senior time on formatting</span>
+    </div>
+  </div>
+</div>
+
+<main class="body-wrap">
+
+  <!-- THE 4 BUILDS -->
+  <section>
+    <div class="slabel r">Four builds</div>
+    <div class="narrative-big r r1">
+      Each agent has one job. <span class="hi">One input. One output. No one watching.</span>
+    </div>
+    <p class="body-text r r2">
+      These aren't general-purpose assistants. Each one was scoped to a single recurring task, fixed inputs, fixed output format, triggered on a schedule or an event. Here's what was built and what it replaced.
+    </p>
+
+    <div class="builds-wrap r r3">
+
+      <!-- CARD 1: Google Ads Intelligence Agent -->
+      <article class="build-card build-card--featured">
+        <div class="build-header">
+          <div class="build-top">
+            <span class="build-rank">01. Google Ads Agent</span>
+            <h3 class="build-title">Autonomous Google Ads agent — monitors, alerts, auto-negates, and pushes campaigns without a human in the loop</h3>
+          </div>
+          <p class="build-desc" style="margin-top:10px">Pushing 12 campaigns manually took most of a day. Daily reporting was a half-day loop that still left a gap between a dip and anyone acting. Built a Claude Code agent with MCP that pulls live data, watches for drops, negates keywords automatically, and handles campaign pushes — no approval step, no morning check-in.</p>
+          <div class="build-chips">
+            <span class="build-chip hi">12 campaigns → 20 min</span>
+            <span class="build-chip hi">Daily reports → 0</span>
+            <span class="build-chip hi">Drops flagged in real-time</span>
+            <span class="build-chip">Claude Code + MCP</span>
+            <span class="build-chip">Google Ads API</span>
+          </div>
+        </div>
+
+        <div class="build-artifact">
+          <div class="artifact-bar">
+            <div class="artifact-bar-left">
+              <span class="artifact-dot"></span>
+              <span>Terminal output — Claude Code pushing campaigns via API</span>
+            </div>
+            <div class="artifact-bar-right">google-ads-bot</div>
+          </div>
+          <img
+            src="images/google_ads_push.png"
+            alt="Claude Code terminal showing 46 existing + 12 new campaigns pushed to Google Ads"
+            class="artifact-img"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="build-metrics" role="table" aria-label="Before and after metrics">
+          <div class="bm-cell">
+            <div class="bm-label">Daily reports sent</div>
+            <div class="bm-row">
+              <span class="bm-before">Every day</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">0</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">12 campaigns pushed in</div>
+            <div class="bm-row">
+              <span class="bm-before">~Half day</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">20 min</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Decision speed</div>
+            <div class="bm-row">
+              <span class="bm-before">Next morning</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">Real-time</span>
+            </div>
+          </div>
+        </div>
+        <div class="build-footer">
+          <strong>PMM lens —</strong> a performance marketer optimizes the campaign. A product marketer asks who owns the problem when the campaign breaks at 2am, then automates that person out of the loop.
+        </div>
+      </article>
+
+      <!-- CARD 2: Competitive Intelligence Pipeline -->
+      <article class="build-card">
+        <div class="build-header">
+          <div class="build-top">
+            <span class="build-rank">02. Competitive Intel Pipeline</span>
+            <h3 class="build-title">LinkedIn and Google Ad Libraries turned into a scheduled, hands-free competitive intelligence feed</h3>
+          </div>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Problem:</strong> Tracking competitor ads meant manually opening the Ad Library, scrolling, screenshotting, copying into a doc, and writing a summary, every week, for every competitor. The full cycle took 20 hours. By the time the report landed, the ads it referenced had already been live for days.</p>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Solution:</strong> Built a scheduled agent that scrapes both the LinkedIn and Google Ad Libraries on a fixed cadence. It detects messaging shifts, flags volume changes per competitor, and outputs a structured PDF. No screenshots, no copy-paste, no human input.</p>
+          <p class="build-desc"><strong style="color:var(--black)">Result:</strong> 20 hours of manual work runs in under 5 minutes. The report exists before anyone asks for it. Intel lag went from days behind to same day.</p>
+        </div>
+        <div class="build-artifact">
+          <div class="artifact-bar">
+            <div class="artifact-bar-left">
+              <span class="artifact-dot"></span>
+              <span>Terminal output — Claude Code running competitive intel scrape</span>
+            </div>
+            <div class="artifact-bar-right">competitive-intel</div>
+          </div>
+          <img
+            src="images/competitive_intel_push.png"
+            alt="Claude Code terminal showing 4 competitors, 373 ad creatives, 298 screenshots captured"
+            class="artifact-img"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="build-metrics" role="table" aria-label="Before and after metrics">
+          <div class="bm-cell">
+            <div class="bm-label">Time to full report</div>
+            <div class="bm-row">
+              <span class="bm-before">20 hrs</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">&lt;5 min</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Human input needed</div>
+            <div class="bm-row">
+              <span class="bm-before">Manual weekly</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">None</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Intel lag time</div>
+            <div class="bm-row">
+              <span class="bm-before">Days behind</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">Same day</span>
+            </div>
+          </div>
+        </div>
+        <div class="build-footer">
+          <strong>PMM lens —</strong> competitive intelligence is only useful if it's current. A weekly manual scrape is a history lesson. A scheduled agent is a live feed.
+        </div>
+      </article>
+
+      <!-- CARD 3: Proposal Automation Agent -->
+      <article class="build-card">
+        <div class="build-header">
+          <div class="build-top">
+            <span class="build-rank">03. Proposal Agent</span>
+            <h3 class="build-title">Senior strategist's proposal process encoded into an agent, drop a domain and transcript, get a client-ready deck</h3>
+          </div>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Problem:</strong> PPC and SEO proposals took 30 hours each. Not because the thinking was complex, because the research, structure, and client framing got rebuilt from scratch every time. The best strategists were spending most of that time on formatting, not judgment.</p>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Solution:</strong> Before writing a single prompt, interviewed the strategists who write the strongest proposals: what data they pull, how they frame recommendations, what tone shifts per client type. That knowledge became a Claude agent. Input: domain + meeting transcript. Output: client-ready proposal draft.</p>
+          <p class="build-desc"><strong style="color:var(--black)">Result:</strong> Proposal time: 30 hours → under 20 minutes. Senior strategist involvement: every proposal → one-time knowledge capture.</p>
+        </div>
+        <div class="build-artifact">
+          <div class="artifact-bar">
+            <div class="artifact-bar-left">
+              <span class="artifact-dot"></span>
+              <span>Terminal output — Claude Code running proposal agent</span>
+            </div>
+            <div class="artifact-bar-right">proposal-agent</div>
+          </div>
+          <img
+            src="images/proposal_agent_push.png"
+            alt="Claude Code terminal showing proposal built in 18 min from domain + transcript"
+            class="artifact-img"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="build-metrics" role="table" aria-label="Before and after metrics">
+          <div class="bm-cell">
+            <div class="bm-label">Time per proposal</div>
+            <div class="bm-row">
+              <span class="bm-before">30 hrs</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">&lt;20 min</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Senior time required</div>
+            <div class="bm-row">
+              <span class="bm-before">Every proposal</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">Once</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Inputs needed</div>
+            <div class="bm-row">
+              <span class="bm-after" style="font-size:13px;font-weight:700;color:#16a34a;white-space:normal">Domain + call transcript</span>
+            </div>
+          </div>
+        </div>
+        <div class="build-footer">
+          <strong>PMM lens —</strong> the best proposals aren't written, they're systematized. Interview the expert once, encode the thinking, replicate at scale.
+        </div>
+      </article>
+
+      <!-- CARD 4: Personalized Landing Page Pipeline -->
+      <article class="build-card">
+        <div class="build-header">
+          <div class="build-top">
+            <span class="build-rank">04. Outbound Landing Pages</span>
+            <h3 class="build-title">Pipeline that finds lookalike accounts, audits their SEO gaps, and generates a personalized landing page per company</h3>
+          </div>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Problem:</strong> Generic outbound gets ignored. A landing page that names a company, surfaces its actual SEO gaps, and maps those gaps to the service offering converts. But doing that research 30 times manually takes three days, and still ends up feeling templated because it is.</p>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Solution:</strong> Clay identifies lookalike accounts from closed-won data, scores them against fit signals, and selects the top 30–40. Audit tools pull real SEO data per domain. A Claude agent writes a landing page around each company's specific gaps, their keywords, their traffic problems, their context, and pushes it to the sales team.</p>
+          <p class="build-desc"><strong style="color:var(--black)">Result:</strong> 30 per-company landing pages built in 45 minutes. Research and build time: 3 days → 30 minutes. Each page references real data specific to that company.</p>
+        </div>
+        <div class="build-artifact">
+          <div class="artifact-bar">
+            <div class="artifact-bar-left">
+              <span class="artifact-dot"></span>
+              <span>Terminal output — Claude Code running outbound pipeline</span>
+            </div>
+            <div class="artifact-bar-right">outbound-landing-pages</div>
+          </div>
+          <img
+            src="images/outbound_pages_push.png"
+            alt="Claude Code terminal showing 34 personalized landing pages built in 45 minutes"
+            class="artifact-img"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="build-metrics" role="table" aria-label="Before and after metrics">
+          <div class="bm-cell">
+            <div class="bm-label">Research + build time</div>
+            <div class="bm-row">
+              <span class="bm-before">3 days</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">30 min</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Pages generated</div>
+            <div class="bm-row">
+              <span class="bm-before">—</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">30 in 45 min</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Personalization depth</div>
+            <div class="bm-row">
+              <span class="bm-before">Generic</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">Per-company</span>
+            </div>
+          </div>
+        </div>
+        <div class="build-footer">
+          <strong>PMM lens —</strong> personalization at scale isn't a content problem, it's a research problem. Solve the research and the content writes itself.
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- RESULTS -->
+  <section>
+    <div class="slabel r">Total output</div>
+    <div class="narrative-big r r1">
+      Four agents. <span class="hi">All four loops gone.</span>
+    </div>
+
+    <div class="stat-list r r2">
+      <div class="stat-row">
+        <div class="stat-row-label">Intel report time</div>
+        <div class="stat-row-n">&lt;5 min</div>
+        <div class="stat-row-note">down from 20 hours</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">Proposal time</div>
+        <div class="stat-row-n">&lt;20 min</div>
+        <div class="stat-row-note">down from 30 hours</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">Campaigns pushed</div>
+        <div class="stat-row-n">12</div>
+        <div class="stat-row-note">in 20 minutes, not half a day</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">Outbound pages built</div>
+        <div class="stat-row-n">30</div>
+        <div class="stat-row-note">per-company, in 45 minutes</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">Manual reporting loops</div>
+        <div class="stat-row-n">0</div>
+        <div class="stat-row-note">completely eliminated</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- WHY IT WORKED -->
+  <section>
+    <div class="slabel r">Why it worked</div>
+    <div class="narrative-big r r1">Not every recurring task is automatable. <span class="hi">These four had three things in common.</span></div>
+
+    <div class="findings r r2">
+      <div class="finding">
+        <div class="finding-tag">01. Defined inputs</div>
+        <div class="finding-text"><strong>Each task started with the same data every time.</strong> A domain, a competitor list, a campaign ID, a meeting transcript. No ambiguity at the entry point. The agent always knew what to pull and where to start, it didn't need to decide.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-tag">02. Fixed output format</div>
+        <div class="finding-text"><strong>The deliverable never changed shape.</strong> A proposal doc. An intel PDF. A campaign config. A per-company landing page. When the output template is fixed, the agent fills it correctly every time. Judgment calls don't enter the picture.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-tag">03. Predictable trigger</div>
+        <div class="finding-text"><strong>All four ran on a schedule or a drop event.</strong> No human had to decide when to start them. That's the filter. Any task that requires someone to decide "now is the right moment to run this" isn't ready to automate.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-tag">04. The knowledge was capturable</div>
+        <div class="finding-text"><strong>For the proposal agent, this was the hardest part.</strong> Before writing a prompt, the approach was to interview the strategists who wrote the best proposals, not to copy their templates, but to encode their judgment. The agent inherited the thinking. The templates came after.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway r">
+    <div class="takeaway-big">
+      The real cost isn't the hard work.<br><em>It's the predictable work</em> that runs<br>on a human every single week.
+    </div>
+    <p class="takeaway-sub">Most marketing bottlenecks aren't complexity problems. They're repeatability problems. The same steps, the same inputs, the same output, done manually because no one stopped to encode them. These four builds freed up roughly 50+ hours a week of recurring execution time.</p>
+    <div class="rule">
+      <div class="rule-text">If a task runs the same way every time and you can describe its inputs and output format, it's a system. Build it once, run it indefinitely.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <h2 class="foot-h">There are more loops <em>worth killing.</em></h2>
+    <p class="foot-sub">If you're running a recurring task that looks the same every week, it's probably buildable.</p>
+    <div class="foot-btns">
+      <a href="mailto:vinayavk1@gmail.com" class="fbtn fbtn-fill">Get in touch →</a>
+      <a href="index.html" class="fbtn fbtn-line">← Back to portfolio</a>
+    </div>
+    <p class="foot-credits">Vinay Kumar · Built using Claude Code + MCP · 2025</p>
+  </div>
+
+</main>
+
+<script>
+  // Progress bar
+  const bar = document.getElementById('bar');
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    bar.style.width = (p * 100) + '%';
+  }, { passive: true });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

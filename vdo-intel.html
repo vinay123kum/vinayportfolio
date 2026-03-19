@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VDO Intel: Category Repositioning & GTM Build | Vinay Kumar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FAF8F4;
+      color: #141414;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: #C4622D; }
+    #bar { position: fixed; top: 0; left: 0; height: 2px; background: #C4622D; z-index: 999; width: 0; }
+
+    /* ── BACK LINK ── */
+    .back {
+      position: fixed; top: 24px; left: 32px; z-index: 100;
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: rgba(20,20,20,0.35); text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .back:hover { color: #C4622D; }
+
+    /* ── REVEAL ── */
+    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .r.on { opacity: 1; transform: none; }
+    .r1 { transition-delay: .08s; } .r2 { transition-delay: .16s; } .r3 { transition-delay: .24s; }
+
+    /* ════════════════════════════
+       HEADER
+    ════════════════════════════ */
+    header {
+      padding: 96px 40px 0;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .h-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(38px, 6vw, 80px);
+      font-weight: 700; line-height: 1.04; letter-spacing: -.02em;
+      color: #141414;
+      animation: up .7s .2s both;
+    }
+    .h-title b {
+      font-family: 'Syne', sans-serif;
+      font-style: normal; font-weight: 800;
+      color: #C4622D;
+    }
+    .h-meta {
+      font-size: 13px; color: rgba(20,20,20,0.35); margin-top: 16px; letter-spacing: .02em;
+      animation: up .5s .35s both;
+    }
+
+    /* ════════════════════════════
+       PAGE BODY
+    ════════════════════════════ */
+    .body-wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── DIVIDER ── */
+    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
+
+    /* ── SECTION LABEL ── */
+    .slabel {
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: #C4622D; display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .slabel::before { content: ''; width: 18px; height: 2px; background: #C4622D; display: block; flex-shrink: 0; }
+
+    /* ── NARRATIVE ── */
+    .narrative-big {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(26px, 4vw, 44px); font-weight: 700; line-height: 1.2;
+      color: #141414; margin-bottom: 24px;
+    }
+    .narrative-big b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; }
+    .narrative-big .hl {
+      background: #C4622D; color: #fff;
+      padding: 0 10px 4px; border-radius: 6px;
+      -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    }
+    .narrative-big .hi { color: #C4622D; }
+
+    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
+    .body-text + .body-text { margin-top: 14px; }
+    .body-text strong { color: #141414; font-weight: 600; }
+
+    /* ── PULL QUOTE ── */
+    .pull {
+      margin: 36px 0; padding-left: 24px;
+      border-left: 3px solid #C4622D;
+    }
+    .pull-text {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(18px, 2.5vw, 26px); font-weight: 700; line-height: 1.35;
+      color: rgba(20,20,20,0.65);
+    }
+    .pull-text em { color: #C4622D; }
+
+    /* ── DARK BAND ── */
+    .dark-band {
+      background: #141414; color: #fff;
+      padding: 72px 40px; margin: 72px 0;
+      position: relative; overflow: hidden;
+    }
+    .dark-band::after {
+      content: '?';
+      position: absolute; right: -8px; top: -80px;
+      font-family: 'Syne', sans-serif; font-size: 380px; font-weight: 800;
+      color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none;
+    }
+    .dark-band-inner { max-width: 720px; margin: 0 auto; }
+    .dark-band .slabel { color: #C4622D; }
+    .dark-band-title {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(22px, 3.5vw, 40px); font-weight: 700; line-height: 1.25;
+      color: #fff; margin-bottom: 18px;
+    }
+    .dark-band-title em { color: #E07A46; }
+    .dark-band-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.45); max-width: 600px; }
+    .pain-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .pain-pill {
+      font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 100px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+    }
+    .pain-pill.lit { background: rgba(196,98,45,0.2); border-color: rgba(196,98,45,0.4); color: #E07A46; }
+
+    /* ── FINDINGS ── */
+    .findings { display: flex; flex-direction: column; gap: 10px; margin: 28px 0; }
+    .finding {
+      padding: 18px 22px; background: #fff;
+      border: 1px solid rgba(20,20,20,0.08); border-radius: 14px;
+    }
+    .finding-tag { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(20,20,20,0.28); margin-bottom: 6px; }
+    .finding-text { font-size: 14px; color: rgba(20,20,20,0.6); line-height: 1.65; }
+
+    /* ── MOVES LAYOUT ── */
+    .moves-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px; margin: 28px 0; }
+    .move-main {
+      background: #141414; border-radius: 20px; padding: 36px;
+      position: relative; overflow: hidden; grid-row: span 2;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .move-main::after {
+      content: '01'; position: absolute; bottom: -24px; right: 10px;
+      font-family: 'Syne', sans-serif; font-size: 100px; font-weight: 800;
+      color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none;
+    }
+    .move-em { font-size: 28px; margin-bottom: 18px; }
+    .move-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; line-height: 1.2; }
+    .move-desc { font-size: 13px; line-height: 1.75; color: rgba(255,255,255,0.4); margin-top: 12px; }
+    .mtag { display: inline-block; margin-top: 20px; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E07A46; background: rgba(196,98,45,0.15); border: 1px solid rgba(196,98,45,0.3); padding: 4px 12px; border-radius: 100px; }
+
+    .move-side {
+      background: #FAF8F4; border: 1px solid rgba(20,20,20,0.08); border-radius: 18px;
+      padding: 24px; position: relative; overflow: hidden;
+    }
+    .move-side-n { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800; color: rgba(20,20,20,0.04); position: absolute; top: 6px; right: 10px; line-height: 1; }
+    .move-side-em { font-size: 22px; margin-bottom: 12px; }
+    .move-side-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: #141414; line-height: 1.2; }
+    .move-side-desc { font-size: 12px; line-height: 1.7; color: rgba(20,20,20,0.45); margin-top: 8px; }
+    .stag { display: inline-block; margin-top: 14px; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8B3A12; background: rgba(196,98,45,0.1); border: 1px solid rgba(196,98,45,0.18); padding: 4px 12px; border-radius: 100px; }
+
+    /* ── INSIGHT BLOCK (replaces WA section) ── */
+    .insight-block {
+      background: #141414; border-radius: 20px; padding: 40px;
+      margin: 28px 0; position: relative; overflow: hidden;
+    }
+    .insight-block::after {
+      content: '!';
+      position: absolute; right: 20px; bottom: -40px;
+      font-family: 'Syne', sans-serif; font-size: 200px; font-weight: 800;
+      color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none;
+    }
+    .insight-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(196,98,45,0.7); margin-bottom: 14px; }
+    .insight-headline {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(20px, 2.8vw, 30px); font-weight: 700; line-height: 1.25;
+      color: #fff; margin-bottom: 16px;
+    }
+    .insight-headline em { color: #E07A46; }
+    .insight-body { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.4); max-width: 580px; }
+    .insight-callout {
+      margin-top: 24px; padding: 16px 20px;
+      border-left: 3px solid #C4622D;
+      background: rgba(196,98,45,0.06);
+      border-radius: 0 12px 12px 0;
+    }
+    .insight-callout-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C4622D; margin-bottom: 6px; }
+    .insight-callout-text { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+    /* ── STAT LIST ── */
+    .stat-list { margin: 20px 0; }
+    .stat-row {
+      display: flex; align-items: baseline; gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(20,20,20,0.07);
+    }
+    .stat-row-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(20,20,20,0.3); min-width: 160px; flex-shrink: 0; }
+    .stat-row-n { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1; letter-spacing: -.04em; color: #141414; flex-shrink: 0; }
+    .stat-row-note { font-family: 'Caveat', cursive; font-size: 16px; color: rgba(20,20,20,0.3); }
+
+    /* ── TAKEAWAY ── */
+    .takeaway {
+      background: #141414; border-radius: 24px; padding: 56px 48px;
+      position: relative; overflow: hidden; margin: 28px 0;
+    }
+    .takeaway::before {
+      content: '✦';
+      position: absolute; right: 32px; bottom: -20px;
+      font-size: 160px; color: rgba(255,255,255,0.03); pointer-events: none; line-height: 1;
+    }
+    .takeaway-big {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(26px, 4vw, 48px); font-weight: 700; line-height: 1.1;
+      color: #fff; margin-bottom: 24px;
+    }
+    .takeaway-big em { color: #C4622D; }
+    .takeaway-big b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; }
+    .takeaway-sub { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.35); max-width: 520px; }
+    .rule { margin-top: 32px; padding: 20px 24px; border-left: 3px solid #C4622D; background: rgba(255,255,255,0.03); border-radius: 0 12px 12px 0; }
+    .rule-text { font-family: 'Syne', sans-serif; font-size: clamp(13px, 1.6vw, 17px); font-weight: 700; color: rgba(255,255,255,0.6); line-height: 1.45; }
+
+    /* ── FOOTER ── */
+    .foot {
+      padding: 80px 32px; text-align: center;
+    }
+    .foot-h {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1;
+      color: #141414; margin-bottom: 10px;
+    }
+    .foot-h em { color: #C4622D; }
+    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
+    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fbtn {
+      padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      transition: all .2s;
+    }
+    .fbtn-fill { background: #C4622D; color: #fff; }
+    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
+    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
+    .fbtn-line:hover { color: #141414; border-color: rgba(20,20,20,0.35); }
+    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
+
+    @keyframes up { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;} }
+
+    /* MOBILE */
+    @media (max-width: 760px) {
+      .back { top: 16px; left: 20px; }
+      header { padding: 80px 24px 0; }
+      .body-wrap { padding: 0 20px; }
+      .dark-band { padding: 52px 24px; margin: 52px 0; }
+      .moves-grid { grid-template-columns: 1fr; }
+      .move-main { grid-row: span 1; }
+      .stat-row { flex-wrap: wrap; gap: 8px; }
+      .stat-row-label { min-width: 100%; }
+      .takeaway { padding: 40px 28px; }
+      .foot { padding: 60px 20px; }
+    }
+  
+    /* ── MOBILE NAV BAR ── */
+    .mob-nav { display: none; }
+    @media(max-width: 768px) {
+      .mob-nav {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 500;
+        background: rgba(250,248,244,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(20,20,20,0.08);
+        padding: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px; font-weight: 800;
+        letter-spacing: -.02em; color: #141414;
+        text-decoration: none;
+      }
+      .mob-nav-home {
+        display: flex; align-items: center; gap: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px; font-weight: 600;
+        color: rgba(20,20,20,0.5);
+        text-decoration: none;
+        padding: 7px 14px;
+        border: 1px solid rgba(20,20,20,0.12);
+        border-radius: 100px;
+        transition: all .2s;
+      }
+      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
+      .back { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+<nav class="mob-nav">
+  <a href="index.html" class="mob-nav-logo">VK.</a>
+  <a href="index.html" class="mob-nav-home">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </a>
+</nav>
+
+<div id="bar"></div>
+
+<!-- BACK LINK -->
+<a href="index.html#work" class="back">← back</a>
+
+<!-- ══════════════════════════
+     HEADER
+══════════════════════════ -->
+<header>
+  <h1 class="h-title">
+    VDOintel: Zero Presence<br>
+    to <em style="color:#C4622D;">Revenue-Ready</em><br>
+    in One GTM Build
+  </h1>
+  <div class="h-meta">
+    Product Marketing Consultant &nbsp;·&nbsp; Part-time &nbsp;·&nbsp; United States
+  </div>
+</header>
+
+<!-- ══════════════════════════
+     BODY
+══════════════════════════ -->
+<div class="body-wrap">
+
+  <div class="div"></div>
+
+  <!-- CONTEXT -->
+  <div class="slabel r">Context</div>
+  <div class="narrative-big r r1">
+    A great product.<br>
+    <span class="hl">Invisible</span> to every buyer<br>
+    outside the referral network.
+  </div>
+  <p class="body-text r r2">VDOintel had customers who loved the product and zero ability to find new ones. Their entire pipeline ran on referrals. The technology was real, real-time detection, predictive risk flags, operational intelligence across warehouses, retail floors, hybrid workspaces. <strong>None of it was visible from the outside.</strong></p>
+  <p class="body-text r r3">The product was described as "video analytics", the same phrase used by every budget CCTV reseller in the market. No brand voice. No positioning. No website worth visiting. Just a strong product and a fragile growth model.</p>
+
+  <div class="div"></div>
+
+</div>
+
+<!-- PROBLEM, full bleed dark band -->
+<div class="dark-band">
+  <div class="dark-band-inner">
+    <div class="slabel r">The Problem</div>
+    <div class="dark-band-title r r1">
+      <em>Video analytics.</em> That's what<br>
+      every CCTV reseller calls itself.<br>
+      VDOintel was <em>not that.</em>
+    </div>
+    <p class="dark-band-body r r2">The category name was killing them before any conversation started. Buyers couldn't tell VDOintel apart from commodity players. No positioning meant no differentiation. No digital presence meant no inbound. Referrals were the only path, and referrals don't scale.</p>
+    <div class="pain-row r r3">
+      <span class="pain-pill lit">Zero inbound pipeline</span>
+      <span class="pain-pill lit">Commodity category name</span>
+      <span class="pain-pill lit">No brand or voice</span>
+      <span class="pain-pill">Website: no story, no proof</span>
+      <span class="pain-pill">Referral-only, fragile</span>
+    </div>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <!-- THE BRIEF -->
+  <div class="slabel r">The Brief</div>
+  <div class="pull r r1">
+    <div class="pull-text">Build the <em>entire GTM foundation</em> from scratch, brand, positioning, website, sales infrastructure, and make VDOintel legible to buyers who'd never heard of them.</div>
+  </div>
+
+  <div class="findings r r2">
+    <div class="finding">
+      <div class="finding-tag">The Real Product</div>
+      <div class="finding-text">Not surveillance. Not analytics. Risk prevention, catching a warehouse safety violation before an injury, flagging retail theft in progress, identifying compliance gaps before they become liabilities.</div>
+    </div>
+    <div class="finding">
+      <div class="finding-tag">The Real Buyer</div>
+      <div class="finding-text">COOs, Heads of Risk, VP Operations at mid-market and enterprise US companies. Executives who care about liability, efficiency, and operational continuity, not camera specs.</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- THE WORK -->
+  <div class="slabel r">The Work</div>
+  <div class="narrative-big r r1" style="font-size: clamp(22px, 3vw, 36px);">
+    Four moves. <em style="color:#C4622D;">One complete</em> GTM<br>
+    built from nothing.
+  </div>
+
+  <div class="moves-grid r r2">
+    <!-- Big: Move 01. Repositioning -->
+    <div class="move-main">
+      <div>
+        <div class="move-em">🎯</div>
+        <div class="move-title">Escaped the "Video Analytics" Trap</div>
+        <div class="move-desc">Rebuilt the positioning from the ground up. New category: AI-driven operational intelligence. New narrative: proactive risk mitigation, not reactive surveillance. Every value prop anchored in outcomes, what goes wrong without it, what changes when you have it. Every asset rewritten through this lens.</div>
+      </div>
+      <div class="mtag">Category Repositioning</div>
+    </div>
+    <!-- Small: 02 + 03 -->
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div class="move-side">
+        <div class="move-side-n">02</div>
+        <div class="move-side-em">🗣️</div>
+        <div class="move-side-title">Brand Voice. Built from Zero</div>
+        <div class="move-side-desc">No digital history means no voice. Developed full brand voice architecture: authoritative but accessible, risk and ROI first, technology second. Built for C-suite decision-makers.</div>
+        <div class="stag">Voice Architecture</div>
+      </div>
+      <div class="move-side">
+        <div class="move-side-n">03</div>
+        <div class="move-side-em">🌐</div>
+        <div class="move-side-title">Website: Storytelling Over Feature Lists</div>
+        <div class="move-side-desc">Rebuilt narrative around customer problems and ROI use cases. Led with operational risk, closed on proof. Demo CTAs at decision points. Features subordinated to outcomes.</div>
+        <div class="stag">+12% Demo Requests · +21% Engagement</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- INSIGHT. The Conversion Problem -->
+  <div class="slabel r">The Twist</div>
+  <div class="narrative-big r r1" style="font-size: clamp(20px, 2.8vw, 32px);">
+    Inbound was moving.<br>
+    Nothing was <em style="color:#C4622D;">converting.</em>
+  </div>
+
+  <div class="insight-block r r2">
+    <div class="insight-label">The Diagnosis</div>
+    <div class="insight-headline">
+      The problem wasn't the product.<br>
+      It wasn't the price.<br>
+      <em>It was the room.</em>
+    </div>
+    <p class="insight-body">Repositioning worked, inbound started moving. But conversion was flat. Requests came in and went quiet. We audited every post-inquiry touchpoint and found the friction: the sales team handling discovery calls was India-based. The buyers were US executives. Product knowledge was sharp, but cultural nativity, conversational register, and business context weren't landing. US buyers couldn't build the trust needed to move forward. They weren't objecting to the product. They were disengaging from the conversation.</p>
+    <div class="insight-callout">
+      <div class="insight-callout-label">The Fix</div>
+      <div class="insight-callout-text">Stood up a US-based sales team, native English speakers with embedded American business context, and built the full sales process from zero around them.</div>
+    </div>
+  </div>
+
+  <!-- Move 04. US Sales Motion -->
+  <div class="moves-grid r r2" style="margin-top: 28px;">
+    <div class="move-main" style="grid-row: span 1;">
+      <div>
+        <div class="move-em">🇺🇸</div>
+        <div class="move-title">Built a US-Native Sales Motion from Scratch</div>
+        <div class="move-desc">This wasn't a handoff with existing materials. Everything built ground-up: full sales deck around US buyer psychology and C-suite risk priorities, discovery call frameworks for ops and security leaders, objection-handling guides, competitive battle cards translating technical depth into executive-level outcomes.</div>
+      </div>
+      <div class="mtag">Sales Enablement</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div class="move-side">
+        <div class="move-side-n">↑</div>
+        <div class="move-side-em">📊</div>
+        <div class="move-side-title">India Team Builds. US Team Owns the Room.</div>
+        <div class="move-side-desc">The India team built and delivered the product. The US team owned every buyer conversation. Once the right voices were in the right rooms, with the right tools, conversion followed.</div>
+        <div class="stag">Right Voice · Right Context</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- RESULTS -->
+  <div class="slabel r">Results</div>
+  <div class="narrative-big r r1" style="font-size: clamp(22px, 3vw, 36px);">
+    The numbers that <em style="color:#C4622D;">matter.</em>
+  </div>
+
+  <div class="stat-list r r2">
+    <div class="stat-row">
+      <div class="stat-row-label">Demo Requests</div>
+      <div class="stat-row-n" style="color:#C4622D;">+12%</div>
+      <div class="stat-row-note">post website revamp</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-row-label">Page Engagement</div>
+      <div class="stat-row-n">+21%</div>
+      <div class="stat-row-note">storytelling over feature lists</div>
+    </div>
+    <div class="stat-row" style="border-bottom:none;">
+      <div class="stat-row-label">Brand Foundation</div>
+      <div class="stat-row-n" style="font-size: clamp(20px,2.5vw,32px); letter-spacing:-.02em;">Zero → Live</div>
+      <div class="stat-row-note">voice, positioning, messaging, sales infra</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway r">
+    <div class="takeaway-big">
+      Referral businesses<br>
+      aren't broken.<br>
+      They're <em>fragile.</em>
+    </div>
+    <p class="takeaway-sub">VDOintel's growth problem had two layers. Visibility: a commodity name and no digital presence meant no one outside the referral network could find or evaluate them. Conversion: getting inbound wasn't enough when the sales motion didn't match the buyer's world. Product marketing fixed both.</p>
+    <div class="rule">
+      <div class="rule-text">Product marketing built the foundation. The right sales team closed the room.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot r">
+    <div class="foot-h">Looking for a PMM who<br>builds <em>this kind of motion?</em></div>
+    <div class="foot-sub">Open to full-time PMM and Growth Marketing roles.</div>
+    <div class="foot-btns">
+      <a href="mailto:vinayavk8@gmail.com" class="fbtn fbtn-fill">Get in touch →</a>
+      <a href="index.html#work" class="fbtn fbtn-line">← More Case Studies</a>
+    </div>
+    <div class="foot-credits">Vinay Kumar · Product Marketing · 2024</div>
+  </div>
+
+</div><!-- /body-wrap -->
+
+<script>
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('bar').style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+}, { passive: true });
+
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+}), { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

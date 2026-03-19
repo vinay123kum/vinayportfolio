@@ -1,0 +1,1592 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vinay Kumar | Product Marketer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@400;600&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F7F3EC;
+      --cream2: #EDE8DF;
+      --black: #141414;
+      --black2: #1E1E1E;
+      --rust: #C4622D;
+      --rust-light: rgba(196,98,45,0.12);
+      --gray: #888;
+      --light-gray: #F0EBE3;
+      --border: rgba(20,20,20,0.09);
+      --white: #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      width: 10px; height: 10px;
+      background: var(--rust);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s;
+    }
+    #cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(196,98,45,0.45);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: all .12s ease-out;
+    }
+    body:has(a:hover) #cursor,
+    body:has(button:hover) #cursor { width: 18px; height: 18px; }
+    body:has(a:hover) #cursor-ring,
+    body:has(button:hover) #cursor-ring { width: 56px; height: 56px; border-color: var(--rust); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--rust); border-radius: 2px; }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; padding: 22px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all .4s ease;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+    }
+    #navbar.scrolled {
+      background: rgba(247,243,236,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 48px;
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px; font-weight: 800;
+      letter-spacing: -.02em; color: var(--black);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a {
+      font-size: 13px; color: rgba(20,20,20,0.45);
+      text-decoration: none; letter-spacing: .02em;
+      transition: color .2s; font-weight: 500;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-cta {
+      background: var(--black); color: var(--cream);
+      border: none; padding: 10px 22px; border-radius: 100px;
+      font-size: 13px; font-weight: 700; cursor: none;
+      transition: all .2s; letter-spacing: .01em;
+      font-family: 'Inter', sans-serif;
+    }
+    .nav-cta:hover { background: var(--rust); transform: scale(1.04); }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.4);} }
+
+    /* ════════════════════════════════════
+       HERO
+    ════════════════════════════════════ */
+    #home {
+      height: 100vh;
+      background: var(--cream);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 56px;
+      position: relative;
+    }
+
+    /* ── Text block ── */
+    .hero-text {
+      width: 100%;
+      max-width: 1440px;
+      padding: 0 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex-shrink: 0;
+      z-index: 3;
+    }
+
+    .hero-avail {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 13px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(20,20,20,0.5);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      margin-bottom: 10px;
+      opacity: 0; animation: fadeDown .6s .1s ease forwards;
+      flex-shrink: 0;
+    }
+    .hero-avail-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e; animation: pulse 2s infinite;
+    }
+
+    /* ── Illustration — top half shows, rest below fold ── */
+    .hero-illus-section {
+      position: relative;
+      width: 100%;
+      display: flex; justify-content: center;
+      flex: 1;
+      margin-top: 32px;
+      min-height: 0;
+    }
+    .hero-illus-inner {
+      position: relative;
+      width: 760px;
+      display: flex; justify-content: center;
+      align-items: flex-start;
+    }
+    #hero-illus {
+      width: 460px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 60px rgba(0,0,0,0.13));
+      display: block;
+      position: relative;
+      z-index: 1;
+      will-change: transform;
+      margin-top: -20px;
+    }
+
+    /* Floating badge pills */
+    .float-badge {
+      position: absolute;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 14px;
+      font-size: 12px; font-weight: 700;
+      color: var(--black);
+      display: flex; align-items: center; gap: 7px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      white-space: nowrap;
+      z-index: 2;
+      animation: floatAnim 4s ease-in-out infinite;
+    }
+    .float-badge .badge-icon { font-size: 14px; }
+
+    .float-1 { top: 30px;  left: 20px;  animation-delay: 0s; }
+    .float-2 { top: 140px; right: 20px; animation-delay: 1s; }
+    .float-3 { top: 280px; left: 20px;  animation-delay: 1.8s; }
+    .float-4 { top: 390px; right: 20px; animation-delay: 2.6s; }
+
+    .hero-annotation {
+      font-family: 'Caveat', cursive;
+      font-size: 20px; color: rgba(20,20,20,0.5);
+      opacity: 0; animation: fadeDown .5s .2s ease forwards;
+      display: flex; align-items: center; gap: 5px;
+      margin-bottom: 6px;
+    }
+    .hero-annotation svg { width: 26px; opacity: .45; }
+
+    .hero-headline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(20px, 2.2vw, 34px);
+      font-weight: 800; line-height: 1.14;
+      letter-spacing: -.03em;
+      color: var(--black);
+      max-width: 1360px;
+      width: 100%;
+      opacity: 0; animation: fadeUp .8s .3s ease forwards;
+    }
+
+    .highlight-pill {
+      display: inline;
+      background: var(--rust);
+      color: #fff;
+      border-radius: 60px;
+      padding: 1px 14px 4px;
+      font-style: normal;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    .hero-for {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.75em;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    /* ── Company logos strip ── */
+    .hero-logos {
+      margin-top: 28px;
+      display: flex; flex-direction: column; align-items: center;
+      opacity: 0; animation: fadeUp .6s .5s ease forwards;
+      width: 100%; max-width: 700px;
+      flex-shrink: 0;
+    }
+    .hero-logos-label {
+      font-size: 9px; font-weight: 700; letter-spacing: .16em;
+      text-transform: uppercase; color: rgba(20,20,20,0.28);
+      margin-bottom: 10px;
+    }
+    .hero-logos-row {
+      display: flex; gap: 32px; align-items: flex-start;
+      justify-content: center; flex-wrap: nowrap;
+    }
+    .logo-chip {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px; font-weight: 700;
+      color: rgba(20,20,20,0.4);
+      letter-spacing: -.01em;
+      white-space: nowrap;
+      transition: color .2s;
+    }
+    .logo-chip:hover { color: rgba(20,20,20,0.7); }
+    .logo-chip-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      overflow: hidden; flex-shrink: 0;
+      opacity: 0.65; transition: opacity .2s;
+    }
+    .logo-chip:hover .logo-chip-icon { opacity: 1; }
+    .logo-chip-icon img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    @keyframes floatAnim {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-9px); }
+    }
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-14px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes fadeIn   { from{opacity:0;}to{opacity:1;} }
+
+    /* ── Hero mobile ── */
+    @media(max-width: 768px) {
+      /* Full viewport, flex column, nothing overflows */
+      #home {
+        height: 100dvh;
+        padding-top: 72px;
+        overflow: hidden;
+        padding-bottom: 0;
+        justify-content: flex-start;
+      }
+
+      /* Text block — compact, centered */
+      .hero-text {
+        padding: 24px 22px 0;
+        max-width: 100%;
+        align-items: center;
+        text-align: center;
+        flex-shrink: 0;
+      }
+      .hero-avail { margin-bottom: 8px; font-size: 9px; padding: 4px 10px; }
+      .hero-annotation { font-size: clamp(13px, 3.5vw, 16px); margin-bottom: 6px; }
+      .hero-headline {
+        font-size: clamp(18px, 5.5vw, 26px);
+        letter-spacing: -.02em;
+        line-height: 1.2;
+      }
+      .hero-headline br { display: none; }
+      .highlight-pill { padding: 0 9px 3px; border-radius: 30px; }
+
+      /* Logos — spaced evenly, 10px screen edge, no scroll */
+      .hero-logos { margin-top: 16px; max-width: 100%; flex-shrink: 0; }
+      .hero-logos { align-items: center; }
+      .hero-logos-label { font-size: 7px; letter-spacing: .1em; margin-bottom: 8px; }
+      .hero-logos-row {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        gap: 16px;
+        overflow: hidden;
+      }
+      .logo-chip {
+        flex: none;
+        font-size: 9px;
+        gap: 5px;
+        flex-direction: column;
+        align-items: center;
+        white-space: nowrap;
+        text-align: center;
+      }
+      .logo-chip-icon { width: 28px; height: 28px; border-radius: 7px; }
+
+      /* Illustration — fills remaining height, PNG scales to fit */
+      .hero-illus-section {
+        margin-top: 10px;
+        flex: 1;
+        min-height: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        overflow: hidden;
+        position: relative;
+      }
+      .hero-illus-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      /* PNG height fills remaining space, width follows aspect ratio */
+      #hero-illus {
+        height: 100%;
+        width: auto;
+        max-width: 70vw;
+        margin-top: 0;
+        transform: none !important;
+        object-fit: contain;
+        object-position: top center;
+        display: block;
+      }
+
+      /* Badges — anchored by % so they scale with any screen size */
+      .float-badge {
+        font-size: clamp(9px, 2.5vw, 11px);
+        padding: 5px 10px;
+        gap: 5px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      }
+      .float-badge .badge-icon { font-size: clamp(10px, 2.8vw, 13px); }
+      .float-1 { top: 8%;  left:  4vw; }
+      .float-2 { top: 24%; right: 4vw; }
+      .float-3 { top: 52%; left:  4vw; }
+      .float-4 { top: 74%; right: 4vw; }
+    }
+
+    @media(max-width: 400px) {
+      #navbar { padding: 12px 16px; }
+      .nav-links { display: none; }
+      #hero-illus { max-width: 80vw; }
+    }
+
+    /* marquee removed */
+
+    /* ── SECTION BASE ── */
+    .section { padding: 120px 48px; }
+    .section-white { background: var(--white); }
+    .section-cream { background: var(--cream); }
+    .section-dark { background: var(--black); color: #fff; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'Caveat', cursive;
+      font-size: 18px; font-weight: 600; letter-spacing: .04em;
+      text-transform: none; color: var(--rust);
+      margin-bottom: 20px;
+    }
+    .section-tag::before {
+      content: '';
+      width: 20px; height: 2px; background: var(--rust);
+      display: inline-block;
+    }
+    .section-h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(34px, 5vw, 62px);
+      font-weight: 800; line-height: 1.05; letter-spacing: -.035em;
+      color: var(--black);
+    }
+    .section-dark .section-h2 { color: #fff; }
+    .section-sub {
+      font-family: 'Caveat', cursive;
+      font-size: 22px; line-height: 1.6;
+      color: rgba(20,20,20,0.45);
+      margin-top: 16px; max-width: 540px;
+    }
+    .section-dark .section-sub { color: rgba(255,255,255,0.4); }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap img {
+      width: 100%; border-radius: 20px;
+      filter: grayscale(100%); transition: filter .6s ease;
+      display: block;
+    }
+    .about-img-wrap:hover img { filter: grayscale(0%); }
+    .about-img-overlay {
+      position: absolute; inset: 0; border-radius: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
+    }
+    .about-img-name {
+      position: absolute; bottom: 20px; left: 22px;
+      font-family: 'Caveat', cursive; font-size: 22px;
+      color: white; font-weight: 600;
+    }
+    .about-img-border {
+      position: absolute; inset: -10px;
+      border: 1px solid rgba(196,98,45,0.18); border-radius: 28px;
+      pointer-events: none;
+    }
+    .about-text .section-h2 { margin-bottom: 4px; }
+    .about-text p { font-size: 16px; line-height: 1.85; color: rgba(20,20,20,0.55); margin-top: 22px; }
+    .about-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+    .chip {
+      padding: 7px 16px; border-radius: 100px;
+      font-size: 12px; font-weight: 600;
+      background: var(--rust-light);
+      border: 1px solid rgba(196,98,45,0.18);
+      color: #8B3A12;
+    }
+    .about-playful {
+      font-family: 'Caveat', cursive;
+      font-size: 20px; color: var(--rust);
+      margin-top: 28px; font-weight: 600;
+    }
+
+    /* ── CARDS ── */
+    .cards-stack { display: flex; flex-direction: column; gap: 20px; }
+    .card {
+      border-radius: 24px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 280px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.04);
+      transition: transform .3s ease, box-shadow .3s ease;
+      opacity: 0; transform: translateY(40px);
+      will-change: transform; cursor: none;
+      background: var(--white);
+    }
+    .card.visible { opacity: 1; transform: translateY(0); }
+    .card:hover { transform: translateY(-6px) scale(1.005); box-shadow: 0 20px 50px rgba(0,0,0,0.09); }
+
+    /* ── STICKY STACK (desktop only) ── */
+    @media (min-width: 901px) {
+      .sticky-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      /* Each card sticks at the same top — higher z-index cards slide over lower ones */
+      .sticky-stack .card {
+        position: sticky;
+        top: 88px;
+        margin-bottom: 24px;
+      }
+      .sticky-stack .card:hover { transform: none; }
+      .sticky-stack .card.visible { transform: translateY(0); }
+      .sticky-stack .card:nth-child(1) { z-index: 1; }
+      .sticky-stack .card:nth-child(2) { z-index: 2; }
+      .sticky-stack .card:nth-child(3) { z-index: 3; }
+      .sticky-stack .card:nth-child(4) { z-index: 4; }
+      .sticky-stack .card:nth-child(5) { z-index: 5; }
+    }
+    .card-dark { background: var(--black2); }
+    .card-body {
+      padding: 30px; display: flex; flex-direction: column;
+      justify-content: space-between;
+      background: var(--white);
+    }
+    .card-dark .card-body { background: var(--black2); }
+    .card-co {
+      font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(20,20,20,0.35);
+    }
+    .card-dark .card-co { color: rgba(255,255,255,0.3); }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px; font-weight: 700; line-height: 1.3;
+      margin-top: 10px; margin-bottom: 10px; color: var(--black);
+    }
+    .card-dark .card-title { color: #fff; }
+    .card-desc { font-size: 12px; line-height: 1.7; color: rgba(20,20,20,0.5); flex-grow: 1; }
+    .card-dark .card-desc { color: rgba(255,255,255,0.38); }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 12px 0; }
+    .tag {
+      padding: 5px 12px; border-radius: 100px;
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Caveat', cursive;
+      font-size: 18px; font-weight: 600;
+      text-decoration: none; color: var(--black);
+      border-bottom: 2px solid var(--black); padding-bottom: 2px;
+      width: fit-content; transition: gap .2s, color .2s, border-color .2s;
+    }
+    .card-dark .card-link { color: #fff; border-color: #fff; }
+    .card-link:hover { gap: 10px; color: var(--rust); border-color: var(--rust); }
+    .card-visual {
+      padding: 0; display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    /* ── Browser mockup inside card-visual ── */
+    .cv-bg { position: absolute; inset: 0; z-index: 0; }
+    .cv-ghost {
+      position: absolute; z-index: 1;
+      width: calc(100% - 52px); height: calc(100% - 72px);
+      border-radius: 10px; top: 44px; left: 30px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .cv-browser {
+      position: absolute; z-index: 2;
+      width: calc(100% - 28px); border-radius: 10px; overflow: hidden;
+      background: #fff; top: 20px; left: 14px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 8px 20px rgba(0,0,0,0.2), 0 28px 56px rgba(0,0,0,0.28);
+    }
+    .cv-bar {
+      height: 28px; background: #EDECEA;
+      padding: 0 10px; display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid rgba(0,0,0,0.08); flex-shrink: 0;
+    }
+    .cv-dots { display: flex; gap: 4px; flex-shrink: 0; }
+    .cv-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .cv-dot-r { background: #FF5F57; }
+    .cv-dot-y { background: #FFBD2E; }
+    .cv-dot-g { background: #28C840; }
+    .cv-url {
+      flex: 1; background: rgba(0,0,0,0.07); border-radius: 4px;
+      padding: 3px 8px; font-size: 8px; color: rgba(20,20,20,0.4);
+      font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .cv-img { width: 100%; height: 200px; overflow: hidden; }
+    .cv-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .card-stat-big {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(34px, 4.5vw, 54px); font-weight: 800;
+      line-height: 1; margin-bottom: 4px;
+    }
+    .card-stat-label { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .5; }
+    .card-stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      margin-top: 16px; padding-top: 16px;
+      border-top: 1px solid rgba(20,20,20,0.08);
+    }
+    .card-stat-sm { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; line-height: 1; }
+    .card-stat-sm-label { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-top: 3px; opacity: .45; }
+
+    .counter { display: inline; }
+
+    /* ── TESTIMONIALS ── */
+    .testi-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; margin-top: 60px; }
+    .testi-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform .3s, box-shadow .3s;
+      opacity: 0; transform: translateY(30px);
+    }
+    .testi-card.visible { opacity: 1; transform: translateY(0); }
+    .testi-card:hover { transform: translateY(-5px); box-shadow: 0 16px 44px rgba(0,0,0,0.07); }
+    .testi-quote { font-size: 14.5px; line-height: 1.8; color: rgba(20,20,20,0.55); font-style: italic; margin-bottom: 26px; }
+    .testi-stars { color: var(--rust); font-size: 13px; margin-bottom: 14px; letter-spacing: 2px; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--rust), #8B3A12);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; color: #fff; flex-shrink: 0;
+      overflow: hidden;
+    }
+    .testi-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .testi-name { font-weight: 800; font-size: 13px; color: var(--black); }
+    .testi-role { font-size: 11px; color: #aaa; font-weight: 500; margin-top: 2px; }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 160px 48px;
+      background: var(--black);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .contact-glow {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(196,98,45,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .contact-h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(34px, 5.5vw, 72px);
+      line-height: 1.06; font-weight: 800;
+      letter-spacing: -.04em; max-width: 860px; margin: 0 auto 24px;
+      color: #fff;
+    }
+    .contact-em { color: var(--rust); font-style: italic; font-family: 'Playfair Display', serif; }
+    .contact-sub { color: rgba(255,255,255,0.38); font-size: 17px; max-width: 500px; margin: 0 auto 52px; line-height: 1.75; }
+    .contact-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--rust); color: #fff;
+      padding: 13px 30px; border-radius: 100px;
+      font-size: 14px; font-weight: 700;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: all .25s; border: none; cursor: none;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(196,98,45,0.35); }
+    .btn-ghost {
+      background: transparent; color: rgba(255,255,255,0.65);
+      padding: 13px 30px; border-radius: 100px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: all .25s; border: 1px solid rgba(255,255,255,0.14); cursor: none;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.07); color: #fff; border-color: rgba(255,255,255,0.28); }
+    .btn-ghost-dark {
+      background: transparent; color: rgba(20,20,20,0.65);
+      padding: 13px 30px; border-radius: 100px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: all .25s; border: 1px solid var(--border); cursor: none;
+    }
+    .btn-ghost-dark:hover { background: rgba(20,20,20,0.05); color: var(--black); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 36px 48px;
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 18px;
+    }
+    .footer-left { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .footer-name { font-size: 14px; font-weight: 700; color: #fff; }
+    .footer-status { display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.35); }
+    .footer-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+    .footer-right { display: flex; gap: 28px; flex-wrap: wrap; }
+    .footer-right a { font-size: 13px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color .2s; }
+    .footer-right a:hover { color: #fff; }
+
+    /* ── SCRIBBLE DECORATIONS ── */
+    .scribble {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Hero scribbles */
+    .scrib-growth {
+      bottom: 6%; right: 2%;
+      width: clamp(120px, 14vw, 210px);
+      opacity: 0.055;
+    }
+    .scrib-funnel {
+      top: 8%; left: 2%;
+      width: clamp(60px, 7vw, 100px);
+      opacity: 0.05;
+    }
+    .scrib-star { opacity: 0.13; }
+    .scrib-star-1 { top: 12%; right: 14%; width: 18px; }
+    .scrib-star-2 { bottom: 28%; left: 10%; width: 14px; }
+    .scrib-star-3 { top: 40%; right: 6%; width: 12px; }
+    /* About section scribbles */
+    .scrib-nodes {
+      top: 8%; right: 2%;
+      width: clamp(100px, 12vw, 180px);
+      opacity: 0.05;
+    }
+    /* Work section scribbles */
+    .scrib-target {
+      top: 6%; left: 2%;
+      width: clamp(80px, 10vw, 140px);
+      opacity: 0.045;
+    }
+    .scrib-loop {
+      bottom: 8%; right: 3%;
+      width: clamp(70px, 9vw, 120px);
+      opacity: 0.055;
+    }
+    #about, #work, #experiments, #learning, #design { position: relative; }
+    @media(max-width: 768px) {
+      .scrib-growth { display: none; }
+      .scrib-funnel { display: none; }
+      .scrib-nodes { width: 90px; opacity: 0.06; }
+      .scrib-target { width: 70px; opacity: 0.05; }
+      .scrib-loop { width: 60px; }
+      .scrib-star-1 { display: none; }
+    }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px; font-weight: 800; letter-spacing: .15em;
+      color: rgba(20,20,20,0.2); text-transform: uppercase;
+      margin-bottom: 8px; display: block;
+    }
+
+    /* ── MOBILE ── */
+    .mob-scroll { display: none; }
+    @media(max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .cards-stack .card { grid-template-columns: 1fr; }
+      .card-visual { display: none; }
+      .testi-grid { grid-template-columns: 1fr; width: 100%; overflow: hidden; }
+      .testi-card { min-width: 0; word-break: break-word; }
+      .section { padding: 80px 24px; }
+      #navbar { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .mob-scroll { display: block; }
+      .mob-cards { display: flex; flex-direction: column; gap: 20px; padding-bottom: 0; }
+      .mob-card { width: 100%; background: white; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+      .mob-card-vis { padding: 0; position: relative; overflow: hidden; height: 160px; }
+      .mob-cv-bg { position: absolute; inset: 0; z-index: 0; }
+      .mob-cv-ghost {
+        position: absolute; z-index: 1;
+        left: 24px; top: 32px;
+        right: 8px; bottom: -8px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.14);
+        border: 1px solid rgba(255,255,255,0.18);
+      }
+      .mob-cv-browser {
+        position: absolute; z-index: 2;
+        left: 12px; top: 16px; right: 20px;
+        border-radius: 8px; overflow: hidden; background: #fff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 32px rgba(0,0,0,0.25);
+      }
+      .mob-cv-bar {
+        height: 22px; background: #EDECEA;
+        padding: 0 8px; display: flex; align-items: center; gap: 6px;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+      }
+      .mob-cv-dots { display: flex; gap: 3px; flex-shrink: 0; }
+      .mob-cv-dot { width: 6px; height: 6px; border-radius: 50%; }
+      .mob-cv-img { width: 100%; height: 110px; overflow: hidden; }
+      .mob-cv-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+      .mob-card-body { padding: 20px; }
+      .mob-card-body .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+      .mob-card-body .tag { font-size: 10px; padding: 5px 10px; }
+      .mob-arrows { display: none; }
+      .mob-arrow { display: none; }
+      .desk-only { display: none !important; }
+      .about-playful { font-size: 16px; line-height: 1.8; }
+      .about-img-wrap { max-height: 360px; overflow: hidden; border-radius: 16px; }
+      .about-img-wrap img { width: 100%; height: 360px; object-fit: cover; object-position: center 60%; border-radius: 16px; }
+      .about-img-border { display: none; }
+      .about-img-name { font-size: 18px; bottom: 14px; left: 16px; }
+      #contact { padding: 80px 24px; }
+      .contact-h2 { font-size: clamp(28px, 7vw, 48px); }
+      .contact-sub { font-size: 15px; margin-bottom: 36px; }
+      .contact-btns { flex-direction: column; align-items: center; }
+      footer { flex-direction: column; text-align: center; padding: 28px 24px; gap: 12px; }
+      .footer-right { justify-content: center; gap: 18px; }
+      #learning, #design { padding: 80px 24px; }
+    }
+    @media(min-width: 901px) { .mob-scroll { display: none !important; } }
+
+    /* ── TESTIMONIAL MARQUEE ── */
+    .testi-marquee-wrap {
+      overflow: hidden;
+      margin-top: 52px;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .testi-marquee-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: marquee 32s linear infinite;
+    }
+    .testi-marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .testi-marquee-track .testi-card {
+      width: 340px;
+      flex-shrink: 0;
+    }
+    @media(max-width: 900px) {
+      .testi-marquee-track .testi-card { width: 80vw; }
+    }
+    /* ── HAMBURGER MENU ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+      position: relative;
+      z-index: 999;
+    }
+    .nav-hamburger span {
+      width: 22px; height: 2px;
+      background: var(--black);
+      border-radius: 2px;
+      transition: all .3s ease;
+      display: block;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media(max-width: 900px) {
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none !important; }
+      #navbar { padding: 14px 20px !important; opacity: 1 !important; pointer-events: all !important; transform: none !important; z-index: 999 !important; }
+      #navbar.scrolled { padding: 12px 20px !important; }
+      .nav-links {
+        display: none !important;
+        position: fixed; top: 0; left: 0; right: 0;
+        background: var(--cream);
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
+        padding: 80px 28px 32px;
+        z-index: 997;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      }
+      .nav-links.open { display: flex !important; }
+      .nav-links a {
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        color: rgba(20,20,20,0.7);
+        text-decoration: none;
+        width: 100%;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border);
+        transition: color .2s;
+      }
+      .nav-links a:last-child { border-bottom: none; }
+      .nav-links a:hover { color: var(--rust); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ═══════ NAVBAR ═══════ -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">VK.</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#experiments">Experiments</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="Resume.pdf" download class="nav-cta" style="background:transparent;color:rgba(20,20,20,0.5);border:1px solid rgba(20,20,20,0.15);margin-right:8px;">↓ Download CV</a>
+  <a href="mailto:vinayavk1@gmail.com" class="nav-cta">Let's talk →</a>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section id="home">
+
+  <!-- Text block -->
+  <div class="hero-text">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <div class="hero-avail">
+        <span class="hero-avail-dot"></span>
+        Open to new opportunities
+      </div>
+      <div class="hero-avail" style="background:rgba(196,98,45,0.08);border-color:rgba(196,98,45,0.25);color:#C4622D;">
+        <span class="hero-avail-dot" style="background:#C4622D;animation:none;"></span>
+        PMM &amp; Growth · 5+ years · SaaS &amp; Fintech
+      </div>
+    </div>
+    <div class="hero-annotation">
+      Hi, I'm Vinay
+      <svg viewBox="0 0 56 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 14 Q18 4 36 12 Q46 16 50 22" stroke="#141414" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        <path d="M44 18 L50 22 L46 28" stroke="#141414" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </div>
+    <h1 class="hero-headline">
+      I take products from<br>
+      <span class="highlight-pill">hard to explain</span> <span class="hero-for">to obvious choice</span><br>
+      Then build the engine that proves it.
+    </h1>
+    <div class="hero-logos">
+      <div class="hero-logos-label">Brands I've worked with</div>
+      <div class="hero-logos-row">
+        <span class="logo-chip"><span class="logo-chip-icon"><img src="images/brand-logo.png" alt="Volopay"></span>Volopay</span>
+        <span class="logo-chip"><span class="logo-chip-icon"><img src="images/reviewer-rajveer.png" alt="Itilite"></span>Itilite</span>
+        <span class="logo-chip"><span class="logo-chip-icon"><img src="images/reviewer-pranav.png" alt="InterviewBuddy"></span>InterviewBuddy</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scribble decorations: growth chart, funnel, stars -->
+  <!-- Growth chart -->
+  <svg class="scribble scrib-growth" viewBox="0 0 200 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="120" x2="195" y2="120" stroke="#141414" stroke-width="1" opacity="0.3" stroke-linecap="round"/>
+    <line x1="0" y1="80"  x2="195" y2="80"  stroke="#141414" stroke-width="1" opacity="0.15" stroke-linecap="round"/>
+    <line x1="0" y1="40"  x2="195" y2="40"  stroke="#141414" stroke-width="1" opacity="0.15" stroke-linecap="round"/>
+    <polyline points="10,112 45,96 80,101 112,64 148,70 182,24" stroke="#141414" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="10"  cy="112" r="3"   fill="#141414"/>
+    <circle cx="45"  cy="96"  r="3"   fill="#141414"/>
+    <circle cx="80"  cy="101" r="3"   fill="#141414"/>
+    <circle cx="112" cy="64"  r="3"   fill="#141414"/>
+    <circle cx="148" cy="70"  r="3"   fill="#141414"/>
+    <circle cx="182" cy="24"  r="4.5" fill="#141414"/>
+    <path d="M176 17 L183 24 L176 31" stroke="#141414" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>
+  <!-- Funnel -->
+  <svg class="scribble scrib-funnel" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M4,8 L76,8 L50,38 L50,86 L30,96 L30,38 Z" stroke="#C4622D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <line x1="14" y1="20" x2="66" y2="20" stroke="#C4622D" stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+    <line x1="24" y1="30" x2="56" y2="30" stroke="#C4622D" stroke-width="1.1" stroke-linecap="round" opacity="0.35"/>
+  </svg>
+  <!-- Stars -->
+  <svg class="scribble scrib-star scrib-star-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="12" y1="1" x2="12" y2="23" stroke="#141414" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="1"  y1="12" x2="23" y2="12" stroke="#141414" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="4"  y1="4"  x2="20" y2="20" stroke="#141414" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="20" y1="4"  x2="4"  y2="20" stroke="#141414" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+  <svg class="scribble scrib-star scrib-star-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="12" y1="1" x2="12" y2="23" stroke="#C4622D" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="1"  y1="12" x2="23" y2="12" stroke="#C4622D" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="4"  y1="4"  x2="20" y2="20" stroke="#C4622D" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="20" y1="4"  x2="4"  y2="20" stroke="#C4622D" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+  <svg class="scribble scrib-star scrib-star-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="12" y1="1" x2="12" y2="23" stroke="#141414" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="1"  y1="12" x2="23" y2="12" stroke="#141414" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="4"  y1="4"  x2="20" y2="20" stroke="#141414" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="20" y1="4"  x2="4"  y2="20" stroke="#141414" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+
+  <!-- Illustration + floating badges -->
+  <div class="hero-illus-section">
+    <div class="hero-illus-inner">
+      <img id="hero-illus" src="images/vinay-illustration.png" alt="Vinay Kumar">
+      <div class="float-badge float-1"><span class="badge-icon">✈️</span> Traveller</div>
+      <div class="float-badge float-2"><span class="badge-icon">🎨</span> Designer</div>
+      <div class="float-badge float-3"><span class="badge-icon">📢</span> Marketer</div>
+      <div class="float-badge float-4"><span class="badge-icon">⚡</span> Automation Enthu</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════ ABOUT ═══════ -->
+<section id="about" class="section section-white">
+  <!-- AI nodes scribble -->
+  <svg class="scribble scrib-nodes" viewBox="0 0 180 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="20"  y1="28"  x2="90"  y2="70"  stroke="#141414" stroke-width="1.2"/>
+    <line x1="20"  y1="112" x2="90"  y2="70"  stroke="#141414" stroke-width="1.2"/>
+    <line x1="90"  y1="70"  x2="160" y2="28"  stroke="#141414" stroke-width="1.2"/>
+    <line x1="90"  y1="70"  x2="160" y2="112" stroke="#141414" stroke-width="1.2"/>
+    <line x1="20"  y1="28"  x2="20"  y2="112" stroke="#141414" stroke-width="1" opacity="0.45"/>
+    <line x1="160" y1="28"  x2="160" y2="112" stroke="#141414" stroke-width="1" opacity="0.45"/>
+    <line x1="90"  y1="70"  x2="90"  y2="10"  stroke="#141414" stroke-width="1" opacity="0.3" stroke-dasharray="3 4"/>
+    <circle cx="20"  cy="28"  r="6"  stroke="#141414" stroke-width="1.8" fill="none"/>
+    <circle cx="20"  cy="112" r="6"  stroke="#141414" stroke-width="1.8" fill="none"/>
+    <circle cx="90"  cy="70"  r="10" stroke="#141414" stroke-width="2"   fill="none"/>
+    <circle cx="90"  cy="70"  r="3.5" fill="#141414"/>
+    <circle cx="160" cy="28"  r="6"  stroke="#141414" stroke-width="1.8" fill="none"/>
+    <circle cx="160" cy="112" r="6"  stroke="#141414" stroke-width="1.8" fill="none"/>
+    <circle cx="90"  cy="10"  r="4"  stroke="#141414" stroke-width="1.5" fill="none"/>
+  </svg>
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-img-wrap reveal">
+        <div class="about-img-border"></div>
+        <img
+          src="images/about-meghalaya.jpg"
+          alt="Vinay Kumar"
+          style="object-fit:cover;object-position:center top;"
+        >
+        <div class="about-img-overlay"></div>
+        <div class="about-img-name">Vinay</div>
+      </div>
+
+      <div class="about-text">
+        <div class="reveal"><span class="section-tag">Who I am</span></div>
+        <h2 class="section-h2 reveal reveal-delay-1">
+          Product Marketer by Craft.<br>
+          <em style="font-style:italic;color:var(--rust);font-family:'Playfair Display',serif;">Nomad by Heart.</em>
+        </h2>
+        <p class="reveal reveal-delay-2">
+          A curious fellow with 5+ years cracking revenue codes and architecting product journeys for startups. I thrive on building high-impact tools from a box of scraps and collaborating on UI/UX projects through a strategic marketing lens.
+        </p>
+        <p class="reveal reveal-delay-2">
+          When I'm not working, I'm traveling like a nomad or designing cinematic film posters, always keeping an eye out for the next ambitious startup where I can learn, contribute, and grow.
+        </p>
+        <div class="about-playful reveal reveal-delay-3">
+          ✈️ Last destination: Rishikesh &nbsp;·&nbsp; 🎨 Current obsession: Automations &nbsp;·&nbsp; ⚡ Latest build: B2B ad maker (in progress)
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CASE STUDIES ═══════ -->
+<section id="work" class="section section-cream">
+  <!-- Target/bullseye scribble -->
+  <svg class="scribble scrib-target" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="70" cy="70" r="65" stroke="#141414" stroke-width="1.5" fill="none"/>
+    <circle cx="70" cy="70" r="44" stroke="#141414" stroke-width="1.5" fill="none"/>
+    <circle cx="70" cy="70" r="23" stroke="#141414" stroke-width="1.5" fill="none"/>
+    <circle cx="70" cy="70" r="5"  fill="#141414"/>
+    <line x1="70" y1="0"   x2="70" y2="42"  stroke="#141414" stroke-width="1" opacity="0.4"/>
+    <line x1="70" y1="98"  x2="70" y2="140" stroke="#141414" stroke-width="1" opacity="0.4"/>
+    <line x1="0"  y1="70"  x2="42" y2="70"  stroke="#141414" stroke-width="1" opacity="0.4"/>
+    <line x1="98" y1="70"  x2="140" y2="70" stroke="#141414" stroke-width="1" opacity="0.4"/>
+  </svg>
+  <!-- Growth loop arrow scribble -->
+  <svg class="scribble scrib-loop" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M60 90 C10 90 10 10 60 10 C110 10 110 55 75 70" stroke="#C4622D" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M80 62 L75 70 L68 64" stroke="#C4622D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <text x="42" y="54" font-family="Inter,sans-serif" font-size="9" fill="#C4622D" opacity="0.7" font-weight="700">GROWTH</text>
+  </svg>
+  <div class="container">
+    <div class="reveal"><span class="section-tag">Selected Works</span></div>
+    <h2 class="section-h2 reveal reveal-delay-1">Case Studies</h2>
+    <p class="section-sub reveal reveal-delay-2">Real campaigns. Real numbers. No vanity metrics.</p>
+
+    <!-- Desktop -->
+    <div class="cards-stack desk-only sticky-stack" style="margin-top:52px">
+
+      <div class="card reveal">
+        <div class="card-body">
+          <div>
+            <div class="card-co">Volopay · GTM Strategy</div>
+            <h3 class="card-title">Ran GTM across four markets. The numbers moved everywhere.</h3>
+            <p class="card-desc">Ran product-led GTM across 4 APAC markets at Volopay. Repositioned Indonesia from enterprise to SMB, doubled sales velocity, and cut CPL by 68%.</p>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(196,98,45,0.1);color:#8B3A12">$2.5M+ ARR</span>
+              <span class="tag" style="background:rgba(196,98,45,0.1);color:#8B3A12">68% CPL Drop</span>
+              <span class="tag" style="background:rgba(196,98,45,0.1);color:#8B3A12">4 APAC Markets</span>
+              <span class="tag" style="background:rgba(196,98,45,0.1);color:#8B3A12">3.8%→11.85% CVR</span>
+            </div>
+          </div>
+          <a href="volopay.html" class="card-link">Read Case Study <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="card-visual">
+          <div class="cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#FDBA8C 0%,#EA580C 50%,#7C2D12 100%)"></div>
+          <div class="cv-ghost"></div>
+          <div class="cv-browser">
+            <div class="cv-bar"><div class="cv-dots"><div class="cv-dot cv-dot-r"></div><div class="cv-dot cv-dot-y"></div><div class="cv-dot cv-dot-g"></div></div><div class="cv-url">volopay.com/dashboard</div></div>
+            <div class="cv-img"><img src="images/reviewer-enakshi.jpeg" alt="Volopay dashboard"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal reveal-delay-1">
+        <div class="card-body">
+          <div>
+            <div class="card-co">VDO Intel · Positioning</div>
+            <h3 class="card-title">Rewrote the positioning from scratch. Revenue followed in 90 days.</h3>
+            <p class="card-desc">VDO Intel was selling "video analytics." Nobody cared. Repositioned them around security risk mitigation, the problem buyers actually had budget for. At Solify, sharper personas drove $220K in revenue.</p>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(14,165,233,0.1);color:#0369a1">12% MoM Lead Lift</span>
+              <span class="tag" style="background:rgba(14,165,233,0.1);color:#0369a1">$220K Revenue</span>
+              <span class="tag" style="background:rgba(14,165,233,0.1);color:#0369a1">33.2% Lower CPL</span>
+            </div>
+          </div>
+          <a href="vdo-intel.html" class="card-link">See Repositioning Playbook <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="card-visual">
+          <div class="cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#BAE6FD 0%,#0284C7 50%,#082F49 100%)"></div>
+          <div class="cv-ghost"></div>
+          <div class="cv-browser">
+            <div class="cv-bar"><div class="cv-dots"><div class="cv-dot cv-dot-r"></div><div class="cv-dot cv-dot-y"></div><div class="cv-dot cv-dot-g"></div></div><div class="cv-url">vdointel.com/app</div></div>
+            <div class="cv-img"><img src="images/screenshot-200405.png" alt="VDO Intel"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal reveal-delay-2">
+        <div class="card-body">
+          <div>
+            <div class="card-co">Performance / Growth Marketing</div>
+            <h3 class="card-title">Multi-Channel Paid Acquisition at Scale</h3>
+            <p class="card-desc">Google, Meta, and LinkedIn all underperforming. CPL was too high,, volume too low. Rebuilt targeting and creative from scratch. Scaled across APAC, MENA, and North America.</p>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">33.2% CPL Reduction</span>
+              <span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">+21% Engagement</span>
+              <span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">+18% Lead Quality</span>
+            </div>
+          </div>
+          <a href="performance-marketing.html" class="card-link">Performance Playbook <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="card-visual">
+          <div class="cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#DDD6FE 0%,#7C3AED 50%,#2E1065 100%)"></div>
+          <div class="cv-ghost"></div>
+          <div class="cv-browser">
+            <div class="cv-bar"><div class="cv-dots"><div class="cv-dot cv-dot-r"></div><div class="cv-dot cv-dot-y"></div><div class="cv-dot cv-dot-g"></div></div><div class="cv-url">ads.google.com/scripts</div></div>
+            <div class="cv-img"><img src="images/google-ads-script.webp" alt="Performance marketing"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile -->
+    <div class="mob-scroll" style="margin-top:36px">
+      <div class="mob-cards" id="cs-mob">
+        <div class="mob-card" onclick="location.href='volopay.html'" style="cursor:pointer"><div class="mob-card-vis"><div class="mob-cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#FDBA8C 0%,#EA580C 50%,#7C2D12 100%)"></div><div class="mob-cv-ghost"></div><div class="mob-cv-browser"><div class="mob-cv-bar"><div class="mob-cv-dots"><div class="mob-cv-dot" style="background:#FF5F57"></div><div class="mob-cv-dot" style="background:#FFBD2E"></div><div class="mob-cv-dot" style="background:#28C840"></div></div></div><div class="mob-cv-img"><img src="images/reviewer-enakshi.jpeg" alt="Volopay"></div></div></div><div class="mob-card-body"><div class="card-co">Volopay · GTM Strategy</div><h3 class="card-title" style="font-size:17px">Ran GTM across four markets. The numbers moved everywhere.</h3><div class="card-tags"><span class="tag" style="background:rgba(196,98,45,0.1);color:#8B3A12">3.8%→11.85% CVR</span><span class="tag" style="background:rgba(196,98,45,0.1);color:#8B3A12">68% CPL Drop</span><span class="tag" style="background:rgba(196,98,45,0.1);color:#8B3A12">4 APAC Markets</span></div></div></div>
+        <div class="mob-card" onclick="location.href='vdo-intel.html'" style="cursor:pointer"><div class="mob-card-vis"><div class="mob-cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#BAE6FD 0%,#0284C7 50%,#082F49 100%)"></div><div class="mob-cv-ghost"></div><div class="mob-cv-browser"><div class="mob-cv-bar"><div class="mob-cv-dots"><div class="mob-cv-dot" style="background:#FF5F57"></div><div class="mob-cv-dot" style="background:#FFBD2E"></div><div class="mob-cv-dot" style="background:#28C840"></div></div></div><div class="mob-cv-img"><img src="images/screenshot-200405.png" alt="VDO Intel"></div></div></div><div class="mob-card-body"><div class="card-co">VDO Intel · Positioning</div><h3 class="card-title" style="font-size:17px">Rewrote the positioning from scratch. Revenue followed in 90 days.</h3><div class="card-tags"><span class="tag" style="background:rgba(14,165,233,0.1);color:#0369a1">$220K Revenue</span><span class="tag" style="background:rgba(14,165,233,0.1);color:#0369a1">33.2% Lower CPL</span></div></div></div>
+        <div class="mob-card" onclick="location.href='performance-marketing.html'" style="cursor:pointer"><div class="mob-card-vis"><div class="mob-cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#DDD6FE 0%,#7C3AED 50%,#2E1065 100%)"></div><div class="mob-cv-ghost"></div><div class="mob-cv-browser"><div class="mob-cv-bar"><div class="mob-cv-dots"><div class="mob-cv-dot" style="background:#FF5F57"></div><div class="mob-cv-dot" style="background:#FFBD2E"></div><div class="mob-cv-dot" style="background:#28C840"></div></div></div><div class="mob-cv-img"><img src="images/google-ads-script.webp" alt="Performance"></div></div></div><div class="mob-card-body"><div class="card-co">Performance Marketing</div><h3 class="card-title" style="font-size:17px">Multi-Channel Paid Acquisition</h3><div class="card-tags"><span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">33.2% CPL Drop</span><span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">+21% Engagement</span></div></div></div>
+      </div>
+      <div class="mob-arrows"><button class="mob-arrow" onclick="mobScroll('cs-mob',-1)">←</button><button class="mob-arrow" onclick="mobScroll('cs-mob',1)">→</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ EXPERIMENTS ═══════ -->
+<section id="experiments" class="section section-white">
+  <div class="container">
+    <div class="reveal"><span class="section-tag">Things I Made Up That Actually Worked</span></div>
+    <h2 class="section-h2 reveal reveal-delay-1">Applied AI<br>&amp; Experiments</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin-top:8px;">Things I built to solve real problems — automation workflows, AI tooling, growth experiments that shipped and had measurable output.</p>
+
+    <div class="cards-stack desk-only sticky-stack" style="margin-top:52px">
+
+      <div class="card reveal">
+        <div class="card-body">
+          <div>
+            <div class="card-co">AI Tooling · Claude Code</div>
+            <h3 class="card-title">Four Recurring Tasks. Four Agents. Zero Manual Loops.</h3>
+            <p class="card-desc">Competitive intel took 20 hours a week. Proposals took 30. Campaigns took half a day to push. Outbound research took 3 days per batch. Built four Claude Code agents — one per task. All four run without a human in the loop.</p>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(59,130,246,0.1);color:#1e40af">50+ hrs/week freed</span>
+              <span class="tag" style="background:rgba(59,130,246,0.1);color:#1e40af">20-hr intel → &lt;5 min</span>
+              <span class="tag" style="background:rgba(59,130,246,0.1);color:#1e40af">12 campaigns in 20 min</span>
+            </div>
+          </div>
+          <a href="ai-builds.html" class="card-link">See How It Worked <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="card-visual">
+          <div class="cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#BAE6FD 0%,#38BDF8 50%,#0369A1 100%)"></div>
+          <div class="cv-ghost"></div>
+          <div class="cv-browser">
+            <div class="cv-bar"><div class="cv-dots"><div class="cv-dot cv-dot-r"></div><div class="cv-dot cv-dot-y"></div><div class="cv-dot cv-dot-g"></div></div><div class="cv-url" style="font-family:monospace;font-size:10px;">claude — bash — 80×24</div></div>
+            <div class="cv-img"><img src="images/claude-terminal.png" alt="Claude terminal automation"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal reveal-delay-1">
+        <div class="card-body">
+          <div>
+            <div class="card-co">Growth Hack · InterviewBuddy</div>
+            <h3 class="card-title">When Strategy Beats Budget</h3>
+            <p class="card-desc">InterviewBuddy had no ad budget. Scraped 8,000 Facebook group members, matched them to LinkedIn profiles, extracted emails, and ran a cold campaign that converted at 18%.</p>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(234,179,8,0.1);color:#854d0e">18% Email CVR</span>
+              <span class="tag" style="background:rgba(234,179,8,0.1);color:#854d0e">641 Signups</span>
+              <span class="tag" style="background:rgba(234,179,8,0.1);color:#854d0e">&lt;$50 Total Spend</span>
+            </div>
+          </div>
+          <a href="interviewbuddy.html" class="card-link">See How It Worked <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="card-visual">
+          <div class="cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#FEF08A 0%,#CA8A04 50%,#431407 100%)"></div>
+          <div class="cv-ghost"></div>
+          <div class="cv-browser">
+            <div class="cv-bar"><div class="cv-dots"><div class="cv-dot cv-dot-r"></div><div class="cv-dot cv-dot-y"></div><div class="cv-dot cv-dot-g"></div></div><div class="cv-url">interviewbuddy.net</div></div>
+            <div class="cv-img"><img src="images/screenshot-200732.png" alt="InterviewBuddy"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal reveal-delay-2">
+        <div class="card-body">
+          <div>
+            <div class="card-co">Ad Strategy · Volopay</div>
+            <h3 class="card-title">Selling B2B Like It's B2C</h3>
+            <p class="card-desc">Every competitor was running polished LinkedIn ads at CFOs. Took the budget to Meta with UGC instead. LinkedIn CPL dropped 25% after warm audiences replaced cold spend.</p>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(236,72,153,0.1);color:#9d174d">13% Higher CVR</span>
+              <span class="tag" style="background:rgba(236,72,153,0.1);color:#9d174d">4 Markets</span>
+              <span class="tag" style="background:rgba(236,72,153,0.1);color:#9d174d">2× Lower CPL</span>
+            </div>
+          </div>
+          <a href="meta-ugc-volopay.html" class="card-link">See How It Worked <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="card-visual">
+          <div class="cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#FDBA8C 0%,#EA580C 50%,#7C2D12 100%)"></div>
+          <div class="cv-ghost"></div>
+          <div class="cv-browser">
+            <div class="cv-bar"><div class="cv-dots"><div class="cv-dot cv-dot-r"></div><div class="cv-dot cv-dot-y"></div><div class="cv-dot cv-dot-g"></div></div><div class="cv-url">volopay.com/dashboard</div></div>
+            <div class="cv-img"><img src="images/reviewer-enakshi.jpeg" alt="Volopay dashboard"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile -->
+    <div class="mob-scroll" style="margin-top:36px">
+      <div class="mob-cards" id="exp-mob">
+        <div class="mob-card" onclick="location.href='ai-builds.html'" style="cursor:pointer"><div class="mob-card-vis" style="background:#0A0A0A;padding:0;overflow:hidden;"><img src="images/claude-terminal.png" alt="Claude Code terminal" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:16px 16px 0 0;"></div><div class="mob-card-body"><div class="card-co">AI Tooling · Claude Code</div><h3 class="card-title" style="font-size:17px">Four Recurring Tasks. Four Agents. Zero Manual Loops.</h3><div class="card-tags"><span class="tag" style="background:rgba(59,130,246,0.1);color:#1d4ed8">Claude Code</span><span class="tag" style="background:rgba(59,130,246,0.1);color:#1d4ed8">Automation</span><span class="tag" style="background:rgba(59,130,246,0.1);color:#1d4ed8">Zero Manual Work</span></div></div></div>
+        <div class="mob-card" onclick="location.href='interviewbuddy.html'" style="cursor:pointer"><div class="mob-card-vis"><div class="mob-cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#FEF08A 0%,#CA8A04 50%,#431407 100%)"></div><div class="mob-cv-ghost"></div><div class="mob-cv-browser"><div class="mob-cv-bar"><div class="mob-cv-dots"><div class="mob-cv-dot" style="background:#FF5F57"></div><div class="mob-cv-dot" style="background:#FFBD2E"></div><div class="mob-cv-dot" style="background:#28C840"></div></div></div><div class="mob-cv-img"><img src="images/screenshot-200732.png" alt="InterviewBuddy"></div></div></div><div class="mob-card-body"><div class="card-co">Growth Hack</div><h3 class="card-title" style="font-size:17px">When Strategy Beats Budget</h3><div class="card-tags"><span class="tag" style="background:rgba(234,179,8,0.1);color:#854d0e">+21% Engagement</span><span class="tag" style="background:rgba(234,179,8,0.1);color:#854d0e">Zero Ad Spend</span></div></div></div>
+        <div class="mob-card" onclick="location.href='meta-ugc-volopay.html'" style="cursor:pointer"><div class="mob-card-vis"><div class="mob-cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#FBCFE8 0%,#EC4899 50%,#831843 100%)"></div><div class="mob-cv-ghost"></div><div class="mob-cv-browser"><div class="mob-cv-bar"><div class="mob-cv-dots"><div class="mob-cv-dot" style="background:#FF5F57"></div><div class="mob-cv-dot" style="background:#FFBD2E"></div><div class="mob-cv-dot" style="background:#28C840"></div></div><div style="font-size:8px;color:rgba(20,20,20,0.4);padding-left:6px;">meta ads · volopay</div></div><div class="mob-cv-img"><img src="images/reviewer-enakshi.jpeg" alt="Meta UGC"></div></div></div><div class="mob-card-body"><div class="card-co">Meta UGC · Volopay</div><h3 class="card-title" style="font-size:17px">Selling B2B Like It's B2C</h3><div class="card-tags"><span class="tag" style="background:rgba(236,72,153,0.1);color:#9d174d">13% CVR Lift</span><span class="tag" style="background:rgba(236,72,153,0.1);color:#9d174d">68% Lower CPL</span></div></div></div>
+      </div>
+      <div class="mob-arrows"><button class="mob-arrow" onclick="mobScroll('exp-mob',-1)">←</button><button class="mob-arrow" onclick="mobScroll('exp-mob',1)">→</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CONTINUOUS LEARNING ═══════ -->
+<section id="learning" class="section section-cream">
+  <div class="container">
+    <div class="reveal"><span class="section-tag">Beyond the Day Job</span></div>
+    <h2 class="section-h2 reveal reveal-delay-1">Continuous Learning</h2>
+    <p class="section-sub reveal reveal-delay-2">Running campaigns by day, building frameworks on the side.</p>
+    <div class="cards-stack sticky-stack desk-only" style="margin-top:52px">
+      <div class="card reveal">
+        <div class="card-body">
+          <div>
+            <div class="card-co">GoPMM Cohort · Executive PMM Strategy</div>
+            <h3 class="card-title">Inside the GoPMM Cohort: Cracking RazorpayX's Positioning in a $42B Market</h3>
+            <p class="card-desc">RazorpayX sits inside a brand that's both its biggest asset and its biggest liability. This project built the GTM architecture for that tension: hybrid positioning, sequential trust mapping, expansion loops in a $42B market.</p>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">9 Weeks</span>
+              <span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">Hybrid GTM</span>
+              <span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">$42B Market</span>
+            </div>
+          </div>
+          <a href="gopmm-razorpayx.html" class="card-link">View Strategic Architecture <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="card-visual">
+          <div class="cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#DDD6FE 0%,#7C3AED 50%,#2E1065 100%)"></div>
+          <div class="cv-ghost"></div>
+          <div class="cv-browser">
+            <div class="cv-bar"><div class="cv-dots"><div class="cv-dot cv-dot-r"></div><div class="cv-dot cv-dot-y"></div><div class="cv-dot cv-dot-g"></div></div><div class="cv-url">GoPMM Cohort 2</div></div>
+            <div class="cv-img"><img src="images/gopmm-cohort.jpeg" alt="GoPMM Cohort 2" style="object-position:center top;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mob-scroll" style="margin-top:36px">
+      <div class="mob-cards" id="learn-mob">
+        <div class="mob-card" onclick="location.href='gopmm-razorpayx.html'" style="cursor:pointer">
+          <div class="mob-card-vis">
+            <div class="mob-cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#DDD6FE 0%,#7C3AED 50%,#2E1065 100%)"></div>
+            <div class="mob-cv-ghost"></div>
+            <div class="mob-cv-browser">
+              <div class="mob-cv-bar"><div class="mob-cv-dots"><div class="mob-cv-dot" style="background:#FF5F57"></div><div class="mob-cv-dot" style="background:#FFBD2E"></div><div class="mob-cv-dot" style="background:#28C840"></div></div><div style="font-size:8px;color:rgba(20,20,20,0.4);padding-left:6px;">GoPMM Cohort 2</div></div>
+              <div class="mob-cv-img"><img src="images/gopmm-cohort.jpeg" alt="GoPMM Cohort 2" style="object-position:center top;"></div>
+            </div>
+          </div>
+          <div class="mob-card-body">
+            <div class="card-co">Capstone Project · Executive PMM</div>
+            <h3 class="card-title" style="font-size:17px">Inside the GoPMM Cohort: Cracking RazorpayX's Positioning in a $42B Market</h3>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">9 Weeks</span>
+              <span class="tag" style="background:rgba(139,92,246,0.1);color:#6d28d9">$42B Market</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ DESIGN WORK ═══════ -->
+<section id="design" class="section section-white">
+  <div class="container">
+    <div class="reveal"><span class="section-tag">Design Work</span></div>
+    <h2 class="section-h2 reveal reveal-delay-1">I Can Ship Without<br>a Designer in the Room</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin-top:8px;">Not a designer by trade — but I can produce launch-ready visuals, decks, and ad creatives when the team is small and speed matters.</p>
+
+    <div class="cards-stack desk-only sticky-stack" style="margin-top:52px">
+
+      <div class="card reveal">
+        <div class="card-body">
+          <div>
+            <div class="card-co">Design Work · Volopay · InterviewBuddy · AI SEO</div>
+            <h3 class="card-title">The Eye Decides Before the Brain Does</h3>
+            <p class="card-desc">Film poster design taught me hierarchy, contrast, and what the eye goes to first. Here's that instinct applied to B2B: landing page iterations, ad creative variants with conversion hypotheses, and a full AI SEO page breakdown.</p>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(168,85,247,0.1);color:#7e22ce">Landing Pages</span>
+              <span class="tag" style="background:rgba(168,85,247,0.1);color:#7e22ce">Ad Creatives</span>
+              <span class="tag" style="background:rgba(168,85,247,0.1);color:#7e22ce">CRO Annotations</span>
+            </div>
+          </div>
+          <a href="design.html" class="card-link">See the Work <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        </div>
+        <div class="card-visual">
+          <div class="cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#c7d2fe 0%,#6366f1 50%,#1e1b4b 100%)"></div>
+          <div class="cv-ghost"></div>
+          <div class="cv-browser">
+            <div class="cv-bar"><div class="cv-dots"><div class="cv-dot cv-dot-r"></div><div class="cv-dot cv-dot-y"></div><div class="cv-dot cv-dot-g"></div></div><div class="cv-url">design-work · figma + ps</div></div>
+            <div class="cv-img"><img src="images/images/design-case-study-cover.jpg" alt="Design work cover"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="mob-scroll" style="margin-top:36px">
+      <div class="mob-cards" id="design-mob">
+        <div class="mob-card" onclick="location.href='design.html'" style="cursor:pointer">
+          <div class="mob-card-vis">
+            <div class="mob-cv-bg" style="background:radial-gradient(ellipse at 55% 30%,#c7d2fe 0%,#6366f1 50%,#1e1b4b 100%)"></div>
+            <div class="mob-cv-ghost"></div>
+            <div class="mob-cv-browser">
+              <div class="mob-cv-bar"><div class="mob-cv-dots"><div class="mob-cv-dot" style="background:#FF5F57"></div><div class="mob-cv-dot" style="background:#FFBD2E"></div><div class="mob-cv-dot" style="background:#28C840"></div></div></div>
+              <div class="mob-cv-img"><img src="images/images/design-case-study-cover.jpg" alt="Design work"></div>
+            </div>
+          </div>
+          <div class="mob-card-body">
+            <div class="card-co">Design Work · Volopay · InterviewBuddy · AI SEO</div>
+            <h3 class="card-title" style="font-size:17px">The Eye Decides Before the Brain Does</h3>
+            <div class="card-tags">
+              <span class="tag" style="background:rgba(168,85,247,0.1);color:#7e22ce">Landing Pages</span>
+              <span class="tag" style="background:rgba(168,85,247,0.1);color:#7e22ce">Ad Creatives</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TESTIMONIALS ═══════ -->
+<section class="section section-cream" style="overflow:hidden;padding-left:0;padding-right:0;">
+  <div class="container">
+    <div class="reveal" style="text-align:center"><span class="section-tag">Few Words of Appreciation</span></div>
+    <h2 class="section-h2 reveal reveal-delay-1" style="text-align:center;">What they say</h2>
+  </div>
+  <div class="testi-marquee-wrap">
+    <div class="testi-marquee-track">
+      <!-- original set -->
+      <div class="testi-card">
+        <div><div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Working with Vinay was a true pleasure. As a hard-working individual and a solid team player, he consistently exceeded expectations. His positive attitude and strong work ethic were inspiring."</p>
+        </div>
+        <div class="testi-author"><div class="testi-avatar"><img src="images/card-interviewbuddy.jpeg" alt="Pranav"></div>
+          <div><div class="testi-name">Pranav Harish</div><div class="testi-role">Head of Growth @ Volopay</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div><div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Working with Vinay at Revv Growth has been a great experience. He leads with clarity, stays calm under pressure, and always makes sure the team knows the bigger goal. He is truly multi-talented."</p>
+        </div>
+        <div class="testi-author"><div class="testi-avatar"><img src="images/itilite-logo.png" alt="Enakshi"></div>
+          <div><div class="testi-name">Enakshi Saha</div><div class="testi-role">Growth Marketer @ Revv Growth</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div><div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Vinay is someone who is exceptionally smart when it comes to running ads on various channels, especially Facebook. Super proactive and is someone with whom working is very easy."</p>
+        </div>
+        <div class="testi-author"><div class="testi-avatar"><img src="images/card-volopay.jpeg" alt="Rajveer"></div>
+          <div><div class="testi-name">Rajveer Singh</div><div class="testi-role">Growth at Volopay</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div><div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Vinay is a product marketer who excels at turning complex technology into clear, revenue-driving narratives. He played a key role in repositioning our product, leading to an increase in qualified leads, and collaborated on a website revamp that significantly improved engagement and demo conversions."</p>
+        </div>
+        <div class="testi-author"><div class="testi-avatar"><img src="images/reviewer-madhu.jpeg" alt="Madhu Babu"></div>
+          <div><div class="testi-name">Madhu Babu</div><div class="testi-role">Chief of Operations, VDO Intel</div></div>
+        </div>
+      </div>
+      <!-- duplicate set for seamless loop -->
+      <div class="testi-card">
+        <div><div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Working with Vinay was a true pleasure. As a hard-working individual and a solid team player, he consistently exceeded expectations. His positive attitude and strong work ethic were inspiring."</p>
+        </div>
+        <div class="testi-author"><div class="testi-avatar"><img src="images/card-interviewbuddy.jpeg" alt="Pranav"></div>
+          <div><div class="testi-name">Pranav Harish</div><div class="testi-role">Head of Growth @ Volopay</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div><div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Working with Vinay at Revv Growth has been a great experience. He leads with clarity, stays calm under pressure, and always makes sure the team knows the bigger goal. He is truly multi-talented."</p>
+        </div>
+        <div class="testi-author"><div class="testi-avatar"><img src="images/itilite-logo.png" alt="Enakshi"></div>
+          <div><div class="testi-name">Enakshi Saha</div><div class="testi-role">Growth Marketer @ Revv Growth</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div><div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Vinay is someone who is exceptionally smart when it comes to running ads on various channels, especially Facebook. Super proactive and is someone with whom working is very easy."</p>
+        </div>
+        <div class="testi-author"><div class="testi-avatar"><img src="images/card-volopay.jpeg" alt="Rajveer"></div>
+          <div><div class="testi-name">Rajveer Singh</div><div class="testi-role">Growth at Volopay</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div><div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Vinay is a product marketer who excels at turning complex technology into clear, revenue-driving narratives. He played a key role in repositioning our product, leading to an increase in qualified leads, and collaborated on a website revamp that significantly improved engagement and demo conversions."</p>
+        </div>
+        <div class="testi-author"><div class="testi-avatar"><img src="images/reviewer-madhu.jpeg" alt="Madhu Babu"></div>
+          <div><div class="testi-name">Madhu Babu</div><div class="testi-role">Chief of Operations, VDO Intel</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CONTACT ═══════ -->
+<section id="contact">
+  <div class="contact-glow"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <span class="section-tag" style="display:flex;justify-content:center;margin-bottom:24px;color:var(--rust)">
+      <span style="width:20px;height:2px;background:var(--rust);display:inline-block;margin-right:8px;margin-top:5px"></span>
+      Let's Talk
+    </span>
+    <h2 class="contact-h2">
+      Looking for a PMM who runs campaigns
+      <span class="contact-em">and builds the narrative.</span>
+    </h2>
+    <p class="contact-sub">Open to Product Marketing and Growth Marketing roles at companies building something worth talking about.</p>
+    <div class="contact-btns">
+      <a href="mailto:vinayavk1@gmail.com" class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Send me an email
+      </a>
+      <a href="https://www.linkedin.com/in/vinaykumardm" target="_blank" class="btn-ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://calendly.com/vinaypmm/30min" target="_blank" class="btn-ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Book a call
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="footer-left">
+    <span class="footer-name">Vinay Kumar, Product Marketer</span>
+    <div class="footer-status"><span class="footer-dot"></span>Actively looking · Responds within 24h</div>
+  </div>
+  <div class="footer-right">
+    <a href="mailto:vinayavk1@gmail.com">vinayavk1@gmail.com</a>
+    <a href="tel:+917013583731">+91 7013583731</a>
+    <span style="color:rgba(255,255,255,0.2);font-size:13px">Visakhapatnam, India</span>
+  </div>
+</footer>
+
+<script>
+// ── CUSTOM CURSOR ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+function animRing() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+// ── HAMBURGER ──
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
+
+// ── NAVBAR SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.85);
+});
+
+// ── SCROLL REVEAL ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal, .card, .testi-card').forEach(el => obs.observe(el));
+
+// ── ANIMATED COUNTERS ──
+function animCounter(el) {
+  const target = parseFloat(el.dataset.target);
+  const dec = parseInt(el.dataset.decimal) || 0;
+  const duration = 1800;
+  const start = performance.now();
+  function step(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    const val = target * ease;
+    el.textContent = dec > 0 ? val.toFixed(dec) : Math.floor(val);
+    if (p < 1) requestAnimationFrame(step);
+    else el.textContent = dec > 0 ? target.toFixed(dec) : target;
+  }
+  requestAnimationFrame(step);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animCounter(e.target); counterObs.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+// ── CARD 3D TILT ──
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `translateY(-6px) perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 2.5}deg) scale(1.008)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// ── PARALLAX ILLUSTRATION (desktop only) ──
+const illusEl = document.getElementById('hero-illus');
+if (illusEl) {
+  window.addEventListener('scroll', () => {
+    if (window.innerWidth > 768) {
+      illusEl.style.transform = `translateY(${-window.scrollY * 0.25}px)`;
+    }
+  }, { passive: true });
+}
+
+// ── MOBILE CAROUSEL ──
+function mobScroll(id, dir) {
+  const el = document.getElementById(id);
+  if (el) el.scrollBy({ left: dir * (el.clientWidth * 0.85), behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>

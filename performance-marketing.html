@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Performance × PMM | Vinay Kumar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #FAF8F4; color: #141414; overflow-x: hidden; }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: #C4622D; }
+    #bar { position: fixed; top: 0; left: 0; height: 2px; background: #C4622D; z-index: 999; width: 0; }
+
+    .back {
+      position: fixed; top: 24px; left: 32px; z-index: 100;
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: rgba(20,20,20,0.35); text-decoration: none;
+      display: flex; align-items: center; gap: 6px; transition: color .2s;
+    }
+    .back:hover { color: #C4622D; }
+
+    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .r.on { opacity: 1; transform: none; }
+    .r1 { transition-delay: .08s; } .r2 { transition-delay: .16s; } .r3 { transition-delay: .24s; }
+
+    header { padding: 96px 40px 0; max-width: 800px; margin: 0 auto; text-align: center; }
+    .h-title {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(32px, 5vw, 68px); font-weight: 700; line-height: 1.06; letter-spacing: -.02em;
+      color: #141414; animation: up .7s .2s both;
+    }
+    .h-title b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; color: #C4622D; }
+    .h-meta { font-size: 13px; color: rgba(20,20,20,0.35); margin-top: 16px; letter-spacing: .02em; animation: up .5s .35s both; }
+    .h-intro { font-size: 15px; line-height: 1.8; color: rgba(20,20,20,0.5); max-width: 580px; margin: 20px auto 0; animation: up .5s .45s both; }
+    .h-intro em { color: #C4622D; font-style: italic; }
+
+    .body-wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
+
+    .slabel {
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: #C4622D; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .slabel::before { content: ''; width: 18px; height: 2px; background: #C4622D; display: block; flex-shrink: 0; }
+
+    .narrative-big {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(26px, 4vw, 44px); font-weight: 700; line-height: 1.2;
+      color: #141414; margin-bottom: 24px;
+    }
+    .narrative-big .hi { color: #C4622D; }
+    .narrative-big .hl { background: #C4622D; color: #fff; padding: 0 10px 4px; border-radius: 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
+    .body-text + .body-text { margin-top: 14px; }
+    .body-text strong { color: #141414; font-weight: 600; }
+
+    .pull { margin: 36px 0; padding-left: 24px; border-left: 3px solid #C4622D; }
+    .pull-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 26px); font-weight: 700; line-height: 1.35; color: rgba(20,20,20,0.65); }
+    .pull-text em { color: #C4622D; }
+
+    /* ── DARK BAND ── */
+    .dark-band {
+      background: #141414; color: #fff;
+      padding: 72px 40px; margin: 72px 0;
+      position: relative; overflow: hidden;
+    }
+    .dark-band::after {
+      content: attr(data-char);
+      position: absolute; right: -8px; top: -80px;
+      font-family: 'Syne', sans-serif; font-size: 380px; font-weight: 800;
+      color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none;
+    }
+    .dark-band-inner { max-width: 720px; margin: 0 auto; }
+    .dark-band .slabel { color: #C4622D; }
+    .dark-band-sub { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 20px; }
+    .dark-band-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 40px); font-weight: 700; line-height: 1.25; color: #fff; margin-bottom: 18px; }
+    .dark-band-title em { color: #E07A46; }
+    .dark-band-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.45); max-width: 600px; }
+    .pain-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .pain-pill { font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+    .pain-pill.lit { background: rgba(196,98,45,0.2); border-color: rgba(196,98,45,0.4); color: #E07A46; }
+
+    /* ── STAT GRID ── */
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
+    .sg { border-radius: 18px; padding: 28px 20px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .sg.dark { background: #1A1A1A; }
+    .sg.rust { background: #C4622D; }
+    .sg.cream { background: #EDE8DF; border: 1px solid rgba(20,20,20,0.08); }
+    .sg-label { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+    .sg.dark .sg-label, .sg.rust .sg-label { color: rgba(255,255,255,0.3); }
+    .sg.cream .sg-label { color: rgba(20,20,20,0.3); }
+    .sg-n { font-family: 'Syne', sans-serif; font-weight: 800; line-height: 1; letter-spacing: -.04em; }
+    .sg.dark .sg-n, .sg.rust .sg-n { color: #fff; }
+    .sg.cream .sg-n { color: #141414; }
+    .sg-note { font-family: 'Caveat', cursive; font-size: 13px; margin-top: 6px; }
+    .sg.dark .sg-note, .sg.rust .sg-note { color: rgba(255,255,255,0.3); }
+    .sg.cream .sg-note { color: rgba(20,20,20,0.3); }
+
+    /* ── PMM MOVE CARDS ── */
+    .pmm-move {
+      border: 1px solid rgba(20,20,20,0.08); border-radius: 20px;
+      padding: 36px; margin: 16px 0; background: #fff;
+      position: relative; overflow: hidden;
+    }
+    .pmm-move-n { font-family: 'Syne', sans-serif; font-size: 120px; font-weight: 800; color: rgba(20,20,20,0.03); position: absolute; right: 12px; top: -16px; line-height: 1; pointer-events: none; }
+    .pmm-move-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C4622D; margin-bottom: 10px; }
+    .pmm-move-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; color: #141414; line-height: 1.25; margin-bottom: 12px; }
+    .pmm-move-body { font-size: 14px; line-height: 1.85; color: rgba(20,20,20,0.55); }
+    .pmm-move-body strong { color: #141414; }
+
+    /* mini before/after table inside move */
+    .pmm-mini-table { margin-top: 20px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(20,20,20,0.08); }
+    .pmt-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid rgba(20,20,20,0.06); }
+    .pmt-row:last-child { border-bottom: none; }
+    .pmt-row.head { background: #141414; }
+    .pmt-cell { padding: 10px 14px; font-size: 12px; color: rgba(20,20,20,0.5); font-weight: 500; }
+    .pmt-row.head .pmt-cell { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .pmt-cell.win { color: #C4622D; font-weight: 700; font-family: 'Syne', sans-serif; font-size: 13px; }
+    .pmt-cell.dim { color: rgba(20,20,20,0.25); text-decoration: line-through; }
+
+    .insight-strip { background: rgba(196,98,45,0.06); border: 1px solid rgba(196,98,45,0.15); border-radius: 14px; padding: 20px 24px; margin-top: 20px; }
+    .insight-strip-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C4622D; margin-bottom: 6px; }
+    .insight-strip-text { font-size: 13px; color: rgba(20,20,20,0.6); line-height: 1.65; }
+
+    /* ── FUNNEL BARS ── */
+    .funnel-legend { display: flex; gap: 20px; margin-bottom: 16px; }
+    .fl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .fl-label { font-size: 11px; color: rgba(20,20,20,0.4); font-weight: 600; }
+    .funnel-track { margin: 20px 0; display: flex; flex-direction: column; gap: 6px; }
+    .funnel-stage-row { display: grid; grid-template-columns: 140px 1fr 1fr; gap: 12px; align-items: center; }
+    .fsr-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(20,20,20,0.35); }
+    .fsr-bar-wrap { position: relative; height: 44px; border-radius: 8px; overflow: hidden; background: rgba(20,20,20,0.05); }
+    .fsr-bar { position: absolute; left: 0; top: 0; height: 100%; border-radius: 8px; display: flex; align-items: center; padding-left: 12px; }
+    .fsr-bar.before { background: rgba(20,20,20,0.12); }
+    .fsr-bar.after { background: #C4622D; }
+    .fsr-val { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: #fff; white-space: nowrap; }
+    .fsr-bar.before .fsr-val { color: rgba(20,20,20,0.4); }
+
+    /* ── MOVES GRID (Solify) ── */
+    .moves-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px; margin: 28px 0; }
+    .move-main {
+      background: #141414; border-radius: 20px; padding: 36px;
+      position: relative; overflow: hidden; grid-row: span 2;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .move-main::after { content: '01'; position: absolute; bottom: -24px; right: 10px; font-family: 'Syne', sans-serif; font-size: 100px; font-weight: 800; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; }
+    .move-em { font-size: 28px; margin-bottom: 18px; }
+    .move-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; line-height: 1.2; }
+    .move-desc { font-size: 13px; line-height: 1.75; color: rgba(255,255,255,0.4); margin-top: 12px; }
+    .mtag { display: inline-block; margin-top: 20px; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E07A46; background: rgba(196,98,45,0.15); border: 1px solid rgba(196,98,45,0.3); padding: 4px 12px; border-radius: 100px; }
+    .move-side { background: #FAF8F4; border: 1px solid rgba(20,20,20,0.08); border-radius: 18px; padding: 24px; position: relative; overflow: hidden; }
+    .move-side-n { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800; color: rgba(20,20,20,0.04); position: absolute; top: 6px; right: 10px; line-height: 1; }
+    .move-side-em { font-size: 22px; margin-bottom: 12px; }
+    .move-side-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: #141414; line-height: 1.2; }
+    .move-side-desc { font-size: 12px; line-height: 1.7; color: rgba(20,20,20,0.45); margin-top: 8px; }
+    .stag { display: inline-block; margin-top: 14px; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8B3A12; background: rgba(196,98,45,0.1); border: 1px solid rgba(196,98,45,0.18); padding: 4px 12px; border-radius: 100px; }
+
+    /* ── STAT LIST ── */
+    .stat-list { margin: 20px 0; }
+    .stat-row { display: flex; align-items: baseline; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(20,20,20,0.07); }
+    .stat-row-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(20,20,20,0.3); min-width: 160px; flex-shrink: 0; }
+    .stat-row-n { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1; letter-spacing: -.04em; color: #141414; flex-shrink: 0; }
+    .stat-row-note { font-family: 'Caveat', cursive; font-size: 16px; color: rgba(20,20,20,0.3); }
+
+    /* ── TAKEAWAY ── */
+    .takeaway { background: #141414; border-radius: 24px; padding: 56px 48px; position: relative; overflow: hidden; margin: 28px 0; }
+    .takeaway::before { content: '✦'; position: absolute; right: 32px; bottom: -20px; font-size: 160px; color: rgba(255,255,255,0.03); pointer-events: none; line-height: 1; }
+    .takeaway-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(26px, 4vw, 48px); font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 24px; }
+    .takeaway-big em { color: #C4622D; }
+    .takeaway-sub { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.35); max-width: 520px; }
+    .rule { margin-top: 32px; padding: 20px 24px; border-left: 3px solid #C4622D; background: rgba(255,255,255,0.03); border-radius: 0 12px 12px 0; }
+    .rule-text { font-family: 'Syne', sans-serif; font-size: clamp(13px, 1.6vw, 17px); font-weight: 700; color: rgba(255,255,255,0.6); line-height: 1.45; }
+
+    /* ── FOOTER ── */
+    .foot { padding: 80px 32px; text-align: center; }
+    .foot-h { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: #141414; margin-bottom: 10px; }
+    .foot-h em { color: #C4622D; }
+    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
+    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fbtn { padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all .2s; }
+    .fbtn-fill { background: #C4622D; color: #fff; }
+    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
+    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
+    .fbtn-line:hover { color: #141414; border-color: rgba(20,20,20,0.35); }
+    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
+
+    @keyframes up { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;} }
+
+    @media (max-width: 760px) {
+      .back { top: 16px; left: 20px; }
+      header { padding: 80px 24px 0; }
+      .body-wrap { padding: 0 20px; }
+      .dark-band { padding: 52px 24px; margin: 52px 0; }
+      .stat-grid { grid-template-columns: 1fr; }
+      .moves-grid { grid-template-columns: 1fr; }
+      .move-main { grid-row: span 1; }
+      .funnel-stage-row { grid-template-columns: 80px 1fr 1fr; }
+      .stat-row { flex-wrap: wrap; gap: 8px; }
+      .stat-row-label { min-width: 100%; }
+      .takeaway { padding: 40px 28px; }
+      .foot { padding: 60px 20px; }
+    }
+  
+    /* ── MOBILE NAV BAR ── */
+    .mob-nav { display: none; }
+    @media(max-width: 768px) {
+      .mob-nav {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 500;
+        background: rgba(250,248,244,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(20,20,20,0.08);
+        padding: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px; font-weight: 800;
+        letter-spacing: -.02em; color: #141414;
+        text-decoration: none;
+      }
+      .mob-nav-home {
+        display: flex; align-items: center; gap: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px; font-weight: 600;
+        color: rgba(20,20,20,0.5);
+        text-decoration: none;
+        padding: 7px 14px;
+        border: 1px solid rgba(20,20,20,0.12);
+        border-radius: 100px;
+        transition: all .2s;
+      }
+      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
+      .back { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+<nav class="mob-nav">
+  <a href="index.html" class="mob-nav-logo">VK.</a>
+  <a href="index.html" class="mob-nav-home">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </a>
+</nav>
+
+<div id="bar"></div>
+<a href="index.html#work" class="back">← back</a>
+
+<header>
+  <h1 class="h-title">
+    When Performance Marketers<br>
+    Think Like <b>Product Marketers</b>
+  </h1>
+  <div class="h-meta">ITILITE · Solify &nbsp;·&nbsp; Performance Marketing &nbsp;·&nbsp; 2024</div>
+  <p class="h-intro">
+    Two campaigns. Two industries. Both underperforming for the same reason — the PMM work hadn't been done before the campaigns ran. <em>Here's what changed when it did.</em>
+  </p>
+</header>
+
+<div class="body-wrap">
+  <div class="div"></div>
+  <div class="slabel r">Campaign 01</div>
+  <div class="narrative-big r r1" style="font-size: clamp(20px, 2.8vw, 32px);">
+    ITILITE — B2B SaaS, <em style="color:#C4622D;">Travel & Expense Management.</em><br>
+    Leads were coming in. Pipeline wasn't moving.
+  </div>
+  <p class="body-text r r2">ITILITE helps finance and ops teams manage corporate travel and expenses. The campaigns were running, spend was going out, the algorithm was optimizing — but most leads weren't converting. The platform was rewarding any form fill, not qualified buyers.</p>
+  <div class="div"></div>
+</div>
+
+<!-- ══════════════════════════
+     CAMPAIGN 01: ITILITE
+══════════════════════════ -->
+<div class="dark-band" data-char="✈">
+  <div class="dark-band-inner">
+    <div class="slabel r">The Problem</div>
+    <div class="dark-band-sub r">ITILITE · B2B SaaS · Travel & Expense Management</div>
+    <div class="dark-band-title r r1">
+      The funnel looked fine.<br>
+      <em>Out of 17 leads, only 2 demos are valid.</em><br>
+      The machine was training on noise.
+    </div>
+    <ul class="dark-band-body r r2" style="list-style:none; display:flex; flex-direction:column; gap:8px;">
+      <li style="display:flex; gap:10px; align-items:flex-start;"><span style="color:#C4622D; flex-shrink:0;">→</span> Standard view: leads coming in, spend allocated, algorithm running.</li>
+      <li style="display:flex; gap:10px; align-items:flex-start;"><span style="color:#C4622D; flex-shrink:0;">→</span> PMM view: most leads weren't qualified. The campaign goal rewarded any form fill.</li>
+      <li style="display:flex; gap:10px; align-items:flex-start;"><span style="color:#C4622D; flex-shrink:0;">→</span> Mobile ads sending buyers to a page not built to convert.</li>
+      <li style="display:flex; gap:10px; align-items:flex-start;"><span style="color:#C4622D; flex-shrink:0;">→</span> Outreach opening with offers when the buyer wanted a conversation.</li>
+      <li style="display:flex; gap:10px; align-items:flex-start;"><span style="color:#E07A46; flex-shrink:0;">↳</span> <strong style="color:rgba(255,255,255,0.6);">Two moves rebuilt the funnel from May to September.</strong></li>
+    </ul>
+    <div class="pain-row r r3">
+      <span class="pain-pill lit">Low lead quality</span>
+      <span class="pain-pill lit">Algorithm trained on noise</span>
+      <span class="pain-pill lit">Mobile CX broken</span>
+      <span class="pain-pill">Wrong outreach tone</span>
+      <span class="pain-pill">Funnel leaking everywhere</span>
+    </div>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <!-- Problem at a glance -->
+  <div class="slabel r">Where the Funnel Stood: May</div>
+  <div class="stat-grid r r1">
+    <div class="sg dark">
+      <div class="sg-label">Valid Leads</div>
+      <div class="sg-n" style="font-size:52px;">35%</div>
+      <div class="sg-note">of total, 6 out of 17</div>
+    </div>
+    <div class="sg cream">
+      <div class="sg-label">Demo Bookings</div>
+      <div class="sg-n" style="font-size:52px;">50%</div>
+      <div class="sg-note">of valid leads booked</div>
+    </div>
+    <div class="sg cream">
+      <div class="sg-label">Meetings Done</div>
+      <div class="sg-n" style="font-size:52px; color:#C4622D;">67%</div>
+      <div class="sg-note">of demos, only 2 valid out of 17 leads</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- Move 01 -->
+  <div class="slabel r">Two PMM Moves</div>
+
+  <div class="pmm-move r r1">
+    <div class="pmm-move-n">01</div>
+    <div class="pmm-move-label">Move 01 · Signal Quality</div>
+    <div class="pmm-move-title">Stop Feeding the Algorithm the Wrong Input</div>
+    <p class="pmm-move-body">Campaign goal was set to "max conversions", which sounds right until you realize the platform was optimizing for <strong>any form fill, including junk</strong>. Stripped all secondary conversion actions. Redefined conversion as qualified lead only. You're not just changing a setting, you're telling the machine who the product is for. The algorithm learns from what you reward it with.</p>
+    <div class="pmm-mini-table">
+      <div class="pmt-row head">
+        <div class="pmt-cell">Metric</div>
+        <div class="pmt-cell">Before</div>
+        <div class="pmt-cell">After</div>
+      </div>
+      <div class="pmt-row">
+        <div class="pmt-cell">Valid lead rate</div>
+        <div class="pmt-cell dim">35%</div>
+        <div class="pmt-cell win">74%</div>
+      </div>
+      <div class="pmt-row">
+        <div class="pmt-cell">Ad spend</div>
+        <div class="pmt-cell dim">baseline</div>
+        <div class="pmt-cell win">−18%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Move 02 -->
+  <div class="pmm-move r r1">
+    <div class="pmm-move-n">02</div>
+    <div class="pmm-move-label">Move 02 · Destination Before Traffic</div>
+    <div class="pmm-move-title">Fix the Landing Page Before Scaling the Spend</div>
+    <p class="pmm-move-body">Mobile ads were running to a landing page not built for mobile conversion. <strong>Paused spend. Rebuilt the page.</strong> Mobile-first layout, value proposition in the first screen, single CTA, social proof above the fold. But before rebuilding blind, went through the call data to find who had converted on mobile before and what had worked for them. Rebuilt the entire page from that angle. Turned ads back on once the experience matched the intent.</p>
+    <div class="pmm-mini-table">
+      <div class="pmt-row head">
+        <div class="pmt-cell">Metric</div>
+        <div class="pmt-cell">Before</div>
+        <div class="pmt-cell">After</div>
+      </div>
+      <div class="pmt-row">
+        <div class="pmt-cell">Demo bookings</div>
+        <div class="pmt-cell dim">3</div>
+        <div class="pmt-cell win">12 &nbsp;(4×)</div>
+      </div>
+      <div class="pmt-row">
+        <div class="pmt-cell">Meetings done</div>
+        <div class="pmt-cell dim">2</div>
+        <div class="pmt-cell win">10 &nbsp;(5×)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- FUNNEL -->
+  <div class="slabel r">Full Funnel: May → September</div>
+  <div class="narrative-big r r1" style="font-size: clamp(20px, 2.8vw, 32px);">
+    Every stage moved<br>
+    <span class="hi">in the right direction.</span>
+  </div>
+
+  <div class="funnel-legend r r1">
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div class="fl-dot" style="background:rgba(20,20,20,0.15);"></div>
+      <div class="fl-label">May</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div class="fl-dot" style="background:#C4622D;"></div>
+      <div class="fl-label">September</div>
+    </div>
+  </div>
+
+  <div class="funnel-track r r2">
+    <div class="funnel-stage-row">
+      <div class="fsr-label">Valid Leads</div>
+      <div class="fsr-bar-wrap"><div class="fsr-bar before" style="width:35%;"><span class="fsr-val">35%</span></div></div>
+      <div class="fsr-bar-wrap"><div class="fsr-bar after" style="width:74%;"><span class="fsr-val">74%</span></div></div>
+    </div>
+    <div class="funnel-stage-row">
+      <div class="fsr-label">Demo Bookings</div>
+      <div class="fsr-bar-wrap"><div class="fsr-bar before" style="width:50%;"><span class="fsr-val">50%</span></div></div>
+      <div class="fsr-bar-wrap"><div class="fsr-bar after" style="width:86%;"><span class="fsr-val">86%</span></div></div>
+    </div>
+    <div class="funnel-stage-row">
+      <div class="fsr-label">Meetings Done</div>
+      <div class="fsr-bar-wrap"><div class="fsr-bar before" style="width:67%;"><span class="fsr-val">67%</span></div></div>
+      <div class="fsr-bar-wrap"><div class="fsr-bar after" style="width:83%;"><span class="fsr-val">83%</span></div></div>
+    </div>
+    <div class="funnel-stage-row">
+      <div class="fsr-label">Signed Up</div>
+      <div class="fsr-bar-wrap"><div class="fsr-bar before" style="width:50%;"><span class="fsr-val">50%</span></div></div>
+      <div class="fsr-bar-wrap"><div class="fsr-bar after" style="width:60%;"><span class="fsr-val">60%</span></div></div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+</div>
+
+<!-- ══════════════════════════
+     CAMPAIGN 02: SOLIFY
+══════════════════════════ -->
+<div class="body-wrap">
+  <div class="div"></div>
+  <div class="slabel r">Campaign 02</div>
+  <div class="narrative-big r r1" style="font-size: clamp(20px, 2.8vw, 32px);">
+    Solify — Renewable Energy, <em style="color:#C4622D;">Canada · 4 Provinces.</em><br>
+    Budget was spent. Buyers weren't segmented.
+  </div>
+  <p class="body-text r r2">Solify was running Google and Meta across Ontario, BC, Alberta, and Quebec. The campaigns were live — but the same ad was running to homeowners and commercial buyers alike. Every competitor led with cost savings. Nobody had claimed reliability. That gap was sitting there unclaimed.</p>
+  <div class="div"></div>
+</div>
+
+<div class="dark-band" data-char="☀" style="margin-top:0;">
+  <div class="dark-band-inner">
+    <div class="slabel r">The Problem</div>
+    <div class="dark-band-sub r">Solify · Canada · Renewable Energy · 4 Provinces</div>
+    <div class="dark-band-title r r1">
+      Leads were coming in.<br>
+      Budget was being spent.<br>
+      <em>Same ad. Different buyer. Different intent.</em>
+    </div>
+    <p class="dark-band-body r r2">Solify was running Google and Meta across Ontario, BC, Alberta, and Quebec. By standard performance metrics, the campaigns were functional. The PMM lens saw something else: the messaging wasn't mapped to a buyer, the same generic energy claims were running to homeowners and commercial buyers alike, and every competitor was saying the exact same thing. Nobody had claimed the reliability angle. That was the gap.</p>
+    <div class="pain-row r r3">
+      <span class="pain-pill lit">Generic messaging across all buyers</span>
+      <span class="pain-pill lit">No buyer segmentation</span>
+      <span class="pain-pill lit">Cost-led like every competitor</span>
+      <span class="pain-pill">4 provinces, 1 creative</span>
+      <span class="pain-pill">Reliability angle (unclaimed)</span>
+    </div>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <div class="slabel r">The PMM Moves</div>
+  <div class="narrative-big r r1" style="font-size: clamp(22px, 3vw, 36px);">
+    Research before spend.<br>
+    <span class="hi">Buyers before campaigns.</span>
+  </div>
+
+  <div class="moves-grid r r2">
+    <div class="move-main">
+      <div>
+        <div class="move-em">🔍</div>
+        <div class="move-title">Competitor Research → Found the Whitespace</div>
+        <div class="move-desc">Conducted in-depth competitor research to identify market gaps and define Solify's USPs. Every competitor led with cost savings, so we positioned Solify around energy efficiency, nature focus, and long-term value. Highlighted government collaborations and trees planted as credibility anchors. Then redesigned the website from scratch to match the new messaging before a single campaign ran.</div>
+      </div>
+      <div class="mtag">Whitespace Strategy</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div class="move-side">
+        <div class="move-side-n">02</div>
+        <div class="move-side-em">👥</div>
+        <div class="move-side-title">5 Personas Before Any Campaign</div>
+        <div class="move-side-desc">Two buyer types: homeowners and business decision-makers, each with distinct triggers, objections, and timelines. A homeowner evaluating solar is not the same buyer as a facilities manager sourcing energy contracts. The campaigns weren't treating them differently. They needed to.</div>
+        <div class="stag">+18% Engagement & Conversions</div>
+      </div>
+      <div class="move-side">
+        <div class="move-side-n">03</div>
+        <div class="move-side-em">📹</div>
+        <div class="move-side-title">Rebuilt Content Layer: UGC Over Brand Ads</div>
+        <div class="move-side-desc">Stopped generic brand ads. Scripted UGC video for paid, real people, real scenarios, built for trust and scroll-stop performance. UGC builds the credibility polished brand ads don't, especially for a product tied to a homeowner's biggest asset.</div>
+        <div class="stag">+21% CTR from UGC Creatives</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Move 04 -->
+  <div class="move-side r r2" style="margin-top:0; border-radius:18px;">
+    <div class="move-side-n" style="display:none;"></div>
+    <div class="move-side-em">📍</div>
+    <div class="move-side-title">Region-Specific Creative Across Provinces</div>
+    <div class="move-side-desc" style="max-width:560px;">Rebuilt ad creative for each province's energy context and buyer behavior. Ontario homeowners: energy independence. Alberta commercial buyers: operational efficiency and long-term ROI. Quebec: bilingual creative, sustainability framing. BC: clean energy narrative tied to provincial policy. Then optimized bids. Not before.</div>
+    <div class="stag" style="margin-right:6px;">−33.2% Lead Cost</div>
+    <div class="stag">Ontario · BC · Alberta · Quebec</div>
+  </div>
+
+  <div class="pull r r2" style="margin-top:40px;">
+    <div class="pull-text">Standard move: <em>optimize bids.</em> PMM move: fix who you're talking to and what you're saying, <em>then</em> optimize bids.</div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="slabel r">Solify Results</div>
+  <div class="stat-list r r1">
+    <div class="stat-row">
+      <div class="stat-row-label">Lead Cost</div>
+      <div class="stat-row-n" style="color:#C4622D;">−33.2%</div>
+      <div class="stat-row-note">across all four provinces</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-row-label">UGC CTR</div>
+      <div class="stat-row-n">+21%</div>
+      <div class="stat-row-note">vs. standard brand creatives</div>
+    </div>
+    <div class="stat-row" style="border-bottom:none;">
+      <div class="stat-row-label">Conversions</div>
+      <div class="stat-row-n" style="color:#C4622D;">+18%</div>
+      <div class="stat-row-note">engagement up across the board</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway r">
+    <div class="takeaway-big">
+      The campaigns didn't improve<br>
+      because of <em>more budget.</em>
+    </div>
+    <p class="takeaway-sub">Two different industries. Same underlying problem: performance campaigns running without a product marketing foundation. Most performance marketers see a CPL problem and optimize bids. The PMM lens asks upstream first: are we chasing the right signal, sending people to the right experience, saying the right thing to the right buyer? Answer those correctly and the performance numbers follow.</p>
+    <div class="rule">
+      <div class="rule-text">I run a lot more performance marketing, but these two are where the PMM thinking was the deciding variable.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot r">
+    <div class="foot-h">Looking for a PMM who<br>thinks like <em>this?</em></div>
+    <div class="foot-sub">Open to full-time PMM and Growth Marketing roles.</div>
+    <div class="foot-btns">
+      <a href="mailto:vinayavk8@gmail.com" class="fbtn fbtn-fill">Get in touch →</a>
+      <a href="index.html#work" class="fbtn fbtn-line">← More Case Studies</a>
+    </div>
+    <div class="foot-credits">Vinay Kumar · Performance Marketing · 2024</div>
+  </div>
+
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('bar').style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+}, { passive: true });
+
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+}), { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

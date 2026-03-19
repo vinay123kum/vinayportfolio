@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Volopay | Vinay Kumar — Full-Scope PMM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #FAF8F4; color: #141414; overflow-x: hidden; }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: #C4622D; }
+    #bar { position: fixed; top: 0; left: 0; height: 2px; background: #C4622D; z-index: 999; width: 0; }
+
+    .back {
+      position: fixed; top: 24px; left: 32px; z-index: 100;
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: rgba(20,20,20,0.35); text-decoration: none;
+      display: flex; align-items: center; gap: 6px; transition: color .2s;
+    }
+    .back:hover { color: #C4622D; }
+
+    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .r.on { opacity: 1; transform: none; }
+    .r1 { transition-delay: .08s; } .r2 { transition-delay: .16s; } .r3 { transition-delay: .24s; }
+
+    /* HEADER */
+    header { padding: 96px 40px 0; max-width: 800px; margin: 0 auto; text-align: center; }
+    .h-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; animation: up .5s .1s both; }
+    .h-tag { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; color: #C4622D; border: 1.5px solid rgba(196,98,45,0.3); background: rgba(196,98,45,0.06); }
+    .h-tag.gray { color: rgba(20,20,20,0.4); border-color: rgba(20,20,20,0.15); background: transparent; }
+    .h-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(36px, 5.5vw, 72px); font-weight: 700; line-height: 1.06; letter-spacing: -.02em; color: #141414; animation: up .7s .2s both; }
+    .h-title b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; color: #C4622D; }
+    .h-meta { font-size: 13px; color: rgba(20,20,20,0.35); margin-top: 16px; letter-spacing: .02em; animation: up .5s .35s both; }
+
+    /* ROLE CLARITY BAR */
+    .role-bar {
+      display: flex; justify-content: center; gap: 0;
+      margin: 28px auto 0; max-width: 680px;
+      background: #141414; border-radius: 14px; overflow: hidden;
+      animation: up .5s .45s both;
+    }
+    .role-item {
+      flex: 1; padding: 16px 20px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .role-item:last-child { border-right: none; }
+    .role-item-label { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 5px; }
+    .role-item-val { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: #fff; line-height: 1.2; }
+    .role-item-val.rust { color: #E07A46; }
+
+    /* SCOPE GRID */
+    .scope-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 40px 0; }
+    .scope-card { background: #fff; border: 1px solid rgba(20,20,20,0.08); border-radius: 16px; padding: 22px 20px; }
+    .scope-card.dark { background: #141414; }
+    .scope-card.rust { background: #C4622D; }
+    .scope-icon { font-size: 22px; margin-bottom: 10px; }
+    .scope-label { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: #141414; line-height: 1.2; margin-bottom: 6px; }
+    .scope-card.dark .scope-label, .scope-card.rust .scope-label { color: #fff; }
+    .scope-desc { font-size: 11px; line-height: 1.65; color: rgba(20,20,20,0.45); }
+    .scope-card.dark .scope-desc { color: rgba(255,255,255,0.4); }
+    .scope-card.rust .scope-desc { color: rgba(255,255,255,0.6); }
+
+    /* CHANNEL STRIP */
+    .channel-strip { display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0; }
+    .ch-pill { display: flex; align-items: center; gap: 7px; padding: 8px 16px; border-radius: 100px; border: 1px solid rgba(20,20,20,0.1); background: #fff; font-size: 12px; font-weight: 600; color: rgba(20,20,20,0.55); }
+    .ch-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: #C4622D; flex-shrink: 0; }
+
+    /* COUNTRY GRID */
+    .country-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin: 28px 0; }
+    .country-card { border-radius: 16px; padding: 22px 16px; text-align: center; border: 1px solid rgba(20,20,20,0.08); background: #fff; }
+    .country-flag { font-size: 28px; margin-bottom: 8px; }
+    .country-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: #141414; margin-bottom: 4px; }
+    .country-note { font-size: 10px; color: rgba(20,20,20,0.38); line-height: 1.5; }
+
+    /* LP CARD */
+    .lp-card { background: #C4622D; border-radius: 20px; padding: 36px 40px; margin: 28px 0; position: relative; overflow: hidden; }
+    .lp-card::after { content: '24%'; position: absolute; right: -10px; bottom: -30px; font-family: 'Syne', sans-serif; font-size: 160px; font-weight: 800; color: rgba(255,255,255,0.08); line-height: 1; pointer-events: none; }
+    .lp-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 12px; }
+    .lp-title { font-family: 'Syne', sans-serif; font-size: clamp(18px, 3vw, 30px); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 16px; }
+    .lp-body { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.6); max-width: 480px; }
+    .lp-stats { display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+    .lp-stat-n { font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800; color: #fff; line-height: 1; }
+    .lp-stat-l { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+    /* PAGE BODY */
+    .body-wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
+
+    .slabel { font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: #C4622D; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .slabel::before { content: ''; width: 18px; height: 2px; background: #C4622D; display: block; flex-shrink: 0; }
+
+    .narrative-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(26px, 4vw, 44px); font-weight: 700; line-height: 1.2; color: #141414; margin-bottom: 24px; }
+    .narrative-big b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; }
+    .narrative-big .hl { background: #C4622D; color: #fff; padding: 0 10px 4px; border-radius: 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .narrative-big .hi { color: #C4622D; }
+
+    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
+    .body-text + .body-text { margin-top: 14px; }
+    .body-text strong { color: #141414; font-weight: 600; }
+
+    .pull { margin: 36px 0; padding-left: 24px; border-left: 3px solid #C4622D; }
+    .pull-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 26px); font-weight: 700; line-height: 1.35; color: rgba(20,20,20,0.65); }
+    .pull-text em { color: #C4622D; }
+
+    /* DARK BAND */
+    .dark-band { background: #141414; color: #fff; padding: 72px 40px; margin: 72px 0; position: relative; overflow: hidden; }
+    .dark-band::after { content: '!'; position: absolute; right: -8px; top: -80px; font-family: 'Syne', sans-serif; font-size: 380px; font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; }
+    .dark-band-inner { max-width: 720px; margin: 0 auto; }
+    .dark-band .slabel { color: #C4622D; }
+    .dark-band-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 40px); font-weight: 700; line-height: 1.25; color: #fff; margin-bottom: 18px; }
+    .dark-band-title em { color: #E07A46; }
+    .dark-band-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.45); max-width: 600px; }
+    .pain-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .pain-pill { font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+    .pain-pill.lit { background: rgba(196,98,45,0.2); border-color: rgba(196,98,45,0.4); color: #E07A46; }
+
+    /* STAT CIRCLES */
+    .circles-row { display: flex; gap: 24px; align-items: flex-end; margin: 36px 0; flex-wrap: wrap; }
+    .circle { border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; }
+    .circle-lg { width: 200px; height: 200px; background: #C4622D; }
+    .circle-md { width: 130px; height: 130px; background: #141414; }
+    .c-n { font-family: 'Syne', sans-serif; font-weight: 800; color: #fff; line-height: 1; }
+    .c-l { font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-top: 5px; }
+    .circle-lg .c-l, .circle-md .c-l { color: rgba(255,255,255,0.5); }
+    .circle-annotation { font-family: 'Caveat', cursive; font-size: 15px; color: rgba(20,20,20,0.4); max-width: 200px; line-height: 1.5; }
+
+    /* FINDINGS */
+    .findings { display: flex; flex-direction: column; gap: 10px; margin: 28px 0; }
+    .finding { padding: 18px 22px; background: #fff; border: 1px solid rgba(20,20,20,0.08); border-radius: 14px; }
+    .finding-tag { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(20,20,20,0.28); margin-bottom: 6px; }
+    .finding-text { font-size: 14px; color: rgba(20,20,20,0.6); line-height: 1.65; }
+
+    /* MOVES */
+    .moves-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px; margin: 28px 0; }
+    .move-main { background: #141414; border-radius: 20px; padding: 36px; position: relative; overflow: hidden; grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+    .move-main::after { content: '01'; position: absolute; bottom: -24px; right: 10px; font-family: 'Syne', sans-serif; font-size: 100px; font-weight: 800; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; }
+    .move-em { font-size: 28px; margin-bottom: 18px; }
+    .move-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; line-height: 1.2; }
+    .move-desc { font-size: 13px; line-height: 1.75; color: rgba(255,255,255,0.4); margin-top: 12px; }
+    .mtag { display: inline-block; margin-top: 20px; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E07A46; background: rgba(196,98,45,0.15); border: 1px solid rgba(196,98,45,0.3); padding: 4px 12px; border-radius: 100px; }
+    .move-side { background: #FAF8F4; border: 1px solid rgba(20,20,20,0.08); border-radius: 18px; padding: 24px; position: relative; overflow: hidden; }
+    .move-side-n { font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800; color: rgba(20,20,20,0.04); position: absolute; top: 6px; right: 10px; line-height: 1; }
+    .move-side-em { font-size: 22px; margin-bottom: 12px; }
+    .move-side-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: #141414; line-height: 1.2; }
+    .move-side-desc { font-size: 12px; line-height: 1.7; color: rgba(20,20,20,0.45); margin-top: 8px; }
+    .stag { display: inline-block; margin-top: 14px; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8B3A12; background: rgba(196,98,45,0.1); border: 1px solid rgba(196,98,45,0.18); padding: 4px 12px; border-radius: 100px; }
+
+    /* GIF BLOCK */
+    .gif-block { margin: 28px 0; border-radius: 20px; overflow: hidden; border: 1px solid rgba(20,20,20,0.08); background: #f0ece4; }
+    .gif-block img { width: 100%; display: block; }
+    .gif-caption { padding: 14px 20px; font-family: 'Caveat', cursive; font-size: 15px; color: rgba(20,20,20,0.4); text-align: center; }
+
+    /* WHATSAPP */
+    .wa-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin: 20px 0; }
+    .wa-body { font-size: 14px; line-height: 1.85; color: rgba(20,20,20,0.55); }
+    .wa-insight { margin-top: 20px; padding: 16px 20px; background: rgba(196,98,45,0.06); border: 1px solid rgba(196,98,45,0.15); border-radius: 12px; }
+    .wa-insight-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C4622D; margin-bottom: 6px; }
+    .wa-insight-text { font-size: 13px; color: rgba(20,20,20,0.6); line-height: 1.65; }
+    .wa-tag { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8B3A12; background: rgba(196,98,45,0.1); border: 1px solid rgba(196,98,45,0.18); padding: 4px 12px; border-radius: 100px; }
+    .wa-phone-wrap { display: flex; justify-content: center; align-items: flex-start; }
+    .wa-phone-outer { width: 260px; background: #1A1A1A; border-radius: 44px; padding: 12px; box-shadow: 0 32px 80px rgba(0,0,0,0.28), inset 0 0 0 1px rgba(255,255,255,0.08); position: relative; }
+    .wa-phone-outer::before { content: ''; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 72px; height: 6px; background: #111; border-radius: 100px; z-index: 10; }
+    .wa-phone { border-radius: 34px; overflow: hidden; font-family: -apple-system, 'Segoe UI', sans-serif; }
+    .wa-status-bar { background: #075E54; height: 28px; display: flex; align-items: flex-end; justify-content: flex-end; padding: 0 14px 4px; }
+    .wa-status-icons { display: flex; gap: 6px; align-items: center; }
+    .wa-status-icons span { font-size: 9px; color: rgba(255,255,255,0.8); }
+    .wa-header { background: #075E54; padding: 10px 12px 12px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.1); }
+    .wa-back-arrow { font-size: 16px; color: rgba(255,255,255,0.8); margin-right: 2px; }
+    .wa-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #25D366, #128C7E); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .wa-contact-name { font-size: 12px; font-weight: 700; color: #fff; line-height: 1; }
+    .wa-status { font-size: 10px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+    .wa-chat { background: #E5DDD5; padding: 10px 8px 14px; display: flex; flex-direction: column; gap: 3px; min-height: 380px; }
+    .wa-date-sep { text-align: center; font-size: 9px; color: rgba(0,0,0,0.45); background: rgba(255,255,255,0.65); padding: 2px 10px; border-radius: 8px; align-self: center; margin-bottom: 6px; }
+    .wa-msg { display: flex; flex-direction: column; max-width: 80%; margin-bottom: 2px; }
+    .wa-them { align-self: flex-start; }
+    .wa-me { align-self: flex-end; align-items: flex-end; }
+    .wa-bubble { padding: 6px 9px 3px; border-radius: 7px; font-size: 11px; line-height: 1.5; position: relative; }
+    .wa-bubble-them { background: #fff; color: #141414; border-radius: 0 7px 7px 7px; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .wa-bubble-me { background: #DCF8C6; color: #141414; border-radius: 7px 7px 0 7px; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+    .wa-time { font-size: 8.5px; color: rgba(0,0,0,0.38); margin-top: 1px; padding: 0 2px; }
+
+    /* STAT LIST */
+    .stat-list { margin: 20px 0; }
+    .stat-row { display: flex; align-items: baseline; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(20,20,20,0.07); }
+    .stat-row-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(20,20,20,0.3); min-width: 160px; flex-shrink: 0; }
+    .stat-row-n { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1; letter-spacing: -.04em; color: #141414; flex-shrink: 0; }
+    .stat-row-note { font-family: 'Caveat', cursive; font-size: 16px; color: rgba(20,20,20,0.3); }
+
+    /* SECTION BREAK */
+    .section-break { margin: 80px 0 0; position: relative; }
+    .section-break-inner { display: flex; align-items: center; gap: 20px; }
+    .section-break-line { flex: 1; height: 1px; background: rgba(20,20,20,0.08); }
+    .section-break-badge { background: #141414; color: #fff; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 8px 20px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+    .section-break-sub { font-family: 'Caveat', cursive; font-size: 15px; color: rgba(20,20,20,0.35); text-align: center; margin-top: 10px; margin-bottom: 60px; }
+
+    /* TAKEAWAY */
+    .takeaway { background: #141414; border-radius: 24px; padding: 56px 48px; position: relative; overflow: hidden; margin: 28px 0; }
+    .takeaway::before { content: '✦'; position: absolute; right: 32px; bottom: -20px; font-size: 160px; color: rgba(255,255,255,0.03); pointer-events: none; line-height: 1; }
+    .takeaway-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(26px, 4vw, 48px); font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 24px; }
+    .takeaway-big em { color: #C4622D; }
+    .takeaway-big b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; }
+    .takeaway-sub { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.35); max-width: 520px; }
+    .rule { margin-top: 32px; padding: 20px 24px; border-left: 3px solid #C4622D; background: rgba(255,255,255,0.03); border-radius: 0 12px 12px 0; }
+    .rule-text { font-family: 'Syne', sans-serif; font-size: clamp(13px, 1.6vw, 17px); font-weight: 700; color: rgba(255,255,255,0.6); line-height: 1.45; }
+
+    /* FOOTER */
+    .foot { padding: 80px 32px; text-align: center; }
+    .foot-h { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: #141414; margin-bottom: 10px; }
+    .foot-h em { color: #C4622D; }
+    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
+    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fbtn { padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all .2s; }
+    .fbtn-fill { background: #C4622D; color: #fff; }
+    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
+    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
+    .fbtn-line:hover { color: #141414; border-color: rgba(20,20,20,0.35); }
+    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
+
+    @keyframes up { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;} }
+
+    @media (max-width: 760px) {
+      .back { top: 16px; left: 20px; }
+      header { padding: 80px 24px 0; }
+      .body-wrap { padding: 0 20px; }
+      .dark-band { padding: 52px 24px; margin: 52px 0; }
+      .scope-grid { grid-template-columns: 1fr 1fr; }
+      .moves-grid { grid-template-columns: 1fr; }
+      .move-main { grid-row: span 1; }
+      .country-grid { grid-template-columns: 1fr 1fr; }
+      .stat-row { flex-wrap: wrap; gap: 8px; }
+      .stat-row-label { min-width: 100%; }
+      .circles-row { gap: 16px; }
+      .circle-lg { width: 160px; height: 160px; }
+      .wa-layout { grid-template-columns: 1fr; }
+      .takeaway { padding: 40px 28px; }
+      .foot { padding: 60px 20px; }
+      .role-bar { flex-direction: column; }
+      .role-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .role-item:last-child { border-bottom: none; }
+    }
+  
+    /* ── MOBILE NAV BAR ── */
+    .mob-nav { display: none; }
+    @media(max-width: 768px) {
+      .mob-nav {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 500;
+        background: rgba(250,248,244,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(20,20,20,0.08);
+        padding: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px; font-weight: 800;
+        letter-spacing: -.02em; color: #141414;
+        text-decoration: none;
+      }
+      .mob-nav-home {
+        display: flex; align-items: center; gap: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px; font-weight: 600;
+        color: rgba(20,20,20,0.5);
+        text-decoration: none;
+        padding: 7px 14px;
+        border: 1px solid rgba(20,20,20,0.12);
+        border-radius: 100px;
+        transition: all .2s;
+      }
+      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
+      .back { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+<nav class="mob-nav">
+  <a href="index.html" class="mob-nav-logo">VK.</a>
+  <a href="index.html" class="mob-nav-home">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </a>
+</nav>
+
+<div id="bar"></div>
+<a href="index.html#work" class="back">&#8592; back</a>
+
+<!-- ══════════════════════════ HEADER ══════════════════════════ -->
+<header>
+  <div class="h-tags">
+    <span class="h-tag">Product Marketing</span>
+    <span class="h-tag">Performance Marketing</span>
+    <span class="h-tag gray">June 2022 – June 2024</span>
+    <span class="h-tag gray">APAC</span>
+  </div>
+  <h1 class="h-title">
+    Two years. Four countries.<br>
+    <em style="color:#C4622D;">Every channel, every market,</em><br>
+    one <b>GTM</b> motion.
+  </h1>
+  <div class="h-meta">
+    Product Marketing Manager &nbsp;·&nbsp; Singapore-based Fintech &nbsp;·&nbsp; 4 Countries &nbsp;·&nbsp; 3 Channels
+  </div>
+
+  <!-- ROLE CLARITY BAR -->
+  <div class="role-bar">
+    <div class="role-item">
+      <div class="role-item-label">Structure</div>
+      <div class="role-item-val rust">Solo PMM</div>
+    </div>
+    <div class="role-item">
+      <div class="role-item-label">Owned</div>
+      <div class="role-item-val">Strategy → Execution</div>
+    </div>
+    <div class="role-item">
+      <div class="role-item-label">Direct Reports</div>
+      <div class="role-item-val">None</div>
+    </div>
+    <div class="role-item">
+      <div class="role-item-label">Scope</div>
+      <div class="role-item-val">4 Countries · 3 Channels</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════ SCOPE ══════════════════════════ -->
+<div class="body-wrap">
+
+  <div style="height:72px;"></div>
+
+  <div class="slabel r">The Full Scope</div>
+  <div class="narrative-big r r1">
+    Not one campaign.<br>
+    <span class="hl">An entire growth function.</span>
+  </div>
+  <p class="body-text r r2">At Volopay, I didn't own a channel. I owned the motion — from reading the market and setting the roadmap, to ideating campaigns, writing ad copy, briefing landing pages, and sitting with the sales team to close the loop on activation. Two years. Four countries. Three paid channels.</p>
+
+  <div class="scope-grid r r3">
+    <div class="scope-card dark">
+      <div class="scope-icon">🗺️</div>
+      <div class="scope-label">Growth Roadmap</div>
+      <div class="scope-desc">Helped define quarterly growth priorities — what to test, what to scale, what to kill.</div>
+    </div>
+    <div class="scope-card">
+      <div class="scope-icon">📣</div>
+      <div class="scope-label">Campaigns End-to-End</div>
+      <div class="scope-desc">Ideated, briefed, and executed across Google, LinkedIn, and Facebook — from ICP definition to live creative.</div>
+    </div>
+    <div class="scope-card rust">
+      <div class="scope-icon">✍️</div>
+      <div class="scope-label">Copy &amp; Landing Pages</div>
+      <div class="scope-desc">Wrote ad copy and managed landing pages converting at ~24% — built around positioning, not just design.</div>
+    </div>
+    <div class="scope-card">
+      <div class="scope-icon">🌏</div>
+      <div class="scope-label">4-Country Execution</div>
+      <div class="scope-desc">Localized and scaled campaigns across Indonesia, Australia, Singapore, and India simultaneously.</div>
+    </div>
+    <div class="scope-card dark">
+      <div class="scope-icon">🤝</div>
+      <div class="scope-label">Sales Alignment</div>
+      <div class="scope-desc">Oversaw the customer journey from paid acquisition through demo, activation, and onboarding.</div>
+    </div>
+    <div class="scope-card">
+      <div class="scope-icon">✏️</div>
+      <div class="scope-label">Content Strategy</div>
+      <div class="scope-desc">Collaborated with content team on blogs, white papers, and market awareness activities.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════ INDONESIA STORY ══════════════════════════ -->
+
+<!-- SECTION BREAK -->
+<div class="body-wrap">
+  <div class="section-break r">
+    <div class="section-break-inner">
+      <div class="section-break-line"></div>
+      <div class="section-break-badge">The Indonesia Story</div>
+      <div class="section-break-line"></div>
+    </div>
+    <div class="section-break-sub">The pivot that proved positioning matters more than budget.</div>
+  </div>
+
+  <div class="slabel r">Context</div>
+  <div class="narrative-big r r1">
+    A story of <span class="hi">wrong message,</span><br>
+    <span class="hl">right market,</span> and<br>
+    finding the fit.
+  </div>
+  <p class="body-text r r2">Volopay entered Indonesia with an enterprise playbook. Conversion rates were stuck at <strong>3.8%</strong>. Pipeline was thin. CPL was bleeding the budget. The product was good. <strong>The message was wrong.</strong></p>
+  <p class="body-text r r3">Before rewriting a single word, we went into the market: buyer interviews, sales call analysis, CRM pipeline audits. Indonesia is an SMB-dominated economy. The playbook built for large enterprises simply doesn't speak to how this market thinks, buys, or operates.</p>
+
+  <div style="height:72px;"></div>
+
+</div>
+
+<!-- PROBLEM BAND -->
+<div class="dark-band">
+  <div class="dark-band-inner">
+    <div class="slabel r">The Problem</div>
+    <div class="dark-band-title r r1">
+      <em>Enterprise playbook.</em> SMB market.<br>
+      The product was right. The message<br>was <em>entirely wrong.</em>
+    </div>
+    <p class="dark-band-body r r2">SMB founders and finance leads were landing on the site, seeing complexity designed for someone else, and leaving. Bahasa copy was technically translated but culturally hollow. Every competitor was chasing enterprise, leaving 64M+ Indonesian SMBs completely untouched.</p>
+    <div class="pain-row r r3">
+      <span class="pain-pill lit">3.8% CVR (stuck)</span>
+      <span class="pain-pill lit">Pipeline bleeding</span>
+      <span class="pain-pill lit">CPL too high</span>
+      <span class="pain-pill">Translation ≠ localization</span>
+      <span class="pain-pill">64M+ SMBs (ignored)</span>
+    </div>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <!-- RESEARCH -->
+  <div class="slabel r">The Research</div>
+
+  <div class="circles-row r r1">
+    <div>
+      <div class="circle circle-lg">
+        <div class="c-n" style="font-size:46px;">64M</div>
+        <div class="c-l">Indonesian SMBs</div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px; align-items:flex-start;">
+      <div class="circle circle-md">
+        <div class="c-n" style="font-size:28px;">~61%</div>
+        <div class="c-l">of Indonesia GDP</div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; justify-content:center; gap:8px; padding: 0 8px;">
+      <div class="circle-annotation">Fastest-growing digital economy segment in SEA, almost entirely underserved by enterprise-grade fintech.</div>
+      <div style="font-size:11px; color:rgba(20,20,20,0.28); font-style:italic;">Google–Temasek–Bain e-Conomy SEA 2021</div>
+    </div>
+  </div>
+
+  <div class="pull r r2">
+    <div class="pull-text">"Indonesia is an <em>SMB-dominated market.</em> The enterprise playbook was never going to work here."</div>
+  </div>
+
+  <div class="findings r r3">
+    <div class="finding">
+      <div class="finding-tag">Finding 01</div>
+      <div class="finding-text">SMB founders hit the site, saw enterprise complexity, and dropped off immediately.</div>
+    </div>
+    <div class="finding">
+      <div class="finding-tag">Finding 02</div>
+      <div class="finding-text">Bahasa copy felt translated, not native. Indonesian buyers felt the disconnect immediately.</div>
+    </div>
+  </div>
+
+  <div style="height:72px; border-top:1px solid rgba(20,20,20,0.08); margin-top:0;"></div>
+  <div style="height:0;"></div>
+
+  <!-- MOVES -->
+  <div class="slabel r">The Fix</div>
+  <div class="narrative-big r r1" style="font-size: clamp(22px, 3vw, 36px);">
+    Three moves. <em style="color:#C4622D;">One pivot</em> that changed<br>
+    everything downstream.
+  </div>
+
+  <div class="moves-grid r r2">
+    <div class="move-main">
+      <div>
+        <div class="move-em">🎯</div>
+        <div class="move-title">Repositioned the ICP &amp; Messaging</div>
+        <div class="move-desc">Threw out the enterprise narrative. New ICP: SMB founders, ops leads, finance managers at 10–200 person companies. New narrative: "Built for businesses that move fast." Every touchpoint — ads, landing pages, sales decks, email sequences — rebuilt from scratch around this.</div>
+      </div>
+      <div class="mtag">ICP Pivot</div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div class="move-side">
+        <div class="move-side-n">02</div>
+        <div class="move-side-em">🗣️</div>
+        <div class="move-side-title">Fixed Localization the Right Way</div>
+        <div class="move-side-desc">Scrapped the translation. Hired Indonesian fintech copywriters. Rebuilt every page with local idiom and tone that felt native, not converted.</div>
+        <div class="stag">True Localization</div>
+      </div>
+      <div class="move-side">
+        <div class="move-side-n">03</div>
+        <div class="move-side-em">⭐</div>
+        <div class="move-side-title">Built Organic Credibility</div>
+        <div class="move-side-desc">Structured review outreach, G2 profile management. Earned High Performer for 2 consecutive quarters. Shortened sales cycles by giving prospects third-party validation before the first demo.</div>
+        <div class="stag">G2 High Performer × 2</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:72px; border-top:1px solid rgba(20,20,20,0.08); margin-top:72px;"></div>
+
+  <div class="slabel r">The Change</div>
+  <div class="narrative-big r r1" style="font-size:clamp(20px,2.8vw,32px);">
+    What <em style="color:#C4622D;">real localization</em> actually looks like.
+  </div>
+  <div class="gif-block r r2">
+    <img src="images/volopay-demo.gif" alt="Volopay Indonesia localized product" loading="lazy"/>
+    <div class="gif-caption">Volopay Indonesia: native Bahasa experience, rebuilt from scratch</div>
+  </div>
+
+  <div style="height:72px; border-top:1px solid rgba(20,20,20,0.08); margin-top:72px;"></div>
+
+  <!-- WHATSAPP -->
+  <div class="slabel r">Unexpected Insight</div>
+  <div class="narrative-big r r1" style="font-size: clamp(20px, 2.8vw, 32px);">
+    The channel nobody<br>was talking about.
+  </div>
+
+  <div class="wa-layout r r2">
+    <div class="wa-context">
+      <p class="wa-body">Market research surfaced something unexpected. Indonesian SMB buyers don't respond to calls or emails. They're on WhatsApp. It's not a preference. It's how business gets done here.</p>
+      <p class="wa-body" style="margin-top:12px;">We integrated <strong>Wati</strong> into the sales workflow and trained the team to run full conversations on WhatsApp.</p>
+      <div class="wa-insight" style="margin-top:20px;">
+        <div class="wa-insight-label">Result</div>
+        <div class="wa-insight-text">Response rate jumped 3× vs. email outreach. Friction dropped. Conversions followed.</div>
+      </div>
+      <div class="wa-tag" style="margin-top:16px;">Wati · WhatsApp CRM</div>
+    </div>
+    <div class="wa-phone-wrap">
+      <div class="wa-phone-outer">
+        <div class="wa-phone">
+          <div class="wa-status-bar">
+            <div class="wa-status-icons"><span>9:41</span><span>●●●</span></div>
+          </div>
+          <div class="wa-header">
+            <div class="wa-back-arrow">‹</div>
+            <div class="wa-avatar">B</div>
+            <div>
+              <div class="wa-contact-name">Budi Santoso</div>
+              <div class="wa-status">online</div>
+            </div>
+          </div>
+          <div class="wa-chat">
+            <div class="wa-date-sep">Hari ini</div>
+            <div class="wa-msg wa-them">
+              <div class="wa-bubble wa-bubble-them">Halo, saya lihat Volopay bisa bantu manage pengeluaran bisnis ya? 🙏</div>
+              <div class="wa-time">10:02</div>
+            </div>
+            <div class="wa-msg wa-me">
+              <div class="wa-bubble wa-bubble-me">Betul kak! Volopay bisa bantu kelola semua pengeluaran tim dalam satu dashboard. Bisnis kakak bergerak di bidang apa? 😊</div>
+              <div class="wa-time">10:04 ✓✓</div>
+            </div>
+            <div class="wa-msg wa-them">
+              <div class="wa-bubble wa-bubble-them">Kami ada toko online + tim 15 orang. Masalahnya expense laporan selalu berantakan 😅</div>
+              <div class="wa-time">10:06</div>
+            </div>
+            <div class="wa-msg wa-me">
+              <div class="wa-bubble wa-bubble-me">Nah itu persis yang Volopay selesaikan kak, kartu virtual per tim, auto-rekap, real-time. Mau saya kirimkan demo singkat?</div>
+              <div class="wa-time">10:08 ✓✓</div>
+            </div>
+            <div class="wa-msg wa-them">
+              <div class="wa-bubble wa-bubble-them">Boleh banget! Kirim aja langsung sini 👍</div>
+              <div class="wa-time">10:09</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:72px; border-top:1px solid rgba(20,20,20,0.08); margin-top:72px;"></div>
+
+  <!-- INDONESIA RESULTS -->
+  <div class="slabel r">Indonesia Results</div>
+  <div class="stat-list r r1">
+    <div class="stat-row">
+      <div class="stat-row-label">Conversion Rate</div>
+      <div class="stat-row-n" style="color:#C4622D;">11.85%</div>
+      <div class="stat-row-note">up from 3.8% — 3× improvement</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-row-label">Cost Per Lead</div>
+      <div class="stat-row-n" style="color:#C4622D;">−68%</div>
+      <div class="stat-row-note">same budget, better targeting</div>
+    </div>
+    <div class="stat-row" style="border-bottom:none;">
+      <div class="stat-row-label">Revenue Growth</div>
+      <div class="stat-row-n">2.9×</div>
+      <div class="stat-row-note">in 12 months</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════ APAC PICTURE ══════════════════════════ -->
+<div class="body-wrap">
+  <div class="section-break r">
+    <div class="section-break-inner">
+      <div class="section-break-line"></div>
+      <div class="section-break-badge">The Full APAC Picture</div>
+      <div class="section-break-line"></div>
+    </div>
+    <div class="section-break-sub">Collective impact across 4 markets, 3 channels, 2 years.</div>
+  </div>
+
+  <div class="slabel r">Paid Channels</div>
+  <div class="narrative-big r r1" style="font-size: clamp(22px, 3vw, 36px);">
+    Three channels. Four countries.<br>
+    <em style="color:#C4622D;">One unified message.</em>
+  </div>
+  <p class="body-text r r2">Ran simultaneous paid campaigns on LinkedIn, Facebook, and Google — targeting business owners and C-level finance leaders. Each channel served a different intent layer: LinkedIn for professional intent, Google for active search, Facebook for awareness and retargeting. The same positioning framework governed all three so the buyer got a consistent narrative regardless of where they found us.</p>
+
+  <div class="channel-strip r r3">
+    <div class="ch-pill"><span class="dot"></span>LinkedIn Ads</div>
+    <div class="ch-pill"><span class="dot"></span>Google Ads</div>
+    <div class="ch-pill"><span class="dot"></span>Facebook Ads</div>
+    <div class="ch-pill"><span class="dot" style="background:#141414;"></span>Founders &amp; Ops Leads</div>
+    <div class="ch-pill"><span class="dot" style="background:#141414;"></span>C-Level Finance</div>
+  </div>
+
+  <div class="country-grid r r3" style="margin-top:20px;">
+    <div class="country-card">
+      <div class="country-flag">🇮🇩</div>
+      <div class="country-name">Indonesia</div>
+      <div class="country-note">SMB repositioning · full localization</div>
+    </div>
+    <div class="country-card">
+      <div class="country-flag">🇸🇬</div>
+      <div class="country-name">Singapore</div>
+      <div class="country-note">HQ market · enterprise + startup mix</div>
+    </div>
+    <div class="country-card">
+      <div class="country-flag">🇦🇺</div>
+      <div class="country-name">Australia</div>
+      <div class="country-note">High-value segment · finance compliance</div>
+    </div>
+    <div class="country-card">
+      <div class="country-flag">🇮🇳</div>
+      <div class="country-name">India</div>
+      <div class="country-note">High volume · fast-growth SMBs</div>
+    </div>
+  </div>
+
+  <div style="height:72px; border-top:1px solid rgba(20,20,20,0.08); margin-top:72px;"></div>
+
+  <div class="slabel r">Landing Page Performance</div>
+  <div class="lp-card r r1">
+    <div class="lp-label">Conversion-Focused Pages</div>
+    <div class="lp-title">Ad copy and landing pages that convert at ~24%</div>
+    <div class="lp-body">Every landing page started from positioning — who the buyer is, what they're afraid of, and what makes them act. Copy, hierarchy, and CTA structure all worked from that foundation outward. Not design-first. Message-first. Industry average for B2B SaaS landing pages sits at 3–5% — this was built to beat that by a factor of 5.</div>
+    <div class="lp-stats">
+      <div>
+        <div class="lp-stat-n">~24%</div>
+        <div class="lp-stat-l">Landing page CVR</div>
+      </div>
+      <div>
+        <div class="lp-stat-n">3–5%</div>
+        <div class="lp-stat-l">B2B SaaS avg CVR</div>
+      </div>
+      <div>
+        <div class="lp-stat-n">+38%</div>
+        <div class="lp-stat-l">Qualified leads (APAC)</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:72px; border-top:1px solid rgba(20,20,20,0.08); margin-top:72px;"></div>
+
+  <!-- OVERALL APAC RESULTS -->
+  <div class="slabel r">Overall APAC Results</div>
+  <div class="stat-list r r1">
+    <div class="stat-row">
+      <div class="stat-row-label">Lead Volume</div>
+      <div class="stat-row-n" style="color:#C4622D;">+120%</div>
+      <div class="stat-row-note">across APAC</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-row-label">Qualified Leads</div>
+      <div class="stat-row-n">+38%</div>
+      <div class="stat-row-note">across APAC</div>
+    </div>
+    <div class="stat-row" style="border-bottom:none;">
+      <div class="stat-row-label">ROI Improvement</div>
+      <div class="stat-row-n">+15%</div>
+      <div class="stat-row-note">via A/B testing &amp; campaign optimisation</div>
+    </div>
+  </div>
+
+  <div style="height:72px; border-top:1px solid rgba(20,20,20,0.08); margin-top:72px;"></div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway r">
+    <div class="takeaway-big">
+      Performance marketing<br>scaled the growth.<br>
+      Product marketing <em>created</em> it.
+    </div>
+    <p class="takeaway-sub">Getting positioning right first — ICP clarity, localized messaging, organic credibility — meant every paid dollar worked harder. The overlap between strategy and execution is where results happen.</p>
+    <div class="rule">
+      <div class="rule-text">When the message matches the buyer, everything downstream gets easier.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot r">
+    <div class="foot-h">Open to <em>full-time roles</em><br>in GTM, PMM &amp; Growth</div>
+    <div class="foot-sub">Looking for opportunities where positioning and performance intersect.</div>
+    <div class="foot-btns">
+      <a href="mailto:vinayavk8@gmail.com" class="fbtn fbtn-fill">Get in touch &#8594;</a>
+      <a href="https://linkedin.com/in/vinayavk" class="fbtn fbtn-line">LinkedIn &#8599;</a>
+      <a href="index.html#work" class="fbtn fbtn-line">&#8592; More Case Studies</a>
+    </div>
+    <div class="foot-credits">Vinay Kumar · Product Marketing · 2022–2024</div>
+  </div>
+
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('bar').style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+}, { passive: true });
+
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+}), { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

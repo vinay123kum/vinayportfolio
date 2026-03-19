@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GoPMM Cohort 2 | Vinay Kumar</title>
+  <meta name="description" content="GoPMM Foundation Cohort 2, 9-week PMM program. Capstone: RazorpayX GTM strategy across three business banking modules."/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root { --rust: #C4622D; --black: #141414; --cream: #FAF8F4; --border: rgba(20,20,20,0.08); }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--black); overflow-x: hidden; }
+    body::after { content: ''; position: fixed; inset: 0; opacity: .03; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 128px; z-index: 998; }
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: var(--rust); }
+    #bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--rust); z-index: 999; width: 0; }
+    .skip-link { position: fixed; top: -100%; left: 16px; background: var(--rust); color: #fff; padding: 8px 18px; border-radius: 0 0 10px 10px; font-size: 13px; font-weight: 700; text-decoration: none; z-index: 999; transition: top .2s; }
+    .skip-link:focus { top: 0; }
+    .back { position: fixed; top: 24px; left: 32px; z-index: 200; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: rgba(20,20,20,0.35); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .back:hover { color: var(--rust); }
+    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .r.on { opacity: 1; transform: none; }
+    .r1 { transition-delay: .08s; } .r2 { transition-delay: .16s; } .r3 { transition-delay: .24s; }
+    @keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+
+    /* HEADER */
+    header { padding: 120px 40px 16px; max-width: 800px; margin: 0 auto; text-align: center; }
+    .h-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; animation: up .5s .1s both; }
+    .h-tag { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; color: var(--rust); border: 1.5px solid rgba(196,98,45,0.3); background: rgba(196,98,45,0.06); }
+    .h-tag.gray { color: rgba(20,20,20,0.4); border-color: rgba(20,20,20,0.15); background: transparent; }
+    .h-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(38px, 6vw, 80px); font-weight: 700; line-height: 1.18; letter-spacing: -.02em; color: var(--black); text-wrap: balance; animation: up .7s .2s both; }
+    .h-title .hl { background: var(--rust); color: #fff; padding: 4px 14px 8px; border-radius: 8px; display: inline-block; line-height: 1.1; }
+    .h-meta { font-size: 13px; color: rgba(20,20,20,0.35); margin-top: 16px; letter-spacing: .02em; animation: up .5s .35s both; }
+
+    /* LAYOUT */
+    .body-wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
+    .slabel { font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: var(--rust); display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .slabel::before { content: ''; width: 18px; height: 2px; background: var(--rust); display: block; flex-shrink: 0; }
+    .narrative-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(26px, 4vw, 44px); font-weight: 700; line-height: 1.2; color: var(--black); margin-bottom: 20px; text-wrap: balance; }
+    .narrative-big .hi { color: var(--rust); }
+    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
+    .body-text strong { color: var(--black); font-weight: 600; }
+
+    /* PROGRAM GRID */
+    .prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
+    .prog-card { border-radius: 16px; padding: 22px 20px; border: 1px solid var(--border); background: #fff; }
+    .prog-card.dark { background: var(--black); border-color: transparent; }
+    .prog-card.rust { background: var(--rust); border-color: transparent; }
+    .prog-n { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; line-height: 1; letter-spacing: -.04em; color: var(--black); }
+    .prog-card.dark .prog-n, .prog-card.rust .prog-n { color: #fff; }
+    .prog-l { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(20,20,20,0.35); margin-top: 6px; }
+    .prog-card.dark .prog-l, .prog-card.rust .prog-l { color: rgba(255,255,255,0.45); }
+
+    /* DARK BAND */
+    .dark-band { background: var(--black); color: #fff; padding: 64px 40px; margin: 72px 0; position: relative; overflow: hidden; }
+    .dark-band::after { content: 'C'; position: absolute; right: -20px; top: -60px; font-family: 'Syne', sans-serif; font-size: 380px; font-weight: 800; color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none; }
+    .dark-band-inner { max-width: 720px; margin: 0 auto; }
+    .dark-band .slabel { color: var(--rust); }
+    .dark-band-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 40px); font-weight: 700; line-height: 1.25; color: #fff; margin-bottom: 14px; }
+    .dark-band-title em { color: #E07A46; }
+    .dark-band-body { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.45); max-width: 580px; }
+
+    /* PROBLEM OPTIONS */
+    .options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
+    .opt { border-radius: 16px; padding: 22px 20px; border: 1px solid var(--border); background: #fff; position: relative; }
+    .opt.chosen { background: var(--black); border-color: transparent; }
+    .opt.faded { opacity: .5; }
+    .opt-num { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--rust); margin-bottom: 10px; }
+    .opt.chosen .opt-num { color: #E07A46; }
+    .opt-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; color: var(--black); line-height: 1.3; margin-bottom: 8px; }
+    .opt.chosen .opt-title { color: #fff; }
+    .opt-desc { font-size: 12px; color: rgba(20,20,20,0.45); line-height: 1.65; }
+    .opt.chosen .opt-desc { color: rgba(255,255,255,0.4); }
+    .opt-badge { display: inline-block; margin-top: 12px; font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
+    .opt-badge.yes { background: var(--rust); color: #fff; }
+    .opt-badge.no { background: rgba(20,20,20,0.08); color: rgba(20,20,20,0.4); }
+
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; margin: 28px 0; }
+    .step { display: flex; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+    .step:last-child { border-bottom: none; }
+    .step-num { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800; color: var(--rust); opacity: .55; min-width: 28px; padding-top: 3px; flex-shrink: 0; }
+    .step-body { flex: 1; }
+    .step-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--black); line-height: 1.3; margin-bottom: 8px; }
+    .step-desc { font-size: 13.5px; line-height: 1.75; color: rgba(20,20,20,0.5); }
+    .step-desc strong { color: var(--black); font-weight: 600; }
+    .num { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; color: var(--rust); background: rgba(196,98,45,0.08); padding: 1px 8px; border-radius: 100px; display: inline-block; }
+
+    /* FINDINGS */
+    .findings { display: flex; flex-direction: column; gap: 10px; margin: 28px 0; }
+    .finding { padding: 20px 24px; background: #fff; border: 1px solid var(--border); border-radius: 14px; }
+    .finding-tag { font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: rgba(20,20,20,0.28); margin-bottom: 7px; }
+    .finding-text { font-size: 14px; color: rgba(20,20,20,0.6); line-height: 1.7; }
+    .finding-text strong { color: var(--black); font-weight: 600; }
+
+    /* TAKEAWAY */
+    .takeaway { background: var(--black); border-radius: 24px; padding: 56px 48px; position: relative; overflow: hidden; margin: 28px 0; }
+    .takeaway::before { content: '✦'; position: absolute; right: 32px; bottom: -20px; font-size: 160px; color: rgba(255,255,255,0.03); pointer-events: none; line-height: 1; }
+    .takeaway-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(24px, 3.8vw, 46px); font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 24px; text-wrap: balance; }
+    .takeaway-big em { color: var(--rust); }
+    .takeaway-sub { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.35); max-width: 520px; }
+    .rule { margin-top: 32px; padding: 20px 24px; border-left: 3px solid var(--rust); background: rgba(255,255,255,0.03); border-radius: 0 12px 12px 0; }
+    .rule-text { font-family: 'Syne', sans-serif; font-size: clamp(13px, 1.6vw, 16px); font-weight: 700; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    /* LINK CARD */
+    .link-card { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 28px; background: #fff; border: 1px solid var(--border); border-radius: 16px; text-decoration: none; transition: all .2s; margin: 10px 0; }
+    .link-card:hover { box-shadow: 0 8px 32px rgba(196,152,100,0.14); transform: translateY(-2px); }
+    .link-card-label { font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: rgba(20,20,20,0.28); margin-bottom: 5px; }
+    .link-card-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 800; color: var(--black); }
+    .link-card-arrow { font-size: 20px; color: var(--rust); flex-shrink: 0; }
+
+    /* FOOTER */
+    .foot { padding: 80px 32px; text-align: center; }
+    .foot-h { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: var(--black); margin-bottom: 10px; }
+    .foot-h em { color: var(--rust); }
+    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
+    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fbtn { padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all .2s; }
+    .fbtn:active { transform: scale(0.97); }
+    .fbtn-fill { background: var(--rust); color: #fff; }
+    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
+    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
+    .fbtn-line:hover { color: var(--black); border-color: rgba(20,20,20,0.35); }
+    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
+
+    @media (max-width: 700px) {
+      header { padding: 80px 24px 16px; }
+      .body-wrap { padding: 0 20px; }
+      .prog-grid, .options-grid { grid-template-columns: 1fr 1fr; }
+      .options-grid .opt:last-child { grid-column: 1 / -1; }
+      .dark-band { padding: 48px 24px; }
+      .takeaway { padding: 40px 28px; }
+      .back { left: 20px; top: 20px; }
+      .step { gap: 14px; }
+      .link-card { flex-direction: column; align-items: flex-start; }
+    }
+  
+    /* ── MOBILE NAV BAR ── */
+    .mob-nav { display: none; }
+    @media(max-width: 768px) {
+      .mob-nav {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 500;
+        background: rgba(250,248,244,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(20,20,20,0.08);
+        padding: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px; font-weight: 800;
+        letter-spacing: -.02em; color: #141414;
+        text-decoration: none;
+      }
+      .mob-nav-home {
+        display: flex; align-items: center; gap: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px; font-weight: 600;
+        color: rgba(20,20,20,0.5);
+        text-decoration: none;
+        padding: 7px 14px;
+        border: 1px solid rgba(20,20,20,0.12);
+        border-radius: 100px;
+        transition: all .2s;
+      }
+      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
+      .back { display: none; }
+      .capstone-grid-3 { grid-template-columns: 1fr !important; }
+      .capstone-grid-2 { grid-template-columns: 1fr !important; }
+    }
+
+  </style>
+</head>
+<body>
+<nav class="mob-nav">
+  <a href="index.html" class="mob-nav-logo">VK.</a>
+  <a href="index.html" class="mob-nav-home">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </a>
+</nav>
+
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="bar" aria-hidden="true"></div>
+<a href="index.html" class="back" aria-label="Back to portfolio">← portfolio</a>
+
+<header>
+  <div class="h-tags r">
+    <span class="h-tag">Product Marketing</span>
+    <span class="h-tag">GoPMM</span>
+    <span class="h-tag gray">Cohort 2 · 2024</span>
+    <span class="h-tag gray">Capstone: RazorpayX</span>
+  </div>
+  <h1 class="h-title r r1">
+    9 weeks of doing PMM,<br>
+    <em style="color:#C4622D;">not studying it.</em>
+  </h1>
+  <p class="h-meta r r2">GoPMM Foundation Cohort 2 · PMM Frameworks · Capstone Project · GTM Strategy</p>
+</header>
+
+<main id="main" class="body-wrap">
+
+  <div class="div"></div>
+
+  <!-- THE PROGRAM -->
+  <section>
+    <div class="slabel r">The program</div>
+    <p class="body-text r r1">GoPMM was built by practitioners from Razorpay, Swiggy, and Freshworks who were tired of watching people get PMM wrong. Six live sessions across 9 weeks, each one covering a different part of the role, followed by a 3-week capstone on a real company brief.</p>
+
+    <img src="images/gopmm-cohort.jpeg" alt="GoPMM Cohort 2 live sessions" class="prog-img r r2" style="width:100%;border-radius:16px;margin:24px 0 4px;display:block;object-fit:cover;">
+
+    <div class="prog-grid r r3">
+      <div class="prog-card dark">
+        <div class="prog-n">6</div>
+        <div class="prog-l">Live Saturday sessions</div>
+      </div>
+      <div class="prog-card rust">
+        <div class="prog-n">3</div>
+        <div class="prog-l">Weeks capstone project</div>
+      </div>
+      <div class="prog-card">
+        <div class="prog-n">8+</div>
+        <div class="prog-l">Expert AMAs</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+</main>
+
+<!-- CAPSTONE INTRO -->
+<div class="dark-band" aria-label="The capstone project">
+  <div class="dark-band-inner">
+    <div class="slabel r">The capstone</div>
+    <div class="dark-band-title r r1">
+      Not a simulation. <em>A real brief, assigned to a team of five.</em>
+    </div>
+    <p class="dark-band-body r r2">GoPMM matches you with four peers based on your target company type, then assigns a live case. You have three weeks: talk to users, map the market, build a full PMM response. Our team got RazorpayX.</p>
+  </div>
+</div>
+
+<main class="body-wrap">
+
+  <!-- PROBLEM STATEMENT -->
+  <section>
+    <div class="slabel r">Problem statement</div>
+    <div class="narrative-big r r1">
+      RazorpayX: <span class="hi">one banking suite, three different buyer problems.</span>
+    </div>
+    <p class="body-text r r2">RazorpayX is Razorpay's business banking suite. Current Accounts + Payouts, Payroll, and Corporate Cards. It runs inside a payments platform that millions of Indian merchants already use. The core question was whether that PG footprint is an asset to build on, or a ceiling to break through.</p>
+
+    <div class="options-grid r r3">
+      <div class="opt faded">
+        <div class="opt-num">Path 01</div>
+        <div class="opt-title">Fully Embedded</div>
+        <div class="opt-desc">Sell banking only to existing Razorpay merchants. Use the PG as the sole acquisition channel for all three modules.</div>
+        <span class="opt-badge no">Ruled out</span>
+      </div>
+      <div class="opt faded">
+        <div class="opt-num">Path 02</div>
+        <div class="opt-title">Fully Standalone</div>
+        <div class="opt-desc">Build RazorpayX as an independent neobank. Compete directly with Jupiter, Fi, and traditional banks for SMEs outside the PG base.</div>
+        <span class="opt-badge no">Ruled out</span>
+      </div>
+      <div class="opt chosen">
+        <div class="opt-num">Path 03</div>
+        <div class="opt-title">Hybrid Two-Motion GTM</div>
+        <div class="opt-desc">CA+Payouts and Cards grow through the PG, that's where 50–80% of those users already come from. Payroll gets its own motion, because its buyer (HR, compliance teams) has no reason to come through a payment gateway.</div>
+        <span class="opt-badge yes">Our recommendation</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- WHAT WE DID -->
+  <section>
+    <div class="slabel r">What we did</div>
+
+    <div class="steps r r1">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title"><span class="num">30+</span> user interviews: mapped acquisition by module</div>
+          <div class="step-desc">We spoke to current users, churned users, internal employees, and people who had evaluated RazorpayX and chosen something else. The pattern was clear: <strong>CA+Payouts acquires 50–60% of users through the payment gateway. Corporate Cards: 70–80%.</strong> Payroll gets none of that. Its buyer is an HR manager or compliance head who has no touch point with Razorpay's PG.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">Competitive scan, <span class="num">4</span> competitors across <span class="num">3</span> modules</div>
+          <div class="step-desc">We scored RazorpayX against Cashfree, PayU, Paytm, and Jupiter, feature by feature, per module. <strong>CA+Payouts came out ahead on most dimensions. Payroll had a strong product but weak distribution. HRMS players like Darwinbox and Keka own that buyer relationship. Corporate Cards had feature parity with competitors but no clear reason to choose it.</strong> That last finding pointed to a positioning problem, not a product one.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">Market sizing: TAM / SAM / SOM across <span class="num">3</span> modules</div>
+          <div class="step-desc">We built TAM/SAM/SOM models for each module using bottom-up estimates, not analyst report quotes. <strong>CA+Payouts SAM: $20B. Corporate Cards SAM: $42B. Payroll SAM: $2.29B</strong>, and the majority of it sits outside the PG base entirely. That $2.29B figure is what made the standalone motion case. You can't reach most of that market through Razorpay payments.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title">Built the hybrid two-motion GTM</div>
+          <div class="step-desc"><strong>Embedded motion:</strong> in-product upsells, PG-linked nudges, freemium entry, and partner channels via CAs and ERPs. Low acquisition cost because the trust already exists from the payments relationship. <strong>Standalone motion:</strong> inside sales, ABM, HRMS partnerships, and dedicated support SLAs for SME compliance buyers and enterprise finance teams. Separate buyer, separate message, separate funnel.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-body">
+          <div class="step-title">Wrote distinct positioning for each module</div>
+          <div class="step-desc">
+            <strong>CA+Payouts:</strong> "Unified current account, bulk payouts, and reconciliation, in one programmable system."<br><br>
+            <strong>Payroll:</strong> "Payroll that pays the government for you. No uploads, no compliance anxiety."<br><br>
+            <strong>Corporate Cards:</strong> "No personal cards. No reimbursements. Finance teams get full control."
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- WHAT IT BUILT -->
+  <section>
+    <div class="slabel r">What it built</div>
+    <div class="narrative-big r r1">
+      Frameworks only land when you <span class="hi">use them against something real.</span>
+    </div>
+
+    <div class="findings r r2">
+      <div class="finding">
+        <div class="finding-tag">ICP Thinking</div>
+        <div class="finding-text"><strong>The ICP work had to happen at module level, not company level.</strong> CA+Payouts is bought by founders and CTOs with a payout volume problem. Payroll is bought by HR leads under compliance pressure. Corporate Cards is bought by CFOs who are done chasing reimbursement spreadsheets. Same product family. Completely different trigger, decision-maker, and alternative for each one.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-tag">GTM Design</div>
+        <div class="finding-text"><strong>"Embedded or standalone" was the wrong question.</strong> The interview data showed that two modules already acquired most users through the PG, so forcing a standalone motion there would create unnecessary CAC. Payroll had the opposite problem: its buyer never came through payments. The GTM had to follow the buying pattern, not the other way around.</div>
+      </div>
+      <div class="finding">
+        <div class="finding-tag">Positioning</div>
+        <div class="finding-text"><strong>Corporate Cards had feature parity with every competitor on the scorecard.</strong> The problem was that it was being positioned as a spend tool when the actual buyer, the CFO, cares about control and visibility, not convenience. We rewrote the positioning around finance oversight, not employee experience. Same product, different message, different buyer.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- FULL CAPSTONE -->
+  <section>
+    <div class="slabel r">The full capstone</div>
+    <p class="body-text r r1">The full submission: ICP maps per module, market sizing models built bottom-up, competitive scoring across 4 players, the two-motion GTM plan with AER framework, and positioning lines for each module.</p>
+
+    <a href="docs/razorpayx-capstone.pdf" target="_blank" class="link-card r r2">
+      <div class="link-card-left">
+        <div class="link-card-label">Capstone deep-dive</div>
+        <div class="link-card-title">RazorpayX at the Crossroads: Banking Engine or Standalone Brand?</div>
+      </div>
+      <div class="link-card-arrow">→</div>
+    </a>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- CONTEXT NOTE -->
+  <div style="padding:20px 24px; border:1px solid rgba(20,20,20,0.08); border-radius:14px; background:#fff; margin-bottom:28px;">
+    <div style="font-size:9px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:rgba(20,20,20,0.28); margin-bottom:8px;">Note on this project</div>
+    <p style="font-size:14px; line-height:1.75; color:rgba(20,20,20,0.55);">This was a structured PMM exercise, not a live campaign. There are no revenue or pipeline results to report. What it produced was a complete GTM architecture — ICP maps, competitive scoring, positioning lines, and a two-motion strategy — built under the same constraints you'd face on the job.</p>
+  </div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway r">
+    <div class="takeaway-big">
+      The frameworks from class are easy to learn.<br>
+      <em>Applying them to a real product</em><br>is where the gaps show up.
+    </div>
+    <p class="takeaway-sub">The capstone wasn't a memory test for the frameworks we covered. It was a test of whether we could use them when the answer wasn't clean, multiple buyer types, acquisition data that contradicted each other, and a competitive landscape where the obvious move didn't hold up under scrutiny.</p>
+    <div class="rule">
+      <div class="rule-text">Nine weeks. Six frameworks. One real brief. That's what builds PMM judgment, not just PMM vocabulary.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <h2 class="foot-h">More work in the <em>portfolio.</em></h2>
+    <p class="foot-sub">GTM strategy, performance campaigns, positioning, and AI tooling.</p>
+    <div class="foot-btns">
+      <a href="index.html" class="fbtn fbtn-fill">Back to portfolio →</a>
+      <a href="razorpayx-case-study.html" class="fbtn fbtn-line">RazorpayX capstone →</a>
+    </div>
+    <p class="foot-credits">Vinay Kumar · GoPMM Foundation Cohort 2 · 2024</p>
+  </div>
+
+</main>
+
+<script>
+  const bar = document.getElementById('bar');
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    bar.style.width = (p * 100) + '%';
+  }, { passive: true });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

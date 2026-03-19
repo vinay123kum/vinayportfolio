@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meta UGC Campaign | Vinay Kumar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #FAF8F4; color: #141414; overflow-x: hidden; }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: #C4622D; }
+    #bar { position: fixed; top: 0; left: 0; height: 2px; background: #C4622D; z-index: 999; width: 0; }
+
+    .back {
+      position: fixed; top: 24px; left: 32px; z-index: 100;
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: rgba(20,20,20,0.35); text-decoration: none;
+      display: flex; align-items: center; gap: 6px; transition: color .2s;
+    }
+    .back:hover { color: #C4622D; }
+
+    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .r.on { opacity: 1; transform: none; }
+    .r1 { transition-delay: .08s; } .r2 { transition-delay: .16s; } .r3 { transition-delay: .24s; }
+
+    /* ── HEADER ── */
+    header { padding: 96px 40px 0; max-width: 800px; margin: 0 auto; text-align: center; }
+    .h-title {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(36px, 5.5vw, 76px); font-weight: 700; line-height: 1.04; letter-spacing: -.02em;
+      color: #141414; animation: up .7s .2s both;
+    }
+    .h-title b { font-family: 'Syne', sans-serif; font-style: normal; font-weight: 800; color: #C4622D; }
+    .h-meta { font-size: 13px; color: rgba(20,20,20,0.35); margin-top: 16px; letter-spacing: .02em; animation: up .5s .35s both; }
+    .h-intro { font-size: 15px; line-height: 1.85; color: rgba(20,20,20,0.5); max-width: 580px; margin: 22px auto 0; animation: up .5s .45s both; }
+    .h-intro em { color: #C4622D; font-style: italic; }
+
+    /* ── BODY ── */
+    .body-wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
+
+    .slabel {
+      font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600;
+      color: #C4622D; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .slabel::before { content: ''; width: 18px; height: 2px; background: #C4622D; display: block; flex-shrink: 0; }
+
+    .narrative-big {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: clamp(26px, 4vw, 44px); font-weight: 700; line-height: 1.2;
+      color: #141414; margin-bottom: 24px;
+    }
+    .narrative-big .hi { color: #C4622D; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; }
+    .narrative-big .hl { background: #C4622D; color: #fff; padding: 0 10px 4px; border-radius: 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; }
+
+    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
+    .body-text + .body-text { margin-top: 14px; }
+    .body-text strong { color: #141414; font-weight: 600; }
+
+    .pull { margin: 36px 0; padding-left: 24px; border-left: 3px solid #C4622D; }
+    .pull-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 26px); font-weight: 700; line-height: 1.35; color: rgba(20,20,20,0.65); }
+    .pull-text em { color: #C4622D; }
+
+    /* ── DARK BAND ── */
+    .dark-band {
+      background: #141414; color: #fff;
+      padding: 72px 40px; margin: 72px 0;
+      position: relative; overflow: hidden;
+    }
+    .dark-band::after {
+      content: attr(data-char);
+      position: absolute; right: -8px; top: -80px;
+      font-family: 'Syne', sans-serif; font-size: 380px; font-weight: 800;
+      color: rgba(255,255,255,0.025); line-height: 1; pointer-events: none;
+    }
+    .dark-band-inner { max-width: 720px; margin: 0 auto; }
+    .dark-band .slabel { color: #C4622D; }
+    .dark-band-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(22px, 3.5vw, 40px); font-weight: 700; line-height: 1.25; color: #fff; margin-bottom: 18px; }
+    .dark-band-title em { color: #E07A46; }
+    .dark-band-body { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.45); max-width: 600px; }
+    .dark-band-list { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .dark-band-li {
+      font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.4);
+      padding-left: 18px; position: relative;
+    }
+    .dark-band-li::before { content: '—'; position: absolute; left: 0; color: #C4622D; }
+    .dark-band-li strong { color: rgba(255,255,255,0.75); font-weight: 600; }
+    .pain-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+    .pain-pill { font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: 100px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+    .pain-pill.lit { background: rgba(196,98,45,0.2); border-color: rgba(196,98,45,0.4); color: #E07A46; }
+
+    /* ── FUNNEL RETARGET CHART ── */
+    .funnel-bars { display: flex; flex-direction: column; gap: 10px; margin: 28px 0; }
+    .fbar { display: grid; grid-template-columns: 56px 1fr 80px; align-items: center; gap: 12px; }
+    .fbar-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(20,20,20,0.35); text-align: right; }
+    .fbar-track { height: 36px; background: rgba(20,20,20,0.05); border-radius: 8px; overflow: hidden; position: relative; }
+    .fbar-fill { height: 100%; border-radius: 8px; display: flex; align-items: center; padding-left: 12px; }
+    .fbar-fill span { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.85); }
+    .fbar-note { font-family: 'Caveat', cursive; font-size: 13px; color: rgba(20,20,20,0.35); }
+
+    /* ── MOVE GRID ── */
+    .move-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 28px 0; }
+    .move-card {
+      background: #fff; border: 1px solid rgba(20,20,20,0.07); border-radius: 20px;
+      padding: 28px 24px; position: relative; overflow: hidden;
+    }
+    .move-card.dark { background: #141414; border-color: transparent; }
+    .move-card.rust { background: #C4622D; border-color: transparent; }
+    .move-n {
+      font-family: 'Syne', sans-serif; font-size: 72px; font-weight: 800; line-height: 1;
+      position: absolute; top: 12px; right: 16px; letter-spacing: -.04em;
+    }
+    .move-card:not(.dark):not(.rust) .move-n { color: rgba(20,20,20,0.05); }
+    .move-card.dark .move-n { color: rgba(255,255,255,0.04); }
+    .move-card.rust .move-n { color: rgba(255,255,255,0.12); }
+    .move-title {
+      font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; line-height: 1.2;
+      margin-bottom: 16px; position: relative;
+    }
+    .move-card:not(.dark):not(.rust) .move-title { color: #141414; }
+    .move-card.dark .move-title { color: #fff; }
+    .move-card.rust .move-title { color: #fff; }
+    .move-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; position: relative; }
+    .move-bullets li {
+      font-size: 12px; line-height: 1.5; padding-left: 14px; position: relative;
+    }
+    .move-bullets li::before { content: '—'; position: absolute; left: 0; font-size: 10px; }
+    .move-card:not(.dark):not(.rust) .move-bullets li { color: rgba(20,20,20,0.5); }
+    .move-card:not(.dark):not(.rust) .move-bullets li::before { color: #C4622D; }
+    .move-card.dark .move-bullets li { color: rgba(255,255,255,0.35); }
+    .move-card.dark .move-bullets li::before { color: #C4622D; }
+    .move-card.rust .move-bullets li { color: rgba(255,255,255,0.65); }
+    .move-card.rust .move-bullets li::before { color: rgba(255,255,255,0.5); }
+    .move-tag {
+      display: inline-flex; margin-top: 18px; font-size: 10px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; padding: 4px 12px; border-radius: 100px; position: relative;
+    }
+    .move-card:not(.dark):not(.rust) .move-tag { background: rgba(196,98,45,0.1); color: #C4622D; }
+    .move-card.dark .move-tag { background: rgba(196,98,45,0.2); color: #E07A46; }
+    .move-card.rust .move-tag { background: rgba(255,255,255,0.15); color: #fff; }
+
+    /* ── FILM STRIP ── */
+    .film-strip { margin: 40px 0; }
+    .film-label {
+      font-family: 'Caveat', cursive; font-size: 15px; font-weight: 600;
+      color: rgba(20,20,20,0.3); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .film-label::before { content: '▶'; font-size: 10px; color: #C4622D; }
+    .film-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .film-frame {
+      border-radius: 12px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(20,20,20,0.12); position: relative;
+      background: #141414;
+    }
+    .film-frame img { width: 100%; height: auto; display: block; }
+    .film-frame::after {
+      content: ''; position: absolute; inset: 0;
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; pointer-events: none;
+    }
+
+    /* ── STAT LIST ── */
+    .stat-list { margin: 20px 0; }
+    .stat-row { display: flex; align-items: baseline; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(20,20,20,0.07); }
+    .stat-row-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(20,20,20,0.3); min-width: 180px; flex-shrink: 0; }
+    .stat-row-n { font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 60px); font-weight: 800; line-height: 1; letter-spacing: -.04em; color: #141414; flex-shrink: 0; }
+    .stat-row-note { font-family: 'Caveat', cursive; font-size: 16px; color: rgba(20,20,20,0.3); }
+
+    /* ── WHY IT WORKED ── */
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 28px 0; }
+    .why-card { border-radius: 18px; padding: 28px 22px; }
+    .why-card:nth-child(1) { background: #141414; }
+    .why-card:nth-child(2) { background: #EDE8DF; border: 1px solid rgba(20,20,20,0.08); }
+    .why-card:nth-child(3) { background: #C4622D; }
+    .why-card:nth-child(4) { background: #EDE8DF; border: 1px solid rgba(20,20,20,0.08); }
+    .why-n { font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800; line-height: 1; margin-bottom: 12px; }
+    .why-card:nth-child(1) .why-n { color: rgba(255,255,255,0.06); }
+    .why-card:nth-child(2) .why-n { color: rgba(20,20,20,0.06); }
+    .why-card:nth-child(3) .why-n { color: rgba(255,255,255,0.15); }
+    .why-card:nth-child(4) .why-n { color: rgba(20,20,20,0.06); }
+    .why-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 800; line-height: 1.25; margin-bottom: 8px; }
+    .why-card:nth-child(1) .why-title { color: #fff; }
+    .why-card:nth-child(2) .why-title { color: #141414; }
+    .why-card:nth-child(3) .why-title { color: #fff; }
+    .why-card:nth-child(4) .why-title { color: #141414; }
+    .why-desc { font-size: 12px; line-height: 1.7; }
+    .why-card:nth-child(1) .why-desc { color: rgba(255,255,255,0.35); }
+    .why-card:nth-child(2) .why-desc { color: rgba(20,20,20,0.45); }
+    .why-card:nth-child(3) .why-desc { color: rgba(255,255,255,0.6); }
+    .why-card:nth-child(4) .why-desc { color: rgba(20,20,20,0.45); }
+
+    /* ── TAKEAWAY ── */
+    .takeaway { background: #141414; border-radius: 24px; padding: 56px 48px; position: relative; overflow: hidden; margin: 28px 0; }
+    .takeaway::before { content: '✦'; position: absolute; right: 32px; bottom: -20px; font-size: 160px; color: rgba(255,255,255,0.03); pointer-events: none; line-height: 1; }
+    .takeaway-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(26px, 4vw, 48px); font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 24px; }
+    .takeaway-big em { color: #C4622D; }
+    .takeaway-sub { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.35); max-width: 520px; }
+    .rule { margin-top: 32px; padding: 20px 24px; border-left: 3px solid #C4622D; background: rgba(255,255,255,0.03); border-radius: 0 12px 12px 0; }
+    .rule-text { font-family: 'Syne', sans-serif; font-size: clamp(13px, 1.6vw, 17px); font-weight: 700; color: rgba(255,255,255,0.6); line-height: 1.45; }
+
+    /* ── FOOTER ── */
+    .foot { padding: 80px 32px; text-align: center; }
+    .foot-h { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: #141414; margin-bottom: 10px; }
+    .foot-h em { color: #C4622D; }
+    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
+    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fbtn { padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all .2s; }
+    .fbtn-fill { background: #C4622D; color: #fff; }
+    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
+    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
+    .fbtn-line:hover { color: #141414; border-color: rgba(20,20,20,0.35); }
+    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
+
+    @keyframes up { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;} }
+
+    @media (max-width: 760px) {
+      .back { top: 16px; left: 20px; }
+      header { padding: 80px 24px 0; }
+      .body-wrap { padding: 0 20px; }
+      .dark-band { padding: 52px 24px; margin: 52px 0; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .move-grid { grid-template-columns: 1fr; }
+      .film-row { grid-template-columns: 1fr; gap: 8px; }
+      .stat-row { flex-wrap: wrap; gap: 8px; }
+      .stat-row-label { min-width: 100%; }
+      .fbar { grid-template-columns: 44px 1fr 64px; }
+      .takeaway { padding: 40px 28px; }
+      .foot { padding: 60px 20px; }
+    }
+    @media (max-width: 480px) {
+      .why-grid { grid-template-columns: 1fr; }
+    }
+  
+    /* ── MOBILE NAV BAR ── */
+    .mob-nav { display: none; }
+    @media(max-width: 768px) {
+      .mob-nav {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 500;
+        background: rgba(250,248,244,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(20,20,20,0.08);
+        padding: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px; font-weight: 800;
+        letter-spacing: -.02em; color: #141414;
+        text-decoration: none;
+      }
+      .mob-nav-home {
+        display: flex; align-items: center; gap: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px; font-weight: 600;
+        color: rgba(20,20,20,0.5);
+        text-decoration: none;
+        padding: 7px 14px;
+        border: 1px solid rgba(20,20,20,0.12);
+        border-radius: 100px;
+        transition: all .2s;
+      }
+      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
+      .back { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+<nav class="mob-nav">
+  <a href="index.html" class="mob-nav-logo">VK.</a>
+  <a href="index.html" class="mob-nav-home">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </a>
+</nav>
+
+<div id="bar"></div>
+<a href="index.html#work" class="back">← back</a>
+
+<header>
+  <h1 class="h-title">
+    Selling <b>B2B</b><br>
+    Like It's B2C
+  </h1>
+  <div class="h-meta">B2B Performance Marketing · Meta UGC · India · Cross-Channel Funnel</div>
+  <p class="h-intro">
+    LinkedIn was doing all the work, including the work it's terrible at. <em>Meta fixed that.</em>
+  </p>
+  <div style="display:inline-flex; align-items:center; gap:10px; margin-top:24px; padding:12px 24px; background:#fff; border:1px solid rgba(20,20,20,0.08); border-radius:100px;">
+    <span style="font-family:'Syne',sans-serif; font-size:22px; font-weight:800; color:#141414;">₹0</span>
+    <span style="font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(20,20,20,0.35);">Production cost · full in-house UGC</span>
+  </div>
+</header>
+
+<div class="body-wrap">
+  <div class="div"></div>
+
+  <!-- CONTEXT -->
+  <div class="slabel r">Context</div>
+  <div class="narrative-big r r1">
+    LinkedIn works.<br>
+    But it's paying<br>
+    <span class="hl">premium to meet strangers.</span>
+  </div>
+  <p class="body-text r r2">Volopay is reliant on LinkedIn for lead generation. It worked, but we were paying premium LinkedIn CPMs to introduce the brand to cold audiences. That's the most wasteful thing you can do with a limited budget.</p>
+  <p class="body-text r r3">The question wasn't how to replace LinkedIn. It was <strong>how to make LinkedIn spend only on people already primed to convert.</strong> Meta could warm audiences at a fraction of the cost and hand them back to LinkedIn and Google to close.</p>
+
+  <div class="div"></div>
+</div>
+
+<!-- PROBLEM, dark band -->
+<div class="dark-band" data-char="B">
+  <div class="dark-band-inner">
+    <div class="slabel r">The Problem</div>
+    <div class="dark-band-title r r1">
+      Using a closing channel<br>
+      <em>to do awareness work.</em>
+    </div>
+    <p class="dark-band-body r r2">LinkedIn CPL was the bottleneck, not because LinkedIn doesn't work, but because it was carrying the entire funnel alone. Awareness, consideration, and conversion all running through the same expensive channel. In India's B2B market, where Meta penetration is massive and LinkedIn costs keep rising, that's a structural problem.</p>
+    <div class="pain-row r r3">
+      <span class="pain-pill lit">LinkedIn CPL too high for cold outreach</span>
+      <span class="pain-pill lit">No warm audience layer</span>
+      <span class="pain-pill lit">Polished creative not converting</span>
+      <span class="pain-pill">No Meta B2B playbook</span>
+      <span class="pain-pill">Scale ceiling</span>
+    </div>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <div class="slabel r">The Insight</div>
+  <div class="pull r r1">
+    <div class="pull-text">Meta expands the top of funnel cheaply.<br>LinkedIn and Google close it efficiently.<br><em>That's the architecture.</em></div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- THE EXECUTION, 2×2 move grid -->
+  <div class="slabel r">The Execution</div>
+  <div class="narrative-big r r1" style="font-size: clamp(22px, 3vw, 36px);">
+    Four moves.<br>
+    <span class="hi">One compounding funnel.</span>
+  </div>
+
+  <div class="move-grid r r2">
+    <div class="move-card dark">
+      <div class="move-n">01</div>
+      <div class="move-title">Authenticity<br>over production value</div>
+      <ul class="move-bullets">
+        <li>Real people, not actors</li>
+        <li>Authentic over produced</li>
+        <li>Use cases, success stories, problem-solution</li>
+      </ul>
+      <div class="move-tag">Zero agency cost</div>
+    </div>
+    <div class="move-card">
+      <div class="move-n">02</div>
+      <div class="move-title">Local creative,<br>not localised</div>
+      <ul class="move-bullets">
+        <li>Indian buyer tone from scratch</li>
+        <li>Local pain points, not global brief</li>
+        <li>Higher watch time from day one</li>
+      </ul>
+      <div class="move-tag">India-first creative</div>
+    </div>
+    <div class="move-card">
+      <div class="move-n">03</div>
+      <div class="move-title">Warm the audience<br>before the ask</div>
+      <ul class="move-bullets">
+        <li>25% view → social proof</li>
+        <li>50% view → use case specifics</li>
+        <li>75% view → direct CTA</li>
+      </ul>
+      <div class="move-tag">Warm before convert</div>
+    </div>
+    <div class="move-card rust">
+      <div class="move-n">04</div>
+      <div class="move-title">Meta warms.<br>LinkedIn and Google close.</div>
+      <ul class="move-bullets">
+        <li>Meta visitors → LinkedIn Matched Audiences</li>
+        <li>Meta visitors → Google Remarketing lists</li>
+        <li>LinkedIn + Google close warm, not cold</li>
+      </ul>
+      <div class="move-tag">The real unlock</div>
+    </div>
+  </div>
+
+  <!-- VIDEO FILMSTRIP -->
+  <div class="film-strip r r1">
+    <div class="film-label">From the campaign</div>
+    <div class="film-row">
+      <div class="film-frame"><img src="images/meta-ugc-01.png" alt="UGC campaign frame 1"></div>
+      <div class="film-frame"><img src="images/meta-ugc-02.png" alt="UGC campaign frame 2"></div>
+      <div class="film-frame"><img src="images/meta-ugc-03.png" alt="UGC campaign frame 3"></div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- RETARGETING FUNNEL VISUAL -->
+  <div class="slabel r">How the Funnel Flows</div>
+  <div class="narrative-big r r1" style="font-size: clamp(18px, 2.5vw, 28px); margin-bottom: 32px;">
+    Meta warms.<br>
+    <span class="hi">LinkedIn and Google close.</span>
+  </div>
+
+  <div class="funnel-bars r r2">
+    <div class="fbar">
+      <div class="fbar-label">Meta</div>
+      <div class="fbar-track">
+        <div class="fbar-fill" style="width:100%; background: rgba(20,20,20,0.1);">
+          <span style="color:rgba(20,20,20,0.5);">Cold audiences → UGC awareness → warm by video completion</span>
+        </div>
+      </div>
+      <div class="fbar-note">2× cheaper CPL</div>
+    </div>
+    <div class="fbar">
+      <div class="fbar-label">LinkedIn</div>
+      <div class="fbar-track">
+        <div class="fbar-fill" style="width:62%; background: rgba(196,98,45,0.35);">
+          <span style="color:rgba(20,20,20,0.65);">Matched Audiences only, proof-based, demo CTA</span>
+        </div>
+      </div>
+      <div class="fbar-note">CPL −25–30%</div>
+    </div>
+    <div class="fbar">
+      <div class="fbar-label">Google</div>
+      <div class="fbar-track">
+        <div class="fbar-fill" style="width:42%; background: #C4622D;">
+          <span>Warm visitors at search intent. Brand already familiar.</span>
+        </div>
+      </div>
+      <div class="fbar-note">Higher CVR</div>
+    </div>
+  </div>
+
+  <!-- FB DASHBOARD -->
+  <div class="film-strip r r2" style="margin-top: 28px;">
+    <div class="film-label">Meta Ads Manager, campaign view</div>
+    <div class="film-frame" style="border-radius: 16px; box-shadow: 0 12px 40px rgba(20,20,20,0.14);">
+      <img src="images/meta-ugc-volopay-screenshot.png" alt="Meta Ads Manager dashboard">
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- RESULTS -->
+  <div class="slabel r">Results</div>
+  <div class="stat-list r r1">
+    <div class="stat-row">
+      <div class="stat-row-label">Meta CPL vs LinkedIn</div>
+      <div class="stat-row-n" style="color:#C4622D;">2×</div>
+      <div class="stat-row-note">lower cost per lead on Meta</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-row-label">LinkedIn CPL drop</div>
+      <div class="stat-row-n">25%</div>
+      <div class="stat-row-note">after bringing Meta into the funnel</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-row-label">Meta standalone CVR</div>
+      <div class="stat-row-n" style="color:#C4622D;">7%</div>
+      <div class="stat-row-note">by design. Its job was to warm, not close</div>
+    </div>
+    <div class="stat-row" style="border-bottom:none;">
+      <div class="stat-row-label">Production Cost</div>
+      <div class="stat-row-n" style="font-size:clamp(22px,3vw,38px); letter-spacing:-.02em;">₹0</div>
+      <div class="stat-row-note">full in-house UGC, zero agency spend</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- WHY IT WORKED -->
+  <div class="slabel r">Why It Worked</div>
+  <div class="narrative-big r r1" style="font-size: clamp(20px, 2.8vw, 32px);">
+    Four structural reasons<br>
+    it <span class="hi">outperformed expectations.</span>
+  </div>
+
+  <div class="why-grid r r2">
+    <div class="why-card">
+      <div class="why-n">01</div>
+      <div class="why-title">Channel Arbitrage</div>
+      <div class="why-desc">No B2B competitor was running UGC on Meta in India. Zero competition = lower CPMs, cheaper leads, more budget to test with.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-n">02</div>
+      <div class="why-title">Right Channel, Right Job</div>
+      <div class="why-desc">Meta handles awareness at 2× lower cost. LinkedIn and Google close warm audiences efficiently. Each channel doing what it's actually built for.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-n">03</div>
+      <div class="why-title">Built for India</div>
+      <div class="why-desc">Creative was conceived with the Indian B2B buyer in mind, not localised from a global brief. That showed up in watch time and engagement from day one.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-n">04</div>
+      <div class="why-title">Authenticity as Performance</div>
+      <div class="why-desc">UGC looked like content, not advertising. In a feed full of branded video, that single distinction drove higher watch time and lower cost-per-view.</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <!-- TAKEAWAY -->
+  <div class="takeaway r">
+    <div class="takeaway-big">
+      The problem was never<br>
+      LinkedIn. It was using<br>
+      <em>a closer to do introductions.</em>
+    </div>
+    <p class="takeaway-sub">Meta handled awareness at a fraction of the cost. LinkedIn and Google closed efficiently against audiences that already knew the brand. The budget allocation finally matched the actual job each channel was doing, and every channel got cheaper as a result.</p>
+    <div class="rule">
+      <div class="rule-text">In India's B2B market, this funnel architecture isn't an experiment anymore. It's a playbook.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot r">
+    <div class="foot-h">Looking for a PMM who<br>builds <em>the full funnel?</em></div>
+    <div class="foot-sub">Open to full-time PMM and Growth Marketing roles.</div>
+    <div class="foot-btns">
+      <a href="mailto:vinayavk8@gmail.com" class="fbtn fbtn-fill">Get in touch →</a>
+      <a href="index.html#work" class="fbtn fbtn-line">← More Case Studies</a>
+    </div>
+    <div class="foot-credits">Vinay Kumar · B2B Performance Marketing · India</div>
+  </div>
+
+</div>
+
+<script>
+window.addEventListener('scroll', () => {
+  const d = document.documentElement;
+  document.getElementById('bar').style.width = (d.scrollTop / (d.scrollHeight - d.clientHeight) * 100) + '%';
+}, { passive: true });
+
+const obs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); }
+}), { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
