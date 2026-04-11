@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jungle Sturmfrei — Vinay Kumar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FAF8F4;
+      color: #141414;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CURSOR ── */
+    #cursor { width:10px;height:10px;background:#C4622D;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s; }
+    #cursor-ring { width:36px;height:36px;border:1.5px solid rgba(196,98,45,.45);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease-out; }
+    body:has(a:hover) #cursor,body:has(button:hover) #cursor { width:18px;height:18px; }
+    body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring { width:56px;height:56px;border-color:#C4622D; }
+
+    ::-webkit-scrollbar { width:2px; }
+    ::-webkit-scrollbar-thumb { background:#C4622D; }
+
+    #bar { position:fixed;top:0;left:0;height:2px;background:#C4622D;z-index:9990;width:0; }
+
+    /* ── BACK ── */
+    .back {
+      position:fixed;top:24px;left:32px;z-index:100;
+      font-family:'Caveat',cursive;font-size:17px;font-weight:600;
+      color:rgba(20,20,20,.35);text-decoration:none;
+      display:flex;align-items:center;gap:6px;transition:color .2s;
+    }
+    .back:hover { color:#C4622D; }
+
+    /* ── REVEAL ── */
+    .r { opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease; }
+    .r.on { opacity:1;transform:none; }
+    .r1{transition-delay:.07s}.r2{transition-delay:.15s}.r3{transition-delay:.23s}.r4{transition-delay:.31s}
+
+    /* ════════════════════════════
+       HEADER
+    ════════════════════════════ */
+    header {
+      padding:96px 24px 0;
+      max-width:760px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .h-tags {
+      display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
+      margin-bottom:24px;
+    }
+    .h-tag {
+      font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      padding:5px 14px;border-radius:100px;
+      color:#C4622D;border:1.5px solid rgba(196,98,45,.28);background:rgba(196,98,45,.07);
+    }
+    .h-tag.gray { color:rgba(20,20,20,.4);border-color:rgba(20,20,20,.14);background:transparent; }
+
+    .h-title {
+      font-family:'Playfair Display',serif;font-style:italic;
+      font-size:clamp(40px,7vw,86px);font-weight:700;line-height:1.04;letter-spacing:-.02em;
+      color:#141414;
+    }
+    .h-title b {
+      font-family:'Syne',sans-serif;font-style:normal;font-weight:800;color:#C4622D;
+    }
+    .h-meta {
+      font-size:13px;color:rgba(20,20,20,.35);margin-top:14px;letter-spacing:.02em;
+    }
+
+    /* ════════════════════════════
+       HERO IMAGE MOSAIC
+    ════════════════════════════ */
+    .mosaic {
+      margin:52px auto 0;
+      max-width:1100px;
+      padding:0 24px;
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1fr;
+      grid-template-rows:280px 220px;
+      gap:10px;
+    }
+    @media(max-width:700px) {
+      .mosaic { grid-template-columns:1fr 1fr;grid-template-rows:200px 160px 160px; }
+    }
+
+    .mosaic-img {
+      border-radius:16px;overflow:hidden;background:#EDE8DF;
+      display:flex;align-items:center;justify-content:center;
+      position:relative;
+    }
+    .mosaic-img img {
+      width:100%;height:100%;object-fit:cover;display:block;
+    }
+    .mosaic-img.span2 { grid-row:span 2; }
+    .mosaic-img .overlay-label {
+      position:absolute;bottom:12px;left:14px;
+      font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      color:rgba(255,255,255,.75);
+      background:rgba(0,0,0,.28);
+      backdrop-filter:blur(6px);
+      padding:4px 10px;border-radius:100px;
+    }
+
+    /* ════════════════════════════
+       STATS ROW
+    ════════════════════════════ */
+    .stats-row {
+      display:flex;gap:0;
+      border:1px solid rgba(20,20,20,.09);
+      border-radius:20px;overflow:hidden;
+      max-width:760px;margin:52px auto 0;
+    }
+    .stat-cell {
+      flex:1;padding:28px 24px;text-align:center;
+      border-right:1px solid rgba(20,20,20,.09);
+    }
+    .stat-cell:last-child { border-right:none; }
+    .stat-n {
+      font-family:'Syne',sans-serif;font-size:clamp(24px,3.5vw,36px);
+      font-weight:800;letter-spacing:-.03em;color:#C4622D;
+      display:block;
+    }
+    .stat-arrow {
+      font-family:'Syne',sans-serif;font-size:13px;font-weight:700;
+      color:rgba(20,20,20,.3);margin:0 4px;
+    }
+    .stat-l {
+      font-size:11px;color:rgba(20,20,20,.4);margin-top:4px;font-weight:500;
+    }
+
+    /* ════════════════════════════
+       CONTENT BODY
+    ════════════════════════════ */
+    .body-wrap {
+      max-width:660px;margin:0 auto;padding:72px 24px 0;
+    }
+
+    .section-kicker {
+      font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+      color:#C4622D;margin-bottom:10px;display:block;
+    }
+    .section-h {
+      font-family:'Syne',sans-serif;font-size:clamp(20px,2.5vw,28px);
+      font-weight:800;letter-spacing:-.03em;margin-bottom:14px;
+    }
+    .body-p {
+      font-size:15px;color:rgba(20,20,20,.55);line-height:1.8;
+    }
+    .body-p + .body-p { margin-top:14px; }
+
+    /* ── inline image ── */
+    .inline-img {
+      width:100%;border-radius:16px;overflow:hidden;
+      margin:36px 0;background:#EDE8DF;
+      aspect-ratio:4/3;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .inline-img img { width:100%;height:100%;object-fit:cover;display:block; }
+
+    /* ── 2-col image row ── */
+    .img-row {
+      display:grid;grid-template-columns:1fr 1fr;gap:10px;
+      margin:36px 0;
+    }
+    .img-row .inline-img { margin:0; }
+
+    /* ── callout quote ── */
+    .callout {
+      background:rgba(196,98,45,.07);border-left:3px solid #C4622D;
+      border-radius:0 12px 12px 0;
+      padding:18px 22px;margin:32px 0;
+    }
+    .callout p {
+      font-family:'Caveat',cursive;font-size:20px;font-weight:600;
+      color:#141414;line-height:1.4;
+    }
+
+    /* ── what I did chips ── */
+    .chips {
+      display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;margin-bottom:28px;
+    }
+    .chip {
+      font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      padding:5px 14px;border-radius:100px;
+      background:rgba(20,20,20,.05);color:rgba(20,20,20,.5);
+      border:1px solid rgba(20,20,20,.09);
+    }
+
+    /* ════════════════════════════
+       FOOTER NAV
+    ════════════════════════════ */
+    .foot {
+      max-width:660px;margin:80px auto 0;padding:0 24px 80px;
+      display:flex;justify-content:space-between;align-items:center;
+      border-top:1px solid rgba(20,20,20,.08);padding-top:36px;
+      flex-wrap:wrap;gap:16px;
+    }
+    .foot-back {
+      font-family:'Syne',sans-serif;font-size:13px;font-weight:700;
+      color:rgba(20,20,20,.35);text-decoration:none;
+      display:flex;align-items:center;gap:6px;transition:color .2s;
+    }
+    .foot-back:hover { color:#C4622D; }
+    .foot-note {
+      font-size:12px;color:rgba(20,20,20,.25);
+    }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+  <div id="bar"></div>
+
+  <a href="index.html" class="back">← back</a>
+
+  <!-- ════ HEADER ════ -->
+  <header>
+    <div class="h-tags r">
+      <span class="h-tag">Social Media</span>
+      <span class="h-tag">Graphic Design</span>
+      <span class="h-tag">Paid Ads</span>
+      <span class="h-tag gray">Delhi · 25 days</span>
+    </div>
+    <h1 class="h-title r r1">
+      Jungle<br>
+      <b>Sturmfrei</b>
+    </h1>
+    <p class="h-meta r r2">Social media · Space design · Paid marketing · Events</p>
+  </header>
+
+  <!-- ════ MOSAIC ════ -->
+  <!--
+    IMAGES NEEDED — drop into images/ folder:
+    img1.jpg → laptop/social work photo (vertical, tall)
+    img2.jpg → colorful design boards / office murals
+    img3.jpg → group outdoor evening photo
+    img4.jpg → Instagram feed screenshot
+    img5.jpg → event/karaoke night photo
+  -->
+  <div class="mosaic r r1">
+    <div class="mosaic-img span2">
+      <img src="images/img2.jpg" alt="Jungle Sturmfrei office design boards" onerror="this.parentNode.style.background='#E0D8C8'"/>
+      <span class="overlay-label">Office Design</span>
+    </div>
+    <div class="mosaic-img">
+      <img src="images/img1.jpg" alt="Social media work" onerror="this.parentNode.style.background='#D8E0C8'"/>
+      <span class="overlay-label">Content</span>
+    </div>
+    <div class="mosaic-img">
+      <img src="images/img4.jpg" alt="Instagram feed" onerror="this.parentNode.style.background='#C8D8E0'"/>
+      <span class="overlay-label">Feed Growth</span>
+    </div>
+    <div class="mosaic-img">
+      <img src="images/img3.jpg" alt="Community event" onerror="this.parentNode.style.background='#E0C8C8'"/>
+      <span class="overlay-label">Community</span>
+    </div>
+    <div class="mosaic-img">
+      <img src="images/img5.jpg" alt="Events" onerror="this.parentNode.style.background='#C8E0D8'"/>
+      <span class="overlay-label">Events</span>
+    </div>
+  </div>
+
+  <!-- ════ STATS ════ -->
+  <div class="stats-row r r2">
+    <div class="stat-cell">
+      <span class="stat-n">
+        4K<span class="stat-arrow">→</span>7.1K
+      </span>
+      <div class="stat-l">Instagram followers</div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-n">
+        42<span class="stat-arrow">→</span>76%
+      </span>
+      <div class="stat-l">Avg. occupancy</div>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-n">25</span>
+      <div class="stat-l">Days on property</div>
+    </div>
+  </div>
+
+  <!-- ════ BODY ════ -->
+  <div class="body-wrap">
+
+    <!-- What I did -->
+    <div class="r r1">
+      <span class="section-kicker">The work</span>
+      <h2 class="section-h">What I actually did</h2>
+      <div class="chips">
+        <span class="chip">Content Planning</span>
+        <span class="chip">Graphic Design</span>
+        <span class="chip">Video Shoots</span>
+        <span class="chip">Paid Ads</span>
+        <span class="chip">Office Space Design</span>
+        <span class="chip">Event Organizing</span>
+      </div>
+      <p class="body-p">
+        Joined Jungle Sturmfrei's social media team as a graphic designer and content planner.
+        Shot and edited short-form videos, designed all social creatives, and built a posting
+        system that kept the feed consistent without the grind.
+      </p>
+      <p class="body-p">
+        Beyond digital — I helped design their Delhi office space. Mood boards, wall art direction,
+        signage, and visual identity for the physical space. The kind of work that blurs the
+        line between brand and place.
+      </p>
+    </div>
+
+    <div class="inline-img r r2">
+      <img src="images/img2.jpg" alt="Office design boards" onerror="this.parentNode.style.background='#E0D8C8'"/>
+    </div>
+
+    <!-- Growth -->
+    <div class="r r1">
+      <span class="section-kicker">Growth</span>
+      <h2 class="section-h">4,000 to 7,100 followers</h2>
+      <p class="body-p">
+        Grew the Instagram from 4K to 7.1K through consistent original content — no gimmicks.
+        A mix of reels, event recaps, and community moments that actually reflected what the
+        place felt like to be in.
+      </p>
+    </div>
+
+    <div class="callout r r2">
+      <p>"Best People Best Times" — not just a caption. That's the entire content strategy.</p>
+    </div>
+
+    <div class="inline-img r r2">
+      <img src="images/img4.jpg" alt="Instagram feed" onerror="this.parentNode.style.background='#C8D8E0'"/>
+    </div>
+
+    <!-- Paid -->
+    <div class="r r1">
+      <span class="section-kicker">Paid Marketing</span>
+      <h2 class="section-h">42% to 76% occupancy</h2>
+      <p class="body-p">
+        Ran paid campaigns for three months — lead gen and occupancy. Targeted the right traveler
+        profile, kept CPL tight, and backed it up with creative that didn't look like an ad.
+        Occupancy climbed from 42% to 76% over the campaign window.
+      </p>
+    </div>
+
+    <!-- Events -->
+    <div class="r r1" style="margin-top:52px;">
+      <span class="section-kicker">Community</span>
+      <h2 class="section-h">Part of organizing events</h2>
+      <p class="body-p">
+        Stayed on property for 25 days. Was part of the team that put together community
+        nights, music sessions, and guest events. Shot and posted everything in real time.
+      </p>
+    </div>
+
+    <div class="img-row r r2">
+      <div class="inline-img" style="margin:0;aspect-ratio:3/4;">
+        <img src="images/img3.jpg" alt="Community" onerror="this.parentNode.style.background='#E0C8C8'"/>
+      </div>
+      <div class="inline-img" style="margin:0;aspect-ratio:3/4;">
+        <img src="images/img5.jpg" alt="Events" onerror="this.parentNode.style.background='#C8E0D8'"/>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ════ FOOTER NAV ════ -->
+  <div class="foot">
+    <a href="index.html" class="foot-back">← Back to pitch</a>
+    <span class="foot-note">Jungle Sturmfrei · Delhi · 2024</span>
+  </div>
+
+  <script>
+    // Cursor
+    const cur = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    (function tick(){
+      rx+=(mx-rx)*.14;ry+=(my-ry)*.14;
+      cur.style.left=mx+'px';cur.style.top=my+'px';
+      ring.style.left=rx+'px';ring.style.top=ry+'px';
+      requestAnimationFrame(tick);
+    })();
+    // Progress bar
+    const bar=document.getElementById('bar');
+    window.addEventListener('scroll',()=>{
+      bar.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';
+    });
+    // Reveal
+    const obs=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+    },{threshold:.1});
+    document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+  </script>
+</body>
+</html>
