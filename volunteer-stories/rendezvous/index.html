@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Design Work. Vinay Kumar</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root { --rust: #C4622D; --black: #141414; --cream: #FAF8F4; --border: rgba(20,20,20,0.08); }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--black); overflow-x: hidden; }
+    body::after { content: ''; position: fixed; inset: 0; opacity: .03; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 128px; z-index: 998; }
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: var(--rust); }
+    #bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--rust); z-index: 999; width: 0; }
+    .skip-link { position: fixed; top: -100%; left: 16px; background: var(--rust); color: #fff; padding: 8px 18px; border-radius: 0 0 10px 10px; font-size: 13px; font-weight: 700; text-decoration: none; z-index: 999; transition: top .2s; }
+    .skip-link:focus { top: 0; }
+    .back { position: fixed; top: 24px; left: 32px; z-index: 200; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: rgba(20,20,20,0.35); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+    .back:hover { color: var(--rust); }
+    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .r.on { opacity: 1; transform: none; }
+    .r1 { transition-delay: .08s; } .r2 { transition-delay: .16s; } .r3 { transition-delay: .24s; }
+    @keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+
+    /* HEADER */
+    header { padding: 120px 40px 16px; max-width: 800px; margin: 0 auto; text-align: center; }
+    .h-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; animation: up .5s .1s both; }
+    .h-tag { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; color: var(--rust); border: 1.5px solid rgba(196,98,45,0.3); background: rgba(196,98,45,0.06); }
+    .h-tag.gray { color: rgba(20,20,20,0.4); border-color: rgba(20,20,20,0.15); background: transparent; }
+    .h-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(38px, 6vw, 80px); font-weight: 700; line-height: 1.18; letter-spacing: -.02em; color: var(--black); text-wrap: balance; animation: up .7s .2s both; }
+    .h-title .hl { background: var(--rust); color: #fff; padding: 4px 14px 8px; border-radius: 8px; display: inline-block; line-height: 1.1; }
+    .h-sub { font-size: 16px; line-height: 1.75; color: rgba(20,20,20,0.5); max-width: 580px; margin: 20px auto 0; animation: up .5s .35s both; }
+
+    /* LAYOUT */
+    .body-wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
+    .slabel { font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: var(--rust); display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .slabel::before { content: ''; width: 18px; height: 2px; background: var(--rust); display: block; flex-shrink: 0; }
+    .narrative-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(24px, 3.5vw, 40px); font-weight: 700; line-height: 1.2; color: var(--black); margin-bottom: 16px; text-wrap: balance; }
+    .narrative-big .hi { color: var(--rust); }
+    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
+    .body-text strong { color: var(--black); font-weight: 600; }
+
+    /* CONTEXT BAND */
+    .context-band { background: var(--black); border-radius: 20px; padding: 40px 48px; margin-bottom: 72px; display: flex; gap: 48px; align-items: flex-start; }
+    .context-band-text { flex: 1; }
+    .context-band-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(20px, 2.5vw, 28px); font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 12px; }
+    .context-band-title em { color: #E07A46; }
+    .context-band-body { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.4); }
+    .context-stat { flex-shrink: 0; text-align: right; }
+    .context-stat-n { font-family: 'Syne', sans-serif; font-size: 52px; font-weight: 800; color: var(--rust); line-height: 1; letter-spacing: -.04em; }
+    .context-stat-l { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 4px; }
+
+    /* COMPARISON */
+    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    .comp-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #1e1e1e; }
+    .comp-browser-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); background: #1e1e1e; }
+    .comp-browser-dots { display: flex; gap: 5px; }
+    .comp-browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .comp-browser-dot:nth-child(1) { background: #ff5f57; }
+    .comp-browser-dot:nth-child(2) { background: #febc2e; }
+    .comp-browser-dot:nth-child(3) { background: #28c840; }
+    .comp-browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Inter', sans-serif; }
+    .comp-scroll { height: 420px; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: rgba(196,98,45,0.4) transparent; }
+    .comp-scroll::-webkit-scrollbar { width: 4px; }
+    .comp-scroll::-webkit-scrollbar-thumb { background: rgba(196,98,45,0.4); border-radius: 4px; }
+    .comp-img { width: 100%; display: block; }
+    .comp-label { padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); background: #fff; }
+    .comp-label-text { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--black); }
+    .comp-badge { font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
+    .comp-badge.old { background: rgba(20,20,20,0.07); color: rgba(20,20,20,0.4); }
+    .comp-badge.new { background: var(--rust); color: #fff; }
+
+    /* ANNOTATION LIST */
+    .annotations { display: flex; flex-direction: column; gap: 0; margin: 24px 0 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: #fff; }
+    .ann { display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .ann:last-child { border-bottom: none; }
+    .ann-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .ann-body { flex: 1; }
+    .ann-title { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800; color: var(--black); margin-bottom: 3px; }
+    .ann-desc { font-size: 12px; color: rgba(20,20,20,0.45); line-height: 1.65; }
+
+    /* AD VARIANTS GRID */
+    .variants-intro { margin-bottom: 24px; }
+    .variants-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 0; }
+    .variant-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #fff; }
+    .variant-img { width: 100%; display: block; object-fit: cover; }
+    .variant-label { padding: 14px 18px; border-top: 1px solid var(--border); }
+    .variant-hyp { font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--rust); margin-bottom: 4px; }
+    .variant-text { font-size: 12px; color: rgba(20,20,20,0.5); line-height: 1.6; }
+    .variant-text strong { color: var(--black); }
+
+    /* LANDING PAGE */
+    .lp-wrap { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #fff; margin: 28px 0; }
+    .lp-browser { background: #1e1e1e; border-radius: 16px 16px 0 0; }
+    .lp-browser-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .lp-browser-dots { display: flex; gap: 5px; }
+    .lp-browser-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .lp-browser-dot:nth-child(1) { background: #ff5f57; }
+    .lp-browser-dot:nth-child(2) { background: #febc2e; }
+    .lp-browser-dot:nth-child(3) { background: #28c840; }
+    .lp-browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Inter', sans-serif; }
+    .lp-scroll { height: 520px; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: rgba(196,98,45,0.4) transparent; }
+    .lp-scroll::-webkit-scrollbar { width: 4px; }
+    .lp-scroll::-webkit-scrollbar-thumb { background: rgba(196,98,45,0.4); border-radius: 4px; }
+    .lp-img { width: 100%; display: block; }
+    .lp-annotations { padding: 24px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--border); }
+    .lp-ann { display: flex; gap: 14px; align-items: flex-start; }
+    .lp-ann-num { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; color: var(--rust); min-width: 20px; flex-shrink: 0; padding-top: 1px; }
+    .lp-ann-text { font-size: 13px; color: rgba(20,20,20,0.5); line-height: 1.65; }
+    .lp-ann-text strong { color: var(--black); font-weight: 600; }
+
+    /* FOOTER */
+    .foot { padding: 80px 32px; text-align: center; }
+    .foot-h { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: var(--black); margin-bottom: 10px; }
+    .foot-h em { color: var(--rust); }
+    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
+    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fbtn { padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all .2s; }
+    .fbtn:active { transform: scale(0.97); }
+    .fbtn-fill { background: var(--rust); color: #fff; }
+    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
+    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
+    .fbtn-line:hover { color: var(--black); border-color: rgba(20,20,20,0.35); }
+    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
+
+    @media (max-width: 700px) {
+      header { padding: 80px 24px 16px; }
+      .body-wrap { padding: 0 20px; }
+      .comparison, .variants-grid { grid-template-columns: 1fr; }
+      .context-band { flex-direction: column; gap: 20px; padding: 28px 24px; }
+      .context-stat { text-align: left; }
+      .back { left: 20px; top: 20px; }
+    }
+
+    /* ── MOBILE NAV BAR ── */
+    .mob-nav { display: none; }
+    @media(max-width: 768px) {
+      .mob-nav {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 500;
+        background: rgba(250,248,244,0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(20,20,20,0.08);
+        padding: 12px 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mob-nav-logo {
+        font-family: 'Syne', sans-serif;
+        font-size: 15px; font-weight: 800;
+        letter-spacing: -.02em; color: #141414;
+        text-decoration: none;
+      }
+      .mob-nav-home {
+        display: flex; align-items: center; gap: 6px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px; font-weight: 600;
+        color: rgba(20,20,20,0.5);
+        text-decoration: none;
+        padding: 7px 14px;
+        border: 1px solid rgba(20,20,20,0.12);
+        border-radius: 100px;
+        transition: all .2s;
+      }
+      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
+      .back { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+<nav class="mob-nav">
+  <a href="../index.html" class="mob-nav-logo">VK.</a>
+  <a href="../index.html" class="mob-nav-home">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Home
+  </a>
+</nav>
+
+
+<a href="#main" class="skip-link">Skip to content</a>
+<div id="bar" aria-hidden="true"></div>
+<a href="../index.html" class="back">← portfolio</a>
+
+<header>
+  <div class="h-tags r">
+    <span class="h-tag">Creative & Design</span>
+    <span class="h-tag gray">Landing Pages · Ads · Iterations</span>
+  </div>
+  <h1 class="h-title r r1">
+    Strategy is only half.<br>
+    The other half is <span class="hl">how it looks.</span>
+  </h1>
+  <p class="h-sub r r2">Before B2B, I designed for film. That's where the visual instinct came from, hierarchy, contrast, what the eye goes to first. Here's what it looks like applied to product marketing.</p>
+</header>
+
+<main id="main" class="body-wrap">
+
+  <div class="div"></div>
+
+  <!-- CONTEXT -->
+  <div class="context-band r">
+    <div class="context-band-text">
+      <div class="context-band-title">Film posters taught me one thing:<br><em>the eye decides before the brain does.</em></div>
+      <p class="context-band-body">Typography, contrast, where you place the subject, these aren't aesthetic preferences, they're conversion decisions. I brought that same thinking to landing pages and paid ads. The work below shows the iteration, not just the final output.</p>
+    </div>
+    <div class="context-stat">
+      <div class="context-stat-n">3+</div>
+      <div class="context-stat-l">yrs designing<br>for film & brands</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: VOLOPAY V1 → V2 -->
+  <section>
+    <div class="slabel r">Landing page iteration</div>
+    <div class="narrative-big r r1">
+      Volopay Corporate Cards, <span class="hi">what changed between V1 and V2.</span>
+    </div>
+    <p class="body-text r r2">The V1 was a standard feature-first layout, hero with a CTA, then a feature grid. It looked like every other fintech landing page. V2 was a deliberate rewrite: lead with the buyer's problem, make the product feel premium, anchor the page in dark.</p>
+
+    <div class="comparison r r3">
+      <div class="comp-card">
+        <div class="comp-browser-bar">
+          <div class="comp-browser-dots">
+            <div class="comp-browser-dot"></div>
+            <div class="comp-browser-dot"></div>
+            <div class="comp-browser-dot"></div>
+          </div>
+          <div class="comp-browser-url">volopay.com/corporate-cards</div>
+        </div>
+        <div class="comp-scroll">
+          <img src="C:\Users\vinay\Downloads\CC Ver 1 India.png" alt="Volopay CC V1" class="comp-img">
+        </div>
+        <div class="comp-label">
+          <span class="comp-label-text">Version 1</span>
+          <span class="comp-badge old">Original</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-browser-bar">
+          <div class="comp-browser-dots">
+            <div class="comp-browser-dot"></div>
+            <div class="comp-browser-dot"></div>
+            <div class="comp-browser-dot"></div>
+          </div>
+          <div class="comp-browser-url">volopay.com/corporate-cards</div>
+        </div>
+        <div class="comp-scroll">
+          <img src="C:\Users\vinay\Downloads\CC Ver 2 India.png" alt="Volopay CC V2" class="comp-img">
+        </div>
+        <div class="comp-label">
+          <span class="comp-label-text">Version 2</span>
+          <span class="comp-badge new">Redesign</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotations r">
+      <div class="ann">
+        <div class="ann-icon">→</div>
+        <div class="ann-body">
+          <div class="ann-title">Headline rewrite</div>
+          <div class="ann-desc">"The best corporate cards for all your business expenses" → problem-first framing. Generic superlatives don't convert CFOs, specific pain does.</div>
+        </div>
+      </div>
+      <div class="ann">
+        <div class="ann-icon">→</div>
+        <div class="ann-body">
+          <div class="ann-title">Dark treatment</div>
+          <div class="ann-desc">White backgrounds read as generic SaaS. The dark theme was a deliberate signal: this is a finance product for serious teams, not another startup tool.</div>
+        </div>
+      </div>
+      <div class="ann">
+        <div class="ann-icon">→</div>
+        <div class="ann-body">
+          <div class="ann-title">Product hero prominence</div>
+          <div class="ann-desc">V1 buried the product screenshot. V2 leads with it, buyers need to see the interface before they read the copy.</div>
+        </div>
+      </div>
+      <div class="ann">
+        <div class="ann-icon">→</div>
+        <div class="ann-body">
+          <div class="ann-title">Trust logos moved up</div>
+          <div class="ann-desc">Social proof belongs above the fold. Moved logos (MX Player, Invideo, Polygon, Antler) closer to the headline to reduce early skepticism.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- SECTION 2: INTERVIEWBUDDY AD VARIANTS -->
+  <section>
+    <div class="slabel r">Paid ad creative testing</div>
+    <div class="narrative-big r r1">
+      InterviewBuddy, <span class="hi">4 creative variants, one brief.</span>
+    </div>
+    <div class="variants-intro">
+      <p class="body-text r r2">Brief: drive signups for mock interview sessions. We ran 4 creative directions simultaneously to test which emotional angle resonated — fear of failure, social proof, outcome aspiration, or urgency. Each variant had the same offer and copy. The only variable was the emotional hook.</p>
+    </div>
+
+    <div class="variants-grid r r3">
+      <div class="variant-card">
+        <img src="C:\Users\vinay\Downloads\IB_Ad1_FearStakes_1200x628.png" alt="InterviewBuddy variant 1" class="variant-img">
+        <div class="variant-label">
+          <div class="variant-hyp">Hypothesis A</div>
+          <div class="variant-text"><strong>Fear + Stakes</strong>. Opens with the worst-case scenario. Tests whether naming the fear directly drives higher urgency than aspirational messaging.</div>
+        </div>
+      </div>
+      <div class="variant-card">
+        <img src="C:\Users\vinay\Downloads\IB_Ad2_SocialProof_1200x628.png" alt="InterviewBuddy variant 2" class="variant-img">
+        <div class="variant-label">
+          <div class="variant-hyp">Hypothesis B</div>
+          <div class="variant-text"><strong>Social proof</strong>. Peer validation as the hook. Tests whether "others like you succeeded" outperforms fear-based framing for this audience.</div>
+        </div>
+      </div>
+      <div class="variant-card">
+        <img src="C:\Users\vinay\Downloads\IB_Ad3_Outcome_1200x628.png" alt="InterviewBuddy variant 3" class="variant-img">
+        <div class="variant-label">
+          <div class="variant-hyp">Hypothesis C</div>
+          <div class="variant-text"><strong>Outcome-led</strong>. Leads with the result, not the product. Tests whether showing the destination converts better than highlighting the risk.</div>
+        </div>
+      </div>
+      <div class="variant-card">
+        <img src="C:\Users\vinay\Downloads\IB_Ad4_Urgency_1080x1080.png" alt="InterviewBuddy variant 4" class="variant-img">
+        <div class="variant-label">
+          <div class="variant-hyp">Hypothesis D</div>
+          <div class="variant-text"><strong>Urgency</strong>. Time-pressure framing. Tests whether a deadline-driven message lifts CTR over benefit or proof-based hooks.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="annotations r" style="margin-top: 16px;">
+      <div class="ann">
+        <div class="ann-icon">↗</div>
+        <div class="ann-body">
+          <div class="ann-title">What the test was really about</div>
+          <div class="ann-desc">The copy and offer were identical across all 4. The only variable was the emotional framing — fear, proof, outcome, urgency. That isolation is what makes creative testing useful. When one variant outperforms, you know it was the angle, not the headline.</div>
+        </div>
+      </div>
+      <div class="ann">
+        <div class="ann-icon">↗</div>
+        <div class="ann-body">
+          <div class="ann-title">What I'd change now</div>
+          <div class="ann-desc">Fear and urgency tend to spike CTR but pull weaker-intent signups. I'd pair the outcome and social proof variants with a longer follow-up sequence — those audiences need more conviction before they convert. The test told us what hooks attention. The next question is what converts.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- SECTION 3: SEO LANDING PAGE -->
+  <section>
+    <div class="slabel r">B2B landing page</div>
+    <div class="narrative-big r r1">
+      AI SEO landing page, <span class="hi">built to convert a skeptical B2B buyer.</span>
+    </div>
+    <p class="body-text r r2">The buyer here is a CMO or VP Marketing who has been burned by SEO agencies before. The page is designed around that specific psychology: lead with the problem they recognize, preempt the objection they're already forming, back everything with specifics.</p>
+
+    <div class="lp-wrap r r3">
+      <div class="lp-browser">
+        <div class="lp-browser-bar">
+          <div class="lp-browser-dots">
+            <div class="lp-browser-dot"></div>
+            <div class="lp-browser-dot"></div>
+            <div class="lp-browser-dot"></div>
+          </div>
+          <div class="lp-browser-url">revvgrowth.com/ai-seo</div>
+        </div>
+        <div class="lp-scroll">
+          <img src="C:\Users\vinay\Downloads\screencapture-blurred.png" alt="AI SEO landing page" class="lp-img">
+        </div>
+      </div>
+      <div class="lp-annotations">
+        <div class="lp-ann">
+          <div class="lp-ann-num">01</div>
+          <div class="lp-ann-text"><strong>Above-fold headline targets the conversation in the buyer's head</strong>, "Your Buyers Are Asking [Competitors] Who to Hire." Immediately establishes the cost of inaction without screaming at them.</div>
+        </div>
+        <div class="lp-ann">
+          <div class="lp-ann-num">02</div>
+          <div class="lp-ann-text"><strong>Dark theme creates authority contrast</strong>, most SEO agency sites are white and loud. Dark + minimal signals confidence. The page doesn't need to shout.</div>
+        </div>
+        <div class="lp-ann">
+          <div class="lp-ann-num">03</div>
+          <div class="lp-ann-text"><strong>Comparison table directly names the claim</strong>, "Every Agency Claims 'AI SEO.' Here's What Actually Differs." Skeptical buyers don't want to guess where you're different. Show them the diff.</div>
+        </div>
+        <div class="lp-ann">
+          <div class="lp-ann-num">04</div>
+          <div class="lp-ann-text"><strong>FAQ section answers the unspoken objections</strong>, "Every Question Your Team Has, Answered." Removes the sales call barrier for informed buyers who just want clarity before they reach out.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- SECTION 4: FILM POSTERS -->
+  <section>
+    <div class="slabel r">Creative / Film posters</div>
+    <div class="narrative-big r r1">
+      On the sidelines: <span class="hi">300+ posters. Zero budget. 40M impressions.</span>
+    </div>
+    <p class="body-text r r2">Indian cinema. Original poster work built on the side — no team, no paid reach. Just typography, composition, and knowing what makes someone stop scrolling.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:36px;">
+      <div class="r r1" style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
+        <img src="C:/Users/vinay/OneDrive/Desktop/GxG_9RNawAAHrg9.jpeg" alt="Film poster 1" style="width:100%;display:block;border-radius:14px;">
+      </div>
+      <div class="r r2" style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
+        <img src="C:/Users/vinay/OneDrive/Desktop/GxrFJZkawAU9rdL.jpeg" alt="Film poster 2" style="width:100%;display:block;border-radius:14px;">
+      </div>
+      <div class="r r3" style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
+        <img src="C:/Users/vinay/OneDrive/Desktop/G2f29xSXQAAFMnW.jpeg" alt="Film poster 3" style="width:100%;display:block;border-radius:14px;">
+      </div>
+      <div class="r r1" style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
+        <img src="C:/Users/vinay/OneDrive/Desktop/G6XXuYKa8AAz-go.jpeg" alt="Film poster 4" style="width:100%;display:block;border-radius:14px;">
+      </div>
+    </div>
+  </section>
+
+  <div class="div"></div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <h2 class="foot-h">The strategy work is in the <em>case studies.</em></h2>
+    <p class="foot-sub">GTM, positioning, competitive intelligence, and growth campaigns.</p>
+    <div class="foot-btns">
+      <a href="../index.html" class="fbtn fbtn-fill">Back to portfolio →</a>
+      <a href="../volopay-case-study.html" class="fbtn fbtn-line">Volopay GTM case study →</a>
+    </div>
+    <p class="foot-credits">Vinay Kumar · Creative & Design Work</p>
+  </div>
+
+</main>
+
+<script>
+  const bar = document.getElementById('bar');
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+    bar.style.width = (p * 100) + '%';
+  }, { passive: true });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.r').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
