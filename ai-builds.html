@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Builds. Vinay Kumar</title>
-  <meta name="description" content="Four AI agents built to eliminate manual marketing loops. Each one replaces a recurring human task with automated, scheduled output."/>
+  <meta name="description" content="Five AI agents built to eliminate manual marketing loops and forecast paid performance. Each one replaces a recurring human task with automated output, or predicts the week before it runs."/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -216,7 +216,7 @@
     .pain-pill.lit { background: rgba(196,98,45,0.2); border-color: rgba(196,98,45,0.4); color: #E07A46; }
 
     /* ════════════════════════════
-       AI BUILD CARDS — the 4 agents
+       AI BUILD CARDS — the 5 agents
     ════════════════════════════ */
     .builds-wrap { margin: 28px 0; display: flex; flex-direction: column; gap: 12px; }
 
@@ -513,10 +513,10 @@
     <span class="h-tag gray">Solo Build</span>
   </div>
   <h1 class="h-title r r1">
-    Four tasks that ran<br>on a <span class="hl" style="background:var(--rust);color:#fff;padding:4px 14px 8px;border-radius:8px;display:inline-block;line-height:1.1">human every week.</span><br>
+    Five tasks that ran<br>on a <span class="hl" style="background:var(--rust);color:#fff;padding:4px 14px 8px;border-radius:8px;display:inline-block;line-height:1.1">human every week.</span><br>
     Now they don't.
   </h1>
-  <p class="h-meta r r2">AI Tooling · Google Ads · Competitive Intel · Proposals · Outbound</p>
+  <p class="h-meta r r2">AI Tooling · Google Ads · Competitive Intel · Proposals · Outbound · Predictive Paid</p>
 </header>
 
 
@@ -534,10 +534,10 @@
       The most expensive work isn't the hard work, it's the <span class="hl">predictable work</span> that runs every week.
     </div>
     <p class="body-text r r2">
-      Four tasks kept recurring: daily reporting, competitor ad monitoring, proposal builds, and personalized outbound. Each one followed the exact same steps every time, same inputs, same output format, same person doing it. Nothing was hard. Everything was slow.
+      Five patterns kept surfacing: daily reporting, competitor ad monitoring, proposal builds, personalized outbound, and guessing what paid would do next week. Each one followed the exact same steps every time, same inputs, same output format, same person doing it. Nothing was hard. Everything was slow, or spent after the fact.
     </p>
     <p class="body-text r r3">
-      <strong>The question was which ones had enough structure to encode once and run without intervention.</strong> Four did.
+      <strong>The question was which ones had enough structure to encode once and run without intervention.</strong> Five did.
     </p>
 
     <div class="pull r">
@@ -550,7 +550,7 @@
 </main>
 
 <!-- DARK BAND: the pattern -->
-<div class="dark-band" aria-label="The recurring pattern across all four builds">
+<div class="dark-band" aria-label="The recurring pattern across all five builds">
   <div class="dark-band-inner">
     <div class="slabel r">The pattern</div>
     <div class="dark-band-title r r1">
@@ -572,9 +572,9 @@
 
 <main class="body-wrap">
 
-  <!-- THE 4 BUILDS -->
+  <!-- THE 5 BUILDS -->
   <section>
-    <div class="slabel r">Four builds</div>
+    <div class="slabel r">Five builds</div>
     <div class="narrative-big r r1">
       Each agent has one job. <span class="hi">One input. One output. No one watching.</span>
     </div>
@@ -820,6 +820,64 @@
         </div>
       </article>
 
+      <!-- CARD 5: LinkedIn Ads Predictor -->
+      <article class="build-card">
+        <div class="build-header">
+          <div class="build-top">
+            <span class="build-rank">05. LinkedIn Predictor</span>
+            <h3 class="build-title">A predictive layer on live paid campaigns that forecasts next week's CTR, CPL, and conversion volume before the spend happens</h3>
+          </div>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Problem:</strong> Paid decisions get made after the money is gone. You wait three days for enough signal, read thousands of rows across days, audiences, creatives, and budgets, and still guess whether to scale or kill. Budget gets split evenly across bets because there's no way to know which one is about to work. By the time the numbers are clear, the week is already spent.</p>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Solution:</strong> A model that reads past campaign performance, finds the patterns no human catches by hand, and forecasts the coming week, spend, CPL, and conversion volume. The break came from reframing the modeling approach after a conversation with Pragadeesh Manoharan, then building it properly with Claude Code. Budget follows what the model expects to perform, not an even split across guesses.</p>
+          <p class="build-desc"><strong style="color:var(--black)">Result:</strong> The "scale it or kill it" call moved from three days of waiting to a ten-minute review. Currently forecasting at ~70% accuracy, with a clear path to 80–90% as more data feeds in. Paid stopped being something to react to and became something to steer.</p>
+        </div>
+        <div class="build-artifact">
+          <div class="artifact-bar">
+            <div class="artifact-bar-left">
+              <span class="artifact-dot"></span>
+              <span>Predictive dashboard — next 7-day forecast by campaign</span>
+            </div>
+            <div class="artifact-bar-right">linkedin-ads-predictor</div>
+          </div>
+          <img
+            src="images/linkedin_predictor.jpeg"
+            alt="LinkedIn ads predictor dashboard showing the next 7-day forecast: 295 projected leads, $10,237 projected spend, $35 blended CPL, and per-campaign scale, optimize, and hold verdicts"
+            class="artifact-img"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="build-metrics" role="table" aria-label="Before and after metrics">
+          <div class="bm-cell">
+            <div class="bm-label">Scale / kill decision</div>
+            <div class="bm-row">
+              <span class="bm-before">3 days</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">10 min</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Forecast accuracy</div>
+            <div class="bm-row">
+              <span class="bm-before">None</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">~70%</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Paid workflow</div>
+            <div class="bm-row">
+              <span class="bm-before">Reacting</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">Steering</span>
+            </div>
+          </div>
+        </div>
+        <div class="build-footer">
+          <strong>PMM lens —</strong> a forecast you can act on changes the job. You stop grading last week's spend and start positioning next week's before it runs.
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -829,7 +887,7 @@
   <section>
     <div class="slabel r">Total output</div>
     <div class="narrative-big r r1">
-      Four agents. <span class="hi">All four loops gone.</span>
+      Five agents. <span class="hi">Four loops gone, one week seen early.</span>
     </div>
 
     <div class="stat-list r r2">
@@ -858,6 +916,16 @@
         <div class="stat-row-n">0</div>
         <div class="stat-row-note">completely eliminated</div>
       </div>
+      <div class="stat-row">
+        <div class="stat-row-label">Scale / kill decision</div>
+        <div class="stat-row-n">10 min</div>
+        <div class="stat-row-note">down from 3 days of waiting</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">Paid forecast accuracy</div>
+        <div class="stat-row-n">~70%</div>
+        <div class="stat-row-note">next-week CPL &amp; volume, targeting 80–90%</div>
+      </div>
     </div>
   </section>
 
@@ -866,7 +934,7 @@
   <!-- WHY IT WORKED -->
   <section>
     <div class="slabel r">Why it worked</div>
-    <div class="narrative-big r r1">Not every recurring task is automatable. <span class="hi">These four had three things in common.</span></div>
+    <div class="narrative-big r r1">Not every recurring task is automatable. <span class="hi">These five had three things in common.</span></div>
 
     <div class="findings r r2">
       <div class="finding">
@@ -879,7 +947,7 @@
       </div>
       <div class="finding">
         <div class="finding-tag">03. Predictable trigger</div>
-        <div class="finding-text"><strong>All four ran on a schedule or a drop event.</strong> No human had to decide when to start them. That's the filter. Any task that requires someone to decide "now is the right moment to run this" isn't ready to automate.</div>
+        <div class="finding-text"><strong>All five ran on a schedule or a drop event.</strong> No human had to decide when to start them. That's the filter. Any task that requires someone to decide "now is the right moment to run this" isn't ready to automate.</div>
       </div>
       <div class="finding">
         <div class="finding-tag">04. The knowledge was capturable</div>
@@ -895,7 +963,7 @@
     <div class="takeaway-big">
       The real cost isn't the hard work.<br><em>It's the predictable work</em> that runs<br>on a human every single week.
     </div>
-    <p class="takeaway-sub">Most marketing bottlenecks aren't complexity problems. They're repeatability problems. The same steps, the same inputs, the same output, done manually because no one stopped to encode them. These four builds freed up roughly 50+ hours a week of recurring execution time.</p>
+    <p class="takeaway-sub">Most marketing bottlenecks aren't complexity problems. They're repeatability problems. The same steps, the same inputs, the same output, done manually because no one stopped to encode them. These five builds freed up roughly 50+ hours a week of recurring execution time, and turned next week's paid performance from a guess into a forecast.</p>
     <div class="rule">
       <div class="rule-text">If a task runs the same way every time and you can describe its inputs and output format, it's a system. Build it once, run it indefinitely.</div>
     </div>
