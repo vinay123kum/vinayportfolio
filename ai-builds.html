@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AI Builds. Vinay Kumar</title>
-  <meta name="description" content="Five AI agents built to eliminate manual marketing loops and forecast paid performance. Each one replaces a recurring human task with automated output, or predicts the week before it runs."/>
+  <meta name="description" content="Six AI agents built to eliminate manual marketing loops, forecast paid performance, and earn AI-search citations. Each one replaces a recurring human task with automated output, or predicts the week before it runs."/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -216,7 +216,7 @@
     .pain-pill.lit { background: rgba(196,98,45,0.2); border-color: rgba(196,98,45,0.4); color: #E07A46; }
 
     /* ════════════════════════════
-       AI BUILD CARDS — the 5 agents
+       AI BUILD CARDS — the 6 agents
     ════════════════════════════ */
     .builds-wrap { margin: 28px 0; display: flex; flex-direction: column; gap: 12px; }
 
@@ -513,10 +513,10 @@
     <span class="h-tag gray">Solo Build</span>
   </div>
   <h1 class="h-title r r1">
-    Five tasks that ran<br>on a <span class="hl" style="background:var(--rust);color:#fff;padding:4px 14px 8px;border-radius:8px;display:inline-block;line-height:1.1">human every week.</span><br>
+    Six tasks that ran<br>on a <span class="hl" style="background:var(--rust);color:#fff;padding:4px 14px 8px;border-radius:8px;display:inline-block;line-height:1.1">human every week.</span><br>
     Now they don't.
   </h1>
-  <p class="h-meta r r2">AI Tooling · Google Ads · Competitive Intel · Proposals · Outbound · Predictive Paid</p>
+  <p class="h-meta r r2">AI Tooling · Google Ads · Competitive Intel · Proposals · Outbound · Predictive Paid · Content Ops</p>
 </header>
 
 
@@ -534,10 +534,10 @@
       The most expensive work isn't the hard work, it's the <span class="hl">predictable work</span> that runs every week.
     </div>
     <p class="body-text r r2">
-      Five patterns kept surfacing: daily reporting, competitor ad monitoring, proposal builds, personalized outbound, and guessing what paid would do next week. Each one followed the exact same steps every time, same inputs, same output format, same person doing it. Nothing was hard. Everything was slow, or spent after the fact.
+      Six patterns kept surfacing: daily reporting, competitor ad monitoring, proposal builds, personalized outbound, guessing what paid would do next week, and briefing blogs to actually get cited. Each one followed the exact same steps every time, same inputs, same output format, same person doing it. Nothing was hard. Everything was slow, or spent after the fact.
     </p>
     <p class="body-text r r3">
-      <strong>The question was which ones had enough structure to encode once and run without intervention.</strong> Five did.
+      <strong>The question was which ones had enough structure to encode once and run without intervention.</strong> Six did.
     </p>
 
     <div class="pull r">
@@ -550,7 +550,7 @@
 </main>
 
 <!-- DARK BAND: the pattern -->
-<div class="dark-band" aria-label="The recurring pattern across all five builds">
+<div class="dark-band" aria-label="The recurring pattern across all six builds">
   <div class="dark-band-inner">
     <div class="slabel r">The pattern</div>
     <div class="dark-band-title r r1">
@@ -572,9 +572,9 @@
 
 <main class="body-wrap">
 
-  <!-- THE 5 BUILDS -->
+  <!-- THE 6 BUILDS -->
   <section>
-    <div class="slabel r">Five builds</div>
+    <div class="slabel r">Six builds</div>
     <div class="narrative-big r r1">
       Each agent has one job. <span class="hi">One input. One output. No one watching.</span>
     </div>
@@ -878,6 +878,62 @@
         </div>
       </article>
 
+      <!-- CARD 6: Content Workflow Agent -->
+      <article class="build-card">
+        <div class="build-header">
+          <div class="build-top">
+            <span class="build-rank">06. Content Workflow Agent</span>
+            <h3 class="build-title">Senior editor's citation-earning content system encoded into an agent, drop a keyword and get a blog written to be cited by AI Overviews</h3>
+          </div>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Problem:</strong> AI blogs are cheap. Blogs that get cited by Google AI Overview, ChatGPT, and Perplexity are rare. Not because the writing was bad, because the pre-writing work (SERP analysis, AI Overview citation-gap mapping, grounding in RevvGrowth's internal process docs, verified stat sourcing) was skipped every single time. Editors were catching gaps after the draft was written, when the structural fixes were already too expensive to make.</p>
+          <p class="build-desc" style="margin-bottom:12px"><strong style="color:var(--black)">Solution:</strong> Before writing a single prompt, interviewed the editors and strategists behind the citations RevvGrowth actually wins for clients like Atlan, Everstage, Vymo, and Docsumo. Codified how they build briefs, choose format from SERP intent, integrate client proof, and pick stats. That knowledge became a Claude agent grounded in RevvGrowth's own /context/ process docs. Input: keyword + AI Overview screenshot. Output: draft that clears an 18-rule audit and links to the right existing pages.</p>
+          <p class="build-desc"><strong style="color:var(--black)">Result:</strong> Blog production: 8–12 hrs of senior editor time → 3–4 hrs, most of that briefing and review. Citation-worthy drafts: rare exception → default output. Senior involvement: every draft → interview once, review at the gate.</p>
+        </div>
+        <div class="build-artifact">
+          <div class="artifact-bar">
+            <div class="artifact-bar-left">
+              <span class="artifact-dot"></span>
+              <span>Terminal output — Claude Code running content pipeline</span>
+            </div>
+            <div class="artifact-bar-right">content-workflow-agent</div>
+          </div>
+          <img
+            src="images/content_workflow.png"
+            alt="Claude Code terminal showing the content workflow pipeline running from raw signal to a draft ready for editor review, moving 0 citations to cited by Google AI Overview, ChatGPT, and Perplexity"
+            class="artifact-img"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="build-metrics" role="table" aria-label="Before and after metrics">
+          <div class="bm-cell">
+            <div class="bm-label">Time per blog</div>
+            <div class="bm-row">
+              <span class="bm-before">8–12 hrs</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">10–20 min</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Senior time required</div>
+            <div class="bm-row">
+              <span class="bm-before">Every draft</span>
+              <span class="bm-arrow" aria-hidden="true">→</span>
+              <span class="bm-after">Briefing + gate review</span>
+            </div>
+          </div>
+          <div class="bm-cell">
+            <div class="bm-label">Inputs needed</div>
+            <div class="bm-row">
+              <span class="bm-after" style="font-size:13px;font-weight:700;color:#16a34a;white-space:normal">Keyword + AI Overview screenshot</span>
+            </div>
+          </div>
+        </div>
+        <div class="build-footer">
+          <strong>PMM lens —</strong> the best blogs aren't better-written, they're better-briefed. Systematize the pre-writing decisions, and the writing takes care of itself.
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -887,7 +943,7 @@
   <section>
     <div class="slabel r">Total output</div>
     <div class="narrative-big r r1">
-      Five agents. <span class="hi">Four loops gone, one week seen early.</span>
+      Six agents. <span class="hi">Five loops gone, one week seen early.</span>
     </div>
 
     <div class="stat-list r r2">
@@ -926,6 +982,16 @@
         <div class="stat-row-n">~70%</div>
         <div class="stat-row-note">next-week CPL &amp; volume, targeting 80–90%</div>
       </div>
+      <div class="stat-row">
+        <div class="stat-row-label">Blog production time</div>
+        <div class="stat-row-n">3–4 hrs</div>
+        <div class="stat-row-note">down from 8–12 hrs of senior editor time</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-row-label">Citation-worthy drafts</div>
+        <div class="stat-row-n">Default</div>
+        <div class="stat-row-note">from rare exception to standard output</div>
+      </div>
     </div>
   </section>
 
@@ -934,7 +1000,7 @@
   <!-- WHY IT WORKED -->
   <section>
     <div class="slabel r">Why it worked</div>
-    <div class="narrative-big r r1">Not every recurring task is automatable. <span class="hi">These five had three things in common.</span></div>
+    <div class="narrative-big r r1">Not every recurring task is automatable. <span class="hi">These six had three things in common.</span></div>
 
     <div class="findings r r2">
       <div class="finding">
@@ -947,7 +1013,7 @@
       </div>
       <div class="finding">
         <div class="finding-tag">03. Predictable trigger</div>
-        <div class="finding-text"><strong>All five ran on a schedule or a drop event.</strong> No human had to decide when to start them. That's the filter. Any task that requires someone to decide "now is the right moment to run this" isn't ready to automate.</div>
+        <div class="finding-text"><strong>All six ran on a schedule or a drop event.</strong> No human had to decide when to start them. That's the filter. Any task that requires someone to decide "now is the right moment to run this" isn't ready to automate.</div>
       </div>
       <div class="finding">
         <div class="finding-tag">04. The knowledge was capturable</div>
@@ -963,7 +1029,7 @@
     <div class="takeaway-big">
       The real cost isn't the hard work.<br><em>It's the predictable work</em> that runs<br>on a human every single week.
     </div>
-    <p class="takeaway-sub">Most marketing bottlenecks aren't complexity problems. They're repeatability problems. The same steps, the same inputs, the same output, done manually because no one stopped to encode them. These five builds freed up roughly 50+ hours a week of recurring execution time, and turned next week's paid performance from a guess into a forecast.</p>
+    <p class="takeaway-sub">Most marketing bottlenecks aren't complexity problems. They're repeatability problems. The same steps, the same inputs, the same output, done manually because no one stopped to encode them. These six builds freed up roughly 50+ hours a week of recurring execution time, turned next week's paid performance from a guess into a forecast, and made citation-worthy content the default instead of the exception.</p>
     <div class="rule">
       <div class="rule-text">If a task runs the same way every time and you can describe its inputs and output format, it's a system. Build it once, run it indefinitely.</div>
     </div>
