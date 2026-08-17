@@ -1033,6 +1033,7 @@
       <div class="about-text">
         <div class="reveal"><span class="section-tag">Who I am</span></div>
         <h2 class="section-h2 reveal reveal-delay-1">
+          <span class="rotator" id="roleRotator" aria-label="Performance, Growth and Product Marketer"><span class="rot-sizer" aria-hidden="true">Performance</span><span class="rot-word is-on">Performance</span><span class="rot-word">Growth</span><span class="rot-word">Product</span></span>
           Marketer by Craft.<br>
           <em style="font-style:italic;color:var(--rust);font-family:'Playfair Display',serif;">Nomad by Heart.</em>
         </h2>
@@ -1042,6 +1043,60 @@
         <p class="reveal reveal-delay-2">
           When I'm not working, I'm traveling like a nomad or designing cinematic film posters, always keeping an eye out for the next ambitious startup where I can learn, contribute, and grow.
         </p>
+        <style>
+          /* ── rotating role word above "Marketer by Craft." ── */
+          .rotator{
+            position:relative; display:inline-block;
+            /* smaller than the headline so the swap barely moves the line */
+            font-size:.42em; font-weight:700; letter-spacing:.01em;
+            line-height:1.15;
+            vertical-align:baseline; transform:translateY(-0.1em);
+            overflow:hidden; white-space:nowrap;
+            margin-right:.24em;
+            /* width follows the active word — JS sets it, this animates the change */
+            transition:width .45s cubic-bezier(.2,.7,.2,1);
+          }
+          /* invisible in-flow copy of the longest word — locks the width in pure CSS,
+             so the line never reflows even if the script never runs */
+          .rot-sizer{visibility:hidden}
+          .rot-word{
+            position:absolute; left:0; top:0; color:var(--rust);
+            opacity:0; transform:translateY(0.85em);
+            transition:opacity .42s ease, transform .5s cubic-bezier(.2,.7,.2,1);
+          }
+          .rot-word.is-on{opacity:1; transform:translateY(0)}
+          .rot-word.is-out{opacity:0; transform:translateY(-0.85em)}
+          @media(prefers-reduced-motion:reduce){
+            .rotator{transition:none}
+            .rot-word{transition:opacity .2s ease; transform:none}
+            .rot-word.is-out{transform:none}
+          }
+        </style>
+        <script>
+          (function(){
+            var box = document.getElementById('roleRotator');
+            if(!box) return;
+            var words = box.querySelectorAll('.rot-word');
+            if(words.length < 2) return;
+            var i = 0;
+            // .rot-sizer holds the width if this never runs; here width follows the active word
+            function fit(){ box.style.width = words[i].offsetWidth + 'px'; }
+            function tick(){
+              var prev = words[i];
+              prev.classList.remove('is-on');
+              prev.classList.add('is-out');
+              i = (i + 1) % words.length;
+              fit();
+              words[i].classList.remove('is-out');
+              words[i].classList.add('is-on');
+              setTimeout(function(){ prev.classList.remove('is-out'); }, 520);
+            }
+            function start(){ fit(); setInterval(tick, 2600); }
+            if(document.fonts && document.fonts.ready){ document.fonts.ready.then(start); }
+            else { window.addEventListener('load', start); }
+            window.addEventListener('resize', fit);
+          })();
+        </script>
         <div class="about-playful reveal reveal-delay-3">
           ✈️ Last destination: Rishikesh &nbsp;·&nbsp; 🎨 Current obsession: Automations &nbsp;·&nbsp; ⚡ Latest build: B2B ad maker (in progress)
         </div>
