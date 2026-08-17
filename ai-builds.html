@@ -223,8 +223,42 @@
   .mod-close{position:absolute; top:22px; right:22px; width:38px; height:38px; border-radius:50%; border:1px solid var(--border2); background:var(--paper); color:var(--muted); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.2s; z-index:2}
   .mod-close:hover{border-color:var(--rust); color:var(--rust)}
 
+  /* ── DESIGN ARCHITECTURE ── */
+  .arch{display:flex; flex-direction:column; align-items:stretch}
+  .band{background:var(--paper); border:1px solid var(--border); border-radius:18px; padding:22px 24px}
+  .band-top{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:16px}
+  .band-h{font-family:'Syne',sans-serif; font-weight:800; font-size:16px; letter-spacing:-.01em}
+  .band-sub{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.04em; color:var(--faint)}
+  .band-chips{display:grid; gap:10px}
+  .band-chips.c3{grid-template-columns:repeat(3,1fr)}
+  .band-chips.c5{grid-template-columns:repeat(5,1fr)}
+  .achip{border:1px solid var(--border); border-radius:12px; padding:13px 14px; background:rgba(196,98,45,0.025)}
+  .achip-n{font-family:'Syne',sans-serif; font-weight:700; font-size:13px; letter-spacing:-.01em}
+  .achip-d{margin-top:6px; font-size:11.5px; line-height:1.5; color:var(--muted)}
+  .flow{display:flex; align-items:center; justify-content:center; gap:9px; padding:14px 0; color:var(--faint)}
+  .flow::before,.flow::after{content:''; height:1px; width:52px; background:var(--border2)}
+  .flow span{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase}
+  .lanes{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
+  .dl{background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; border-top:3px solid var(--dl-a)}
+  .dl-head{padding:16px 16px 14px; border-bottom:1px solid var(--border)}
+  .dl-task{font-family:'Syne',sans-serif; font-weight:700; font-size:14px; line-height:1.2; letter-spacing:-.01em}
+  .dl-trig{margin-top:6px; font-size:11px; line-height:1.45; color:var(--faint)}
+  .dl-body{padding:15px 16px; flex:1}
+  .dl-kind{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dl-a)}
+  .dl-name{font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:700; margin-top:4px}
+  .dl-list{margin-top:11px; list-style:none}
+  .dl-list li{position:relative; padding-left:12px; font-size:11.5px; line-height:1.55; color:var(--muted); margin-bottom:5px}
+  .dl-list li::before{content:''; position:absolute; left:0; top:7px; width:4px; height:4px; border-radius:50%; background:var(--dl-a); opacity:.55}
+  .dl-out{padding:12px 16px; border-top:1px dashed var(--border); background:rgba(20,20,20,0.015)}
+  .dl-out-k{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint)}
+  .dl-out-v{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dl-a); margin-top:4px; word-break:break-word}
+  .arch-foot{margin-top:14px; padding:16px 22px; border:1px dashed var(--border2); border-radius:14px; font-size:13px; line-height:1.6; color:var(--muted)}
+  .arch-foot b{color:var(--black); font-weight:600}
+
   /* ── TABLET ── */
   @media(max-width:900px){
+    .band-chips.c5{grid-template-columns:repeat(2,1fr)}
+    .lanes{grid-template-columns:repeat(2,1fr)}
     .stack{grid-template-columns:repeat(2,1fr)}
     .anat-body{grid-template-columns:1fr}
     .anat-col + .anat-col{border-left:none; border-top:1px solid var(--border)}
@@ -260,6 +294,9 @@
     .tile{min-height:0; padding:22px 20px}
     .t-name{font-size:19px}
     .prin{grid-template-columns:1fr}
+    .band-chips.c3,.band-chips.c5,.lanes{grid-template-columns:1fr}
+    .band{padding:20px}
+    .arch-foot{padding:16px 18px}
     .velo{padding:26px 22px}
     .slabel{margin:44px 0 18px}
     .closer{margin:52px 0 32px; padding:30px 22px}
@@ -462,6 +499,170 @@
     <div class="srow"><div class="s-cmd">/job-radar</div><div class="s-what">Multi-source job sourcing across ATS boards, scored against a profile, deduped in SQLite, run daily on a cron.</div><div class="s-repl">an hour of scrolling a day</div></div>
     <div class="srow"><div class="s-cmd">/hera</div><div class="s-what">Evidence-backed creator scouting — discover, resolve, score, brief. Never invents a metric, never sends.</div><div class="s-repl">an influencer agency retainer</div></div>
     <div class="srow"><div class="s-cmd">/landing-page-analyzer</div><div class="s-what">Fetches a live page and returns a scored CRO audit with prioritized fixes and rewritten copy.</div><div class="s-repl">a CRO consultant's first call</div></div>
+  </div>
+
+  <!-- ══ DESIGN ARCHITECTURE ══ -->
+  <div class="slabel">The same system, pointed at design</div>
+  <p class="sintro">Design is where AI output is most obviously AI — purple gradients, centred everything, Inter. So I built the design work the same way as the ads work: a reference bank of what actually converts, an intelligence layer that decides the direction, and five execution skills that never start from a blank prompt.</p>
+
+  <div class="arch">
+    <div class="band">
+      <div class="band-top">
+        <div class="band-h">B2B Repository</div>
+        <div class="band-sub">reference intelligence bank — what already works, not what looks nice</div>
+      </div>
+      <div class="band-chips c3">
+        <div class="achip">
+          <div class="achip-n">Best performing landing pages</div>
+          <div class="achip-d">Top-converting B2B SaaS pages — layout patterns, copy structure.</div>
+        </div>
+        <div class="achip">
+          <div class="achip-n">Best ad copies</div>
+          <div class="achip-d">Google, LinkedIn and Meta ads with proven high-CTR copy.</div>
+        </div>
+        <div class="achip">
+          <div class="achip-n">Top creatives</div>
+          <div class="achip-d">High-CTR banners, ad visuals and brand assets worth stealing from.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow"><span>feeds</span></div>
+
+    <div class="band">
+      <div class="band-top">
+        <div class="band-h">Design System Thinking</div>
+        <div class="band-sub">intelligence layer — consults the repo, then picks language, UI direction and tone per request</div>
+      </div>
+      <div class="band-chips c5">
+        <div class="achip">
+          <div class="achip-n">Visual language</div>
+          <div class="achip-d">67 styles, 96 colour palettes. Glassmorphism, brutalism, bento.</div>
+        </div>
+        <div class="achip">
+          <div class="achip-n">Typography system</div>
+          <div class="achip-d">57 font pairings, display + body. No Inter, no Arial.</div>
+        </div>
+        <div class="achip">
+          <div class="achip-n">UX guidelines</div>
+          <div class="achip-d">99 rules — accessibility, touch targets, keyboard nav, contrast.</div>
+        </div>
+        <div class="achip">
+          <div class="achip-n">Tech stack selector</div>
+          <div class="achip-d">13 stacks — React, Next, Vue, Svelte, Flutter, shadcn/ui, Tailwind.</div>
+        </div>
+        <div class="achip">
+          <div class="achip-n">Data &amp; charts</div>
+          <div class="achip-d">25 chart types and an icon library for web, product and landing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow"><span>routes to</span></div>
+
+    <div class="lanes">
+      <div class="dl" style="--dl-a:#3B82F6">
+        <div class="dl-head">
+          <div class="dl-task">Combine images</div>
+          <div class="dl-trig">merge · stitch · collage · before/after</div>
+        </div>
+        <div class="dl-body">
+          <div class="dl-kind">Skill</div>
+          <div class="dl-name">stitch</div>
+          <ul class="dl-list">
+            <li>inference.sh SDK, stitch-images app</li>
+            <li>Horizontal or vertical modes</li>
+            <li>2+ images, returns a result URL</li>
+          </ul>
+        </div>
+        <div class="dl-out">
+          <div class="dl-out-k">Output</div>
+          <div class="dl-out-v">stitched.png</div>
+        </div>
+      </div>
+
+      <div class="dl" style="--dl-a:#16A34A">
+        <div class="dl-head">
+          <div class="dl-task">Generate / edit image</div>
+          <div class="dl-trig">create · generate · make image · edit</div>
+        </div>
+        <div class="dl-body">
+          <div class="dl-kind">Skill</div>
+          <div class="dl-name">nano-banana-2</div>
+          <ul class="dl-list">
+            <li>Gemini 3.1 Flash Image via inference.sh</li>
+            <li>Up to 14 input images</li>
+            <li>Aspect ratio + resolution control</li>
+          </ul>
+        </div>
+        <div class="dl-out">
+          <div class="dl-out-k">Output</div>
+          <div class="dl-out-v">generated.png / edited.png</div>
+        </div>
+      </div>
+
+      <div class="dl" style="--dl-a:#C4622D">
+        <div class="dl-head">
+          <div class="dl-task">Build UI / page</div>
+          <div class="dl-trig">landing page · dashboard · component</div>
+        </div>
+        <div class="dl-body">
+          <div class="dl-kind">Skill</div>
+          <div class="dl-name">frontend-design</div>
+          <ul class="dl-list">
+            <li>HTML, React, Vue or Svelte</li>
+            <li>Bold direction, distinctive type</li>
+            <li>CSS-only animation, no AI slop</li>
+          </ul>
+        </div>
+        <div class="dl-out">
+          <div class="dl-out-k">Output</div>
+          <div class="dl-out-v">index.html / .tsx / .vue</div>
+        </div>
+      </div>
+
+      <div class="dl" style="--dl-a:#DC2626">
+        <div class="dl-head">
+          <div class="dl-task">Upgrade existing site</div>
+          <div class="dl-trig">redesign · upgrade · fix AI slop</div>
+        </div>
+        <div class="dl-body">
+          <div class="dl-kind">Skill</div>
+          <div class="dl-name">redesign-existing</div>
+          <ul class="dl-list">
+            <li>Audit the current UI code</li>
+            <li>Flag generic AI patterns</li>
+            <li>Full production rewrite</li>
+          </ul>
+        </div>
+        <div class="dl-out">
+          <div class="dl-out-k">Output</div>
+          <div class="dl-out-v">rewritten site / app code</div>
+        </div>
+      </div>
+
+      <div class="dl" style="--dl-a:#0D9488">
+        <div class="dl-head">
+          <div class="dl-task">Ad creative</div>
+          <div class="dl-trig">ad creative · campaign visual</div>
+        </div>
+        <div class="dl-body">
+          <div class="dl-kind">Agent</div>
+          <div class="dl-name">visual-designer</div>
+          <ul class="dl-list">
+            <li>Reads campaign-brief + brand-profile</li>
+            <li>Builds prompts, delegates image gen</li>
+            <li>Organises into ad-assets/</li>
+          </ul>
+        </div>
+        <div class="dl-out">
+          <div class="dl-out-k">Output</div>
+          <div class="dl-out-v">ad-assets/ + manifest.json</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="arch-foot">Same shape as every build on this page: <b>a reference bank, a decision layer, and execution that inherits both.</b> The reason AI design looks like AI design is that most people start at the last box. <a href="design.html" style="color:var(--rust); border-bottom:1px solid var(--rust-md)">See the design work →</a></p>
   </div>
 
   <!-- ══ PRINCIPLES ══ -->
