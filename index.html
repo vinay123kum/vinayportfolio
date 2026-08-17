@@ -1047,12 +1047,12 @@
           /* ── rotating role word above "Marketer by Craft." ── */
           .rotator{
             position:relative; display:inline-block;
-            /* handwritten script, 2x the previous size */
-            font-family:'Caveat',cursive; font-size:.84em; font-weight:700;
-            letter-spacing:0; line-height:1.05;
-            vertical-align:baseline; transform:translateY(-0.04em);
+            /* headline face, kept at the larger 2x size */
+            font-size:.84em; font-weight:700; letter-spacing:.01em;
+            line-height:1.15;
+            vertical-align:baseline; transform:translateY(-0.1em);
             overflow:hidden; white-space:nowrap;
-            margin-right:.16em;
+            margin-right:.24em;
             /* width follows the active word — JS sets it, this animates the change */
             transition:width .45s cubic-bezier(.2,.7,.2,1);
           }
