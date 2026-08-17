@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vinay Kumar — AI Builds</title>
+<title>Vinay Kumar — AI Growth Engineer | Agents built in Claude Code</title>
+<meta name="description" content="Product marketer who ships the tooling instead of requesting it. Six production agents — Google Ads, competitive intel, proposals, outbound, forecasting, content — built solo in Claude Code with MCP, custom skills and subagents."/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --rust:#C4622D; --rust-lt:rgba(196,98,45,0.1); --rust-md:rgba(196,98,45,0.2);
@@ -15,6 +16,7 @@
     --border:rgba(20,20,20,0.08); --border2:rgba(20,20,20,0.14);
     --muted:rgba(20,20,20,0.45); --faint:rgba(20,20,20,0.3);
     --green:#16a34a;
+    --ink:#17150F;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -23,7 +25,6 @@
     -webkit-font-smoothing:antialiased; overflow-x:hidden;
     -webkit-tap-highlight-color:transparent; text-size-adjust:100%; -webkit-text-size-adjust:100%;
   }
-  /* grain — same as main page */
   body::after{
     content:''; position:fixed; inset:0; opacity:.03; pointer-events:none; z-index:100;
     background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -32,6 +33,7 @@
   ::-webkit-scrollbar{width:2px}
   ::-webkit-scrollbar-thumb{background:var(--rust)}
   a{color:inherit;text-decoration:none}
+  .mono{font-family:'JetBrains Mono',monospace}
 
   .wrap{max-width:1080px; margin:0 auto; padding:0 32px}
 
@@ -42,24 +44,65 @@
   .top-tag{font-family:'Caveat',cursive; font-size:16px; color:var(--faint)}
 
   /* ── HERO ── */
-  .hero{padding:60px 0 36px}
-  .eyebrow{font-family:'Caveat',cursive; font-size:19px; font-weight:600; color:var(--rust); display:flex; align-items:center; gap:10px; margin-bottom:22px}
-  .eyebrow::before{content:''; width:20px; height:2px; background:var(--rust)}
+  .hero{padding:58px 0 36px}
+  .eyebrow{font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--rust); display:flex; align-items:center; gap:10px; margin-bottom:22px; flex-wrap:wrap}
+  .eyebrow::before{content:''; width:20px; height:2px; background:var(--rust); flex-shrink:0}
   .h1{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(40px,6.4vw,76px); line-height:1.02; letter-spacing:-.01em}
   .h1 b{font-family:'Syne',sans-serif; font-style:normal; font-weight:800; color:var(--rust)}
-  .lede{margin-top:24px; max-width:600px; font-size:17px; line-height:1.6; color:rgba(20,20,20,0.62)}
+  .cursor{display:inline-block; width:.44em; height:.78em; background:var(--rust); margin-left:.1em; vertical-align:-2px; animation:blink 1.15s steps(1) infinite}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+  .lede{margin-top:24px; max-width:640px; font-size:17px; line-height:1.6; color:rgba(20,20,20,0.62)}
+  .lede b{color:var(--black); font-weight:600}
 
   /* ── STAT RIBBON ── */
   .ribbon{display:flex; flex-wrap:wrap; margin-top:40px; background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
-  .stat{flex:1 1 0; min-width:150px; padding:22px 26px; border-right:1px solid var(--border)}
+  .stat{flex:1 1 0; min-width:150px; padding:22px 24px; border-right:1px solid var(--border)}
   .stat:last-child{border-right:none}
-  .stat-n{font-family:'Syne',sans-serif; font-weight:800; font-size:28px; line-height:1; font-variant-numeric:tabular-nums}
-  .stat-n .u{font-size:14px; color:var(--muted); font-weight:700}
+  .stat-n{font-family:'Syne',sans-serif; font-weight:800; font-size:27px; line-height:1; font-variant-numeric:tabular-nums}
+  .stat-n .u{font-size:13px; color:var(--muted); font-weight:700}
   .stat-l{font-family:'Caveat',cursive; font-size:15px; color:var(--muted); margin-top:8px}
 
   /* ── SECTION LABEL ── */
   .slabel{font-family:'Caveat',cursive; font-size:17px; font-weight:600; color:var(--rust); display:flex; align-items:center; gap:10px; margin:58px 0 22px}
   .slabel::before{content:''; width:18px; height:2px; background:var(--rust)}
+  .sintro{max-width:620px; font-size:15px; line-height:1.65; color:rgba(20,20,20,0.55); margin:-8px 0 24px}
+
+  /* ── STACK STRIP ── */
+  .stack{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+  .schip{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:18px 18px 16px; transition:border-color .2s, transform .2s}
+  .schip:hover{border-color:var(--rust-md); transform:translateY(-2px)}
+  .schip-k{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--rust); margin-bottom:9px}
+  .schip-n{font-family:'Syne',sans-serif; font-weight:700; font-size:15px; letter-spacing:-.01em}
+  .schip-d{margin-top:7px; font-size:12.5px; line-height:1.5; color:var(--muted)}
+
+  /* ── ANATOMY ── */
+  .anat{background:var(--paper); border:1px solid var(--border); border-radius:22px; overflow:hidden}
+  .anat-head{padding:30px 34px 26px; border-bottom:1px solid var(--border)}
+  .anat-tag{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--rust)}
+  .anat-h{font-family:'Syne',sans-serif; font-weight:800; font-size:25px; letter-spacing:-.015em; margin-top:9px}
+  .anat-p{margin-top:12px; max-width:600px; font-size:14.5px; line-height:1.62; color:rgba(20,20,20,0.6)}
+  .anat-body{display:grid; grid-template-columns:1fr 1fr}
+  .anat-col{padding:28px 34px}
+  .anat-col + .anat-col{border-left:1px solid var(--border)}
+  .step{display:flex; gap:14px; padding:13px 0; border-bottom:1px dashed var(--border)}
+  .step:last-child{border-bottom:none}
+  .step-n{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--rust); padding-top:2px; flex-shrink:0}
+  .step-t{font-family:'Syne',sans-serif; font-weight:700; font-size:14px; letter-spacing:-.01em}
+  .step-d{margin-top:4px; font-size:12.5px; line-height:1.55; color:var(--muted)}
+  .step-d code{font-family:'JetBrains Mono',monospace; font-size:11.5px; background:var(--rust-lt); color:var(--rust); padding:1px 5px; border-radius:4px}
+
+  /* terminal */
+  .term{background:var(--ink); border-radius:14px; overflow:hidden; font-family:'JetBrains Mono',monospace}
+  .term-bar{display:flex; align-items:center; gap:7px; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.08)}
+  .tdot{width:9px; height:9px; border-radius:50%}
+  .term-t{margin-left:8px; font-size:10.5px; color:rgba(255,255,255,.4)}
+  .term-b{padding:16px 16px 18px; font-size:11.5px; line-height:1.85; overflow-x:auto}
+  .term-b .l{white-space:pre; color:rgba(255,255,255,.62)}
+  .term-b .p{color:var(--rust)}
+  .term-b .ok{color:#4ade80}
+  .term-b .dim{color:rgba(255,255,255,.32)}
+  .term-b .w{color:#fbbf24}
+  .term-b .hi{color:#fff}
 
   /* ── BENTO GRID ── */
   .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
@@ -71,9 +114,7 @@
   }
   .tile:focus-visible{outline:2px solid var(--rust); outline-offset:2px}
   .tile:active{transform:scale(.985); border-color:var(--rust-md)}
-  /* inner text eases to white as the tile fills */
-  .t-rank,.t-name,.t-desc,.m-before,.m-arrow,.m-after,.tag,.t-open{transition:color .22s, border-color .22s}
-  /* the orange highlight follows the cursor — the hovered block fills, none is permanently rust */
+  .t-rank,.t-name,.t-desc,.m-before,.m-arrow,.m-after,.tag,.t-open,.t-built{transition:color .22s, border-color .22s}
   @media(hover:hover) and (pointer:fine){
     .tile:hover{transform:translateY(-4px); background:var(--rust); border-color:var(--rust); box-shadow:0 20px 44px -20px rgba(196,98,45,.55)}
     .tile:hover .t-rank{color:rgba(255,255,255,.8)}
@@ -84,23 +125,50 @@
     .tile:hover .m-after{color:#fff}
     .tile:hover .tag{color:#fff; border-color:rgba(255,255,255,.4)}
     .tile:hover .t-open{color:rgba(255,255,255,.9); opacity:1}
+    .tile:hover .t-built{color:rgba(255,255,255,.75)}
   }
-
   .t-top{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px}
-  .t-rank{font-family:'Syne',sans-serif; font-weight:800; font-size:13px; color:var(--rust); letter-spacing:.04em}
+  .t-rank{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11.5px; color:var(--rust); letter-spacing:.04em}
   .t-open{font-family:'Caveat',cursive; font-size:15px; color:var(--faint); opacity:0; transition:opacity .25s}
-  /* on touch devices there's no hover — always show the affordance */
   @media(hover:none){ .t-open{opacity:.9} }
   .t-name{font-family:'Syne',sans-serif; font-weight:700; font-size:20px; line-height:1.15; letter-spacing:-.01em}
+  .t-built{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.04em; color:var(--faint); margin-top:7px}
   .t-desc{margin-top:10px; font-size:13.5px; line-height:1.5; color:var(--muted); flex:1}
-
   .t-metric{display:flex; align-items:center; gap:10px; margin-top:16px}
   .m-before{font-size:14px; color:var(--faint); font-weight:600; text-decoration:line-through; text-decoration-color:var(--rust-md)}
   .m-arrow{color:var(--rust); font-size:13px}
   .m-after{font-family:'Syne',sans-serif; font-weight:800; font-size:24px; letter-spacing:-.01em; color:var(--black)}
-
   .t-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:16px}
   .tag{font-size:10.5px; letter-spacing:.02em; color:var(--muted); border:1px solid var(--border2); border-radius:20px; padding:4px 10px}
+
+  /* ── SKILLS TABLE ── */
+  .stable{background:var(--paper); border:1px solid var(--border); border-radius:18px; overflow:hidden}
+  .srow{display:grid; grid-template-columns:210px 1fr 190px; gap:20px; padding:15px 24px; border-bottom:1px solid var(--border); align-items:center}
+  .srow:last-child{border-bottom:none}
+  .srow.head{background:rgba(20,20,20,0.02)}
+  .srow.head div{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+  .s-cmd{font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:500; color:var(--rust)}
+  .s-what{font-size:13.5px; line-height:1.5; color:rgba(20,20,20,0.7)}
+  .s-repl{font-size:12.5px; color:var(--muted); font-family:'Caveat',cursive; font-size:15px}
+
+  /* ── PRINCIPLES ── */
+  .prin{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  .pcard{background:var(--paper); border:1px solid var(--border); border-radius:16px; padding:24px 26px; transition:border-color .2s}
+  .pcard:hover{border-color:var(--rust-md)}
+  .p-n{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--rust); letter-spacing:.06em}
+  .p-h{font-family:'Syne',sans-serif; font-weight:700; font-size:17px; letter-spacing:-.01em; margin-top:10px}
+  .p-d{margin-top:9px; font-size:13.5px; line-height:1.6; color:var(--muted)}
+
+  /* ── VELOCITY ── */
+  .velo{background:var(--paper); border:1px solid var(--border); border-radius:18px; padding:30px 34px}
+  .velo-line{display:flex; align-items:flex-start; gap:0; margin-top:22px; position:relative}
+  .velo-line::before{content:''; position:absolute; left:0; right:0; top:7px; height:2px; background:var(--border2)}
+  .vnode{flex:1; position:relative; padding-right:12px}
+  .vdot{width:16px; height:16px; border-radius:50%; background:var(--cream); border:3px solid var(--rust); position:relative; z-index:1}
+  .vn-n{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); margin-top:12px; letter-spacing:.05em}
+  .vn-t{font-family:'Syne',sans-serif; font-weight:700; font-size:13px; line-height:1.25; margin-top:5px; letter-spacing:-.01em}
+  .velo-foot{margin-top:26px; padding-top:20px; border-top:1px solid var(--border); font-size:14px; color:var(--muted); line-height:1.6}
+  .velo-foot b{color:var(--black); font-weight:600}
 
   /* ── CLOSER ── */
   .closer{margin:70px 0 40px; padding:46px; background:var(--paper); border:1px solid var(--border); border-radius:22px}
@@ -108,19 +176,25 @@
   .closer-big b{font-family:'Syne',sans-serif; font-style:normal; font-weight:800; color:var(--rust)}
   .closer-sub{margin-top:20px; max-width:640px; font-size:15px; line-height:1.65; color:rgba(20,20,20,0.55)}
 
-  /* ── CTA (from main page) ── */
-  .cta{padding:78px 0 68px; text-align:center; border-top:1px solid var(--border); margin-top:40px}
-  .cta-h{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(28px,4.4vw,52px); line-height:1.1}
+  /* ── SPLIT CTA ── */
+  .cta{padding:72px 0 60px; border-top:1px solid var(--border); margin-top:40px}
+  .cta-h{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(28px,4.4vw,52px); line-height:1.1; text-align:center}
   .cta-h em{font-style:normal; color:var(--rust)}
-  .cta-sub{font-size:14.5px; color:var(--muted); margin:18px auto 30px; max-width:460px; line-height:1.55}
-  .cta-btns{display:flex; justify-content:center; gap:12px; flex-wrap:wrap}
-  .fbtn{padding:13px 30px; border-radius:100px; font-size:13px; font-weight:700; display:inline-flex; align-items:center; gap:6px; transition:transform .2s, box-shadow .2s, color .2s, border-color .2s}
+  .cta-sub{font-size:14.5px; color:var(--muted); margin:18px auto 38px; max-width:500px; line-height:1.55; text-align:center}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:14px; max-width:760px; margin:0 auto}
+  .lane{background:var(--paper); border:1px solid var(--border); border-radius:18px; padding:28px; transition:border-color .2s, transform .2s}
+  .lane:hover{border-color:var(--rust-md); transform:translateY(-2px)}
+  .lane-k{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--rust)}
+  .lane-h{font-family:'Syne',sans-serif; font-weight:700; font-size:19px; margin-top:10px; letter-spacing:-.01em}
+  .lane-d{margin-top:9px; font-size:13.5px; line-height:1.55; color:var(--muted); min-height:44px}
+  .lane-btns{display:flex; flex-wrap:wrap; gap:9px; margin-top:18px}
+  .fbtn{padding:11px 22px; border-radius:100px; font-size:12.5px; font-weight:700; display:inline-flex; align-items:center; gap:6px; transition:transform .2s, box-shadow .2s, color .2s, border-color .2s}
   .fbtn:active{transform:scale(.97)}
   .fbtn-fill{background:var(--rust); color:#fff}
   .fbtn-fill:hover{transform:translateY(-2px); box-shadow:0 10px 28px rgba(196,98,45,0.3)}
   .fbtn-line{background:transparent; color:var(--muted); border:1px solid var(--border2)}
   .fbtn-line:hover{color:var(--black); border-color:rgba(20,20,20,0.35)}
-  .cta-credits{margin-top:54px; font-size:12px; color:var(--faint)}
+  .cta-credits{margin-top:52px; font-size:12px; color:var(--faint); text-align:center; font-family:'JetBrains Mono',monospace}
 
   /* ── MODAL ── */
   .backdrop{position:fixed; inset:0; background:rgba(20,18,14,.42); backdrop-filter:blur(5px); z-index:300; opacity:0; pointer-events:none; transition:opacity .28s; display:flex; align-items:flex-start; justify-content:center; padding:6vh 20px; overflow-y:auto}
@@ -128,15 +202,17 @@
   .modal-wrap{position:relative; max-width:620px; width:100%}
   .modal{background:var(--cream); border:1px solid var(--border2); border-radius:22px; padding:40px; transform:translateY(24px) scale(.98); transition:transform .3s cubic-bezier(.2,.7,.2,1)}
   .backdrop.on .modal{transform:none}
-  .mod-rank{font-family:'Syne',sans-serif; font-weight:800; font-size:13px; color:var(--rust); letter-spacing:.05em}
+  .mod-rank{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11.5px; color:var(--rust); letter-spacing:.05em}
   .mod-name{font-family:'Syne',sans-serif; font-weight:800; font-size:27px; letter-spacing:-.015em; margin-top:9px; line-height:1.14}
   .mod-metric{display:inline-flex; align-items:center; gap:12px; margin-top:20px; padding:11px 18px; background:var(--paper); border:1px solid var(--border); border-radius:14px}
   .mod-metric .m-after{font-size:22px}
+  .mod-stack{margin-top:14px; display:flex; flex-wrap:wrap; gap:6px}
+  .mod-stack .tag{font-family:'JetBrains Mono',monospace; font-size:10.5px}
   .mod-artifact{margin-top:22px; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--paper)}
   .art-bar{display:flex; align-items:center; justify-content:space-between; padding:9px 14px; border-bottom:1px solid var(--border); background:rgba(20,20,20,0.02)}
   .art-left{display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--muted)}
   .art-dot{width:9px; height:9px; border-radius:50%; background:var(--rust); flex-shrink:0}
-  .art-tag{font-size:11px; color:var(--faint); font-family:'Syne',sans-serif; font-weight:700}
+  .art-tag{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--faint); font-weight:500}
   .art-img{display:block; width:100%; height:auto}
   .mod-body{margin-top:26px}
   .mod-block{margin-bottom:20px}
@@ -148,11 +224,22 @@
   .mod-close:hover{border-color:var(--rust); color:var(--rust)}
 
   /* ── TABLET ── */
+  @media(max-width:900px){
+    .stack{grid-template-columns:repeat(2,1fr)}
+    .anat-body{grid-template-columns:1fr}
+    .anat-col + .anat-col{border-left:none; border-top:1px solid var(--border)}
+    .srow{grid-template-columns:1fr; gap:6px; padding:16px 22px}
+    .srow.head{display:none}
+  }
   @media(max-width:820px){
     .grid{grid-template-columns:repeat(2,1fr)}
     .ribbon .stat{flex-basis:50%; border-bottom:1px solid var(--border)}
     .ribbon .stat:nth-child(2n){border-right:none}
-    .ribbon .stat:nth-last-child(-n+2){border-bottom:none}
+    .velo-line{flex-direction:column; gap:18px}
+    .velo-line::before{left:7px; right:auto; top:0; bottom:0; width:2px; height:auto}
+    .vnode{padding-left:0}
+    .vn-t{font-size:14px}
+    .split{grid-template-columns:1fr}
   }
   /* ── MOBILE ── */
   @media(max-width:560px){
@@ -162,21 +249,23 @@
     .h1{font-size:clamp(34px,10vw,52px)}
     .lede{margin-top:18px; font-size:16px}
     .ribbon{margin-top:32px}
-    /* 2×2 stat grid instead of a tall stack */
     .ribbon .stat{flex-basis:50%; min-width:0; padding:18px 16px}
     .ribbon .stat:nth-child(2n){border-right:none}
-    .ribbon .stat:nth-last-child(-n+2){border-bottom:none}
-    .stat-n{font-size:23px}
+    .stat-n{font-size:22px}
     .stat-l{font-size:14px}
+    .stack{grid-template-columns:1fr}
+    .anat-head{padding:26px 22px 22px}
+    .anat-col{padding:22px}
     .grid{grid-template-columns:1fr; gap:12px}
-    .tile,.tile.feat{min-height:0; padding:22px 20px}
+    .tile{min-height:0; padding:22px 20px}
     .t-name{font-size:19px}
+    .prin{grid-template-columns:1fr}
+    .velo{padding:26px 22px}
     .slabel{margin:44px 0 18px}
     .closer{margin:52px 0 32px; padding:30px 22px}
     .closer-sub{font-size:14.5px}
     .cta{padding:52px 0 46px}
     .cta-credits{margin-top:40px}
-    .fbtn{padding:12px 24px}
   }
   /* ── MODAL: full-bleed sheet on phones ── */
   @media(max-width:560px){
@@ -205,39 +294,247 @@
     <span class="top-tag">AI Builds</span>
   </div>
 
-  <!-- HERO -->
+  <!-- ══ HERO ══ -->
   <header class="hero">
-    <div class="eyebrow">AI Tooling · Solo Build</div>
-    <h1 class="h1">Six human loops.<br><b>Automated out.</b></h1>
-    <p class="lede">Every week, the same predictable work ran on a person: reporting, intel, proposals, outbound, forecasting, content. Each one got scoped to a single task, encoded once, and handed to an agent. Here's the deck — tap any build for the full story.</p>
+    <div class="eyebrow">AI Growth Engineer · Claude Code + MCP · Solo build</div>
+    <h1 class="h1">I don't use AI tools.<br><b>I build them.<span class="cursor"></span></b></h1>
+    <p class="lede">Marketer by trade, engineer by necessity. <b>Six agents running in production</b> — Google Ads, competitive intel, proposals, outbound, forecasting, content. Each one replaced a recurring loop that used to run on a person. All of it built solo in Claude Code, against live client accounts. Tap any build for the full story.</p>
 
     <div class="ribbon">
-      <div class="stat"><div class="stat-n">6</div><div class="stat-l">agents shipped</div></div>
+      <div class="stat"><div class="stat-n">6</div><div class="stat-l">agents in production</div></div>
+      <div class="stat"><div class="stat-n">40<span class="u">+</span></div><div class="stat-l">custom skills written</div></div>
+      <div class="stat"><div class="stat-n">8</div><div class="stat-l">MCP servers wired</div></div>
       <div class="stat"><div class="stat-n">50<span class="u">+ hrs/wk</span></div><div class="stat-l">recurring time freed</div></div>
-      <div class="stat"><div class="stat-n">5</div><div class="stat-l">manual loops eliminated</div></div>
       <div class="stat"><div class="stat-n">~70<span class="u">%</span></div><div class="stat-l">paid forecast accuracy</div></div>
     </div>
   </header>
 
-  <!-- GRID -->
+  <!-- ══ STACK ══ -->
+  <div class="slabel">How I actually build</div>
+  <p class="sintro">Not a ChatGPT tab. A working engineering setup — agents with tool access, scheduled runs, persistent memory, and a human approval gate on anything that writes.</p>
+  <div class="stack">
+    <div class="schip">
+      <div class="schip-k">Runtime</div>
+      <div class="schip-n">Claude Code</div>
+      <div class="schip-d">Terminal-native agent. Reads the repo, runs the scripts, ships the commit.</div>
+    </div>
+    <div class="schip">
+      <div class="schip-k">Tool access</div>
+      <div class="schip-n">MCP servers</div>
+      <div class="schip-d">Google Ads, LinkedIn Ads, ClickUp, Drive/Sheets, Supermetrics, Playwright, custom Python servers.</div>
+    </div>
+    <div class="schip">
+      <div class="schip-k">Encoded expertise</div>
+      <div class="schip-n">Custom skills</div>
+      <div class="schip-d">40+ skills — a senior operator's judgment written down once, then run on demand.</div>
+    </div>
+    <div class="schip">
+      <div class="schip-k">Parallelism</div>
+      <div class="schip-n">Subagents</div>
+      <div class="schip-d">Audit work fans out across specialist agents, then synthesizes into one read.</div>
+    </div>
+    <div class="schip">
+      <div class="schip-k">Continuity</div>
+      <div class="schip-n">Persistent memory</div>
+      <div class="schip-d">Client context, ICPs, and prior decisions survive between sessions. No re-briefing.</div>
+    </div>
+    <div class="schip">
+      <div class="schip-k">Triggers</div>
+      <div class="schip-n">Scheduled runs</div>
+      <div class="schip-d">Cron + Task Scheduler. The report exists before anyone thinks to ask for it.</div>
+    </div>
+    <div class="schip">
+      <div class="schip-k">Safety</div>
+      <div class="schip-n">Approval gates</div>
+      <div class="schip-d">Dry-run → approve → execute → verify. Every write is logged and reversible.</div>
+    </div>
+    <div class="schip">
+      <div class="schip-k">Data layer</div>
+      <div class="schip-n">APIs + SQLite</div>
+      <div class="schip-d">Platform APIs in, deduped local stores out. Nothing gets counted twice.</div>
+    </div>
+  </div>
+
+  <!-- ══ ANATOMY ══ -->
+  <div class="slabel">Anatomy of one build</div>
+  <p class="sintro">Six builds shown shallow tells you less than one shown deep. Here's what actually happens inside the Google Ads agent.</p>
+
+  <div class="anat">
+    <div class="anat-head">
+      <div class="anat-tag">Build 01 · google-ads-bot</div>
+      <div class="anat-h">From a half-day of clicking to a 20-minute run</div>
+      <p class="anat-p">Twelve campaigns, live budgets, real money. The agent has API write access — which means the interesting engineering isn't the automation, it's the guardrails around it.</p>
+    </div>
+    <div class="anat-body">
+      <div class="anat-col">
+        <div class="step">
+          <div class="step-n">01</div>
+          <div>
+            <div class="step-t">Pull live account state</div>
+            <div class="step-d">MCP server hits the Google Ads API for campaigns, ad groups, search terms, and conversion actions. No CSV exports, no stale data.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">02</div>
+          <div>
+            <div class="step-t">Fan out to specialist subagents</div>
+            <div class="step-d">Separate agents for tracking health, wasted spend, structure, keywords, and RSAs — run in parallel, each with its own checklist.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">03</div>
+          <div>
+            <div class="step-t">Score with evidence, not vibes</div>
+            <div class="step-d">Every finding carries the row that produced it. Missing data is excluded from the denominator instead of guessed at.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">04</div>
+          <div>
+            <div class="step-t">Draft actions, don't fire them</div>
+            <div class="step-d">Output is a set of draft mutations — negatives, pauses, budget changes — each with a reason and an estimated impact.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">05</div>
+          <div>
+            <div class="step-t">Dry run → approve → execute → verify</div>
+            <div class="step-d">Writes only run against an approved manifest. Every mutation is logged to an audit trail and is reversible.</div>
+          </div>
+        </div>
+      </div>
+      <div class="anat-col">
+        <div class="term">
+          <div class="term-bar">
+            <span class="tdot" style="background:#ff5f57"></span>
+            <span class="tdot" style="background:#febc2e"></span>
+            <span class="tdot" style="background:#28c840"></span>
+            <span class="term-t">claude — google-ads-bot</span>
+          </div>
+          <div class="term-b">
+<div class="l"><span class="p">›</span> <span class="hi">/google-ads-audit 199-621-3442</span></div>
+<div class="l"><span class="dim">  connecting google-ads MCP…</span> <span class="ok">ok</span></div>
+<div class="l"><span class="dim">  account: First Credit Services</span></div>
+<div class="l"> </div>
+<div class="l"><span class="dim">  ⎿ fan-out: 5 subagents</span></div>
+<div class="l">    <span class="ok">✓</span> tracking      <span class="dim">4 conv actions · 1 dupe</span></div>
+<div class="l">    <span class="ok">✓</span> search-terms  <span class="dim">2,140 terms scanned</span></div>
+<div class="l">    <span class="ok">✓</span> structure     <span class="dim">brand/non-brand mixed</span></div>
+<div class="l">    <span class="ok">✓</span> keywords      <span class="dim">18 zero-conv, spend &gt; 3x CPA</span></div>
+<div class="l">    <span class="ok">✓</span> rsas          <span class="dim">3 ad groups below asset min</span></div>
+<div class="l"> </div>
+<div class="l"><span class="dim">  ⎿ drafts written → drafts/2026-08-14/</span></div>
+<div class="l">    <span class="w">•</span> 34 negatives   <span class="dim">est. save ~$2.1k/mo</span></div>
+<div class="l">    <span class="w">•</span> 18 kw pauses   <span class="dim">zero conv @ 90d</span></div>
+<div class="l">    <span class="w">•</span> 2 budget moves <span class="dim">reallocate to converting</span></div>
+<div class="l"> </div>
+<div class="l"><span class="w">  ⚠ 0 changes applied — awaiting approval</span></div>
+<div class="l"><span class="dim">    run</span> <span class="hi">/google-ads-apply --dry-run</span> <span class="dim">to preview</span></div>
+<div class="l"> </div>
+<div class="l"><span class="p">›</span> <span class="cursor" style="width:8px;height:12px"></span></div>
+          </div>
+        </div>
+        <div class="step" style="border-bottom:none; padding-top:20px">
+          <div class="step-n">↳</div>
+          <div>
+            <div class="step-t">The part that matters</div>
+            <div class="step-d">The agent stops at <code>0 changes applied</code>. Anyone can wire an API call — the work is building something you'd trust with a live budget.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BUILDS GRID ══ -->
   <div class="slabel">The builds</div>
   <div class="grid" id="grid"></div>
 
-  <!-- CLOSER -->
+  <!-- ══ SKILLS ══ -->
+  <div class="slabel">Not prompts. Systems.</div>
+  <p class="sintro">A prompt is a one-off. A skill is a process written down — inputs, decision rules, output shape, failure modes — that runs the same way every time, for anyone. These are the ones in daily use.</p>
+  <div class="stable">
+    <div class="srow head"><div>Skill</div><div>What it does</div><div>What it replaced</div></div>
+    <div class="srow"><div class="s-cmd">/google-ads-audit</div><div class="s-what">Full-account read across tracking, search terms, structure, keywords, RSAs and budget — one prioritized batch of drafts.</div><div class="s-repl">a two-day manual audit</div></div>
+    <div class="srow"><div class="s-cmd">/competitive-intel</div><div class="s-what">Scrapes Meta, LinkedIn and Google ad libraries, detects messaging shifts, outputs a structured report.</div><div class="s-repl">20 hrs of screenshotting</div></div>
+    <div class="srow"><div class="s-cmd">/outbound-engine</div><div class="s-what">ICP definition → sequence copy → deliverability audit → capacity plan, with an expert-panel score gate.</div><div class="s-repl">a freelance copywriter</div></div>
+    <div class="srow"><div class="s-cmd">/content-workflow</div><div class="s-what">Keyword + AI Overview screenshot in, an 18-rule-audited, citation-shaped draft out.</div><div class="s-repl">8–12 hrs of editor time</div></div>
+    <div class="srow"><div class="s-cmd">/seo-ops</div><div class="s-what">268-point keyword ranking tracker with earned/available scoring and an evidence string per checkpoint.</div><div class="s-repl">a rank-tracking subscription</div></div>
+    <div class="srow"><div class="s-cmd">/job-radar</div><div class="s-what">Multi-source job sourcing across ATS boards, scored against a profile, deduped in SQLite, run daily on a cron.</div><div class="s-repl">an hour of scrolling a day</div></div>
+    <div class="srow"><div class="s-cmd">/hera</div><div class="s-what">Evidence-backed creator scouting — discover, resolve, score, brief. Never invents a metric, never sends.</div><div class="s-repl">an influencer agency retainer</div></div>
+    <div class="srow"><div class="s-cmd">/landing-page-analyzer</div><div class="s-what">Fetches a live page and returns a scored CRO audit with prioritized fixes and rewritten copy.</div><div class="s-repl">a CRO consultant's first call</div></div>
+  </div>
+
+  <!-- ══ PRINCIPLES ══ -->
+  <div class="slabel">How I decide what to trust</div>
+  <p class="sintro">Most AI marketing output fails for the same four reasons. These are the rules every build here is held to.</p>
+  <div class="prin">
+    <div class="pcard">
+      <div class="p-n">01</div>
+      <div class="p-h">Human-in-the-loop on every write</div>
+      <div class="p-d">Read freely, write never — until a person approves the manifest. Dry run, approve, execute, verify, log. Nothing touches a live budget or an inbox on the agent's own authority.</div>
+    </div>
+    <div class="pcard">
+      <div class="p-n">02</div>
+      <div class="p-h">Evidence on every claim</div>
+      <div class="p-d">Every score carries the row that produced it. If a human can't audit the number without rerunning the job, the number isn't finished.</div>
+    </div>
+    <div class="pcard">
+      <div class="p-n">03</div>
+      <div class="p-h">Never invent a number</div>
+      <div class="p-d">Missing data is excluded from the denominator, not estimated into it. Scoring is earned over available — a confident wrong answer is worse than a gap you can see.</div>
+    </div>
+    <div class="pcard">
+      <div class="p-n">04</div>
+      <div class="p-h">Encode the expert once</div>
+      <div class="p-d">The strongest builds started as interviews. Sit with the person who does it best, write down how they decide, and the agent replicates judgment instead of guessing at it.</div>
+    </div>
+  </div>
+
+  <!-- ══ VELOCITY ══ -->
+  <div class="slabel">Velocity</div>
+  <div class="velo">
+    <div class="anat-h" style="font-size:22px">Six agents. One person. No engineering team.</div>
+    <div class="velo-line">
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">01</div><div class="vn-t">Google Ads Agent</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">02</div><div class="vn-t">Competitive Intel</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">03</div><div class="vn-t">Proposal Agent</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">04</div><div class="vn-t">Outbound Pages</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">05</div><div class="vn-t">LinkedIn Predictor</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">06</div><div class="vn-t">Content Workflow</div></div>
+    </div>
+    <p class="velo-foot">Every one shipped while running paid campaigns full-time. <b>The build isn't the side project — it's how the job gets done.</b></p>
+  </div>
+
+  <!-- ══ CLOSER ══ -->
   <div class="closer">
     <div class="closer-big">The real cost isn't the hard work. <b>It's the predictable work</b> that runs on a human every single week.</div>
     <p class="closer-sub">Most marketing bottlenecks aren't complexity problems — they're repeatability problems. Defined inputs, a fixed output shape, a predictable trigger. Solve those three and the loop encodes itself.</p>
   </div>
 
-  <!-- CTA -->
+  <!-- ══ SPLIT CTA ══ -->
   <div class="cta">
     <h2 class="cta-h">There are more loops <em>worth killing.</em></h2>
     <p class="cta-sub">If you're running a recurring task that looks the same every week, it's probably buildable.</p>
-    <div class="cta-btns">
-      <a href="mailto:vinayavk1@gmail.com" class="fbtn fbtn-fill">Get in touch →</a>
-      <a href="index.html" class="fbtn fbtn-line">← Back to portfolio</a>
+    <div class="split">
+      <div class="lane">
+        <div class="lane-k">If you're hiring</div>
+        <div class="lane-h">Product marketer who ships</div>
+        <div class="lane-d">5+ years in B2B SaaS growth and product marketing — plus the tooling to run it at a fraction of the headcount.</div>
+        <div class="lane-btns">
+          <a href="mailto:vinayavk1@gmail.com?subject=Role%20—%20let's%20talk" class="fbtn fbtn-fill">Let's talk →</a>
+          <a href="index.html" class="fbtn fbtn-line">Case studies</a>
+        </div>
+      </div>
+      <div class="lane">
+        <div class="lane-k">If you have a loop</div>
+        <div class="lane-h">Tell me what runs weekly</div>
+        <div class="lane-d">Same inputs, same output, every week, on a person. Send it over and I'll tell you straight whether it's worth building.</div>
+        <div class="lane-btns">
+          <a href="mailto:vinayavk1@gmail.com?subject=A%20loop%20worth%20killing" class="fbtn fbtn-fill">Send me the loop →</a>
+        </div>
+      </div>
     </div>
-    <p class="cta-credits">Vinay Kumar · Built using Claude Code + MCP · 2025</p>
+    <p class="cta-credits">Vinay Kumar · Built with Claude Code + MCP · This page included · 2026</p>
   </div>
 
 </div>
@@ -255,19 +552,21 @@ const BUILDS = [
   {
     rank:"01", name:"Google Ads Agent", feat:true,
     before:"Half day", after:"20 min",
-    desc:"Autonomous Google Ads — monitors, alerts, auto-negates, and pushes campaigns with no human in the loop.",
-    tags:["Claude Code + MCP","Google Ads API"],
+    built:"Claude Code · MCP · Google Ads API",
+    desc:"Autonomous Google Ads — monitors, alerts, auto-negates, and pushes campaigns behind an approval gate.",
+    tags:["Claude Code + MCP","Google Ads API","Subagents"],
     img:"images/google_ads_push.webp", cap:"Terminal — Claude Code pushing campaigns via API", tool:"google-ads-bot",
     problem:"Pushing 12 campaigns manually took most of a day. Daily reporting was a half-day loop that still left a gap between a dip and anyone acting on it.",
-    solution:"A Claude Code agent with MCP that pulls live data, watches for drops, negates keywords automatically, and handles campaign pushes — no approval step, no morning check-in.",
+    solution:"A Claude Code agent with MCP that pulls live data, watches for drops, drafts negatives automatically, and handles campaign pushes — with a dry-run → approve → verify gate on every write and a full audit trail.",
     result:"12 campaigns pushed in 20 minutes. Daily reports gone entirely. Drops flagged in real time instead of the next morning.",
     lens:"A performance marketer optimizes the campaign. A product marketer asks who owns the problem when it breaks at 2am — then automates that person out of the loop."
   },
   {
     rank:"02", name:"Competitive Intel Pipeline",
     before:"20 hrs", after:"<5 min",
+    built:"Claude Code · Playwright · Cron",
     desc:"LinkedIn + Google Ad Libraries scraped on a fixed cadence into a structured intel report.",
-    tags:["Playwright","Scheduled"],
+    tags:["Claude Code","Playwright","Scheduled"],
     img:"images/competitive_intel_push.webp", cap:"Terminal — Claude Code running competitive intel scrape", tool:"competitive-intel",
     problem:"Tracking competitor ads meant opening the Ad Library, scrolling, screenshotting, copying into a doc, and summarizing — every week, per competitor. The 20-hour cycle finished days after the ads went live.",
     solution:"A scheduled agent that scrapes both ad libraries, detects messaging shifts, flags volume changes per competitor, and outputs a structured PDF. No screenshots, no copy-paste, no human input.",
@@ -277,8 +576,9 @@ const BUILDS = [
   {
     rank:"03", name:"Proposal Agent",
     before:"30 hrs", after:"<20 min",
+    built:"Claude Code · Knowledge capture",
     desc:"A senior strategist's proposal process encoded — drop a domain + transcript, get a client-ready deck.",
-    tags:["Claude","Knowledge capture"],
+    tags:["Claude Code","Encoded expertise"],
     img:"images/proposal_agent_push.webp", cap:"Terminal — Claude Code running proposal agent", tool:"proposal-agent",
     problem:"PPC and SEO proposals took 30 hours each — not because the thinking was hard, but because research, structure, and client framing got rebuilt from scratch every time. Seniors spent that time on formatting, not judgment.",
     solution:"Interviewed the strategists who write the strongest proposals — what data they pull, how they frame recommendations, how tone shifts per client. That knowledge became a Claude agent. Input: domain + transcript. Output: client-ready draft.",
@@ -288,8 +588,9 @@ const BUILDS = [
   {
     rank:"04", name:"Outbound Landing Pages",
     before:"3 days", after:"30 min",
+    built:"Claude Code · Clay · SEO APIs",
     desc:"Finds lookalike accounts, audits their SEO gaps, and generates a personalized landing page per company.",
-    tags:["Clay","Claude"],
+    tags:["Claude Code","Clay","SEO APIs"],
     img:"images/outbound_pages_push.webp", cap:"Terminal — Claude Code running outbound pipeline", tool:"outbound-landing-pages",
     problem:"Generic outbound gets ignored. A page that names a company and maps its real SEO gaps to the offer converts — but doing that research 30 times by hand takes three days and still feels templated.",
     solution:"Clay identifies lookalike accounts from closed-won data and scores them. Audit tools pull real SEO data per domain. A Claude agent writes a landing page around each company's specific gaps and pushes it to sales.",
@@ -299,8 +600,9 @@ const BUILDS = [
   {
     rank:"05", name:"LinkedIn Predictor",
     before:"Reacting", after:"Steering",
+    built:"Claude Code · Predictive model",
     desc:"Forecasts next week's CTR, CPL & conversion volume before the spend happens — ~70% accuracy.",
-    tags:["Predictive model","Claude Code"],
+    tags:["Claude Code","Predictive model"],
     img:"images/linkedin_predictor.jpeg", cap:"Predictive dashboard — next 7-day forecast by campaign", tool:"linkedin-ads-predictor",
     problem:"Paid decisions get made after the money is gone. You wait three days for signal, read thousands of rows, and still guess whether to scale or kill. Budget gets split evenly because there's no way to know which bet is about to work.",
     solution:"A model that reads past performance, finds patterns no human catches by hand, and forecasts the coming week — spend, CPL, conversion volume. Budget follows what the model expects to perform, not an even split. Built with Claude Code after a modeling reframe with Pragadeesh Manoharan.",
@@ -310,8 +612,9 @@ const BUILDS = [
   {
     rank:"06", name:"Content Workflow Agent",
     before:"8–12 hrs", after:"10–20 min",
+    built:"Claude Code · /context/ grounding",
     desc:"Citation-earning blog system — keyword + AI Overview screenshot in, an 18-rule-audited draft out.",
-    tags:["Claude","/context/ docs"],
+    tags:["Claude Code","Grounded context","18-rule QA"],
     img:"images/content_workflow.png", cap:"Terminal — Claude Code running content pipeline", tool:"content-workflow-agent",
     problem:"AI blogs are cheap. Blogs cited by Google AI Overview, ChatGPT, and Perplexity are rare — because the pre-writing work (SERP analysis, citation-gap mapping, process-doc grounding, stat sourcing) got skipped every time. Editors caught gaps after the draft, when fixes were already too expensive.",
     solution:"Interviewed the editors behind the citations RevvGrowth actually wins for Atlan, Everstage, Vymo, and Docsumo. Codified how they brief, choose format from SERP intent, integrate client proof, and pick stats — into a Claude agent grounded in internal /context/ docs.",
@@ -331,6 +634,7 @@ BUILDS.forEach((b,i)=>{
       <span class="t-open">open →</span>
     </div>
     <div class="t-name">${b.name}</div>
+    <div class="t-built">${b.built}</div>
     <div class="t-desc">${b.desc}</div>
     <div class="t-metric">
       <span class="m-before">${b.before}</span>
@@ -347,9 +651,10 @@ const modal = document.getElementById('modal');
 function openModal(i){
   const b = BUILDS[i];
   modal.innerHTML = `
-    <span class="mod-rank">${b.rank} · Build</span>
+    <span class="mod-rank">${b.rank} · ${b.tool}</span>
     <div class="mod-name">${b.name}</div>
     <div class="mod-metric"><span class="m-before">${b.before}</span><span class="m-arrow">→</span><span class="m-after">${b.after}</span></div>
+    <div class="mod-stack">${b.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
     ${b.img ? `<div class="mod-artifact">
       <div class="art-bar"><span class="art-left"><span class="art-dot"></span>${b.cap}</span><span class="art-tag">${b.tool}</span></div>
       <img class="art-img" src="${b.img}" alt="${b.name} — ${b.cap}" loading="lazy"/>
