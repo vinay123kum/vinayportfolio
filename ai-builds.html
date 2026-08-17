@@ -239,11 +239,17 @@
   .flow::before,.flow::after{content:''; height:1px; width:52px; background:var(--border2)}
   .flow span{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase}
   .lanes{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
-  .dl{background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; border-top:3px solid var(--dl-a)}
+  /* keep the four tiers on the same rows across every lane */
+  @media(min-width:901px){
+    .dl-head{min-height:112px}
+    .dl-body{min-height:300px}
+    .dl-how{min-height:298px}
+  }
+  .dl{background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; align-self:start; border-top:3px solid var(--dl-a)}
   .dl-head{padding:16px 16px 14px; border-bottom:1px solid var(--border)}
   .dl-task{font-family:'Syne',sans-serif; font-weight:700; font-size:14px; line-height:1.2; letter-spacing:-.01em}
   .dl-trig{margin-top:6px; font-size:11px; line-height:1.45; color:var(--faint)}
-  .dl-body{padding:15px 16px; flex:1}
+  .dl-body{padding:15px 16px}
   .dl-kind{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dl-a)}
   .dl-name{font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:700; margin-top:4px}
   .dl-list{margin-top:11px; list-style:none}
@@ -252,6 +258,17 @@
   .dl-out{padding:12px 16px; border-top:1px dashed var(--border); background:rgba(20,20,20,0.015)}
   .dl-out-k{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint)}
   .dl-out-v{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dl-a); margin-top:4px; word-break:break-word}
+  .dl-field{margin-bottom:10px}
+  .dl-field:last-child{margin-bottom:0}
+  .dl-field-k{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:3px}
+  .dl-field-v{font-size:11.5px; line-height:1.5; color:rgba(20,20,20,0.7)}
+  .dl-path{font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--faint); margin-top:11px; padding-top:9px; border-top:1px dotted var(--border2); word-break:break-all}
+  .dl-how{padding:14px 16px; border-top:1px dashed var(--border); background:rgba(196,98,45,0.022)}
+  .dl-how-k{font-family:'Caveat',cursive; font-size:14px; font-weight:700; color:var(--dl-a); margin-bottom:8px}
+  .dl-code{display:block; font-family:'JetBrains Mono',monospace; font-size:9.5px; line-height:1.5; color:rgba(20,20,20,0.62); background:rgba(20,20,20,0.045); border-radius:6px; padding:7px 8px; margin-bottom:8px; word-break:break-all}
+  .paths{margin-top:12px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px 18px; padding:16px 20px; background:rgba(20,20,20,0.02); border:1px solid var(--border); border-radius:14px}
+  .paths-k{grid-column:1/-1; font-family:'Caveat',cursive; font-size:15px; font-weight:700; color:var(--rust)}
+  .path{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); word-break:break-all}
   .arch-foot{margin-top:14px; padding:16px 22px; border:1px dashed var(--border2); border-radius:14px; font-size:13px; line-height:1.6; color:var(--muted)}
   .arch-foot b{color:var(--black); font-weight:600}
 
@@ -259,6 +276,7 @@
   @media(max-width:900px){
     .band-chips.c5{grid-template-columns:repeat(2,1fr)}
     .lanes{grid-template-columns:repeat(2,1fr)}
+    .paths{grid-template-columns:repeat(2,1fr)}
     .stack{grid-template-columns:repeat(2,1fr)}
     .anat-body{grid-template-columns:1fr}
     .anat-col + .anat-col{border-left:none; border-top:1px solid var(--border)}
@@ -294,7 +312,7 @@
     .tile{min-height:0; padding:22px 20px}
     .t-name{font-size:19px}
     .prin{grid-template-columns:1fr}
-    .band-chips.c3,.band-chips.c5,.lanes{grid-template-columns:1fr}
+    .band-chips.c3,.band-chips.c5,.lanes,.paths{grid-template-columns:1fr}
     .band{padding:20px}
     .arch-foot{padding:16px 18px}
     .velo{padding:26px 22px}
@@ -532,7 +550,7 @@
     <div class="band">
       <div class="band-top">
         <div class="band-h">Design System Thinking</div>
-        <div class="band-sub">intelligence layer — consults the repo, then picks language, UI direction and tone per request</div>
+        <div class="band-sub">intelligence layer · powered by ui-ux-pro-max — consults the repo, then picks language, UI direction and tone per request</div>
       </div>
       <div class="band-chips c5">
         <div class="achip">
@@ -564,15 +582,29 @@
       <div class="dl" style="--dl-a:#3B82F6">
         <div class="dl-head">
           <div class="dl-task">Combine images</div>
-          <div class="dl-trig">merge · stitch · collage · before/after</div>
+          <div class="dl-trig">merge · stitch · collage<br>before/after · grid · side-by-side</div>
         </div>
         <div class="dl-body">
           <div class="dl-kind">Skill</div>
           <div class="dl-name">stitch</div>
+          <div class="dl-field" style="margin-top:11px">
+            <div class="dl-field-k">Platform</div>
+            <div class="dl-field-v">inference.sh SDK · infsh/stitch-images app</div>
+          </div>
+          <div class="dl-field">
+            <div class="dl-field-k">Script</div>
+            <div class="dl-field-v">vibe-design/infsh/infsh_run.py</div>
+          </div>
+          <div class="dl-path">skills/vibe-design/stitch/SKILL.md</div>
+        </div>
+        <div class="dl-how">
+          <div class="dl-how-k">How it works</div>
+          <code class="dl-code">python infsh_run.py stitch img1.png img2.png</code>
           <ul class="dl-list">
-            <li>inference.sh SDK, stitch-images app</li>
-            <li>Horizontal or vertical modes</li>
-            <li>2+ images, returns a result URL</li>
+            <li>Modes: horizontal / vertical</li>
+            <li>2+ images supported</li>
+            <li>Returns URL to result PNG</li>
+            <li>Needs INFERENCE_API_KEY</li>
           </ul>
         </div>
         <div class="dl-out">
@@ -584,82 +616,151 @@
       <div class="dl" style="--dl-a:#16A34A">
         <div class="dl-head">
           <div class="dl-task">Generate / edit image</div>
-          <div class="dl-trig">create · generate · make image · edit</div>
+          <div class="dl-trig">create · generate · make image<br>text-to-image · image editing</div>
         </div>
         <div class="dl-body">
           <div class="dl-kind">Skill</div>
           <div class="dl-name">nano-banana-2</div>
+          <div class="dl-field" style="margin-top:11px">
+            <div class="dl-field-k">Model</div>
+            <div class="dl-field-v">Gemini 3.1 Flash Image Preview via inference.sh CLI</div>
+          </div>
+          <div class="dl-field">
+            <div class="dl-field-k">Supports</div>
+            <div class="dl-field-v">Up to 14 input images</div>
+          </div>
+          <div class="dl-path">skills/vibe-design/nano-banana-2/SKILL.md</div>
+        </div>
+        <div class="dl-how">
+          <div class="dl-how-k">How it works</div>
+          <code class="dl-code">infsh app run google/gemini-3-1 --flash-image-preview</code>
           <ul class="dl-list">
-            <li>Gemini 3.1 Flash Image via inference.sh</li>
-            <li>Up to 14 input images</li>
+            <li>Text → image generation</li>
+            <li>Edit with existing images</li>
             <li>Aspect ratio + resolution control</li>
+            <li>Google Search grounding supported</li>
           </ul>
         </div>
         <div class="dl-out">
           <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">generated.png / edited.png</div>
+          <div class="dl-out-v">generated_image.png / edited.png</div>
         </div>
       </div>
 
       <div class="dl" style="--dl-a:#C4622D">
         <div class="dl-head">
           <div class="dl-task">Build UI / page</div>
-          <div class="dl-trig">landing page · dashboard · component</div>
+          <div class="dl-trig">build UI · design page · create interface<br>landing page · dashboard · component</div>
         </div>
         <div class="dl-body">
           <div class="dl-kind">Skill</div>
           <div class="dl-name">frontend-design</div>
+          <div class="dl-field" style="margin-top:11px">
+            <div class="dl-field-k">Output formats</div>
+            <div class="dl-field-v">HTML / React / Vue / Svelte · CSS animations + Motion lib</div>
+          </div>
+          <div class="dl-field">
+            <div class="dl-field-k">Philosophy</div>
+            <div class="dl-field-v">Anti-generic · Bold direction</div>
+          </div>
+          <div class="dl-path">skills/vibe-design/frontend-design/SKILL.md</div>
+        </div>
+        <div class="dl-how">
+          <div class="dl-how-k">Design principles</div>
           <ul class="dl-list">
-            <li>HTML, React, Vue or Svelte</li>
-            <li>Bold direction, distinctive type</li>
-            <li>CSS-only animation, no AI slop</li>
+            <li>Bold conceptual direction first</li>
+            <li>Distinctive typography (no Inter)</li>
+            <li>CSS-only animations preferred</li>
+            <li>Unexpected layout + asymmetry</li>
+            <li>No purple gradients / AI slop</li>
+            <li>Motion library for React</li>
           </ul>
         </div>
         <div class="dl-out">
           <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">index.html / .tsx / .vue</div>
+          <div class="dl-out-v">index.html / .tsx / .vue / .svelte</div>
         </div>
       </div>
 
       <div class="dl" style="--dl-a:#DC2626">
         <div class="dl-head">
           <div class="dl-task">Upgrade existing site</div>
-          <div class="dl-trig">redesign · upgrade · fix AI slop</div>
+          <div class="dl-trig">redesign · upgrade · fix AI slop<br>premium rewrite · full audit</div>
         </div>
         <div class="dl-body">
           <div class="dl-kind">Skill</div>
           <div class="dl-name">redesign-existing</div>
+          <div class="dl-field" style="margin-top:11px">
+            <div class="dl-field-k">Process</div>
+            <div class="dl-field-v">Audit current site / app · identify generic AI aesthetics</div>
+          </div>
+          <div class="dl-field">
+            <div class="dl-field-k">Output</div>
+            <div class="dl-field-v">Full premium code rewrite</div>
+          </div>
+          <div class="dl-path">skills/redesign-existing-projects/SKILL.md</div>
+        </div>
+        <div class="dl-how">
+          <div class="dl-how-k">Audit → rewrite flow</div>
           <ul class="dl-list">
-            <li>Audit the current UI code</li>
-            <li>Flag generic AI patterns</li>
-            <li>Full production rewrite</li>
+            <li>1. Audit existing UI code</li>
+            <li>2. Flag generic AI patterns</li>
+            <li>3. Choose bold direction</li>
+            <li>4. Full production rewrite</li>
+            <li>5. Deliver polished output</li>
+            <li>References B2B repo patterns</li>
           </ul>
         </div>
         <div class="dl-out">
           <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">rewritten site / app code</div>
+          <div class="dl-out-v">full rewritten site / app code</div>
         </div>
       </div>
 
       <div class="dl" style="--dl-a:#0D9488">
         <div class="dl-head">
           <div class="dl-task">Ad creative</div>
-          <div class="dl-trig">ad creative · campaign visual</div>
+          <div class="dl-trig">ad creative · campaign visual<br>generate ad · brand creative</div>
         </div>
         <div class="dl-body">
           <div class="dl-kind">Agent</div>
           <div class="dl-name">visual-designer</div>
+          <div class="dl-field" style="margin-top:11px">
+            <div class="dl-field-k">Reads</div>
+            <div class="dl-field-v">campaign-brief.md · brand-profile.json</div>
+          </div>
+          <div class="dl-field">
+            <div class="dl-field-k">Delegates to</div>
+            <div class="dl-field-v">nano-banana-2 (image generation)</div>
+          </div>
+          <div class="dl-path">agents/visual-designer.md</div>
+        </div>
+        <div class="dl-how">
+          <div class="dl-how-k">Subagent flow</div>
           <ul class="dl-list">
-            <li>Reads campaign-brief + brand-profile</li>
-            <li>Builds prompts, delegates image gen</li>
-            <li>Organises into ad-assets/</li>
+            <li>1. Read campaign-brief.md</li>
+            <li>2. Build image prompts</li>
+            <li>3. Call nano-banana-2</li>
+            <li>4. Organise into ad-assets/</li>
+            <li>5. Write generation-manifest.json</li>
+            <li>References B2B repo creatives</li>
           </ul>
         </div>
         <div class="dl-out">
           <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">ad-assets/ + manifest.json</div>
+          <div class="dl-out-v">ad-assets/ + generation-manifest.json</div>
         </div>
       </div>
+    </div>
+
+    <div class="paths">
+      <div class="paths-k">Where it all lives</div>
+      <div class="path">skills/vibe-design/stitch/</div>
+      <div class="path">skills/vibe-design/nano-banana-2/</div>
+      <div class="path">skills/vibe-design/frontend-design/</div>
+      <div class="path">skills/vibe-design/ui-ux-pro-max/ &nbsp;(design system)</div>
+      <div class="path">skills/redesign-existing-projects/</div>
+      <div class="path">agents/visual-designer.md</div>
     </div>
 
     <p class="arch-foot">Same shape as every build on this page: <b>a reference bank, a decision layer, and execution that inherits both.</b> The reason AI design looks like AI design is that most people start at the last box. <a href="design.html" style="color:var(--rust); border-bottom:1px solid var(--rust-md)">See the design work →</a></p>
