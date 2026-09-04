@@ -3,27 +3,26 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vinay Kumar — AI Growth Engineer | Agents built in Claude Code</title>
-<meta name="description" content="Product marketer who ships the tooling instead of requesting it. Six production agents — Google Ads, competitive intel, proposals, outbound, forecasting, content — built solo in Claude Code with MCP, custom skills and subagents."/>
+<title>Vinay Kumar — AI Growth Engineer | Systems I built and run</title>
+<meta name="description" content="Five marketing systems built and running against live client accounts: an SEO scoring platform, a Google Ads agent, a 24-account media dashboard, a content pipeline and a design pack. Built solo in Claude Code with MCP."/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --rust:#C4622D; --rust-lt:rgba(196,98,45,0.1); --rust-md:rgba(196,98,45,0.2);
+    --rust:#C4622D; --rust-lt:rgba(196,98,45,0.1); --rust-md:rgba(196,98,45,0.22);
     --black:#141414; --cream:#FAF8F4; --paper:#FFFFFF;
     --border:rgba(20,20,20,0.08); --border2:rgba(20,20,20,0.14);
     --muted:rgba(20,20,20,0.45); --faint:rgba(20,20,20,0.3);
-    --green:#16a34a;
-    --ink:#17150F;
+    --green:#16a34a; --green-lt:rgba(22,163,74,.09); --green-md:rgba(22,163,74,.26);
+    --amber:#B45309; --ink:#17150F;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     font-family:'Inter',sans-serif; background:var(--cream); color:var(--black);
-    -webkit-font-smoothing:antialiased; overflow-x:hidden;
-    -webkit-tap-highlight-color:transparent; text-size-adjust:100%; -webkit-text-size-adjust:100%;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden; -webkit-text-size-adjust:100%;
   }
   body::after{
     content:''; position:fixed; inset:0; opacity:.03; pointer-events:none; z-index:100;
@@ -33,47 +32,292 @@
   ::-webkit-scrollbar{width:2px}
   ::-webkit-scrollbar-thumb{background:var(--rust)}
   a{color:inherit;text-decoration:none}
-  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 32px}
 
-  .wrap{max-width:1080px; margin:0 auto; padding:0 32px}
-
-  /* ── TOP ── */
   .top{display:flex; align-items:center; justify-content:space-between; padding:26px 0 0}
   .back{font-family:'Caveat',cursive; font-size:17px; font-weight:600; color:var(--faint); transition:color .2s}
   .back:hover{color:var(--rust)}
   .top-tag{font-family:'Caveat',cursive; font-size:16px; color:var(--faint)}
 
   /* ── HERO ── */
-  .hero{padding:58px 0 36px}
+  .hero{padding:54px 0 32px}
   .eyebrow{font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--rust); display:flex; align-items:center; gap:10px; margin-bottom:22px; flex-wrap:wrap}
   .eyebrow::before{content:''; width:20px; height:2px; background:var(--rust); flex-shrink:0}
-  .h1{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(40px,6.4vw,76px); line-height:1.02; letter-spacing:-.01em}
+  .h1{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(36px,5.6vw,62px); line-height:1.05; letter-spacing:-.01em; max-width:20ch}
   .h1 b{font-family:'Syne',sans-serif; font-style:normal; font-weight:800; color:var(--rust)}
-  .cursor{display:inline-block; width:.44em; height:.78em; background:var(--rust); margin-left:.1em; vertical-align:-2px; animation:blink 1.15s steps(1) infinite}
-  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
-  .lede{margin-top:24px; max-width:640px; font-size:17px; line-height:1.6; color:rgba(20,20,20,0.62)}
+  .lede{margin-top:22px; max-width:640px; font-size:17px; line-height:1.62; color:rgba(20,20,20,0.62)}
   .lede b{color:var(--black); font-weight:600}
+  .hb{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px}
+  .btn{display:inline-flex; align-items:center; gap:7px; padding:12px 23px; border-radius:100px; font-size:13px; font-weight:700; transition:.2s; border:1px solid transparent}
+  .btn-f{background:var(--rust); color:#fff}
+  .btn-f:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(196,98,45,.3)}
+  .btn-l{border-color:var(--border2); color:var(--muted)}
+  .btn-l:hover{color:var(--black); border-color:rgba(20,20,20,.35)}
 
-  /* ── STAT RIBBON ── */
-  .ribbon{display:flex; flex-wrap:wrap; margin-top:40px; background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
-  .stat{flex:1 1 0; min-width:150px; padding:22px 24px; border-right:1px solid var(--border)}
+  .ribbon{display:flex; flex-wrap:wrap; margin-top:38px; background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  .stat{flex:1 1 0; min-width:140px; padding:20px 22px; border-right:1px solid var(--border)}
   .stat:last-child{border-right:none}
-  .stat-n{font-family:'Syne',sans-serif; font-weight:800; font-size:27px; line-height:1; font-variant-numeric:tabular-nums}
+  .stat-n{font-family:'Syne',sans-serif; font-weight:800; font-size:26px; line-height:1; font-variant-numeric:tabular-nums}
   .stat-n .u{font-size:13px; color:var(--muted); font-weight:700}
-  .stat-l{font-family:'Caveat',cursive; font-size:15px; color:var(--muted); margin-top:8px}
+  .stat-l{font-family:'Caveat',cursive; font-size:15px; color:var(--muted); margin-top:8px; line-height:1.3}
 
-  /* ── SECTION LABEL ── */
-  .slabel{font-family:'Caveat',cursive; font-size:17px; font-weight:600; color:var(--rust); display:flex; align-items:center; gap:10px; margin:58px 0 22px}
+  .slabel{font-family:'Caveat',cursive; font-size:17px; font-weight:600; color:var(--rust); display:flex; align-items:center; gap:10px; margin:58px 0 18px}
   .slabel::before{content:''; width:18px; height:2px; background:var(--rust)}
-  .sintro{max-width:620px; font-size:15px; line-height:1.65; color:rgba(20,20,20,0.55); margin:-8px 0 24px}
+  .sh{font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(22px,3.1vw,30px); letter-spacing:-.02em; max-width:26ch}
+  .sintro{max-width:660px; font-size:15px; line-height:1.65; color:rgba(20,20,20,0.55); margin-top:13px}
 
-  /* ── STACK STRIP ── */
-  .stack{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
-  .schip{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:18px 18px 16px; transition:border-color .2s, transform .2s}
-  .schip:hover{border-color:var(--rust-md); transform:translateY(-2px)}
-  .schip-k{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--rust); margin-bottom:9px}
-  .schip-n{font-family:'Syne',sans-serif; font-weight:700; font-size:15px; letter-spacing:-.01em}
-  .schip-d{margin-top:7px; font-size:12.5px; line-height:1.5; color:var(--muted)}
+  /* ── JD BRIDGE ── */
+  .jdq{margin-top:22px; padding:18px 26px; background:var(--paper); border:1px solid var(--border); border-left:3px solid var(--rust); border-radius:0 14px 14px 0; font-family:'Playfair Display',serif; font-style:italic; font-size:16px; line-height:1.55; color:rgba(20,20,20,.72)}
+  .jdq cite{display:block; margin-top:10px; font-family:'JetBrains Mono',monospace; font-style:normal; font-size:10.5px; letter-spacing:.05em; color:var(--faint)}
+  .jdm{margin-top:14px; background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  .jdr{display:grid; grid-template-columns:1fr 34px 190px; gap:16px; align-items:center; padding:14px 22px; border-bottom:1px solid var(--border)}
+  .jdr:last-child{border-bottom:none}
+  .jdr.h{background:rgba(20,20,20,.02)}
+  .jdr.h div{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+  .jd-a{font-size:13.5px; line-height:1.55; color:rgba(20,20,20,.6); font-style:italic}
+  .jd-x{color:var(--rust); font-size:13px; text-align:center}
+  .jd-b{font-family:'Syne',sans-serif; font-weight:700; font-size:13.5px; letter-spacing:-.01em}
+  .jd-b span{display:block; font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:400; color:var(--faint); margin-top:4px; letter-spacing:.04em}
+  .jd-f{padding:13px 22px; border-top:1px solid var(--border); background:rgba(196,98,45,.04); font-size:13px; line-height:1.6; color:var(--muted)}
+  .jd-f b{color:var(--black); font-weight:600}
+
+  /* ── TOOL COVERAGE ── */
+  .tools{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:16px}
+  .tc{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:18px 20px}
+  .tc.gap{border-color:var(--border2); background:rgba(20,20,20,.014)}
+  .tc-h{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:11px}
+  .tc-k{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.07em; text-transform:uppercase; color:var(--rust)}
+  .tc.gap .tc-k{color:var(--faint)}
+  .vd{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:100px; white-space:nowrap}
+  .vd.own{background:var(--green-lt); color:var(--green); border:1px solid var(--green-md)}
+  .vd.use{background:var(--rust-lt); color:var(--rust); border:1px solid var(--rust-md)}
+  .vd.gap{background:rgba(20,20,20,.04); color:var(--faint); border:1px solid var(--border2)}
+  .chips{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:11px}
+  .ch{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); background:var(--cream); border:1px solid var(--border); border-radius:5px; padding:3px 8px}
+  .tc-d{font-size:12.5px; line-height:1.6; color:var(--muted)}
+  .tc-d b{color:var(--black); font-weight:600}
+
+  /* ── HONEST GAP ── */
+  .gapg{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px}
+  .gc{background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  .gc.yes{border-color:var(--green-md)}
+  .gc-h{padding:13px 20px; border-bottom:1px solid var(--border); font-family:'Syne',sans-serif; font-weight:800; font-size:14px; letter-spacing:-.015em}
+  .gc.yes .gc-h{background:var(--green-lt); color:var(--green)}
+  .gc.no .gc-h{background:rgba(20,20,20,.025); color:var(--muted)}
+  .gc-l{list-style:none; padding:14px 20px 16px}
+  .gc-l li{position:relative; padding-left:16px; font-size:12.5px; line-height:1.6; color:var(--muted); margin-bottom:10px}
+  .gc-l li:last-child{margin-bottom:0}
+  .gc-l li::before{content:''; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; background:var(--green)}
+  .gc.no .gc-l li::before{background:var(--border2)}
+  .gc-l li b{color:var(--black); font-weight:600}
+  .gnote{margin-top:12px; padding:16px 22px; background:var(--paper); border:1px solid var(--rust-md); border-radius:14px; font-size:13.5px; line-height:1.68; color:var(--muted)}
+  .gnote b{color:var(--black); font-weight:600}
+
+  /* ── CREDENTIAL STRIP ── */
+  .cred{display:grid; grid-template-columns:repeat(3,1fr); margin:0 32px 20px; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--paper)}
+  .cr{padding:18px 20px; border-right:1px solid var(--border)}
+  .cr:last-child{border-right:none}
+  .cr-k{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--rust)}
+  .cr-t{font-family:'Syne',sans-serif; font-weight:800; font-size:15px; letter-spacing:-.015em; margin-top:9px; line-height:1.25}
+  .cr-d{margin-top:7px; font-size:12px; line-height:1.55; color:var(--muted)}
+
+  /* ── DESIGN PACK ARCH ── */
+  .arch{margin:0 32px 24px}
+  .band{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:16px 18px}
+  .band-t{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; margin-bottom:13px}
+  .band-n{font-family:'Syne',sans-serif; font-weight:800; font-size:14px; letter-spacing:-.015em}
+  .band-s{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); letter-spacing:.03em}
+  .bg3{display:grid; grid-template-columns:repeat(3,1fr); gap:9px}
+  .bg6{display:grid; grid-template-columns:repeat(6,1fr); gap:9px}
+  .bc{border:1px solid var(--border); border-radius:10px; padding:11px 12px; background:rgba(196,98,45,.028)}
+  .bc-n{font-family:'Syne',sans-serif; font-weight:700; font-size:12px; letter-spacing:-.01em}
+  .bc-d{margin-top:5px; font-size:11px; line-height:1.45; color:var(--muted)}
+  .flow{display:flex; align-items:center; justify-content:center; gap:9px; padding:11px 0; color:var(--faint)}
+  .flow::before,.flow::after{content:''; height:1px; width:48px; background:var(--border2)}
+  .flow span{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase}
+  .lanes{display:grid; grid-template-columns:repeat(5,1fr); gap:9px}
+  .ln{background:var(--paper); border:1px solid var(--border); border-top:2px solid var(--la,var(--rust)); border-radius:10px; padding:13px 13px}
+  .ln-k{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--la,var(--rust))}
+  .ln-n{font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:700; margin-top:5px}
+  .ln-d{margin-top:7px; font-size:10.5px; line-height:1.5; color:var(--muted)}
+
+
+  /* ══ BUILD CARD ══ */
+  .build{margin-top:18px; background:var(--paper); border:1px solid var(--border); border-radius:20px; overflow:hidden}
+  .b-head{padding:28px 32px 24px}
+  .b-top{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+  .b-no{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--rust)}
+  .b-where{font-family:'Caveat',cursive; font-size:16px; color:var(--muted)}
+  .b-where b{color:var(--black); font-weight:700}
+  .b-h{font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(20px,2.7vw,26px); letter-spacing:-.02em; max-width:24ch}
+  .b-p{margin-top:12px; max-width:660px; font-size:14.5px; line-height:1.68; color:rgba(20,20,20,0.6)}
+  .b-p b{color:var(--black); font-weight:600}
+  .b-l{list-style:none; margin-top:16px; display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  .b-l li{position:relative; padding-left:14px; font-size:12.5px; line-height:1.55; color:var(--muted)}
+  .b-l li::before{content:''; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; background:var(--rust)}
+  .b-l li b{display:block; color:var(--black); font-weight:600; font-size:12.5px; margin-bottom:2px}
+
+  /* ── SCREENSHOT FRAME ── */
+  .shot{margin:0 32px 26px; border:1px solid var(--border2); border-radius:12px; overflow:hidden; background:var(--paper); box-shadow:0 18px 40px -28px rgba(20,20,20,.5)}
+  .shot-bar{display:flex; align-items:center; gap:8px; padding:9px 14px; background:rgba(20,20,20,.035); border-bottom:1px solid var(--border)}
+  .sdot{width:9px; height:9px; border-radius:50%}
+  .shot-u{margin-left:8px; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); letter-spacing:.03em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .shot-img{display:block; width:100%; height:auto}
+  .shot-cap{padding:9px 16px; border-top:1px solid var(--border); background:rgba(20,20,20,.015); font-family:'Caveat',cursive; font-size:15px; color:var(--faint); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+
+  /* ── TOOL SUITE ── */
+  .suite{margin:0 32px 24px; border:1px solid var(--border); border-radius:12px; overflow:hidden}
+  .su-h{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:11px 18px; background:rgba(20,20,20,.025); border-bottom:1px solid var(--border)}
+  .su-t{font-family:'Syne',sans-serif; font-weight:700; font-size:13px; letter-spacing:-.01em}
+  .su-m{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); letter-spacing:.04em}
+  .su-r{display:grid; grid-template-columns:1fr 220px 92px 78px; gap:14px; align-items:center; padding:10px 18px; border-bottom:1px solid var(--border)}
+  .su-r:last-child{border-bottom:none}
+  .su-r.on{background:rgba(196,98,45,.05)}
+  .su-n{font-size:12.5px; font-weight:600}
+  .su-r.off .su-n{font-weight:400; color:var(--faint)}
+  .su-d{font-size:11.5px; line-height:1.45; color:var(--muted)}
+  .su-r.off .su-d{color:var(--faint)}
+  .su-p{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); text-align:right}
+  .su-r.off .su-p{color:var(--faint)}
+  .st{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.05em; text-transform:uppercase; padding:3px 9px; border-radius:100px; text-align:center; white-space:nowrap; display:block}
+  .st.b{background:var(--green-lt); color:var(--green); border:1px solid var(--green-md)}
+  .st.q{background:rgba(20,20,20,.03); color:var(--faint); border:1px solid var(--border2)}
+  .st.this{background:var(--rust-lt); color:var(--rust); border:1px solid var(--rust-md); font-weight:700}
+
+  /* mock: scorecard */
+  .mk{padding:16px 18px}
+  .mk-h{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding-bottom:13px; border-bottom:1px solid var(--border); margin-bottom:13px}
+  .mk-t{font-family:'Syne',sans-serif; font-weight:800; font-size:15px; letter-spacing:-.015em}
+  .mk-t span{display:block; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:400; color:var(--faint); margin-top:4px}
+  .mk-s{display:flex; align-items:baseline; gap:8px}
+  .mk-sv{font-family:'Syne',sans-serif; font-weight:800; font-size:26px; letter-spacing:-.03em; color:var(--rust)}
+  .mk-sl{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.06em}
+  .row{display:grid; grid-template-columns:1fr 120px 58px; gap:14px; align-items:center; padding:8px 0}
+  .row-n{font-size:12.5px; color:var(--muted)}
+  .bar{height:5px; border-radius:100px; background:rgba(20,20,20,.07); overflow:hidden}
+  .bar i{display:block; height:100%; border-radius:100px; background:var(--rust)}
+  .row-v{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--faint); text-align:right; font-variant-numeric:tabular-nums}
+  .mk-f{margin-top:13px; padding-top:12px; border-top:1px dashed var(--border2); font-family:'JetBrains Mono',monospace; font-size:10.5px; line-height:1.7; color:var(--muted); overflow-x:auto; white-space:nowrap}
+  .mk-f b{color:var(--green); font-weight:400} .mk-f i{color:var(--rust); font-style:normal}
+
+  /* mock: terminal */
+  .term{background:var(--ink); font-family:'JetBrains Mono',monospace}
+  .tb{padding:16px 18px 18px; font-size:11.5px; line-height:1.85; overflow-x:auto}
+  .tb .l{white-space:pre; color:rgba(255,255,255,.62)}
+  .tb .p{color:var(--rust)} .tb .ok{color:#4ade80} .tb .dm{color:rgba(255,255,255,.32)}
+  .tb .w{color:#fbbf24} .tb .hi{color:#fff}
+
+  /* mock: QA panel */
+  .qa{padding:16px 18px}
+  .qa-h{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+  .qa-s{display:flex; align-items:center; gap:10px}
+  .qa-sv{font-family:'Syne',sans-serif; font-weight:800; font-size:22px; color:var(--rust); letter-spacing:-.03em}
+  .qa-st{font-size:12px; color:var(--muted); line-height:1.4}
+  .qa-st b{display:block; color:var(--black); font-weight:600}
+  .qa-l{display:grid; grid-template-columns:1fr 1fr; gap:6px}
+  .qi{display:flex; align-items:flex-start; gap:9px; padding:8px 11px; border:1px solid var(--border); border-radius:8px; background:var(--cream)}
+  .qi.f{border-color:var(--rust-md); background:rgba(196,98,45,.04)}
+  .qk{width:14px; height:14px; border-radius:4px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:8.5px; font-weight:700; margin-top:1px}
+  .qk.p{background:var(--green-lt); color:var(--green); border:1px solid var(--green-md)}
+  .qk.x{background:var(--rust-lt); color:var(--rust); border:1px solid var(--rust-md)}
+  .qt{font-size:11.5px; line-height:1.4; color:var(--muted)}
+  .qi.f .qt{color:var(--black)}
+  .qt i{display:block; font-style:normal; font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--faint); margin-top:3px}
+  .qi.f .qt i{color:var(--rust)}
+  .qa-f{margin-top:12px; padding:10px 13px; border:1px solid var(--rust-md); background:var(--rust-lt); border-radius:8px; font-size:11.5px; line-height:1.55; color:var(--muted)}
+  .qa-f b{color:var(--black); font-weight:600}
+
+  .bell{font-family:'JetBrains Mono',monospace; font-size:9.5px; padding:4px 10px; border-radius:100px; border:1px solid var(--rust-md); background:var(--rust-lt); color:var(--rust)}
+
+  /* ── FOOT STRIP ── */
+  .b-foot{display:grid; grid-template-columns:auto 1fr auto; gap:24px; align-items:center; padding:18px 32px; border-top:1px solid var(--border); background:rgba(20,20,20,.015)}
+  .delta{display:flex; align-items:center; gap:10px; flex-shrink:0}
+  .d-b{font-size:13px; color:var(--faint); font-weight:600; text-decoration:line-through; text-decoration-color:var(--rust-md)}
+  .d-arw{color:var(--rust); font-size:13px}
+  .d-a{font-family:'Syne',sans-serif; font-weight:800; font-size:22px; letter-spacing:-.02em}
+  .tags{display:flex; flex-wrap:wrap; gap:6px}
+  .tg{font-size:10.5px; color:var(--muted); border:1px solid var(--border2); border-radius:20px; padding:4px 10px}
+  .repl{font-family:'Caveat',cursive; font-size:15px; color:var(--muted); text-align:right; line-height:1.3}
+  .repl b{display:block; font-family:'Inter',sans-serif; font-size:10.5px; font-weight:500; color:var(--faint); letter-spacing:.03em; text-transform:uppercase; margin-bottom:2px}
+
+  /* ── TABLE ── */
+  .tbl{background:var(--paper); border:1px solid var(--border); border-radius:18px; overflow:hidden; margin-top:22px}
+  .trow{display:grid; grid-template-columns:180px 1fr 120px; gap:20px; padding:14px 24px; border-bottom:1px solid var(--border); align-items:center}
+  .trow:last-child{border-bottom:none}
+  .trow.h{background:rgba(20,20,20,.02)}
+  .trow.h div{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+  .t-nm{font-family:'Syne',sans-serif; font-weight:700; font-size:13.5px; letter-spacing:-.01em}
+  .t-d{font-size:13px; line-height:1.5; color:rgba(20,20,20,.62)}
+  .t-m{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--green)}
+
+  /* ── RULES STRIP ── */
+  .prin{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px}
+  .pc{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:20px}
+  .pc-n{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--rust); letter-spacing:.06em}
+  .pc-h{font-family:'Syne',sans-serif; font-weight:700; font-size:14px; letter-spacing:-.01em; margin-top:9px; line-height:1.25}
+  .pc-d{margin-top:8px; font-size:12px; line-height:1.55; color:var(--muted)}
+
+  /* ── NOTE / CTA ── */
+  .note{margin-top:22px; background:var(--paper); border:1px solid var(--border); border-left:3px solid var(--rust); border-radius:0 18px 18px 0; padding:30px 36px}
+  .nl{list-style:none}
+  .nl li{position:relative; padding-left:19px; font-size:14.5px; line-height:1.68; color:rgba(20,20,20,.66); margin-bottom:10px}
+  .nl li::before{content:''; position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--rust)}
+  .nl li b{color:var(--black); font-weight:600}
+  .nf{margin-top:17px; padding-top:16px; border-top:1px solid var(--border); font-size:14px; line-height:1.68; color:var(--muted)}
+  .nf b{color:var(--black); font-weight:600}
+
+  .trial{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; max-width:820px; margin:34px auto 0; text-align:left}
+  .tr{background:var(--paper); border:1px solid var(--border); border-radius:16px; padding:22px 24px}
+  .tr-n{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--rust)}
+  .tr-h{font-family:'Syne',sans-serif; font-weight:800; font-size:15px; letter-spacing:-.015em; margin-top:10px}
+  .tr-d{margin-top:8px; font-size:12.5px; line-height:1.6; color:var(--muted)}
+  .tr-d b{color:var(--black); font-weight:600}
+  .fineprint{max-width:640px; margin:26px auto 0; font-size:13px; line-height:1.65; color:var(--faint); text-align:center}
+  .fineprint b{color:var(--muted); font-weight:500}
+
+  .cta{padding:60px 0 52px; border-top:1px solid var(--border); margin-top:52px}
+  .cta-sub{font-size:15px; color:var(--muted); margin:18px auto 0; max-width:600px; line-height:1.65; text-align:center}
+  .cta-b{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:30px}
+  .credits{margin-top:52px; padding-top:26px; border-top:1px solid var(--border); font-size:12px; color:var(--faint); text-align:center; font-family:'JetBrains Mono',monospace; line-height:2}
+  .credits a{color:var(--muted); border-bottom:1px solid var(--border2)}
+  .credits a:hover{color:var(--rust)}
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px){
+    .b-l{grid-template-columns:1fr}
+    .trial{grid-template-columns:1fr}
+    .tools,.cred,.bg3,.gapg{grid-template-columns:1fr}
+    .cr{border-right:none; border-bottom:1px solid var(--border)}
+    .cr:last-child{border-bottom:none}
+    .bg6{grid-template-columns:repeat(2,1fr)}
+    .lanes{grid-template-columns:repeat(2,1fr)}
+    .jdr{grid-template-columns:1fr; gap:8px; padding:16px 22px}
+    .jdr.h{display:none}
+    .jd-x{display:none}
+    .jd-b span{display:inline; margin-left:8px}
+    .su-r{grid-template-columns:1fr 92px; gap:8px 12px}
+    .su-d{grid-column:1/-1; order:3}
+    .su-p{text-align:left; grid-column:1/-1; order:4}
+    .prin{grid-template-columns:repeat(2,1fr)}
+    .qa-l{grid-template-columns:1fr}
+    .b-foot{grid-template-columns:1fr; gap:14px}
+    .repl{text-align:left}
+    .trow{grid-template-columns:1fr; gap:6px; padding:16px 22px}
+    .trow.h{display:none}
+  }
+  @media(max-width:600px){
+    .wrap{padding:0 18px}
+    .bg6,.lanes{grid-template-columns:1fr}
+    .cred,.arch{margin-left:20px; margin-right:20px}
+    .hero{padding:36px 0 24px}
+    .b-head,.b-foot{padding-left:20px; padding-right:20px}
+    .shot{margin-left:20px; margin-right:20px}
+    .ribbon .stat{flex-basis:50%; border-bottom:1px solid var(--border)}
+    .ribbon .stat:nth-child(2n){border-right:none}
+    .prin{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr 60px 50px; gap:9px}
+    .note{padding:24px 20px}
+  }
 
   /* ── ANATOMY ── */
   .anat{background:var(--paper); border:1px solid var(--border); border-radius:22px; overflow:hidden}
@@ -92,56 +336,37 @@
   .step-d code{font-family:'JetBrains Mono',monospace; font-size:11.5px; background:var(--rust-lt); color:var(--rust); padding:1px 5px; border-radius:4px}
 
   /* terminal */
-  .term{background:var(--ink); border-radius:14px; overflow:hidden; font-family:'JetBrains Mono',monospace}
-  .term-bar{display:flex; align-items:center; gap:7px; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.08)}
+  .aterm{background:var(--ink); border-radius:14px; overflow:hidden; font-family:'JetBrains Mono',monospace}
+  .aterm-bar{display:flex; align-items:center; gap:7px; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.08)}
   .tdot{width:9px; height:9px; border-radius:50%}
-  .term-t{margin-left:8px; font-size:10.5px; color:rgba(255,255,255,.4)}
-  .term-b{padding:16px 16px 18px; font-size:11.5px; line-height:1.85; overflow-x:auto}
-  .term-b .l{white-space:pre; color:rgba(255,255,255,.62)}
-  .term-b .p{color:var(--rust)}
-  .term-b .ok{color:#4ade80}
-  .term-b .dim{color:rgba(255,255,255,.32)}
-  .term-b .w{color:#fbbf24}
-  .term-b .hi{color:#fff}
+  .aterm-t{margin-left:8px; font-size:10.5px; color:rgba(255,255,255,.4)}
+  .aterm-b{padding:16px 16px 18px; font-size:11.5px; line-height:1.85; overflow-x:auto}
+  .aterm-b .l{white-space:pre; color:rgba(255,255,255,.62)}
+  .aterm-b .p{color:var(--rust)}
+  .aterm-b .ok{color:#4ade80}
+  .aterm-b .dim{color:rgba(255,255,255,.32)}
+  .aterm-b .w{color:#fbbf24}
+  .aterm-b .hi{color:#fff}
 
-  /* ── BENTO GRID ── */
-  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-  .tile{
-    position:relative; background:var(--paper); border:1px solid var(--border); border-radius:18px;
-    padding:24px; cursor:pointer; overflow:hidden; text-align:left;
-    display:flex; flex-direction:column; min-height:216px; font-family:inherit;
-    transition:transform .25s cubic-bezier(.2,.7,.2,1), background .25s, border-color .25s, box-shadow .25s;
-  }
-  .tile:focus-visible{outline:2px solid var(--rust); outline-offset:2px}
-  .tile:active{transform:scale(.985); border-color:var(--rust-md)}
-  .t-rank,.t-name,.t-desc,.m-before,.m-arrow,.m-after,.tag,.t-open,.t-built{transition:color .22s, border-color .22s}
-  @media(hover:hover) and (pointer:fine){
-    .tile:hover{transform:translateY(-4px); background:var(--rust); border-color:var(--rust); box-shadow:0 20px 44px -20px rgba(196,98,45,.55)}
-    .tile:hover .t-rank{color:rgba(255,255,255,.8)}
-    .tile:hover .t-name{color:#fff}
-    .tile:hover .t-desc{color:rgba(255,255,255,.85)}
-    .tile:hover .m-before{color:rgba(255,255,255,.6); text-decoration-color:rgba(255,255,255,.5)}
-    .tile:hover .m-arrow{color:#fff}
-    .tile:hover .m-after{color:#fff}
-    .tile:hover .tag{color:#fff; border-color:rgba(255,255,255,.4)}
-    .tile:hover .t-open{color:rgba(255,255,255,.9); opacity:1}
-    .tile:hover .t-built{color:rgba(255,255,255,.75)}
-  }
-  .t-top{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px}
-  .t-rank{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11.5px; color:var(--rust); letter-spacing:.04em}
-  .t-open{font-family:'Caveat',cursive; font-size:15px; color:var(--faint); opacity:0; transition:opacity .25s}
-  @media(hover:none){ .t-open{opacity:.9} }
-  .t-name{font-family:'Syne',sans-serif; font-weight:700; font-size:20px; line-height:1.15; letter-spacing:-.01em}
-  .t-built{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.04em; color:var(--faint); margin-top:7px}
-  .t-desc{margin-top:10px; font-size:13.5px; line-height:1.5; color:var(--muted); flex:1}
-  .t-metric{display:flex; align-items:center; gap:10px; margin-top:16px}
-  .m-before{font-size:14px; color:var(--faint); font-weight:600; text-decoration:line-through; text-decoration-color:var(--rust-md)}
-  .m-arrow{color:var(--rust); font-size:13px}
-  .m-after{font-family:'Syne',sans-serif; font-weight:800; font-size:24px; letter-spacing:-.01em; color:var(--black)}
-  .t-tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:16px}
-  .tag{font-size:10.5px; letter-spacing:.02em; color:var(--muted); border:1px solid var(--border2); border-radius:20px; padding:4px 10px}
-
-  /* ── SKILLS TABLE ── */
+  .lens{margin-top:18px; padding-top:16px; border-top:1px dashed var(--border2); font-family:'Playfair Display',serif; font-style:italic; font-size:14.5px; line-height:1.6; color:rgba(20,20,20,.58)}
+  .lens b{font-family:'Inter',sans-serif; font-style:normal; font-weight:700; color:var(--black); font-size:12px; letter-spacing:.04em; text-transform:uppercase; display:block; margin-bottom:6px; color:var(--rust)}
+  @media(max-width:900px){ .anat-body{grid-template-columns:1fr} .anat-col + .anat-col{border-left:none; border-top:1px solid var(--border)} }
+  @media(max-width:560px){ .anat-head{padding:26px 22px 22px} .anat-col{padding:22px} }
+  /* ── merged in from ai-builds ── */
+  .cta{padding:72px 0 60px; border-top:1px solid var(--border); margin-top:40px}
+  .cta-h{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(28px,4.4vw,52px); line-height:1.1; text-align:center}
+  .cta-h em{font-style:normal; color:var(--rust)}
+  .cta-sub{font-size:14.5px; color:var(--muted); margin:18px auto 38px; max-width:500px; line-height:1.55; text-align:center}
+  .cta-credits{margin-top:52px; font-size:12px; color:var(--faint); text-align:center; font-family:'JetBrains Mono',monospace; line-height:1.9}
+  .cta-credits a{color:var(--muted); border-bottom:1px solid var(--border2)}
+  .cta-credits a:hover{color:var(--rust); border-color:var(--rust)}
+  @media(max-width:560px){ .cta{padding:52px 0 46px} .cta-credits{margin-top:40px} }
+  .stack{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+  .schip{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:18px 18px 16px; transition:border-color .2s, transform .2s}
+  .schip:hover{border-color:var(--rust-md); transform:translateY(-2px)}
+  .schip-k{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--rust); margin-bottom:9px}
+  .schip-n{font-family:'Syne',sans-serif; font-weight:700; font-size:15px; letter-spacing:-.01em}
+  .schip-d{margin-top:7px; font-size:12.5px; line-height:1.5; color:var(--muted)}
   .stable{background:var(--paper); border:1px solid var(--border); border-radius:18px; overflow:hidden}
   .srow{display:grid; grid-template-columns:210px 1fr 190px; gap:20px; padding:15px 24px; border-bottom:1px solid var(--border); align-items:center}
   .srow:last-child{border-bottom:none}
@@ -150,16 +375,6 @@
   .s-cmd{font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:500; color:var(--rust)}
   .s-what{font-size:13.5px; line-height:1.5; color:rgba(20,20,20,0.7)}
   .s-repl{font-size:12.5px; color:var(--muted); font-family:'Caveat',cursive; font-size:15px}
-
-  /* ── PRINCIPLES ── */
-  .prin{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
-  .pcard{background:var(--paper); border:1px solid var(--border); border-radius:16px; padding:24px 26px; transition:border-color .2s}
-  .pcard:hover{border-color:var(--rust-md)}
-  .p-n{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--rust); letter-spacing:.06em}
-  .p-h{font-family:'Syne',sans-serif; font-weight:700; font-size:17px; letter-spacing:-.01em; margin-top:10px}
-  .p-d{margin-top:9px; font-size:13.5px; line-height:1.6; color:var(--muted)}
-
-  /* ── VELOCITY ── */
   .velo{background:var(--paper); border:1px solid var(--border); border-radius:18px; padding:30px 34px}
   .velo-line{display:flex; align-items:flex-start; gap:0; margin-top:22px; position:relative}
   .velo-line::before{content:''; position:absolute; left:0; right:0; top:7px; height:2px; background:var(--border2)}
@@ -169,18 +384,10 @@
   .vn-t{font-family:'Syne',sans-serif; font-weight:700; font-size:13px; line-height:1.25; margin-top:5px; letter-spacing:-.01em}
   .velo-foot{margin-top:26px; padding-top:20px; border-top:1px solid var(--border); font-size:14px; color:var(--muted); line-height:1.6}
   .velo-foot b{color:var(--black); font-weight:600}
-
-  /* ── CLOSER ── */
   .closer{margin:70px 0 40px; padding:46px; background:var(--paper); border:1px solid var(--border); border-radius:22px}
   .closer-big{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(24px,3.6vw,38px); line-height:1.16; letter-spacing:-.01em; max-width:780px}
   .closer-big b{font-family:'Syne',sans-serif; font-style:normal; font-weight:800; color:var(--rust)}
   .closer-sub{margin-top:20px; max-width:640px; font-size:15px; line-height:1.65; color:rgba(20,20,20,0.55)}
-
-  /* ── SPLIT CTA ── */
-  .cta{padding:72px 0 60px; border-top:1px solid var(--border); margin-top:40px}
-  .cta-h{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(28px,4.4vw,52px); line-height:1.1; text-align:center}
-  .cta-h em{font-style:normal; color:var(--rust)}
-  .cta-sub{font-size:14.5px; color:var(--muted); margin:18px auto 38px; max-width:500px; line-height:1.55; text-align:center}
   .split{display:grid; grid-template-columns:1fr 1fr; gap:14px; max-width:760px; margin:0 auto}
   .lane{background:var(--paper); border:1px solid var(--border); border-radius:18px; padding:28px; transition:border-color .2s, transform .2s}
   .lane:hover{border-color:var(--rust-md); transform:translateY(-2px)}
@@ -194,170 +401,37 @@
   .fbtn-fill:hover{transform:translateY(-2px); box-shadow:0 10px 28px rgba(196,98,45,0.3)}
   .fbtn-line{background:transparent; color:var(--muted); border:1px solid var(--border2)}
   .fbtn-line:hover{color:var(--black); border-color:rgba(20,20,20,0.35)}
-  .cta-credits{margin-top:52px; font-size:12px; color:var(--faint); text-align:center; font-family:'JetBrains Mono',monospace}
-
-  /* ── MODAL ── */
-  .backdrop{position:fixed; inset:0; background:rgba(20,18,14,.42); backdrop-filter:blur(5px); z-index:300; opacity:0; pointer-events:none; transition:opacity .28s; display:flex; align-items:flex-start; justify-content:center; padding:6vh 20px; overflow-y:auto}
-  .backdrop.on{opacity:1; pointer-events:auto}
-  .modal-wrap{position:relative; max-width:620px; width:100%}
-  .modal{background:var(--cream); border:1px solid var(--border2); border-radius:22px; padding:40px; transform:translateY(24px) scale(.98); transition:transform .3s cubic-bezier(.2,.7,.2,1)}
-  .backdrop.on .modal{transform:none}
-  .mod-rank{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11.5px; color:var(--rust); letter-spacing:.05em}
-  .mod-name{font-family:'Syne',sans-serif; font-weight:800; font-size:27px; letter-spacing:-.015em; margin-top:9px; line-height:1.14}
-  .mod-metric{display:inline-flex; align-items:center; gap:12px; margin-top:20px; padding:11px 18px; background:var(--paper); border:1px solid var(--border); border-radius:14px}
-  .mod-metric .m-after{font-size:22px}
-  .mod-stack{margin-top:14px; display:flex; flex-wrap:wrap; gap:6px}
-  .mod-stack .tag{font-family:'JetBrains Mono',monospace; font-size:10.5px}
-  .mod-artifact{margin-top:22px; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--paper)}
-  .art-bar{display:flex; align-items:center; justify-content:space-between; padding:9px 14px; border-bottom:1px solid var(--border); background:rgba(20,20,20,0.02)}
-  .art-left{display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--muted)}
-  .art-dot{width:9px; height:9px; border-radius:50%; background:var(--rust); flex-shrink:0}
-  .art-tag{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--faint); font-weight:500}
-  .art-img{display:block; width:100%; height:auto}
-  .mod-body{margin-top:26px}
-  .mod-block{margin-bottom:20px}
-  .mod-k{font-family:'Caveat',cursive; font-size:16px; font-weight:700; color:var(--rust); margin-bottom:5px}
-  .mod-t{font-size:14.5px; line-height:1.62; color:rgba(20,20,20,0.78)}
-  .mod-lens{margin-top:24px; padding-top:22px; border-top:1px solid var(--border); font-family:'Playfair Display',serif; font-style:italic; font-size:15px; line-height:1.6; color:rgba(20,20,20,0.6)}
-  .mod-lens b{font-family:'Inter',sans-serif; font-style:normal; font-weight:700; color:var(--black)}
-  .mod-close{position:absolute; top:22px; right:22px; width:38px; height:38px; border-radius:50%; border:1px solid var(--border2); background:var(--paper); color:var(--muted); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.2s; z-index:2}
-  .mod-close:hover{border-color:var(--rust); color:var(--rust)}
-
-  /* ── DESIGN ARCHITECTURE ── */
-  .arch{display:flex; flex-direction:column; align-items:stretch}
-  .band{background:var(--paper); border:1px solid var(--border); border-radius:18px; padding:22px 24px}
-  .band-top{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:16px}
-  .band-h{font-family:'Syne',sans-serif; font-weight:800; font-size:16px; letter-spacing:-.01em}
-  .band-sub{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.04em; color:var(--faint)}
-  .band-chips{display:grid; gap:10px}
-  .band-chips.c3{grid-template-columns:repeat(3,1fr)}
-  .band-chips.c5{grid-template-columns:repeat(5,1fr)}
-  .achip{border:1px solid var(--border); border-radius:12px; padding:13px 14px; background:rgba(196,98,45,0.025)}
-  .achip-n{font-family:'Syne',sans-serif; font-weight:700; font-size:13px; letter-spacing:-.01em}
-  .achip-d{margin-top:6px; font-size:11.5px; line-height:1.5; color:var(--muted)}
-  .flow{display:flex; align-items:center; justify-content:center; gap:9px; padding:14px 0; color:var(--faint)}
-  .flow::before,.flow::after{content:''; height:1px; width:52px; background:var(--border2)}
-  .flow span{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase}
   .lanes{display:grid; grid-template-columns:repeat(5,1fr); gap:12px}
-  /* keep the four tiers on the same rows across every lane */
-  @media(min-width:901px){
-    .dl-head{min-height:120px}
-    .dl-body{min-height:236px}
-    .dl-how{min-height:288px}
-  }
-  .dl{background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; align-self:start; border-top:3px solid var(--dl-a)}
-  .dl-head{padding:16px 16px 14px; border-bottom:1px solid var(--border)}
-  .dl-task{font-family:'Syne',sans-serif; font-weight:700; font-size:14px; line-height:1.2; letter-spacing:-.01em}
-  .dl-trig{margin-top:6px; font-size:11px; line-height:1.45; color:var(--faint)}
-  .dl-body{padding:15px 16px}
-  .dl-kind{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dl-a)}
-  .dl-name{font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:700; margin-top:4px}
-  .dl-list{margin-top:11px; list-style:none}
-  .dl-list li{position:relative; padding-left:12px; font-size:11.5px; line-height:1.55; color:var(--muted); margin-bottom:5px}
-  .dl-list li::before{content:''; position:absolute; left:0; top:7px; width:4px; height:4px; border-radius:50%; background:var(--dl-a); opacity:.55}
-  .dl-out{padding:12px 16px; border-top:1px dashed var(--border); background:rgba(20,20,20,0.015)}
-  .dl-out-k{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint)}
-  .dl-out-v{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--dl-a); margin-top:4px; word-break:break-word}
-  .dl-field{margin-bottom:10px}
-  .dl-field:last-child{margin-bottom:0}
-  .dl-field-k{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.07em; text-transform:uppercase; color:var(--faint); margin-bottom:3px}
-  .dl-field-v{font-size:11.5px; line-height:1.5; color:rgba(20,20,20,0.7)}
-  .dl-path{font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--faint); margin-top:11px; padding-top:9px; border-top:1px dotted var(--border2); word-break:break-all}
-  .dl-how{padding:14px 16px; border-top:1px dashed var(--border); background:rgba(196,98,45,0.022)}
-  .dl-how-k{font-family:'Caveat',cursive; font-size:14px; font-weight:700; color:var(--dl-a); margin-bottom:8px}
-  .dl-code{display:block; font-family:'JetBrains Mono',monospace; font-size:9.5px; line-height:1.5; color:rgba(20,20,20,0.62); background:rgba(20,20,20,0.045); border-radius:6px; padding:7px 8px; margin-bottom:8px; word-break:break-all}
-  .paths{margin-top:12px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px 18px; padding:16px 20px; background:rgba(20,20,20,0.02); border:1px solid var(--border); border-radius:14px}
-  .paths-k{grid-column:1/-1; font-family:'Caveat',cursive; font-size:15px; font-weight:700; color:var(--rust)}
-  .path{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); word-break:break-all}
-
-  /* ── TABLET ── */
-  @media(max-width:900px){
-    .band-chips.c5{grid-template-columns:repeat(2,1fr)}
-    .lanes{grid-template-columns:repeat(2,1fr)}
-    .paths{grid-template-columns:repeat(2,1fr)}
-    .stack{grid-template-columns:repeat(2,1fr)}
-    .anat-body{grid-template-columns:1fr}
-    .anat-col + .anat-col{border-left:none; border-top:1px solid var(--border)}
-    .srow{grid-template-columns:1fr; gap:6px; padding:16px 22px}
-    .srow.head{display:none}
-  }
-  @media(max-width:820px){
-    .grid{grid-template-columns:repeat(2,1fr)}
-    .ribbon .stat{flex-basis:50%; border-bottom:1px solid var(--border)}
-    .ribbon .stat:nth-child(2n){border-right:none}
-    .velo-line{flex-direction:column; gap:18px}
-    .velo-line::before{left:7px; right:auto; top:0; bottom:0; width:2px; height:auto}
-    .vnode{padding-left:0}
-    .vn-t{font-size:14px}
-    .split{grid-template-columns:1fr}
-  }
-  /* ── MOBILE ── */
-  @media(max-width:560px){
-    .wrap{padding:0 18px}
-    .top{padding-top:20px}
-    .hero{padding:40px 0 30px}
-    .h1{font-size:clamp(34px,10vw,52px)}
-    .lede{margin-top:18px; font-size:16px}
-    .ribbon{margin-top:32px}
-    .ribbon .stat{flex-basis:50%; min-width:0; padding:18px 16px}
-    .ribbon .stat:nth-child(2n){border-right:none}
-    .stat-n{font-size:22px}
-    .stat-l{font-size:14px}
-    .stack{grid-template-columns:1fr}
-    .anat-head{padding:26px 22px 22px}
-    .anat-col{padding:22px}
-    .grid{grid-template-columns:1fr; gap:12px}
-    .tile{min-height:0; padding:22px 20px}
-    .t-name{font-size:19px}
-    .prin{grid-template-columns:1fr}
-    .band-chips.c3,.band-chips.c5,.lanes,.paths{grid-template-columns:1fr}
-    .band{padding:20px}
-    .velo{padding:26px 22px}
-    .slabel{margin:44px 0 18px}
-    .closer{margin:52px 0 32px; padding:30px 22px}
-    .closer-sub{font-size:14.5px}
-    .cta{padding:52px 0 46px}
-    .cta-credits{margin-top:40px}
-  }
-  /* ── MODAL: full-bleed sheet on phones ── */
-  @media(max-width:560px){
-    .backdrop{padding:0; align-items:flex-end; overscroll-behavior:contain}
-    .modal-wrap{max-width:100%}
-    .modal{
-      padding:30px 22px 34px; border-radius:22px 22px 0 0; border-bottom:none;
-      max-height:92vh; overflow-y:auto; -webkit-overflow-scrolling:touch;
-    }
-    .modal{transform:translateY(100%)}
-    .backdrop.on .modal{transform:none}
-    .mod-close{top:16px; right:16px}
-    .mod-name{font-size:24px; padding-right:44px}
-  }
-  @media(prefers-reduced-motion:reduce){
-    *{transition:none!important; animation:none!important}
-  }
+  @media(max-width:900px){ .stack{grid-template-columns:repeat(2,1fr)} .srow{grid-template-columns:1fr; gap:6px; padding:16px 22px} .srow.head{display:none} .split{grid-template-columns:1fr} }
+  @media(max-width:820px){ .velo-line{flex-direction:column; gap:18px} .velo-line::before{left:7px; right:auto; top:0; bottom:0; width:2px; height:auto} }
+  @media(max-width:560px){ .stack{grid-template-columns:1fr} .velo{padding:26px 22px} .closer{margin:52px 0 32px; padding:30px 22px} }
+  @media(prefers-reduced-motion:reduce){ *{transition:none!important} }
 </style>
 </head>
 <body>
-
 <div class="wrap">
 
   <div class="top">
-    <a href="index.html" class="back">← portfolio</a>
+    <a href="index.html" class="back">&larr; portfolio</a>
     <span class="top-tag">AI Builds</span>
   </div>
 
   <!-- ══ HERO ══ -->
   <header class="hero">
-    <div class="eyebrow">AI Growth Engineer · Claude Code + MCP · Solo build</div>
-    <h1 class="h1">I don't use AI tools.<br><b>I build them.<span class="cursor"></span></b></h1>
-    <p class="lede">Marketer by trade, engineer by necessity. <b>Six agents running in production</b> — Google Ads, competitive intel, proposals, outbound, forecasting, content. Each one replaced a recurring loop that used to run on a person. All of it built solo in Claude Code, against live client accounts. Tap any build for the full story.</p>
-
+    <div class="eyebrow">AI Growth Engineer &middot; Claude Code + MCP &middot; Solo build</div>
+    <h1 class="h1">I don't use AI tools.<br><b>I build them.</b></h1>
+    <p class="lede">Marketer by trade, engineer by necessity. <b>Six years in B2B SaaS marketing. One year building the systems.</b> Five of them are below — SEO, paid, content, reporting and design. Each runs against live client accounts and real budgets, and every screenshot is a real run.</p>
+    <div class="hb">
+      <a href="#builds" class="btn btn-f">See the builds &darr;</a>
+      <a href="index.html" class="btn btn-l">Case studies</a>
+      <a href="Resume.pdf" class="btn btn-l">Resume</a>
+    </div>
     <div class="ribbon">
-      <div class="stat"><div class="stat-n">6</div><div class="stat-l">agents in production</div></div>
-      <div class="stat"><div class="stat-n">40<span class="u">+</span></div><div class="stat-l">custom skills written</div></div>
-      <div class="stat"><div class="stat-n">8</div><div class="stat-l">MCP servers wired</div></div>
-      <div class="stat"><div class="stat-n">50<span class="u">+ hrs/wk</span></div><div class="stat-l">recurring time freed</div></div>
-      <div class="stat"><div class="stat-n">~70<span class="u">%</span></div><div class="stat-l">paid forecast accuracy</div></div>
+      <div class="stat"><div class="stat-n">6</div><div class="stat-l">years in B2B SaaS<br>marketing</div></div>
+      <div class="stat"><div class="stat-n">1</div><div class="stat-l">year building<br>AI systems</div></div>
+      <div class="stat"><div class="stat-n">40<span class="u">+</span></div><div class="stat-l">custom skills<br>written</div></div>
+      <div class="stat"><div class="stat-n">8</div><div class="stat-l">MCP servers<br>wired</div></div>
+      <div class="stat"><div class="stat-n">50<span class="u">+ hrs/wk</span></div><div class="stat-l">recurring time<br>freed</div></div>
     </div>
   </header>
 
@@ -406,10 +480,9 @@
       <div class="schip-d">Platform APIs in, deduped local stores out. Nothing gets counted twice.</div>
     </div>
   </div>
-
   <!-- ══ ANATOMY ══ -->
   <div class="slabel">Anatomy of one build</div>
-  <p class="sintro">Six builds shown shallow tells you less than one shown deep. Here's what actually happens inside the Google Ads agent.</p>
+  <p class="sintro">Five builds shown shallow tells you less than one shown deep. Here's what actually happens inside the Google Ads agent.</p>
 
   <div class="anat">
     <div class="anat-head">
@@ -456,14 +529,14 @@
         </div>
       </div>
       <div class="anat-col">
-        <div class="term">
-          <div class="term-bar">
+        <div class="aterm">
+          <div class="aterm-bar">
             <span class="tdot" style="background:#ff5f57"></span>
             <span class="tdot" style="background:#febc2e"></span>
             <span class="tdot" style="background:#28c840"></span>
-            <span class="term-t">claude — google-ads-bot</span>
+            <span class="aterm-t">claude — google-ads-bot</span>
           </div>
-          <div class="term-b">
+          <div class="aterm-b">
 <div class="l"><span class="p">›</span> <span class="hi">/google-ads-audit 199-621-3442</span></div>
 <div class="l"><span class="dim">  connecting google-ads MCP…</span> <span class="ok">ok</span></div>
 <div class="l"><span class="dim">  account: First Credit Services</span></div>
@@ -497,9 +570,416 @@
     </div>
   </div>
 
-  <!-- ══ BUILDS GRID ══ -->
-  <div class="slabel">The builds</div>
-  <div class="grid" id="grid"></div>
+  <div class="slabel" id="builds">The builds</div>
+  <h2 class="sh">Five systems. Each replaced a job that ran on a person.</h2>
+  <p class="sintro">Same shape each time: what it is, a real run, and what it replaced. Built against live client accounts while running campaigns full-time. Most started as interviews, sitting with whoever did the job best and encoding how they decide.</p>
+
+  <!-- ══════ 01 · AEO / GEO / SEO ══════ -->
+  <div class="build">
+    <div class="b-head">
+      <div class="b-top">
+        <div class="b-no">Build 01 &middot; AEO / GEO / SEO</div>
+        <div class="b-where">for a <b>US-based SEO agency</b></div>
+      </div>
+      <h3 class="b-h">Seven SEO tools, built from their spreadsheet</h3>
+      <p class="b-p">Their entire methodology was a master checklist — <b>1,374 points across 7 modules</b>, run by hand, per client, every time. I turned each module into its own tool. <b>Six are built and verified against live client domains</b>; only the local/GBP one is still queued. Together they do what SurferSEO, Clearscope and NeuronWriter do — <b>plus the part none of them measure: whether the answer engines actually cite you.</b></p>
+      <ul class="b-l">
+        <li><b>Six of seven built</b>A senior SEO's judgment, written down once and runnable by anyone on the team. The three scored modules alone carry 683 points across 214 checkpoints.</li>
+        <li><b>Earned over verifiable</b>Checks with no data leave the denominator instead of being guessed into it. The score never claims more than it can prove.</li>
+        <li><b>Every fix is priced</b>Findings sort by point value, each with the evidence that produced it and what to do about it.</li>
+      </ul>
+    </div>
+
+    <div class="suite">
+      <div class="su-h">
+        <div class="su-t">The suite &middot; one tool per checklist module</div>
+        <div class="su-m">1,374 pts &middot; 7 tools &middot; 6 shipped</div>
+      </div>
+      <div class="su-r on">
+        <div class="su-n">On-Page SEO Auditor</div>
+        <div class="su-d">Content, structure, speed and intent scoring per page — the SurferSEO / Clearscope job.</div>
+        <div><span class="st this">shown below</span></div>
+        <div class="su-p">395 pts</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Keyword Ranking Tracker</div>
+        <div class="su-d">Rank, volume, difficulty, SERP features and AI Overview presence, per keyword.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">268 pts</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Blog AEO / GEO Scorecard</div>
+        <div class="su-d">Scores a post on whether ChatGPT, Perplexity and AI Overview will cite it.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">20 pts</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">LLM Citation Monitor</div>
+        <div class="su-d">Tracks brand mentions and citations across the answer engines over time.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Technical SEO Crawler</div>
+        <div class="su-d">Site-wide crawl — indexation, canonicals, schema, Core Web Vitals at scale.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Off-Page Authority Auditor</div>
+        <div class="su-d">Backlink profile, referring domains, competitor gap analysis.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+      <div class="su-r off">
+        <div class="su-n">Local SEO / GBP Optimiser</div>
+        <div class="su-d">Google Business Profile scoring and local pack visibility, per location.</div>
+        <div><span class="st q">queued</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-bar">
+        <span class="sdot" style="background:#ff5f57"></span><span class="sdot" style="background:#febc2e"></span><span class="sdot" style="background:#28c840"></span>
+        <span class="shot-u">on-page seo auditor &middot; live client run</span>
+      </div>
+      <img class="shot-img" src="images/seo-onpage-audit.png" alt="On-Page SEO Audit dashboard — 395-point checklist across 17 sections, grade C at 198.6 of 277 verifiable points, with a prioritised fix list."/>
+      <div class="shot-cap"><span>Tool 1 of 7 — a real run against a live client page</span><span>395 points &middot; 17 sections &middot; fixes ranked by point value</span></div>
+    </div>
+    <div class="lens" style="margin:0 32px 24px"><b>The lens</b>Every tool I paid for gave me a confident number. The one I built shows the gap instead. A score a human can't audit isn't finished.</div>
+
+    <div class="b-foot">
+      <div class="delta"><span class="d-b">A spreadsheet</span><span class="d-arw">&rarr;</span><span class="d-a">7 tools</span></div>
+      <div class="tags"><span class="tg">Python</span><span class="tg">DataForSEO</span><span class="tg">Search Console</span><span class="tg">PageSpeed API</span><span class="tg">LLM citation tests</span><span class="tg">SQLite</span></div>
+      <div class="repl"><b>replaced</b>a rank-tracking subscription + a manual audit per client</div>
+    </div>
+  </div>
+
+  <!-- ══════ 02 · PERFORMANCE MARKETING ══════ -->
+  <div class="build">
+    <div class="b-head">
+      <div class="b-top">
+        <div class="b-no">Build 02 &middot; Performance Marketing</div>
+        <div class="b-where">at <b>Revv Growth</b></div>
+      </div>
+      <h3 class="b-h">A Google Ads agent with write access — and a gate it can't cross</h3>
+      <p class="b-p">It reads live account state through the API, fans out to <b>five specialist auditors</b> in parallel, and drafts every change it wants to make: negatives, keyword pauses, budget moves. Then it stops at <b>zero changes applied</b> and waits for a human. Every mutation is logged and reversible.</p>
+      <ul class="b-l">
+        <li><b>Five parallel auditors</b>Tracking health, search terms, buyer intent, keyword waste and RSA assets — each with its own checklist.</li>
+        <li><b>Intent filtering</b>Built for a US collections client where the same keywords are searched by CFOs and by debtors. Getting that wrong fills the pipeline with nothing.</li>
+        <li><b>68% lower CPL</b>With 120% lead volume growth and lead-to-MQL from 65% to 90% across the programs I ran.</li>
+      </ul>
+    </div>
+
+    <div class="shot">
+      <div class="shot-bar">
+        <span class="sdot" style="background:#ff5f57"></span><span class="sdot" style="background:#febc2e"></span><span class="sdot" style="background:#28c840"></span>
+        <span class="shot-u">claude — google-ads-bot</span>
+      </div>
+      <div class="term">
+        <div class="tb">
+<div class="l"><span class="p">&rsaquo;</span> <span class="hi">/google-ads-audit 199-621-3442</span></div>
+<div class="l"><span class="dm">  connecting google-ads MCP&hellip;</span> <span class="ok">ok</span></div>
+<div class="l"><span class="dm">  account: First Credit Services</span></div>
+<div class="l"> </div>
+<div class="l"><span class="dm">  &#8985; fan-out: 5 subagents</span></div>
+<div class="l">    <span class="ok">&#10003;</span> tracking      <span class="dm">4 conv actions &middot; 1 dupe</span></div>
+<div class="l">    <span class="ok">&#10003;</span> search-terms  <span class="dm">2,140 terms scanned</span></div>
+<div class="l">    <span class="ok">&#10003;</span> intent-check  <span class="dm">34 consumer-intent hits</span></div>
+<div class="l">    <span class="ok">&#10003;</span> keywords      <span class="dm">18 zero-conv, spend &gt; 3x CPA</span></div>
+<div class="l">    <span class="ok">&#10003;</span> rsas          <span class="dm">3 ad groups below asset min</span></div>
+<div class="l"> </div>
+<div class="l"><span class="dm">  &#8985; drafts &rarr; drafts/2026-08-26/</span></div>
+<div class="l">    <span class="w">&bull;</span> 34 negatives   <span class="dm">debtor-intent terms</span></div>
+<div class="l">    <span class="w">&bull;</span> 18 kw pauses   <span class="dm">zero conv @ 90d</span></div>
+<div class="l">    <span class="w">&bull;</span> 2 budget moves <span class="dm">shift to converting</span></div>
+<div class="l"> </div>
+<div class="l"><span class="w">  &#9888; 0 changes applied — awaiting approval</span></div>
+<div class="l"><span class="dm">    run</span> <span class="hi">/google-ads-apply --dry-run</span> <span class="dm">to preview</span></div>
+        </div>
+      </div>
+      <div class="shot-cap"><span>One audit run — five auditors, zero writes without approval</span><span>placeholder, live capture to follow</span></div>
+    </div>
+    <div class="lens" style="margin:0 32px 24px"><b>The lens</b>Anyone can wire an API call. The work is building something you'd trust with a live budget. The machine does the work, a person makes the decision.</div>
+
+    <div class="b-foot">
+      <div class="delta"><span class="d-b">Two days</span><span class="d-arw">&rarr;</span><span class="d-a">20 min</span></div>
+      <div class="tags"><span class="tg">Google Ads API</span><span class="tg">LinkedIn Ads API</span><span class="tg">MCP</span><span class="tg">Subagents</span><span class="tg">Audit trail</span></div>
+      <div class="repl"><b>replaced</b>a two-day manual audit + the daily reporting loop</div>
+    </div>
+  </div>
+
+  <!-- ══════ 03 · CONTENT ══════ -->
+  <div class="build">
+    <div class="b-head">
+      <div class="b-top">
+        <div class="b-no">Build 03 &middot; Content</div>
+        <div class="b-where">at <b>Revv Growth</b></div>
+      </div>
+      <h3 class="b-h">Six content workflows. This one ships a blog end to end.</h3>
+      <p class="b-p">AI blogs are cheap. Blogs that get <b>cited by AI Overview, ChatGPT and Perplexity</b> are rare — and the difference is entirely in the work before anyone writes. So I built a workflow per content type. The blog pipeline below runs <b>five phases with a human gate at phase four</b>, then an <b>18-rule gate across four sections</b> — pre-writing, sourcing, writing and a final quality pass — before a single file is written out.</p>
+      <ul class="b-l">
+        <li><b>A person picks, the system ranks</b>96 signals in from Reddit, Hacker News, Trends and Search Console, scored against live GSC positions. The tool never decides the topic.</li>
+        <li><b>18 rules, four sections</b>Pre-writing, sourcing, writing, quality. The strict ones: process content comes from internal docs, never internet research — and every stat gets traced or dropped.</li>
+        <li><b>Five assets, not one draft</b>SEO brief, article, QA report, social pack and image brief — all from the same run.</li>
+      </ul>
+    </div>
+
+    <div class="suite">
+      <div class="su-h">
+        <div class="su-t">The workflows &middot; one per content type</div>
+        <div class="su-m">6 built &middot; all in daily use</div>
+      </div>
+      <div class="su-r on">
+        <div class="su-n">SEO / AEO Blog Pipeline</div>
+        <div class="su-d">Signal ingest &rarr; scoring &rarr; human gate &rarr; draft &rarr; 18-rule QA &rarr; distribution.</div>
+        <div><span class="st this">shown below</span></div>
+        <div class="su-p">5 phases</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">LinkedIn Post Engine</div>
+        <div class="su-d">Pulls trending topics, then writes to a fixed audience profile and voice guide.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Newsletter &rarr; Post Miner</div>
+        <div class="su-d">Mines a 900-email newsletter archive for angles on a given topic, then drafts.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Long-form X / Threads</div>
+        <div class="su-d">Founder-voice threads with a mandatory AI-pattern humaniser pass before output.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Podcast &rarr; Everything</div>
+        <div class="su-d">RSS or transcript in; clips, threads, articles, quote cards and SEO outlines out.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Case Study Writer</div>
+        <div class="su-d">One approved structure, client proof integrated, same shape every time.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-bar">
+        <span class="sdot" style="background:#ff5f57"></span><span class="sdot" style="background:#febc2e"></span><span class="sdot" style="background:#28c840"></span>
+        <span class="shot-u">content pipeline &middot; run record &middot; aeo tracking tools</span>
+      </div>
+      <img class="shot-img" src="images/content-workflow-run.jpg" alt="Content pipeline run record — five phases from signal ingest to execution, with a human gate at phase four, producing five assets and a QA pass."/>
+      <div class="shot-cap"><span>One run, end to end — 96 signals in, 5 assets out, 0 fixes needed</span><span>every figure read from the run's own output files</span></div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-bar">
+        <span class="sdot" style="background:#ff5f57"></span><span class="sdot" style="background:#febc2e"></span><span class="sdot" style="background:#28c840"></span>
+        <span class="shot-u">qa_report.md &middot; 18 rules &middot; 4 sections</span>
+      </div>
+      <div class="qa">
+        <div class="qa-h">
+          <div class="qa-s">
+            <span class="qa-sv">15/18</span>
+            <span class="qa-st"><b>Held at the gate</b>3 rules failed &middot; not sent for review</span>
+          </div>
+          <span class="bell">&#9679; 3 fixes required</span>
+        </div>
+        <div class="qa-l">
+          <div class="qi"><span class="qk p">&#10003;</span><span class="qt">AI Overview read before drafting starts<i>pre-writing &middot; rule 02 &middot; 4 cited sources extracted</i></span></div>
+          <div class="qi"><span class="qk p">&#10003;</span><span class="qt">Format chosen from SERP intent, never defaulted<i>pre-writing &middot; rule 03 &middot; comparison, not listicle</i></span></div>
+          <div class="qi"><span class="qk p">&#10003;</span><span class="qt">Process content pulled from internal docs, not the internet<i>sourcing &middot; rule 04 &middot; AEO_Process.md</i></span></div>
+          <div class="qi f"><span class="qk x">!</span><span class="qt">Client proof embedded where context fits<i>sourcing &middot; rule 05 &middot; no client named &mdash; add one</i></span></div>
+          <div class="qi f"><span class="qk x">!</span><span class="qt">Every stat traced to a real source or dropped<i>sourcing &middot; rule 07 &middot; 2 unsourced &mdash; para 4, para 11</i></span></div>
+          <div class="qi"><span class="qk p">&#10003;</span><span class="qt">50&ndash;80 word answer block, extractable on its own<i>writing &middot; rule 08 &middot; 68 words</i></span></div>
+          <div class="qi"><span class="qk p">&#10003;</span><span class="qt">A proprietary framework a competitor can't copy<i>writing &middot; rule 14 &middot; scoring tracker</i></span></div>
+          <div class="qi f"><span class="qk x">!</span><span class="qt">No section reads like generic internet content<i>quality &middot; rule 16 &middot; section 3 &mdash; rewrite from process doc</i></span></div>
+        </div>
+        <div class="qa-f"><b>8 of 18 rules shown, one from each section.</b> Every failure comes back with the line that broke it and what to do about it. <b>Rule 04 is the strict one</b> — process content has to trace to an internal doc, so the draft can't quietly become generic internet research.</div>
+      </div>
+      <div class="shot-cap"><span>Inside the gate — a run it caught, 8 of 18 rules shown</span><span>the run above passed clean, 0 fixes needed</span></div>
+    </div>
+    <div class="lens" style="margin:0 32px 24px"><b>The lens</b>The best blogs aren't better written, they're better briefed. Systematise the pre-writing and the writing takes care of itself.</div>
+
+    <div class="b-foot">
+      <div class="delta"><span class="d-b">8&ndash;12 hrs</span><span class="d-arw">&rarr;</span><span class="d-a">10&ndash;20 min</span></div>
+      <div class="tags"><span class="tg">Claude Code</span><span class="tg">Search Console</span><span class="tg">Grounded context</span><span class="tg">18-rule QA</span><span class="tg">Brand guidelines</span><span class="tg">SERP + AI Overview</span></div>
+      <div class="repl"><b>replaced</b>8&ndash;12 hrs of senior editor time, per post</div>
+    </div>
+  </div>
+
+  <!-- ══════ 04 · DASHBOARD ══════ -->
+  <div class="build">
+    <div class="b-head">
+      <div class="b-top">
+        <div class="b-no">Build 04 &middot; Tracking &amp; Reporting</div>
+        <div class="b-where">at <b>Revv Growth</b> &amp; my own client accounts</div>
+      </div>
+      <h3 class="b-h">Five dashboards. This one tracks ABM down to who clicked.</h3>
+      <p class="b-p">Reporting used to be a weekly export nobody could ask a follow-up question of. So I built the tracking layer: <b>FastAPI, SQLite, straight off the platform APIs</b>, deduped on write — backend, frontend and data layer, all mine. The one below tracks a LinkedIn thought-leadership campaign against a fixed <b>893-company target list</b>, and answers the only question the CEO actually asks: <b>which of our accounts are warming up, and who inside them is clicking?</b></p>
+      <ul class="b-l">
+        <li><b>355 of 893 engaged</b>60 clicked, 295 warm. A 5.91% click rate against a sub-1% B2B benchmark — roughly 6&times;.</li>
+        <li><b>Titles, not just logos</b>CEO, Co-Founder and Founder are the top three clicking. That's the proof the targeting landed on buyers, not on job seekers.</li>
+        <li><b>It refuses to flatter you</b>On-list companies only. Warm means repeat impressions, never a click. Nothing off-target is allowed to inflate the number.</li>
+      </ul>
+    </div>
+
+    <div class="suite">
+      <div class="su-h">
+        <div class="su-t">The dashboards &middot; all self-hosted, built end to end</div>
+        <div class="su-m">5 built &middot; FastAPI + SQLite</div>
+      </div>
+      <div class="su-r on">
+        <div class="su-n">LinkedIn ABM Tracker</div>
+        <div class="su-d">Target-list engagement, intent tiers and clicking job titles for a live campaign.</div>
+        <div><span class="st this">shown below</span></div>
+        <div class="su-p">893 accts</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Meta Ads Portfolio Dashboard</div>
+        <div class="su-d">21 client accounts, health scored, self-raising alerts, and a Safe/LIVE write gate with undo on every action.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">21 accts</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Google Ads Client Dashboard</div>
+        <div class="su-d">12 sub-accounts under one MCC — read layer plus safe-mode write control.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">12 accts</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Social Intelligence Dashboard</div>
+        <div class="su-d">Organic vs boosted attribution across client accounts, with an exception-first portfolio view.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+      <div class="su-r">
+        <div class="su-n">Outreach &amp; Pipeline Tracker</div>
+        <div class="su-d">Lane-based states, follow-up cadence and daily deltas, scanned and deduped on a cron.</div>
+        <div><span class="st b">built</span></div>
+        <div class="su-p">&mdash;</div>
+      </div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-bar">
+        <span class="sdot" style="background:#ff5f57"></span><span class="sdot" style="background:#febc2e"></span><span class="sdot" style="background:#28c840"></span>
+        <span class="shot-u">localhost:8600 &middot; linkedin abm tracker &middot; live</span>
+      </div>
+      <img class="shot-img" src="images/abm-dashboard.png" alt="LinkedIn ABM tracker — 355 of 893 target companies engaged, 60 clicked, 5.91% click rate, with a breakdown of which job titles are clicking."/>
+      <div class="shot-cap"><span>Live campaign view — company names blurred for client privacy</span><span>pulled from the LinkedIn Ads API on refresh</span></div>
+    </div>
+
+    <div class="shot">
+      <div class="shot-bar">
+        <span class="sdot" style="background:#ff5f57"></span><span class="sdot" style="background:#febc2e"></span><span class="sdot" style="background:#28c840"></span>
+        <span class="shot-u">localhost:8000 &middot; meta ads portfolio &middot; 24 accounts</span>
+      </div>
+      <img class="shot-img" src="images/meta-portfolio.jpeg" alt="Meta Ads portfolio dashboard — 24 client accounts on one screen with a health score each and flagged issues."/>
+      <div class="shot-cap"><span>24 client accounts, two people watching them &mdash; one screen, a health score each</span><span>79 issues flagged on its own</span></div>
+    </div>
+    <div class="lens" style="margin:0 32px 24px"><b>The lens</b>A dashboard nobody has to build is worth more than a prettier one somebody does. The win isn't the chart, it's that the pull is gone.</div>
+
+    <div class="b-foot">
+      <div class="delta"><span class="d-b">Weekly pulls</span><span class="d-arw">&rarr;</span><span class="d-a">5.91% CTR</span></div>
+      <div class="tags"><span class="tg">FastAPI</span><span class="tg">SQLite</span><span class="tg">LinkedIn Ads API</span><span class="tg">Meta Graph API</span><span class="tg">Scheduler</span><span class="tg">Slack alerts</span></div>
+      <div class="repl"><b>replaced</b>the weekly export-and-paste that finished after the week did</div>
+    </div>
+  </div>
+
+  <!-- ══════ 05 · GENERATIVE CREATIVE ══════ -->
+  <div class="build">
+    <div class="b-head">
+      <div class="b-top">
+        <div class="b-no">Build 05 &middot; Design &amp; Generative Creative</div>
+        <div class="b-where">Telugu cinema &middot; <b>design lead at Revv Growth</b></div>
+      </div>
+      <h3 class="b-h">I'm a designer first. The agent just executes at volume.</h3>
+      <p class="b-p">You ask for &ldquo;a creative eye for visual storytelling and brand design.&rdquo; The eye can't be prompted. Mine comes from <b>freelancing posters and key art in the Telugu film industry</b> — where a weak layout gets seen by a few million people — and from being the <b>de facto design lead at Revv Growth</b>.</p>
+      <p class="b-p">So I did what I did with SEO and content: <b>wrote my own judgment down as a pack</b> and pointed the agent at it. Five execution skills on a design system on a reference bank of creative that converted. <b>This page was built with it.</b></p>
+      <ul class="b-l">
+        <li><b>The eye is the input, not the output</b>Film work is unforgiving about composition, type and hierarchy. That's the standard the pack encodes — not a model's house style.</li>
+        <li><b>Never starts from a blank prompt</b>Every request routes through a reference bank first, then a direction, then execution. Anti-generic by construction: no purple gradients, no centred everything, no Inter.</li>
+        <li><b>Spec-checked on the way out</b>Assets validated against platform dimensions and safe zones, with a manifest listing what was produced and what's missing.</li>
+      </ul>
+    </div>
+
+    <div class="cred">
+      <div class="cr">
+        <div class="cr-k">Freelance</div>
+        <div class="cr-t">Telugu film industry</div>
+        <div class="cr-d">Posters and key art. Commercial work, mass audience, no room to hide a weak layout behind a brief.</div>
+      </div>
+      <div class="cr">
+        <div class="cr-k">In-house</div>
+        <div class="cr-t">De facto design lead, Revv Growth</div>
+        <div class="cr-d">Brand and campaign visuals for a B2B SaaS agency and its clients — the person the team routed design through.</div>
+      </div>
+      <div class="cr">
+        <div class="cr-k">Productised</div>
+        <div class="cr-t">My own design pack</div>
+        <div class="cr-d">That judgment written down once as a reference bank, a design system and five execution skills.</div>
+      </div>
+    </div>
+
+    <div class="arch">
+      <div class="band">
+        <div class="band-t"><span class="band-n">Reference bank</span><span class="band-s">what already converted, not what looks nice</span></div>
+        <div class="bg3">
+          <div class="bc"><div class="bc-n">Landing pages</div><div class="bc-d">Top-converting B2B pages — layout patterns and copy structure.</div></div>
+          <div class="bc"><div class="bc-n">Ad copy</div><div class="bc-d">Google, LinkedIn and Meta ads with proven high CTR.</div></div>
+          <div class="bc"><div class="bc-n">Creative</div><div class="bc-d">High-performing banners, ad visuals and brand assets.</div></div>
+        </div>
+      </div>
+
+      <div class="flow"><span>feeds</span></div>
+
+      <div class="band">
+        <div class="band-t"><span class="band-n">Design system</span><span class="band-s">picks language, direction and tone per request</span></div>
+        <div class="bg6">
+          <div class="bc"><div class="bc-n">67 styles</div><div class="bc-d">Editorial, brutalist, bento, glass.</div></div>
+          <div class="bc"><div class="bc-n">96 palettes</div><div class="bc-d">Built to pass contrast, not just look good.</div></div>
+          <div class="bc"><div class="bc-n">57 type pairs</div><div class="bc-d">Display + body. No Inter, no Arial.</div></div>
+          <div class="bc"><div class="bc-n">99 UX rules</div><div class="bc-d">Accessibility, touch targets, keyboard nav.</div></div>
+          <div class="bc"><div class="bc-n">13 stacks</div><div class="bc-d">React, Next, Vue, Svelte, Tailwind.</div></div>
+          <div class="bc"><div class="bc-n">25 chart types</div><div class="bc-d">For product, web and landing work.</div></div>
+        </div>
+      </div>
+
+      <div class="flow"><span>routes to</span></div>
+
+      <div class="lanes">
+        <div class="ln" style="--la:#0D9488"><div class="ln-k">Agent</div><div class="ln-n">visual-designer</div><div class="ln-d">Reads the campaign brief and brand profile, builds prompts, ships an asset manifest.</div></div>
+        <div class="ln" style="--la:#16A34A"><div class="ln-k">Skill</div><div class="ln-n">generate / edit</div><div class="ln-d">Text-to-image and image editing, up to 14 reference images for consistency.</div></div>
+        <div class="ln" style="--la:#C4622D"><div class="ln-k">Skill</div><div class="ln-n">frontend-design</div><div class="ln-d">Landing pages and UI in HTML, React, Vue or Svelte. Bold direction first.</div></div>
+        <div class="ln" style="--la:#DC2626"><div class="ln-k">Skill</div><div class="ln-n">redesign-existing</div><div class="ln-d">Audits a live site, flags generic AI patterns, returns a full rewrite.</div></div>
+        <div class="ln" style="--la:#3B82F6"><div class="ln-k">Skill</div><div class="ln-n">stitch</div><div class="ln-d">Merges and composites — before/after, grids, side-by-sides.</div></div>
+      </div>
+    </div>
+    <div class="lens" style="margin:0 32px 24px"><b>The lens</b>Design is where AI output is most obviously AI. The eye is the part that can't be prompted, so I wrote mine down and pointed the agent at it.</div>
+
+    <div class="b-foot">
+      <div class="delta"><span class="d-b">A prompt box</span><span class="d-arw">&rarr;</span><span class="d-a">A design pack</span></div>
+      <div class="tags"><span class="tg">visual-designer agent</span><span class="tg">Gemini Flash Image</span><span class="tg">ComfyUI</span><span class="tg">Spec validation</span></div>
+      <div class="repl"><b>replaced</b>a designer round-trip per campaign variant</div>
+    </div>
+  </div>
+
+  <!-- ══ RULES ══ -->
+  <div class="slabel">How I decide what to trust</div>
+  <h2 class="sh">Four rules every build above is held to</h2>
+  <div class="prin">
+    <div class="pc"><div class="pc-n">01</div><div class="pc-h">Human-in-the-loop on every write</div><div class="pc-d">Read freely, write never — until a person approves. Nothing touches a live budget on the agent's own authority.</div></div>
+    <div class="pc"><div class="pc-n">02</div><div class="pc-h">Evidence on every claim</div><div class="pc-d">Every score carries the row that produced it. If a human can't audit it without a rerun, it isn't finished.</div></div>
+    <div class="pc"><div class="pc-n">03</div><div class="pc-h">Never invent a number</div><div class="pc-d">Missing data leaves the denominator instead of being estimated into it. A visible gap beats a confident wrong answer.</div></div>
+    <div class="pc"><div class="pc-n">04</div><div class="pc-h">Encode the expert once</div><div class="pc-d">The strongest builds started as interviews. Write down how the best person decides, then replicate the judgment.</div></div>
+  </div>
 
   <!-- ══ SKILLS ══ -->
   <div class="slabel">Not prompts. Systems.</div>
@@ -515,300 +995,24 @@
     <div class="srow"><div class="s-cmd">/hera</div><div class="s-what">Evidence-backed creator scouting — discover, resolve, score, brief. Never invents a metric, never sends.</div><div class="s-repl">an influencer agency retainer</div></div>
     <div class="srow"><div class="s-cmd">/landing-page-analyzer</div><div class="s-what">Fetches a live page and returns a scored CRO audit with prioritized fixes and rewritten copy.</div><div class="s-repl">a CRO consultant's first call</div></div>
   </div>
-
-  <!-- ══ DESIGN ARCHITECTURE ══ -->
-  <div class="slabel">The same system, pointed at design</div>
-  <p class="sintro">Design is where AI output is most obviously AI — purple gradients, centred everything, Inter. So I built the design work the same way as the ads work: a reference bank of what actually converts, an intelligence layer that decides the direction, and five execution skills that never start from a blank prompt.</p>
-
-  <div class="arch">
-    <div class="band">
-      <div class="band-top">
-        <div class="band-h">B2B Repository</div>
-        <div class="band-sub">reference intelligence bank — what already works, not what looks nice</div>
-      </div>
-      <div class="band-chips c3">
-        <div class="achip">
-          <div class="achip-n">Best performing landing pages</div>
-          <div class="achip-d">Top-converting B2B SaaS pages — layout patterns, copy structure.</div>
-        </div>
-        <div class="achip">
-          <div class="achip-n">Best ad copies</div>
-          <div class="achip-d">Google, LinkedIn and Meta ads with proven high-CTR copy.</div>
-        </div>
-        <div class="achip">
-          <div class="achip-n">Top creatives</div>
-          <div class="achip-d">High-CTR banners, ad visuals and brand assets worth stealing from.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="flow"><span>feeds</span></div>
-
-    <div class="band">
-      <div class="band-top">
-        <div class="band-h">Design System Thinking</div>
-        <div class="band-sub">intelligence layer · powered by ui-ux-pro-max — consults the repo, then picks language, UI direction and tone per request</div>
-      </div>
-      <div class="band-chips c5">
-        <div class="achip">
-          <div class="achip-n">Visual language</div>
-          <div class="achip-d">67 styles, 96 colour palettes. Glassmorphism, brutalism, bento.</div>
-        </div>
-        <div class="achip">
-          <div class="achip-n">Typography system</div>
-          <div class="achip-d">57 font pairings, display + body. No Inter, no Arial.</div>
-        </div>
-        <div class="achip">
-          <div class="achip-n">UX guidelines</div>
-          <div class="achip-d">99 rules — accessibility, touch targets, keyboard nav, contrast.</div>
-        </div>
-        <div class="achip">
-          <div class="achip-n">Tech stack selector</div>
-          <div class="achip-d">13 stacks — React, Next, Vue, Svelte, Flutter, shadcn/ui, Tailwind.</div>
-        </div>
-        <div class="achip">
-          <div class="achip-n">Data &amp; charts</div>
-          <div class="achip-d">25 chart types and an icon library for web, product and landing.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="flow"><span>routes to</span></div>
-
-    <div class="lanes">
-      <div class="dl" style="--dl-a:#3B82F6">
-        <div class="dl-head">
-          <div class="dl-task">Combine images</div>
-          <div class="dl-trig">merge · stitch · collage<br>before/after · grid · side-by-side</div>
-        </div>
-        <div class="dl-body">
-          <div class="dl-kind">Skill</div>
-          <div class="dl-name">stitch</div>
-          <div class="dl-field" style="margin-top:11px">
-            <div class="dl-field-k">Platform</div>
-            <div class="dl-field-v">inference.sh SDK · infsh/stitch-images app</div>
-          </div>
-          <div class="dl-field">
-            <div class="dl-field-k">Script</div>
-            <div class="dl-field-v">vibe-design/infsh/infsh_run.py</div>
-          </div>
-          <div class="dl-path">skills/vibe-design/stitch/SKILL.md</div>
-        </div>
-        <div class="dl-how">
-          <div class="dl-how-k">How it works</div>
-          <code class="dl-code">python infsh_run.py stitch img1.png img2.png</code>
-          <ul class="dl-list">
-            <li>Modes: horizontal / vertical</li>
-            <li>2+ images supported</li>
-            <li>Returns URL to result PNG</li>
-            <li>Needs INFERENCE_API_KEY</li>
-          </ul>
-        </div>
-        <div class="dl-out">
-          <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">stitched.png</div>
-        </div>
-      </div>
-
-      <div class="dl" style="--dl-a:#16A34A">
-        <div class="dl-head">
-          <div class="dl-task">Generate / edit image</div>
-          <div class="dl-trig">create · generate · make image<br>text-to-image · image editing</div>
-        </div>
-        <div class="dl-body">
-          <div class="dl-kind">Skill</div>
-          <div class="dl-name">nano-banana-2</div>
-          <div class="dl-field" style="margin-top:11px">
-            <div class="dl-field-k">Model</div>
-            <div class="dl-field-v">Gemini 3.1 Flash Image Preview via inference.sh CLI</div>
-          </div>
-          <div class="dl-field">
-            <div class="dl-field-k">Supports</div>
-            <div class="dl-field-v">Up to 14 input images</div>
-          </div>
-          <div class="dl-path">skills/vibe-design/nano-banana-2/SKILL.md</div>
-        </div>
-        <div class="dl-how">
-          <div class="dl-how-k">How it works</div>
-          <code class="dl-code">infsh app run google/gemini-3-1 --flash-image-preview</code>
-          <ul class="dl-list">
-            <li>Text → image generation</li>
-            <li>Edit with existing images</li>
-            <li>Aspect ratio + resolution control</li>
-            <li>Google Search grounding supported</li>
-          </ul>
-        </div>
-        <div class="dl-out">
-          <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">generated_image.png / edited.png</div>
-        </div>
-      </div>
-
-      <div class="dl" style="--dl-a:#C4622D">
-        <div class="dl-head">
-          <div class="dl-task">Build UI / page</div>
-          <div class="dl-trig">build UI · design page · create interface<br>landing page · dashboard · component</div>
-        </div>
-        <div class="dl-body">
-          <div class="dl-kind">Skill</div>
-          <div class="dl-name">frontend-design</div>
-          <div class="dl-field" style="margin-top:11px">
-            <div class="dl-field-k">Output formats</div>
-            <div class="dl-field-v">HTML / React / Vue / Svelte · CSS animations + Motion lib</div>
-          </div>
-          <div class="dl-field">
-            <div class="dl-field-k">Philosophy</div>
-            <div class="dl-field-v">Anti-generic · Bold direction</div>
-          </div>
-          <div class="dl-path">skills/vibe-design/frontend-design/SKILL.md</div>
-        </div>
-        <div class="dl-how">
-          <div class="dl-how-k">Design principles</div>
-          <ul class="dl-list">
-            <li>Bold conceptual direction first</li>
-            <li>Distinctive typography (no Inter)</li>
-            <li>CSS-only animations preferred</li>
-            <li>Unexpected layout + asymmetry</li>
-            <li>No purple gradients / AI slop</li>
-            <li>Motion library for React</li>
-          </ul>
-        </div>
-        <div class="dl-out">
-          <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">index.html / .tsx / .vue / .svelte</div>
-        </div>
-      </div>
-
-      <div class="dl" style="--dl-a:#DC2626">
-        <div class="dl-head">
-          <div class="dl-task">Upgrade existing site</div>
-          <div class="dl-trig">redesign · upgrade · fix AI slop<br>premium rewrite · full audit</div>
-        </div>
-        <div class="dl-body">
-          <div class="dl-kind">Skill</div>
-          <div class="dl-name">redesign-existing</div>
-          <div class="dl-field" style="margin-top:11px">
-            <div class="dl-field-k">Process</div>
-            <div class="dl-field-v">Audit current site / app · identify generic AI aesthetics</div>
-          </div>
-          <div class="dl-field">
-            <div class="dl-field-k">Output</div>
-            <div class="dl-field-v">Full premium code rewrite</div>
-          </div>
-          <div class="dl-path">skills/redesign-existing-projects/SKILL.md</div>
-        </div>
-        <div class="dl-how">
-          <div class="dl-how-k">Audit → rewrite flow</div>
-          <ul class="dl-list">
-            <li>1. Audit existing UI code</li>
-            <li>2. Flag generic AI patterns</li>
-            <li>3. Choose bold direction</li>
-            <li>4. Full production rewrite</li>
-            <li>5. Deliver polished output</li>
-            <li>References B2B repo patterns</li>
-          </ul>
-        </div>
-        <div class="dl-out">
-          <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">full rewritten site / app code</div>
-        </div>
-      </div>
-
-      <div class="dl" style="--dl-a:#0D9488">
-        <div class="dl-head">
-          <div class="dl-task">Ad creative</div>
-          <div class="dl-trig">ad creative · campaign visual<br>generate ad · brand creative</div>
-        </div>
-        <div class="dl-body">
-          <div class="dl-kind">Agent</div>
-          <div class="dl-name">visual-designer</div>
-          <div class="dl-field" style="margin-top:11px">
-            <div class="dl-field-k">Reads</div>
-            <div class="dl-field-v">campaign-brief.md · brand-profile.json</div>
-          </div>
-          <div class="dl-field">
-            <div class="dl-field-k">Delegates to</div>
-            <div class="dl-field-v">nano-banana-2 (image generation)</div>
-          </div>
-          <div class="dl-path">agents/visual-designer.md</div>
-        </div>
-        <div class="dl-how">
-          <div class="dl-how-k">Subagent flow</div>
-          <ul class="dl-list">
-            <li>1. Read campaign-brief.md</li>
-            <li>2. Build image prompts</li>
-            <li>3. Call nano-banana-2</li>
-            <li>4. Organise into ad-assets/</li>
-            <li>5. Write generation-manifest.json</li>
-            <li>References B2B repo creatives</li>
-          </ul>
-        </div>
-        <div class="dl-out">
-          <div class="dl-out-k">Output</div>
-          <div class="dl-out-v">ad-assets/ + generation-manifest.json</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="paths">
-      <div class="paths-k">Where it all lives</div>
-      <div class="path">skills/vibe-design/stitch/</div>
-      <div class="path">skills/vibe-design/nano-banana-2/</div>
-      <div class="path">skills/vibe-design/frontend-design/</div>
-      <div class="path">skills/vibe-design/ui-ux-pro-max/ &nbsp;(design system)</div>
-      <div class="path">skills/redesign-existing-projects/</div>
-      <div class="path">agents/visual-designer.md</div>
-    </div>
-
-  </div>
-
-  <!-- ══ PRINCIPLES ══ -->
-  <div class="slabel">How I decide what to trust</div>
-  <p class="sintro">Most AI marketing output fails for the same four reasons. These are the rules every build here is held to.</p>
-  <div class="prin">
-    <div class="pcard">
-      <div class="p-n">01</div>
-      <div class="p-h">Human-in-the-loop on every write</div>
-      <div class="p-d">Read freely, write never — until a person approves the manifest. Dry run, approve, execute, verify, log. Nothing touches a live budget or an inbox on the agent's own authority.</div>
-    </div>
-    <div class="pcard">
-      <div class="p-n">02</div>
-      <div class="p-h">Evidence on every claim</div>
-      <div class="p-d">Every score carries the row that produced it. If a human can't audit the number without rerunning the job, the number isn't finished.</div>
-    </div>
-    <div class="pcard">
-      <div class="p-n">03</div>
-      <div class="p-h">Never invent a number</div>
-      <div class="p-d">Missing data is excluded from the denominator, not estimated into it. Scoring is earned over available — a confident wrong answer is worse than a gap you can see.</div>
-    </div>
-    <div class="pcard">
-      <div class="p-n">04</div>
-      <div class="p-h">Encode the expert once</div>
-      <div class="p-d">The strongest builds started as interviews. Sit with the person who does it best, write down how they decide, and the agent replicates judgment instead of guessing at it.</div>
-    </div>
-  </div>
-
   <!-- ══ VELOCITY ══ -->
   <div class="slabel">Velocity</div>
   <div class="velo">
-    <div class="anat-h" style="font-size:22px">Six agents. One person. No engineering team.</div>
+    <div class="anat-h" style="font-size:22px">Five systems. One person. No engineering team.</div>
     <div class="velo-line">
-      <div class="vnode"><div class="vdot"></div><div class="vn-n">01</div><div class="vn-t">Google Ads Agent</div></div>
-      <div class="vnode"><div class="vdot"></div><div class="vn-n">02</div><div class="vn-t">Competitive Intel</div></div>
-      <div class="vnode"><div class="vdot"></div><div class="vn-n">03</div><div class="vn-t">Proposal Agent</div></div>
-      <div class="vnode"><div class="vdot"></div><div class="vn-n">04</div><div class="vn-t">Outbound Pages</div></div>
-      <div class="vnode"><div class="vdot"></div><div class="vn-n">05</div><div class="vn-t">LinkedIn Predictor</div></div>
-      <div class="vnode"><div class="vdot"></div><div class="vn-n">06</div><div class="vn-t">Content Workflow</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">01</div><div class="vn-t">SEO / AEO platform</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">02</div><div class="vn-t">Google Ads agent</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">03</div><div class="vn-t">Content pipeline</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">04</div><div class="vn-t">Live dashboards</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">05</div><div class="vn-t">Design pack</div></div>
     </div>
-    <p class="velo-foot">Every one shipped while running paid campaigns full-time. <b>The build isn't the side project — it's how the job gets done.</b></p>
+    <p class="velo-foot">Every one shipped while running paid campaigns full-time, on a personal machine, with no engineering support. <b>The build isn't the side project — it's how the job gets done.</b></p>
   </div>
-
   <!-- ══ CLOSER ══ -->
   <div class="closer">
     <div class="closer-big">The real cost isn't the hard work. <b>It's the predictable work</b> that runs on a human every single week.</div>
     <p class="closer-sub">Most marketing bottlenecks aren't complexity problems — they're repeatability problems. Defined inputs, a fixed output shape, a predictable trigger. Solve those three and the loop encodes itself.</p>
   </div>
-
   <!-- ══ SPLIT CTA ══ -->
   <div class="cta">
     <h2 class="cta-h">There are more loops <em>worth killing.</em></h2>
@@ -817,9 +1021,9 @@
       <div class="lane">
         <div class="lane-k">If you're hiring</div>
         <div class="lane-h">A marketer who ships</div>
-        <div class="lane-d">5+ years in B2B SaaS marketing — plus the tooling to run it at a fraction of the headcount.</div>
+        <div class="lane-d">Six years in B2B SaaS marketing &mdash; plus the tooling to run it at a fraction of the headcount.</div>
         <div class="lane-btns">
-          <a href="mailto:vinayavk1@gmail.com?subject=Role%20—%20let's%20talk" class="fbtn fbtn-fill">Let's talk →</a>
+          <a href="mailto:vinayavk1@gmail.com?subject=Role%20%E2%80%94%20let's%20talk" class="fbtn fbtn-fill">Let's talk &rarr;</a>
           <a href="index.html" class="fbtn fbtn-line">Case studies</a>
         </div>
       </div>
@@ -828,148 +1032,12 @@
         <div class="lane-h">Tell me what runs weekly</div>
         <div class="lane-d">Same inputs, same output, every week, on a person. Send it over and I'll tell you straight whether it's worth building.</div>
         <div class="lane-btns">
-          <a href="mailto:vinayavk1@gmail.com?subject=A%20loop%20worth%20killing" class="fbtn fbtn-fill">Send me the loop →</a>
+          <a href="mailto:vinayavk1@gmail.com?subject=A%20loop%20worth%20killing" class="fbtn fbtn-fill">Send me the loop &rarr;</a>
         </div>
       </div>
     </div>
-    <p class="cta-credits">Vinay Kumar · Built with Claude Code + MCP · This page included · 2026</p>
-  </div>
-
-</div>
-
-<!-- MODAL -->
-<div class="backdrop" id="backdrop">
-  <div class="modal-wrap">
-    <button class="mod-close" id="modClose" aria-label="Close">✕</button>
-    <div class="modal" id="modal"></div>
+    <p class="cta-credits">Vinay Kumar &middot; Built with Claude Code + MCP &middot; This page included &middot; 2026</p>
   </div>
 </div>
-
-<script>
-const BUILDS = [
-  {
-    rank:"01", name:"Google Ads Agent", feat:true,
-    before:"Half day", after:"20 min",
-    built:"Claude Code · MCP · Google Ads API",
-    desc:"Autonomous Google Ads — monitors, alerts, auto-negates, and pushes campaigns behind an approval gate.",
-    tags:["Claude Code + MCP","Google Ads API","Subagents"],
-    img:"images/google_ads_push.webp", cap:"Terminal — Claude Code pushing campaigns via API", tool:"google-ads-bot",
-    problem:"Pushing 12 campaigns manually took most of a day. Daily reporting was a half-day loop that still left a gap between a dip and anyone acting on it.",
-    solution:"A Claude Code agent with MCP that pulls live data, watches for drops, drafts negatives automatically, and handles campaign pushes — with a dry-run → approve → verify gate on every write and a full audit trail.",
-    result:"12 campaigns pushed in 20 minutes. Daily reports gone entirely. Drops flagged in real time instead of the next morning.",
-    lens:"A performance marketer optimizes the campaign. A product marketer asks who owns the problem when it breaks at 2am — then automates that person out of the loop."
-  },
-  {
-    rank:"02", name:"Competitive Intel Pipeline",
-    before:"20 hrs", after:"<5 min",
-    built:"Claude Code · Playwright · Cron",
-    desc:"LinkedIn + Google Ad Libraries scraped on a fixed cadence into a structured intel report.",
-    tags:["Claude Code","Playwright","Scheduled"],
-    img:"images/competitive_intel_push.webp", cap:"Terminal — Claude Code running competitive intel scrape", tool:"competitive-intel",
-    problem:"Tracking competitor ads meant opening the Ad Library, scrolling, screenshotting, copying into a doc, and summarizing — every week, per competitor. The 20-hour cycle finished days after the ads went live.",
-    solution:"A scheduled agent that scrapes both ad libraries, detects messaging shifts, flags volume changes per competitor, and outputs a structured PDF. No screenshots, no copy-paste, no human input.",
-    result:"20 hours of manual work runs in under 5 minutes. The report exists before anyone asks for it. Intel lag went from days behind to same day.",
-    lens:"Competitive intelligence is only useful if it's current. A weekly manual scrape is a history lesson. A scheduled agent is a live feed."
-  },
-  {
-    rank:"03", name:"Proposal Agent",
-    before:"30 hrs", after:"<20 min",
-    built:"Claude Code · Knowledge capture",
-    desc:"A senior strategist's proposal process encoded — drop a domain + transcript, get a client-ready deck.",
-    tags:["Claude Code","Encoded expertise"],
-    img:"images/proposal_agent_push.webp", cap:"Terminal — Claude Code running proposal agent", tool:"proposal-agent",
-    problem:"PPC and SEO proposals took 30 hours each — not because the thinking was hard, but because research, structure, and client framing got rebuilt from scratch every time. Seniors spent that time on formatting, not judgment.",
-    solution:"Interviewed the strategists who write the strongest proposals — what data they pull, how they frame recommendations, how tone shifts per client. That knowledge became a Claude agent. Input: domain + transcript. Output: client-ready draft.",
-    result:"Proposal time: 30 hours → under 20 minutes. Senior involvement went from every proposal to a one-time knowledge capture.",
-    lens:"The best proposals aren't written, they're systematized. Interview the expert once, encode the thinking, replicate at scale."
-  },
-  {
-    rank:"04", name:"Outbound Landing Pages",
-    before:"3 days", after:"30 min",
-    built:"Claude Code · Clay · SEO APIs",
-    desc:"Finds lookalike accounts, audits their SEO gaps, and generates a personalized landing page per company.",
-    tags:["Claude Code","Clay","SEO APIs"],
-    img:"images/outbound_pages_push.webp", cap:"Terminal — Claude Code running outbound pipeline", tool:"outbound-landing-pages",
-    problem:"Generic outbound gets ignored. A page that names a company and maps its real SEO gaps to the offer converts — but doing that research 30 times by hand takes three days and still feels templated.",
-    solution:"Clay identifies lookalike accounts from closed-won data and scores them. Audit tools pull real SEO data per domain. A Claude agent writes a landing page around each company's specific gaps and pushes it to sales.",
-    result:"30 per-company landing pages in 45 minutes. Research + build time: 3 days → 30 minutes. Each page references real data specific to that company.",
-    lens:"Personalization at scale isn't a content problem, it's a research problem. Solve the research and the content writes itself."
-  },
-  {
-    rank:"05", name:"LinkedIn Predictor",
-    before:"Reacting", after:"Steering",
-    built:"Claude Code · Predictive model",
-    desc:"Forecasts next week's CTR, CPL & conversion volume before the spend happens — ~70% accuracy.",
-    tags:["Claude Code","Predictive model"],
-    img:"images/linkedin_predictor.jpeg", cap:"Predictive dashboard — next 7-day forecast by campaign", tool:"linkedin-ads-predictor",
-    problem:"Paid decisions get made after the money is gone. You wait three days for signal, read thousands of rows, and still guess whether to scale or kill. Budget gets split evenly because there's no way to know which bet is about to work.",
-    solution:"A model that reads past performance, finds patterns no human catches by hand, and forecasts the coming week — spend, CPL, conversion volume. Budget follows what the model expects to perform, not an even split. Built with Claude Code after a modeling reframe with Pragadeesh Manoharan.",
-    result:"The scale-or-kill call moved from three days of waiting to a ten-minute review. Forecasting at ~70% accuracy, path to 80–90% as more data feeds in. Paid became something to steer, not react to.",
-    lens:"A forecast you can act on changes the job. You stop grading last week's spend and start positioning next week's before it runs."
-  },
-  {
-    rank:"06", name:"Content Workflow Agent",
-    before:"8–12 hrs", after:"10–20 min",
-    built:"Claude Code · /context/ grounding",
-    desc:"Citation-earning blog system — keyword + AI Overview screenshot in, an 18-rule-audited draft out.",
-    tags:["Claude Code","Grounded context","18-rule QA"],
-    img:"images/content_workflow.png", cap:"Terminal — Claude Code running content pipeline", tool:"content-workflow-agent",
-    problem:"AI blogs are cheap. Blogs cited by Google AI Overview, ChatGPT, and Perplexity are rare — because the pre-writing work (SERP analysis, citation-gap mapping, process-doc grounding, stat sourcing) got skipped every time. Editors caught gaps after the draft, when fixes were already too expensive.",
-    solution:"Interviewed the editors behind the citations RevvGrowth actually wins for Atlan, Everstage, Vymo, and Docsumo. Codified how they brief, choose format from SERP intent, integrate client proof, and pick stats — into a Claude agent grounded in internal /context/ docs.",
-    result:"Blog production: 8–12 hrs of senior editor time → 10–20 minutes to a review-ready draft. Citation-worthy drafts went from rare exception to default output.",
-    lens:"The best blogs aren't better-written, they're better-briefed. Systematize the pre-writing decisions and the writing takes care of itself."
-  }
-];
-
-const grid = document.getElementById('grid');
-BUILDS.forEach((b,i)=>{
-  const el = document.createElement('button');
-  el.className = 'tile' + (b.feat ? ' feat':'');
-  el.setAttribute('aria-label', b.name);
-  el.innerHTML = `
-    <div class="t-top">
-      <span class="t-rank">${b.rank}</span>
-      <span class="t-open">open →</span>
-    </div>
-    <div class="t-name">${b.name}</div>
-    <div class="t-built">${b.built}</div>
-    <div class="t-desc">${b.desc}</div>
-    <div class="t-metric">
-      <span class="m-before">${b.before}</span>
-      <span class="m-arrow">→</span>
-      <span class="m-after">${b.after}</span>
-    </div>
-    <div class="t-tags">${b.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;
-  el.addEventListener('click',()=>openModal(i));
-  grid.appendChild(el);
-});
-
-const backdrop = document.getElementById('backdrop');
-const modal = document.getElementById('modal');
-function openModal(i){
-  const b = BUILDS[i];
-  modal.innerHTML = `
-    <span class="mod-rank">${b.rank} · ${b.tool}</span>
-    <div class="mod-name">${b.name}</div>
-    <div class="mod-metric"><span class="m-before">${b.before}</span><span class="m-arrow">→</span><span class="m-after">${b.after}</span></div>
-    <div class="mod-stack">${b.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
-    ${b.img ? `<div class="mod-artifact">
-      <div class="art-bar"><span class="art-left"><span class="art-dot"></span>${b.cap}</span><span class="art-tag">${b.tool}</span></div>
-      <img class="art-img" src="${b.img}" alt="${b.name} — ${b.cap}" loading="lazy"/>
-    </div>` : ''}
-    <div class="mod-body">
-      <div class="mod-block"><div class="mod-k">Problem</div><div class="mod-t">${b.problem}</div></div>
-      <div class="mod-block"><div class="mod-k">Solution</div><div class="mod-t">${b.solution}</div></div>
-      <div class="mod-block"><div class="mod-k">Result</div><div class="mod-t">${b.result}</div></div>
-    </div>
-    <div class="mod-lens"><b>PMM lens —</b> ${b.lens}</div>`;
-  backdrop.classList.add('on');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){ backdrop.classList.remove('on'); document.body.style.overflow=''; }
-document.getElementById('modClose').addEventListener('click',closeModal);
-backdrop.addEventListener('click',e=>{ if(e.target===backdrop) closeModal(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
-</script>
 </body>
 </html>
