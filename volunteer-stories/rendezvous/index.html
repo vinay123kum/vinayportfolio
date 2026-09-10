@@ -3,260 +3,220 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Graphic Design. Vinay Kumar</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
+  <title>Rendezvous Himalayan Resort — Vinay Kumar</title>
+  <meta name="description" content="Full website design and build for Rendezvous Himalayan Resort, Dharamshala."/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    :root { --rust: #C4622D; --black: #141414; --cream: #FAF8F4; --border: rgba(20,20,20,0.08); }
-    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--black); overflow-x: hidden; }
-    body::after { content: ''; position: fixed; inset: 0; opacity: .03; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-size: 128px; z-index: 998; }
-    ::-webkit-scrollbar { width: 2px; }
-    ::-webkit-scrollbar-thumb { background: var(--rust); }
-    #bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--rust); z-index: 999; width: 0; }
-    .skip-link { position: fixed; top: -100%; left: 16px; background: var(--rust); color: #fff; padding: 8px 18px; border-radius: 0 0 10px 10px; font-size: 13px; font-weight: 700; text-decoration: none; z-index: 999; transition: top .2s; }
-    .skip-link:focus { top: 0; }
-    .back { position: fixed; top: 24px; left: 32px; z-index: 200; font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: rgba(20,20,20,0.35); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .2s; }
-    .back:hover { color: var(--rust); }
-    .r { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
-    .r.on { opacity: 1; transform: none; }
-    .r1 { transition-delay: .08s; } .r2 { transition-delay: .16s; } .r3 { transition-delay: .24s; }
-    @keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+    body { font-family:'Inter',sans-serif; background:#FAF8F4; color:#141414; overflow-x:hidden; cursor:none; }
+
+    #cursor { width:10px;height:10px;background:#C4622D;border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s; }
+    #cursor-ring { width:36px;height:36px;border:1.5px solid rgba(196,98,45,.45);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease-out; }
+    body:has(a:hover) #cursor { width:18px;height:18px; }
+    body:has(a:hover) #cursor-ring { width:56px;height:56px;border-color:#C4622D; }
+    @media (hover:none) { body { cursor:auto; } #cursor, #cursor-ring { display:none; } }
+
+    ::-webkit-scrollbar { width:2px; }
+    ::-webkit-scrollbar-thumb { background:#C4622D; }
+    #bar { position:fixed;top:0;left:0;height:2px;background:#C4622D;z-index:9990;width:0; }
+
+    .back { position:fixed;top:24px;left:32px;z-index:100;font-family:'Caveat',cursive;font-size:17px;font-weight:600;color:rgba(20,20,20,.35);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s; }
+    .back:hover { color:#C4622D; }
+
+    .r { opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease; }
+    .r.on { opacity:1;transform:none; }
+    .r1{transition-delay:.07s}.r2{transition-delay:.15s}.r3{transition-delay:.23s}
 
     /* HEADER */
-    header { padding: 120px 40px 16px; max-width: 800px; margin: 0 auto; text-align: center; }
-    .h-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; animation: up .5s .1s both; }
-    .h-tag { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; color: var(--rust); border: 1.5px solid rgba(196,98,45,0.3); background: rgba(196,98,45,0.06); }
-    .h-tag.gray { color: rgba(20,20,20,0.4); border-color: rgba(20,20,20,0.15); background: transparent; }
-    .h-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(38px, 6vw, 80px); font-weight: 700; line-height: 1.18; letter-spacing: -.02em; color: var(--black); text-wrap: balance; animation: up .7s .2s both; }
-    .h-title .hl { background: var(--rust); color: #fff; padding: 4px 14px 8px; border-radius: 8px; display: inline-block; line-height: 1.1; }
-    .h-sub { font-size: 16px; line-height: 1.75; color: rgba(20,20,20,0.5); max-width: 580px; margin: 20px auto 0; animation: up .5s .35s both; }
+    header { padding:96px 24px 0;max-width:760px;margin:0 auto;text-align:center; }
+    .h-tags { display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:24px; }
+    .h-tag { font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:100px;color:#C4622D;border:1.5px solid rgba(196,98,45,.28);background:rgba(196,98,45,.07); }
+    .h-tag.gray { color:rgba(20,20,20,.4);border-color:rgba(20,20,20,.14);background:transparent; }
+    .h-title { font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(40px,7vw,86px);font-weight:700;line-height:1.04;letter-spacing:-.02em; }
+    .h-title b { font-family:'Syne',sans-serif;font-style:normal;font-weight:800;color:#C4622D; }
+    .h-meta { font-size:13px;color:rgba(20,20,20,.35);margin-top:14px;letter-spacing:.02em; }
+    .h-live { display:inline-block;margin-top:22px;background:#141414;color:#FAF8F4;padding:12px 26px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s; }
+    .h-live:hover { background:#C4622D; }
 
-    /* LAYOUT */
-    .body-wrap { max-width: 900px; margin: 0 auto; padding: 0 32px; }
-    .div { height: 1px; background: rgba(20,20,20,0.08); margin: 72px 0; }
-    .slabel { font-family: 'Caveat', cursive; font-size: 17px; font-weight: 600; color: var(--rust); display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-    .slabel::before { content: ''; width: 18px; height: 2px; background: var(--rust); display: block; flex-shrink: 0; }
-    .narrative-big { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(24px, 3.5vw, 40px); font-weight: 700; line-height: 1.2; color: var(--black); margin-bottom: 16px; text-wrap: balance; }
-    .narrative-big .hi { color: var(--rust); }
-    .body-text { font-size: 15px; line-height: 1.9; color: rgba(20,20,20,0.55); }
-    .body-text strong { color: var(--black); font-weight: 600; }
+    /* BROWSER FRAME */
+    .browser { max-width:1100px;margin:52px auto 0;padding:0 24px; }
+    .browser-inner { border-radius:16px;overflow:hidden;border:1px solid rgba(20,20,20,.1);box-shadow:0 24px 64px rgba(0,0,0,.10);background:#fff; }
+    .browser-bar { display:flex;align-items:center;gap:6px;padding:11px 14px;background:#EDE8DF;border-bottom:1px solid rgba(20,20,20,.08); }
+    .browser-bar i { width:9px;height:9px;border-radius:50%;background:rgba(20,20,20,.15);display:block; }
+    .browser-url { margin-left:12px;font-size:11px;color:rgba(20,20,20,.45);background:#FAF8F4;border-radius:100px;padding:4px 14px; }
+    .browser img { width:100%;height:auto;display:block; }
 
-    /* CONTEXT BAND */
-    .context-band { background: var(--black); border-radius: 20px; padding: 40px 48px; margin-bottom: 72px; display: flex; gap: 48px; align-items: flex-start; }
-    .context-band-text { flex: 1; }
-    .context-band-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(20px, 2.5vw, 28px); font-weight: 700; color: #fff; line-height: 1.25; margin-bottom: 12px; }
-    .context-band-title em { color: #E07A46; }
-    .context-band-body { font-size: 14px; line-height: 1.85; color: rgba(255,255,255,0.4); }
-    .context-stat { flex-shrink: 0; text-align: right; }
-    .context-stat-n { font-family: 'Syne', sans-serif; font-size: 52px; font-weight: 800; color: var(--rust); line-height: 1; letter-spacing: -.04em; }
-    .context-stat-l { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 4px; }
+    /* STATS */
+    .stats-row { display:flex;border:1px solid rgba(20,20,20,.09);border-radius:20px;overflow:hidden;max-width:760px;margin:52px auto 0; }
+    .stat-cell { flex:1;padding:28px 18px;text-align:center;border-right:1px solid rgba(20,20,20,.09); }
+    .stat-cell:last-child { border-right:none; }
+    .stat-n { font-family:'Syne',sans-serif;font-size:clamp(22px,3.2vw,34px);font-weight:800;letter-spacing:-.03em;color:#C4622D;display:block; }
+    .stat-l { font-size:11px;color:rgba(20,20,20,.4);margin-top:4px;font-weight:500; }
+    @media(max-width:600px){ .stats-row{flex-wrap:wrap;margin-left:24px;margin-right:24px;} .stat-cell{flex:1 1 50%;border-bottom:1px solid rgba(20,20,20,.09);} }
 
-    /* COMPARISON */
-    .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
-    .comp-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #1e1e1e; }
-    .comp-browser-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); background: #1e1e1e; }
-    .comp-browser-dots { display: flex; gap: 5px; }
-    .comp-browser-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .comp-browser-dot:nth-child(1) { background: #ff5f57; }
-    .comp-browser-dot:nth-child(2) { background: #febc2e; }
-    .comp-browser-dot:nth-child(3) { background: #28c840; }
-    .comp-browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Inter', sans-serif; }
-    .comp-scroll { height: 420px; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: rgba(196,98,45,0.4) transparent; }
-    .comp-scroll::-webkit-scrollbar { width: 4px; }
-    .comp-scroll::-webkit-scrollbar-thumb { background: rgba(196,98,45,0.4); border-radius: 4px; }
-    .comp-img { width: 100%; display: block; }
-    .comp-label { padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); background: #fff; }
-    .comp-label-text { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--black); }
-    .comp-badge { font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
-    .comp-badge.old { background: rgba(20,20,20,0.07); color: rgba(20,20,20,0.4); }
-    .comp-badge.new { background: var(--rust); color: #fff; }
+    /* BODY */
+    .body-wrap { max-width:660px;margin:0 auto;padding:72px 24px 0; }
+    .block + .block { margin-top:56px; }
+    .section-kicker { font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C4622D;margin-bottom:10px;display:block; }
+    .section-h { font-family:'Syne',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:800;letter-spacing:-.03em;margin-bottom:14px; }
+    .body-p { font-size:15px;color:rgba(20,20,20,.55);line-height:1.8; }
+    .body-p + .body-p { margin-top:14px; }
+    .chips { display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 24px; }
+    .chip { font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 14px;border-radius:100px;background:rgba(20,20,20,.05);color:rgba(20,20,20,.5);border:1px solid rgba(20,20,20,.09); }
 
-    /* ANNOTATION LIST */
-    .annotations { display: flex; flex-direction: column; gap: 0; margin: 24px 0 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: #fff; }
-    .ann { display: flex; gap: 16px; align-items: flex-start; padding: 16px 20px; border-bottom: 1px solid var(--border); }
-    .ann:last-child { border-bottom: none; }
-    .ann-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
-    .ann-body { flex: 1; }
-    .ann-title { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 800; color: var(--black); margin-bottom: 3px; }
-    .ann-desc { font-size: 12px; color: rgba(20,20,20,0.45); line-height: 1.65; }
+    .shot { margin:32px -80px;border-radius:14px;overflow:hidden;border:1px solid rgba(20,20,20,.09);box-shadow:0 12px 40px rgba(0,0,0,.07);background:#fff; }
+    .shot img { width:100%;height:auto;display:block; }
+    .shot figcaption { font-family:'Caveat',cursive;font-size:17px;color:rgba(20,20,20,.45);padding:10px 16px;background:#FAF8F4;border-top:1px solid rgba(20,20,20,.07); }
+    @media(max-width:860px){ .shot{margin-left:0;margin-right:0;} }
 
-    /* AD VARIANTS GRID */
-    .variants-intro { margin-bottom: 24px; }
-    .variants-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 0; }
-    .variant-card { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #fff; }
-    .variant-img { width: 100%; display: block; object-fit: cover; }
-    .variant-label { padding: 14px 18px; border-top: 1px solid var(--border); }
-    .variant-hyp { font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--rust); margin-bottom: 4px; }
-    .variant-text { font-size: 12px; color: rgba(20,20,20,0.5); line-height: 1.6; }
-    .variant-text strong { color: var(--black); }
+    .callout { background:rgba(196,98,45,.07);border-left:3px solid #C4622D;border-radius:0 12px 12px 0;padding:18px 22px;margin:32px 0; }
+    .callout p { font-family:'Caveat',cursive;font-size:20px;font-weight:600;line-height:1.4; }
 
-    /* LANDING PAGE */
-    .lp-wrap { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #fff; margin: 28px 0; }
-    .lp-browser { background: #1e1e1e; border-radius: 16px 16px 0 0; }
-    .lp-browser-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .lp-browser-dots { display: flex; gap: 5px; }
-    .lp-browser-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .lp-browser-dot:nth-child(1) { background: #ff5f57; }
-    .lp-browser-dot:nth-child(2) { background: #febc2e; }
-    .lp-browser-dot:nth-child(3) { background: #28c840; }
-    .lp-browser-url { flex: 1; background: rgba(255,255,255,0.07); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: rgba(255,255,255,0.35); font-family: 'Inter', sans-serif; }
-    .lp-scroll { height: 520px; overflow-y: scroll; scrollbar-width: thin; scrollbar-color: rgba(196,98,45,0.4) transparent; }
-    .lp-scroll::-webkit-scrollbar { width: 4px; }
-    .lp-scroll::-webkit-scrollbar-thumb { background: rgba(196,98,45,0.4); border-radius: 4px; }
-    .lp-img { width: 100%; display: block; }
-    .lp-annotations { padding: 24px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid var(--border); }
-    .lp-ann { display: flex; gap: 14px; align-items: flex-start; }
-    .lp-ann-num { font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 800; color: var(--rust); min-width: 20px; flex-shrink: 0; padding-top: 1px; }
-    .lp-ann-text { font-size: 13px; color: rgba(20,20,20,0.5); line-height: 1.65; }
-    .lp-ann-text strong { color: var(--black); font-weight: 600; }
-
-    /* FOOTER */
-    .foot { padding: 80px 32px; text-align: center; }
-    .foot-h { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(28px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: var(--black); margin-bottom: 10px; }
-    .foot-h em { color: var(--rust); }
-    .foot-sub { font-size: 14px; color: rgba(20,20,20,0.38); margin-bottom: 32px; }
-    .foot-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-    .fbtn { padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all .2s; }
-    .fbtn:active { transform: scale(0.97); }
-    .fbtn-fill { background: var(--rust); color: #fff; }
-    .fbtn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(196,98,45,0.3); }
-    .fbtn-line { background: transparent; color: rgba(20,20,20,0.4); border: 1px solid rgba(20,20,20,0.15); }
-    .fbtn-line:hover { color: var(--black); border-color: rgba(20,20,20,0.35); }
-    .foot-credits { margin-top: 60px; font-size: 12px; color: rgba(20,20,20,0.25); }
-
-    @media (max-width: 700px) {
-      header { padding: 80px 24px 16px; }
-      .body-wrap { padding: 0 20px; }
-      .comparison, .variants-grid { grid-template-columns: 1fr; }
-      .context-band { flex-direction: column; gap: 20px; padding: 28px 24px; }
-      .context-stat { text-align: left; }
-      .back { left: 20px; top: 20px; }
-    }
-
-    /* ── MOBILE NAV BAR ── */
-    .mob-nav { display: none; }
-    @media(max-width: 768px) {
-      .mob-nav {
-        display: flex;
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 500;
-        background: rgba(250,248,244,0.92);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(20,20,20,0.08);
-        padding: 12px 20px;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .mob-nav-logo {
-        font-family: 'Syne', sans-serif;
-        font-size: 15px; font-weight: 800;
-        letter-spacing: -.02em; color: #141414;
-        text-decoration: none;
-      }
-      .mob-nav-home {
-        display: flex; align-items: center; gap: 6px;
-        font-family: 'Inter', sans-serif;
-        font-size: 13px; font-weight: 600;
-        color: rgba(20,20,20,0.5);
-        text-decoration: none;
-        padding: 7px 14px;
-        border: 1px solid rgba(20,20,20,0.12);
-        border-radius: 100px;
-        transition: all .2s;
-      }
-      .mob-nav-home:hover { color: #C4622D; border-color: rgba(196,98,45,0.3); }
-      .back { display: none; }
-    }
-
+    .foot { max-width:660px;margin:80px auto 0;padding:36px 24px 80px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(20,20,20,.08);flex-wrap:wrap;gap:16px; }
+    .foot-back { font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:rgba(20,20,20,.35);text-decoration:none;transition:color .2s; }
+    .foot-back:hover { color:#C4622D; }
+    .foot-note { font-size:12px;color:rgba(20,20,20,.25); }
   </style>
 </head>
 <body>
-<nav class="mob-nav">
-  <a href="../index.html" class="mob-nav-logo">VK.</a>
-  <a href="../index.html" class="mob-nav-home">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    Home
-  </a>
-</nav>
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+  <div id="bar"></div>
 
+  <a href="../" class="back">← back</a>
 
-<a href="#main" class="skip-link">Skip to content</a>
-<div id="bar" aria-hidden="true"></div>
-<a href="../index.html" class="back">← portfolio</a>
+  <header>
+    <div class="h-tags r">
+      <span class="h-tag">Web Design</span>
+      <span class="h-tag">Development</span>
+      <span class="h-tag">Copy</span>
+      <span class="h-tag gray">Dharamshala · Himachal</span>
+    </div>
+    <h1 class="h-title r r1">Rendezvous<br><b>Himalayan Resort</b></h1>
+    <p class="h-meta r r2">A full website for a 6-room boutique resort in the Dharamshala foothills</p>
+    <a href="https://rendezvous-dharamshala.com" target="_blank" rel="noopener" class="h-live r r2">See it live ↗</a>
+  </header>
 
-<header>
-  <div class="h-tags r">
-    <span class="h-tag">Creative & Design</span>
-    <span class="h-tag gray">Landing Pages · Ads · Iterations</span>
+  <div class="browser r r1">
+    <div class="browser-inner">
+      <div class="browser-bar"><i></i><i></i><i></i><span class="browser-url">rendezvous-dharamshala.com</span></div>
+      <img src="shots/hero.webp" alt="Rendezvous Himalayan Resort homepage hero" width="1920" height="880"/>
+    </div>
   </div>
-  <h1 class="h-title r r1">
-    Strategy is only half.<br>
-    The other half is <span class="hl">how it looks.</span>
-  </h1>
-  <p class="h-sub r r2">Film posters and visual storytelling.</p>
-</header>
 
-<main id="main" class="body-wrap">
+  <div class="stats-row r r2">
+    <div class="stat-cell"><span class="stat-n">6</span><div class="stat-l">Rooms, each with its own page</div></div>
+    <div class="stat-cell"><span class="stat-n">8</span><div class="stat-l">Amenities showcased</div></div>
+    <div class="stat-cell"><span class="stat-n">3</span><div class="stat-l">Steps to book</div></div>
+    <div class="stat-cell"><span class="stat-n">100%</span><div class="stat-l">Owned by the resort</div></div>
+  </div>
 
-  <div class="div"></div>
+  <div class="body-wrap">
 
-  <div class="div"></div>
-
-  <!-- SECTION 4: FILM POSTERS -->
-  <section>
-    <div class="slabel r">Creative / Film posters</div>
-    <div class="narrative-big r r1">
-      On the sidelines: <span class="hi">300+ posters. Zero budget. 40M impressions.</span>
-    </div>
-    <p class="body-text r r2">Indian cinema. Original poster work built on the side — no team, no paid reach. Just typography, composition, and knowing what makes someone stop scrolling.</p>
-
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:36px;">
-      <div class="r r1" style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
-        <img src="./images/film-poster-01.webp" alt="Film poster 1" style="width:100%;display:block;border-radius:14px;">
-      </div>
-      <div class="r r2" style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
-        <img src="./images/film-poster-02.webp" alt="Film poster 2" style="width:100%;display:block;border-radius:14px;">
-      </div>
-      <div class="r r3" style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
-        <img src="./images/film-poster-03.webp" alt="Film poster 3" style="width:100%;display:block;border-radius:14px;">
-      </div>
-      <div class="r r1" style="border-radius:14px;overflow:hidden;border:1px solid var(--border);">
-        <img src="./images/film-poster-04.webp" alt="Film poster 4" style="width:100%;display:block;border-radius:14px;">
+    <div class="block r r1">
+      <span class="section-kicker">The brief</span>
+      <h2 class="section-h">A beautiful place that looked ordinary online</h2>
+      <p class="body-p">
+        Rendezvous is a small resort in the hills above Dharamshala: two cottages, four suites,
+        home-cooked meals and a lot of green. Guests who arrived loved it. The problem was
+        everyone who hadn't arrived yet. There was nothing that showed them what the place felt like.
+      </p>
+      <p class="body-p">
+        I designed and built the full site from scratch. Structure, copy, visual direction,
+        room pages and the booking path. Every photo on it is of the real property.
+      </p>
+      <div class="chips">
+        <span class="chip">Information Architecture</span>
+        <span class="chip">UI Design</span>
+        <span class="chip">Development</span>
+        <span class="chip">Brand Copy</span>
+        <span class="chip">Booking Flow</span>
+        <span class="chip">Mobile-First</span>
       </div>
     </div>
-  </section>
 
-  <div class="div"></div>
+    <figure class="shot r r2">
+      <img src="shots/about.webp" alt="About section with property photo and stats" loading="lazy" width="1920" height="1200"/>
+      <figcaption>The story section. Photo of the actual place, three numbers, one button.</figcaption>
+    </figure>
 
-  <!-- FOOTER -->
+    <div class="block r r1">
+      <span class="section-kicker">Rooms</span>
+      <h2 class="section-h">Six rooms, six reasons to book</h2>
+      <p class="body-p">
+        Every room gets its own card, its own photo and a line that says what's special about it.
+        Wildflower has the exposed brick, Bella Vista has the view. Guests pick a room because of
+        a feeling, so each card tries to give one, with a "View Room" button right next to it.
+      </p>
+    </div>
+
+    <figure class="shot r r2">
+      <img src="shots/rooms.webp" alt="Grid of six room cards" loading="lazy" width="1920" height="3170"/>
+      <figcaption>Chalet Vérité, Calypso, Secret Garden, Wildflower, Sunlight, Bella Vista.</figcaption>
+    </figure>
+
+    <div class="block r r1">
+      <span class="section-kicker">Beyond the room</span>
+      <h2 class="section-h">Selling the stay, not just the bed</h2>
+      <p class="body-p">
+        Meals, the yoga hall, the library, the trampoline. That's a lot of why people pick
+        Rendezvous over a hotel in McLeodganj. The amenities section puts all of it in one
+        scannable list, next to a photo of the communal dining table.
+      </p>
+    </div>
+
+    <figure class="shot r r2">
+      <img src="shots/meals.webp" alt="Meals and amenities section" loading="lazy" width="1920" height="1240"/>
+      <figcaption>Eight amenities, one photo, zero stock images.</figcaption>
+    </figure>
+
+    <div class="callout r r1">
+      <p>"We didn't build a hotel. We built an experience." Their words. The site had to be built the same way.</p>
+    </div>
+
+    <div class="block r r1">
+      <span class="section-kicker">Trust</span>
+      <h2 class="section-h">Real reviews, real map, clear next step</h2>
+      <p class="body-p">
+        A 3-step booking path (message us, choose your space, arrive), live Google reviews,
+        and a map with directions. These are the three things a first-time guest checks
+        before paying for a place they've never seen.
+      </p>
+    </div>
+
+    <figure class="shot r r2">
+      <img src="shots/reviews.webp" alt="Google reviews section" loading="lazy" width="1920" height="1120"/>
+      <figcaption>Google rating, pulled straight onto the homepage.</figcaption>
+    </figure>
+
+    <div class="block r r1">
+      <span class="section-kicker">What this means for you</span>
+      <h2 class="section-h">I can do this for your property too</h2>
+      <p class="body-p">
+        Same process: I stay, I shoot the real place, I write it and build it. You get a site
+        you fully own, handed over with every file and login.
+      </p>
+    </div>
+
+  </div>
+
   <div class="foot">
-    <h2 class="foot-h">The strategy work is in the <em>case studies.</em></h2>
-    <p class="foot-sub">GTM, positioning, competitive intelligence, and growth campaigns.</p>
-    <div class="foot-btns">
-      <a href="../index.html" class="fbtn fbtn-fill">Back to portfolio →</a>
-      <a href="../volopay-case-study.html" class="fbtn fbtn-line">Volopay GTM case study →</a>
-    </div>
-    <p class="foot-credits">Vinay Kumar · Creative & Design Work</p>
+    <a href="../#contact" class="foot-back">← Back to the pitch</a>
+    <span class="foot-note">Rendezvous Himalayan Resort · Dharamshala</span>
   </div>
 
-</main>
-
-<script>
-  const bar = document.getElementById('bar');
-  window.addEventListener('scroll', () => {
-    const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-    bar.style.width = (p * 100) + '%';
-  }, { passive: true });
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.r').forEach(el => obs.observe(el));
-</script>
+  <script>
+    const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    (function tick(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;cur.style.left=mx+'px';cur.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick);})();
+    const bar=document.getElementById('bar');
+    window.addEventListener('scroll',()=>{bar.style.width=(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100)+'%';});
+    const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
+    document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+  </script>
 </body>
 </html>

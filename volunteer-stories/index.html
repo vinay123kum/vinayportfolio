@@ -457,6 +457,11 @@
       font-size: 52px;
       position: relative; overflow: hidden;
     }
+    .work-thumb img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+    }
     .work-thumb.t1 { background: linear-gradient(135deg, #ffe0cc 0%, #ffd0b0 100%); }
     .work-thumb.t2 { background: linear-gradient(135deg, #c8f0ee 0%, #a0e0dc 100%); }
     .work-thumb.t3 { background: linear-gradient(135deg, #fff3c4 0%, #ffe48a 100%); }
@@ -678,7 +683,7 @@
     </h1>
 
     <p class="hero-sub r r2">
-      I'm a digital designer and marketer traveling through [region]. Instead of paying for a room,
+      I'm a digital designer and marketer traveling through Thailand. Instead of paying for a room,
       I trade real creative work — social content, website design, brand visuals — for accommodation.
     </p>
 
@@ -884,15 +889,15 @@
         </div>
       </a>
 
-      <a href="rendezvous/" class="work-card r r2">
+      <a href="rendezvous/" class="work-card r r2" style="text-decoration:none;color:inherit;display:block;">
         <div class="work-thumb t2">
-          🍷
+          <img src="rendezvous/shots/hero.webp" alt="Rendezvous Himalayan Resort website" loading="lazy"/>
           <span class="work-thumb-label">Web Design</span>
         </div>
         <div class="work-info">
-          <span class="work-tag">Website</span>
-          <div class="work-title">Rendezvous</div>
-          <div class="work-desc">Full website design for Rendezvous — clean layout, strong brand voice, and a booking flow built to convert. Designed to feel as good as the place itself.</div>
+          <span class="work-tag">Website · Design + Build</span>
+          <div class="work-title">Rendezvous Himalayan Resort →</div>
+          <div class="work-desc">Designed and built the full site for a 6-room resort in Dharamshala: room pages, amenities, Google reviews, map and a 3-step booking path. Live at rendezvous-dharamshala.com.</div>
         </div>
       </a>
 
