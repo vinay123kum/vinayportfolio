@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corporate Travel Paid Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF8F4; --paper:#fff; --ink:#141414; --rust:#C4622D; --rust-lt:#E07A46; --sand:#EDE8DF;
+    --muted:rgba(20,20,20,.58); --faint:rgba(20,20,20,.32); --line:rgba(20,20,20,.09);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+  #bar{position:fixed;top:0;left:0;height:2px;background:var(--rust);z-index:999;width:0}
+  .back{position:fixed;top:24px;left:32px;z-index:100;font-family:'Caveat',cursive;font-size:17px;font-weight:600;color:var(--faint);text-decoration:none}
+  .back:hover,.back:focus-visible{color:var(--rust)}
+  a:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+
+  @keyframes up{from{opacity:.001;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .up{animation:up .6s ease both}
+  @media (prefers-reduced-motion:reduce){.up{animation:none}}
+
+  header{padding:96px 32px 0;max-width:820px;margin:0 auto;text-align:center}
+  .h-title{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(27px,4.2vw,46px);font-weight:700;line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+  .h-title b{font-family:'Syne',sans-serif;font-style:normal;font-weight:800;color:var(--rust)}
+  .h-meta{font-size:13px;color:var(--faint);margin-top:16px;letter-spacing:.02em}
+
+  .body-wrap{max-width:760px;margin:0 auto;padding-inline:32px}
+  .div{height:1px;background:var(--line);margin:72px 0}
+  .slabel{font-family:'Caveat',cursive;font-size:18px;font-weight:600;color:var(--rust);display:flex;align-items:center;gap:10px;margin-bottom:20px}
+  .slabel::before{content:'';width:18px;height:2px;background:var(--rust);flex-shrink:0}
+  .narrative-big{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(24px,3.6vw,40px);font-weight:700;line-height:1.2;margin-bottom:24px;text-wrap:balance}
+  .narrative-big.sm{font-size:clamp(20px,2.8vw,32px)}
+  .narrative-big em{color:var(--rust)}
+  .narrative-big .hl{background:var(--rust);color:#fff;padding:0 10px 4px;border-radius:6px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .body-text{font-size:15px;line-height:1.9;color:var(--muted);max-width:65ch}
+  .body-text+.body-text{margin-top:14px}
+  .body-text strong{color:var(--ink);font-weight:600}
+
+  .dark-band{background:var(--ink);color:#fff;padding:72px 32px;margin:72px 0;position:relative;overflow:hidden}
+  .dark-band::after{content:'✈';position:absolute;right:-10px;top:-40px;font-size:320px;color:rgba(255,255,255,.03);line-height:1;pointer-events:none}
+  .dark-band-inner{max-width:720px;margin:0 auto}
+  .dark-band-title{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(22px,3.5vw,38px);font-weight:700;line-height:1.25;margin-bottom:18px;text-wrap:balance}
+  .dark-band-title em{color:var(--rust-lt)}
+  .dark-band-body{font-size:14px;line-height:1.9;color:rgba(255,255,255,.55);max-width:600px}
+  .pain-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+  .pain-pill{font-size:12px;font-weight:600;padding:6px 16px;border-radius:100px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6)}
+  .pain-pill.lit{background:rgba(196,98,45,.2);border-color:rgba(196,98,45,.45);color:var(--rust-lt)}
+
+  .circles-row{display:flex;gap:20px;align-items:center;margin:36px 0;flex-wrap:wrap}
+  .circle{border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;text-align:center;padding:12px}
+  .circle-lg{width:178px;height:178px;background:var(--rust)}
+  .circle-md{width:124px;height:124px;background:var(--ink)}
+  .circle-sm{width:94px;height:94px;background:var(--sand);border:1px solid var(--line)}
+  .c-n{font-family:'Syne',sans-serif;font-weight:800;color:#fff;line-height:1}
+  .circle-sm .c-n{color:var(--ink)}
+  .c-l{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:7px;color:rgba(255,255,255,.65);line-height:1.3}
+  .circle-sm .c-l{color:var(--faint)}
+  .circle-annotation{font-family:'Caveat',cursive;font-size:17px;color:var(--faint);flex:1 1 180px;min-width:170px;line-height:1.45}
+
+  .diagram{margin:28px 0;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:24px 16px 12px}
+  .diagram-scroll{overflow-x:auto}
+  .diagram svg{display:block;min-width:660px;width:100%;height:auto}
+  .diagram-cap{font-family:'Caveat',cursive;font-size:16px;color:var(--faint);text-align:center;padding-top:8px}
+
+  .timeline{display:flex;flex-direction:column;margin:28px 0}
+  .tl{display:grid;grid-template-columns:104px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
+  .tl:last-child{border-bottom:none}
+  .tl-m{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--rust);padding-top:3px}
+  .tl-t{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;line-height:1.25}
+  .tl-d{font-size:14px;line-height:1.75;color:var(--muted);margin-top:6px;max-width:60ch}
+  .tl-tag{display:inline-block;margin-top:10px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8B3A12;background:rgba(196,98,45,.1);border:1px solid rgba(196,98,45,.2);padding:4px 12px;border-radius:100px}
+
+  .moves-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:28px 0}
+  .move-main{background:var(--ink);border-radius:20px;padding:34px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+  .move-title{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;line-height:1.2}
+  .move-desc{font-size:13px;line-height:1.75;color:rgba(255,255,255,.55);margin-top:12px}
+  .mtag{align-self:flex-start;margin-top:20px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--rust-lt);background:rgba(196,98,45,.15);border:1px solid rgba(196,98,45,.3);padding:4px 12px;border-radius:100px}
+  .move-alt{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:34px;display:flex;flex-direction:column;justify-content:space-between}
+  .move-alt .move-title{color:var(--ink)}
+  .move-alt .move-desc{color:var(--muted)}
+  .stag{align-self:flex-start;margin-top:20px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#8B3A12;background:rgba(196,98,45,.1);border:1px solid rgba(196,98,45,.2);padding:4px 12px;border-radius:100px}
+
+  .stat-list{margin:20px 0}
+  .stat-row{display:flex;align-items:baseline;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .stat-row:last-child{border-bottom:none}
+  .stat-row-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);width:190px;flex-shrink:0}
+  .stat-row-n{font-family:'Syne',sans-serif;font-size:clamp(32px,4.6vw,52px);font-weight:800;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+  .stat-row-note{font-family:'Caveat',cursive;font-size:17px;color:var(--faint)}
+  .math{margin-top:18px;padding:18px 22px;background:rgba(196,98,45,.06);border:1px solid rgba(196,98,45,.16);border-radius:12px;font-size:13px;line-height:1.8;color:var(--muted)}
+  .math b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+  .script{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:30px;margin:28px 0}
+  .script-row{display:grid;grid-template-columns:110px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .script-row:last-child{border-bottom:none}
+  .script-k{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);padding-top:4px}
+  .script-v{font-size:15px;line-height:1.75;color:rgba(20,20,20,.78);max-width:60ch}
+
+  .takeaway{background:var(--ink);border-radius:24px;padding:56px 48px;margin:28px 0;color:#fff}
+  .takeaway-big{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(26px,4vw,46px);font-weight:700;line-height:1.1;margin-bottom:24px;text-wrap:balance}
+  .takeaway-big em{color:var(--rust-lt)}
+  .takeaway-sub{font-size:14px;line-height:1.85;color:rgba(255,255,255,.5);max-width:520px}
+  .rule{margin-top:32px;padding:20px 24px;border-left:3px solid var(--rust);background:rgba(255,255,255,.04);border-radius:0 12px 12px 0}
+  .rule-text{font-family:'Syne',sans-serif;font-size:clamp(13px,1.6vw,17px);font-weight:700;color:rgba(255,255,255,.75);line-height:1.45}
+
+  .foot{padding-block:80px;text-align:center}
+  .foot-h{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(28px,4vw,50px);font-weight:700;line-height:1.1;margin-bottom:10px}
+  .foot-h em{color:var(--rust)}
+  .foot-sub{font-size:14px;color:var(--faint);margin-bottom:32px}
+  .foot-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+  .fbtn{padding:12px 28px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none}
+  .fbtn-fill{background:var(--rust);color:#fff}
+  .fbtn-line{color:var(--muted);border:1px solid rgba(20,20,20,.18)}
+  .foot-credits{margin-top:60px;font-size:12px;color:var(--faint)}
+
+  @media (max-width:760px){
+    .back{top:16px;left:16px}
+    header{padding:80px 20px 0}
+    .body-wrap{padding-inline:20px}
+    .dark-band{padding:52px 20px;margin:52px 0}
+    .moves-grid{grid-template-columns:1fr}
+    .circle-lg{width:150px;height:150px}
+    .tl{grid-template-columns:1fr;gap:6px}
+    .script-row{grid-template-columns:1fr;gap:6px}
+    .stat-row-label{width:100%}
+    .takeaway{padding:40px 24px}
+  }
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<a href="index.html#work" class="back">← back</a>
+
+<header>
+  <h1 class="h-title up">US corporate travel brand:<br><b>5×</b> the demos on<br><b>18%</b> less ad spend</h1>
+  <div class="h-meta up" style="animation-delay:.12s">Performance Marketing Lead &nbsp;·&nbsp; May – September &nbsp;·&nbsp; United States &nbsp;·&nbsp; Google Ads + landing page</div>
+</header>
+
+<div class="body-wrap">
+  <div class="div"></div>
+
+  <div class="slabel">Context</div>
+  <div class="narrative-big">
+    The dashboard said the funnel was fine.<br>
+    <span class="hl">The CRM said otherwise.</span>
+  </div>
+  <p class="body-text">The client sells travel and expense management to US companies. In May the account looked healthy from the ads side: leads arriving, budget spending, algorithm running. Inside the CRM the picture was different. Of <strong>17 leads</strong>, only <strong>6</strong> were worth a sales conversation. Those 6 produced <strong>3 demos</strong>, and <strong>2</strong> of those meetings actually happened.</p>
+  <p class="body-text">One real sign-up for a month of spend. The problem wasn't the budget. It was that the campaign had been told the wrong thing to chase.</p>
+</div>
+
+<div class="dark-band">
+  <div class="dark-band-inner">
+    <div class="slabel">The Problem</div>
+    <div class="dark-band-title">The campaign was optimising for <em>any form fill.</em><br>So that's exactly what it bought.</div>
+    <p class="dark-band-body">The campaign goal was set to max conversions, with every secondary conversion action still switched on. The platform did precisely what it was asked: find the cheapest form submission available. In a category crowded with consumer travel intent, the cheapest form fill is almost never a company with a travel policy. Meanwhile the mobile ads were landing on a page that had never been built to convert on mobile.</p>
+    <div class="pain-row">
+      <span class="pain-pill lit">65% of leads unqualified</span>
+      <span class="pain-pill lit">Algorithm trained on noise</span>
+      <span class="pain-pill lit">Mobile landing page broken</span>
+      <span class="pain-pill">Secondary conversions diluting signal</span>
+      <span class="pain-pill">1 sign-up in May</span>
+    </div>
+  </div>
+</div>
+
+<div class="body-wrap">
+  <div class="slabel">Where it stood in May</div>
+  <div class="narrative-big sm">Every stage was leaking, and the top of the funnel was leaking hardest.</div>
+
+  <div class="circles-row">
+    <div class="circle circle-lg"><div class="c-n" style="font-size:40px">35%</div><div class="c-l">Valid lead<br>rate</div></div>
+    <div class="circle circle-md"><div class="c-n" style="font-size:30px">3</div><div class="c-l">Demos booked</div></div>
+    <div class="circle circle-sm"><div class="c-n" style="font-size:26px">2</div><div class="c-l">Meetings</div></div>
+    <div class="circle-annotation">17 leads in. 6 worth calling. 3 demos. 2 meetings. One sign-up out the other end.</div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="slabel">The Funnel</div>
+  <div class="narrative-big sm">May against September, <em>stage by stage.</em></div>
+
+  <figure class="diagram">
+    <div class="diagram-scroll">
+      <svg viewBox="0 0 700 330" role="img" aria-label="Funnel comparison. May: 17 leads, 6 qualified, 3 demos, 2 meetings, 1 sign-up. September: 23 leads, 17 qualified, 15 demos, 12 meetings, 7 sign-ups.">
+        <style>
+          .ft{font:700 12px Syne,sans-serif;fill:#141414}
+          .fs{font:500 10.5px Inter,sans-serif;fill:rgba(20,20,20,.55)}
+          .fnum{font:800 13px Syne,sans-serif;fill:#fff}
+          .fnumd{font:800 13px Syne,sans-serif;fill:rgba(20,20,20,.45)}
+          .hd{font:700 10px Inter,sans-serif;fill:rgba(20,20,20,.4);letter-spacing:.1em}
+        </style>
+        <text class="hd" x="200" y="22">MAY</text>
+        <text class="hd" x="420" y="22">SEPTEMBER</text>
+
+        <!-- Leads -->
+        <text class="ft" x="10" y="56">Leads</text>
+        <rect x="120" y="42" width="170" height="22" rx="5" fill="rgba(20,20,20,.14)"/>
+        <text class="fnumd" x="130" y="58">17</text>
+        <rect x="340" y="42" width="230" height="22" rx="5" fill="#C4622D"/>
+        <text class="fnum" x="350" y="58">23</text>
+        <text class="fs" x="580" y="58">+36%</text>
+
+        <!-- Qualified -->
+        <text class="ft" x="10" y="100">Qualified</text>
+        <text class="fs" x="10" y="114">opportunities</text>
+        <rect x="120" y="86" width="60" height="22" rx="5" fill="rgba(20,20,20,.14)"/>
+        <text class="fnumd" x="130" y="102">6</text>
+        <rect x="340" y="86" width="170" height="22" rx="5" fill="#C4622D"/>
+        <text class="fnum" x="350" y="102">17</text>
+        <text class="fs" x="580" y="102">2.8×</text>
+
+        <!-- Demos -->
+        <text class="ft" x="10" y="146">Demos booked</text>
+        <rect x="120" y="132" width="30" height="22" rx="5" fill="rgba(20,20,20,.14)"/>
+        <text class="fnumd" x="130" y="148">3</text>
+        <rect x="340" y="132" width="150" height="22" rx="5" fill="#C4622D"/>
+        <text class="fnum" x="350" y="148">15</text>
+        <text class="fs" x="580" y="148">5×</text>
+
+        <!-- Meetings -->
+        <text class="ft" x="10" y="190">Meetings done</text>
+        <rect x="120" y="176" width="20" height="22" rx="5" fill="rgba(20,20,20,.14)"/>
+        <text class="fnumd" x="146" y="192">2</text>
+        <rect x="340" y="176" width="120" height="22" rx="5" fill="#C4622D"/>
+        <text class="fnum" x="350" y="192">12</text>
+        <text class="fs" x="580" y="192">6×</text>
+
+        <!-- Signups -->
+        <text class="ft" x="10" y="234">Sign-ups</text>
+        <rect x="120" y="220" width="12" height="22" rx="5" fill="rgba(20,20,20,.14)"/>
+        <text class="fnumd" x="138" y="236">1</text>
+        <rect x="340" y="220" width="70" height="22" rx="5" fill="#C4622D"/>
+        <text class="fnum" x="350" y="236">7</text>
+        <text class="fs" x="580" y="236">7×</text>
+
+        <line x1="10" y1="264" x2="690" y2="264" stroke="rgba(20,20,20,.12)" stroke-width="1"/>
+        <text class="ft" x="10" y="292">Ad spend</text>
+        <rect x="120" y="278" width="170" height="22" rx="5" fill="rgba(20,20,20,.14)"/>
+        <text class="fnumd" x="130" y="294">100</text>
+        <rect x="340" y="278" width="140" height="22" rx="5" fill="#141414"/>
+        <text class="fnum" x="350" y="294">82</text>
+        <text class="fs" x="580" y="294">−18%</text>
+        <text class="fs" x="120" y="320">Spend indexed to 100. Every stage grew while the budget shrank.</text>
+      </svg>
+    </div>
+    <figcaption class="diagram-cap">The whole funnel moved — which is how you know it was a cause, not a lucky month</figcaption>
+  </figure>
+
+  <div class="div"></div>
+
+  <div class="slabel">Two Moves</div>
+  <div class="narrative-big sm">Fix the signal. Then fix the destination.</div>
+
+  <div class="moves-grid">
+    <div class="move-main">
+      <div>
+        <div class="move-title">01 · Stop rewarding the wrong thing</div>
+        <div class="move-desc">Stripped out every secondary conversion action and redefined the conversion as a qualified lead only. This isn't a settings change, it's telling the platform who the product is for. The algorithm learns from whatever you reward it with, and it had been rewarded for junk since launch.</div>
+      </div>
+      <div class="mtag">Valid lead rate 35% → 74%</div>
+    </div>
+    <div class="move-alt">
+      <div>
+        <div class="move-title">02 · Fix the destination before scaling traffic</div>
+        <div class="move-desc">Mobile ads were running to a page never built for mobile. Paused spend rather than keep buying clicks into a leak. Read the call data first to see who had converted on mobile before and what had worked for them, then rebuilt around that: mobile-first layout, value proposition in the first screen, one CTA, social proof above the fold.</div>
+      </div>
+      <div class="stag">Demos 3 → 15</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="slabel">The Build, month by month</div>
+  <div class="narrative-big sm">Five months. Each fix <em>unlocked</em> the next one.</div>
+
+  <div class="timeline">
+    <div class="tl">
+      <div class="tl-m">May</div>
+      <div>
+        <div class="tl-t">Read the CRM, not the ads dashboard</div>
+        <div class="tl-d">Traced all 17 leads through to their outcome. 11 were never sales conversations. The ads reporting had no idea, because every one of them counted as a conversion.</div>
+        <div class="tl-tag">Diagnosis · Lead-level audit</div>
+      </div>
+    </div>
+    <div class="tl">
+      <div class="tl-m">June</div>
+      <div>
+        <div class="tl-t">Redefine what counts as a conversion</div>
+        <div class="tl-d">Removed secondary conversion actions, set qualified lead as the only conversion, and let the campaign re-enter learning on the corrected signal. Quality moved before volume did.</div>
+        <div class="tl-tag">Conversion objective</div>
+      </div>
+    </div>
+    <div class="tl">
+      <div class="tl-m">July</div>
+      <div>
+        <div class="tl-t">Pause and rebuild the mobile page</div>
+        <div class="tl-d">Rather than keep spending into a page that couldn't convert, paused mobile spend, reviewed call recordings from previous mobile converters, and rebuilt the page around what they had responded to.</div>
+        <div class="tl-tag">Landing page</div>
+      </div>
+    </div>
+    <div class="tl">
+      <div class="tl-m">August</div>
+      <div>
+        <div class="tl-t">Turn traffic back on, cut the budget</div>
+        <div class="tl-d">Relaunched against the rebuilt page. With the campaign no longer buying junk, the same pipeline came from less money — so the budget came down 18% rather than up.</div>
+        <div class="tl-tag">Efficiency</div>
+      </div>
+    </div>
+    <div class="tl">
+      <div class="tl-m">September</div>
+      <div>
+        <div class="tl-t">Every stage compounding</div>
+        <div class="tl-d">23 leads, 17 qualified, 15 demos, 12 meetings, 7 sign-ups. Each improved rate multiplied the one below it, which is why the bottom of the funnel moved further than the top.</div>
+        <div class="tl-tag">Compounding</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+
+  <div class="slabel">Results</div>
+  <div class="narrative-big sm">May → September.</div>
+
+  <div class="stat-list">
+    <div class="stat-row"><div class="stat-row-label">Valid lead rate</div><div class="stat-row-n" style="color:var(--rust)">35→74%</div><div class="stat-row-note">share of leads worth calling</div></div>
+    <div class="stat-row"><div class="stat-row-label">Leads</div><div class="stat-row-n">+36%</div><div class="stat-row-note">17 → 23</div></div>
+    <div class="stat-row"><div class="stat-row-label">Qualified opportunities</div><div class="stat-row-n" style="color:var(--rust)">2.8×</div><div class="stat-row-note">6 → 17</div></div>
+    <div class="stat-row"><div class="stat-row-label">Demos booked</div><div class="stat-row-n">5×</div><div class="stat-row-note">3 → 15</div></div>
+    <div class="stat-row"><div class="stat-row-label">Meetings completed</div><div class="stat-row-n">6×</div><div class="stat-row-note">2 → 12</div></div>
+    <div class="stat-row"><div class="stat-row-label">Ad spend</div><div class="stat-row-n" style="color:var(--rust)">−18%</div><div class="stat-row-note">while all of the above went up</div></div>
+    <div class="stat-row"><div class="stat-row-label">Cost per acquisition</div><div class="stat-row-n">−88%</div><div class="stat-row-note">per sign-up</div></div>
+  </div>
+
+  <div class="math">
+    <b>How the cost figures are derived.</b> Client spend is indexed, with May set to 100 and September at 82 after the 18% cut.<br><br>
+    Cost per qualified opportunity: <b>100 ÷ 6 = 16.7</b> in May, <b>82 ÷ 17 = 4.8</b> in September — <b>−71%</b>.<br>
+    Cost per demo: <b>100 ÷ 3 = 33.3</b> → <b>82 ÷ 15 = 5.5</b> — <b>−84%</b>.<br>
+    Cost per sign-up: <b>100 ÷ 1 = 100</b> → <b>82 ÷ 7 = 11.7</b> — <b>−88%</b>.<br><br>
+    The funnel chain holds at every step: 23 leads × 74% valid = 17 qualified, × 88% = 15 demos, × 80% = 12 meetings, × 60% = 7 sign-ups.
+  </div>
+
+  <div class="div"></div>
+
+  <div class="slabel">How I tell it in the interview</div>
+  <div class="narrative-big sm">The 60-second version.</div>
+  <div class="script">
+    <div class="script-row"><div class="script-k">Situation</div><div class="script-v">A US corporate travel SaaS account that looked healthy in the ads dashboard. In the CRM, 17 leads in May produced 6 real conversations, 3 demos and 1 sign-up.</div></div>
+    <div class="script-row"><div class="script-k">Insight</div><div class="script-v">The campaign was set to max conversions with every secondary action switched on, so the platform was buying the cheapest form fill it could find. It was doing its job. We'd given it the wrong job.</div></div>
+    <div class="script-row"><div class="script-k">Action</div><div class="script-v">Redefined the conversion as a qualified lead only and stripped the secondary actions. Then paused mobile spend, read the call data from previous mobile converters, and rebuilt the landing page around what had worked for them before turning traffic back on.</div></div>
+    <div class="script-row"><div class="script-k">Result</div><div class="script-v">By September: valid lead rate 35% to 74%, leads up 36%, qualified opportunities up 2.8x, demos up 5x — on 18% less ad spend. Cost per sign-up fell 88%.</div></div>
+    <div class="script-row"><div class="script-k">Lesson</div><div class="script-v">In paid search the biggest lever is usually not the bid or the budget. It's what you've told the platform a good outcome looks like.</div></div>
+  </div>
+
+  <div class="takeaway">
+    <div class="takeaway-big">The budget was never<br>the problem. The <em>definition</em><br>of success was.</div>
+    <p class="takeaway-sub">Once a qualified lead was the only thing that counted as a conversion, the algorithm went and found them — and the rebuilt page converted the ones it found. Spending less was a consequence, not a goal.</p>
+    <div class="rule"><div class="rule-text">Optimise for the outcome sales cares about, not the one the platform can see.</div></div>
+  </div>
+
+  <div class="foot">
+    <div class="foot-h">Want a paid engine<br>that <em>sales trusts?</em></div>
+    <div class="foot-sub">Let's talk performance marketing, B2B paid search, or funnel diagnostics.</div>
+    <div class="foot-btns">
+      <a href="mailto:vinayavk8@gmail.com" class="fbtn fbtn-fill">Let's talk →</a>
+      <a href="index.html#work" class="fbtn fbtn-line">← More case studies</a>
+    </div>
+    <div class="foot-credits">Vinay Kumar · Performance Marketing</div>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{const d=document.documentElement;document.getElementById('bar').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%'},{passive:true});
+</script>
+</body>
+</html>
