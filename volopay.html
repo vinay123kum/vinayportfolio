@@ -294,7 +294,19 @@
 </nav>
 
 <div id="bar"></div>
-<a href="index.html#work" class="back">&#8592; portfolio</a>
+<a href="index.html#work" class="back" id="backLink">&#8592; portfolio</a>
+<script>
+  (function(){
+    try {
+      var r = document.referrer ? new URL(document.referrer) : null;
+      if (r && r.origin === location.origin && /performance-marketing\.html$/.test(r.pathname)) {
+        var a = document.getElementById("backLink");
+        a.href = "performance-marketing.html";
+        a.innerHTML = "&#8592; performance marketing";
+      }
+    } catch (e) {}
+  })();
+</script>
 
 <!-- ══════════════════════════ HEADER ══════════════════════════ -->
 <header>
