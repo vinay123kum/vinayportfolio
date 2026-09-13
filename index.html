@@ -274,6 +274,8 @@
     .logo-chip-icon img {
       width: 100%; height: 100%; object-fit: cover;
     }
+    /* transparent brand marks — show the whole mark, never crop it */
+    .logo-chip-icon.is-mark img { object-fit: contain; }
 
     @keyframes floatAnim {
       0%,100% { transform: translateY(0); }
@@ -316,14 +318,16 @@
       .hero-logos { margin-top: 16px; max-width: 100%; flex-shrink: 0; }
       .hero-logos { align-items: center; }
       .hero-logos-label { font-size: 7px; letter-spacing: .1em; margin-bottom: 8px; }
+      /* six brands don't fit one row on a phone — two rows of three */
       .hero-logos-row {
-        display: flex;
-        flex-wrap: nowrap;
+        display: grid;
+        grid-template-columns: repeat(3, auto);
         justify-content: center;
-        align-items: center;
+        justify-items: center;
+        align-items: start;
         padding: 0;
-        gap: 16px;
-        overflow: hidden;
+        column-gap: 22px;
+        row-gap: 12px;
       }
       .logo-chip {
         flex: none;
@@ -939,6 +943,9 @@
         <span class="logo-chip"><span class="logo-chip-icon"><img src="images/brand-logo.png" alt="Volopay"></span>Volopay</span>
         <span class="logo-chip"><span class="logo-chip-icon"><img src="images/itilite-logo.png" alt="Itilite"></span>Itilite</span>
         <span class="logo-chip"><span class="logo-chip-icon"><img src="images/interviewbuddy-logo.png" alt="InterviewBuddy"></span>InterviewBuddy</span>
+        <span class="logo-chip"><span class="logo-chip-icon is-mark"><img src="images/bureau-logo.png" alt="Bureau"></span>Bureau</span>
+        <span class="logo-chip"><span class="logo-chip-icon is-mark"><img src="images/intellectai-logo.png" alt="intellectAI"></span>intellectAI</span>
+        <span class="logo-chip"><span class="logo-chip-icon is-mark"><img src="images/flipspaces-logo.png" alt="FlipSpaces"></span>FlipSpaces</span>
       </div>
     </div>
   </div>
