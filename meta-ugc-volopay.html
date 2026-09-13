@@ -273,6 +273,11 @@
       .back { display: none; }
     }
 
+  
+    /* header tag pills — same as volopay.html */
+    .h-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; animation: up .5s .1s both; }
+    .h-tag { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; color: #C4622D; border: 1.5px solid rgba(196,98,45,0.3); background: rgba(196,98,45,0.06); }
+    .h-tag.gray { color: rgba(20,20,20,0.4); border-color: rgba(20,20,20,0.15); background: transparent; }
   </style>
 </head>
 <body>
@@ -288,6 +293,11 @@
 <a href="index.html#work" class="back">← portfolio</a>
 
 <header>
+  <div class="h-tags">
+    <span class="h-tag">Performance Marketing</span>
+    <span class="h-tag">Meta UGC</span>
+    <span class="h-tag gray">India</span>
+  </div>
   <h1 class="h-title">
     Selling <b>B2B</b><br>
     Like It's B2C

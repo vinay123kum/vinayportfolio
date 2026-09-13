@@ -164,14 +164,23 @@
     .stat-row-label{width:100%}
     .takeaway{padding:40px 24px}
   }
-</style>
+
+    /* header tag pills — same as volopay.html */
+    .h-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; animation: up .5s .1s both; }
+    .h-tag { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; color: #C4622D; border: 1.5px solid rgba(196,98,45,0.3); background: rgba(196,98,45,0.06); }
+    .h-tag.gray { color: rgba(20,20,20,0.4); border-color: rgba(20,20,20,0.15); background: transparent; }
+  </style>
 </head>
 <body>
 <div id="bar"></div>
 <a href="index.html#work" class="back">← portfolio</a>
 
 <header>
-  <div class="h-eyebrow up">Identity &amp; Fraud Company &nbsp;·&nbsp; Account-Based Demand Gen</div>
+  <div class="h-tags">
+    <span class="h-tag">Identity &amp; Fraud</span>
+    <span class="h-tag">Account-Based Demand Gen</span>
+    <span class="h-tag gray">India · SEA · UAE</span>
+  </div>
   <h1 class="h-title up">Lead-to-MQL from <b>65% to 90%</b><br>on a <b>$26K</b> LinkedIn budget</h1>
   <div class="h-meta up" style="animation-delay:.12s">Demand Gen Lead &nbsp;·&nbsp; LinkedIn &nbsp;·&nbsp; 3 months &nbsp;·&nbsp; India, SEA &amp; UAE</div>
 </header>

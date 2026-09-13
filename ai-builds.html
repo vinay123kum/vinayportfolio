@@ -40,21 +40,22 @@
   .top-tag{font-family:'Caveat',cursive; font-size:16px; color:var(--faint)}
 
   /* ── HERO ── */
-  .hero{padding:54px 0 32px}
-  .eyebrow{font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--rust); display:flex; align-items:center; gap:10px; margin-bottom:22px; flex-wrap:wrap}
-  .eyebrow::before{content:''; width:20px; height:2px; background:var(--rust); flex-shrink:0}
-  .h1{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(36px,5.6vw,62px); line-height:1.05; letter-spacing:-.01em; max-width:20ch}
+  .hero{padding:54px 0 32px; display:flex; flex-direction:column; align-items:center; text-align:center}
+  .h-tags{display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:28px}
+  .h-tag{font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:5px 14px; border-radius:100px; color:var(--rust); border:1.5px solid rgba(196,98,45,0.3); background:rgba(196,98,45,0.06)}
+  .h-tag.gray{color:rgba(20,20,20,0.4); border-color:rgba(20,20,20,0.15); background:transparent}
+  .h1{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(36px,5.6vw,62px); line-height:1.05; letter-spacing:-.01em; max-width:20ch; margin:0 auto}
   .h1 b{font-family:'Syne',sans-serif; font-style:normal; font-weight:800; color:var(--rust)}
-  .lede{margin-top:22px; max-width:640px; font-size:17px; line-height:1.62; color:rgba(20,20,20,0.62)}
+  .lede{margin:22px auto 0; max-width:640px; font-size:17px; line-height:1.62; color:rgba(20,20,20,0.62)}
   .lede b{color:var(--black); font-weight:600}
-  .hb{display:flex; flex-wrap:wrap; gap:10px; margin-top:26px}
+  .hb{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:26px}
   .btn{display:inline-flex; align-items:center; gap:7px; padding:12px 23px; border-radius:100px; font-size:13px; font-weight:700; transition:.2s; border:1px solid transparent}
   .btn-f{background:var(--rust); color:#fff}
   .btn-f:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(196,98,45,.3)}
   .btn-l{border-color:var(--border2); color:var(--muted)}
   .btn-l:hover{color:var(--black); border-color:rgba(20,20,20,.35)}
 
-  .ribbon{display:flex; flex-wrap:wrap; margin-top:38px; background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  .ribbon{display:flex; flex-wrap:wrap; margin-top:38px; width:100%; text-align:left; background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
   .stat{flex:1 1 0; min-width:140px; padding:20px 22px; border-right:1px solid var(--border)}
   .stat:last-child{border-right:none}
   .stat-n{font-family:'Syne',sans-serif; font-weight:800; font-size:26px; line-height:1; font-variant-numeric:tabular-nums}
@@ -117,7 +118,7 @@
   .cred{display:grid; grid-template-columns:repeat(3,1fr); margin:0 32px 20px; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--paper)}
   .cr{padding:18px 20px; border-right:1px solid var(--border)}
   .cr:last-child{border-right:none}
-  .cr-k{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--rust)}
+  .cr-k{font-family:'Inter',sans-serif; font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--rust); font-weight:700; letter-spacing:.1em}
   .cr-t{font-family:'Syne',sans-serif; font-weight:800; font-size:15px; letter-spacing:-.015em; margin-top:9px; line-height:1.25}
   .cr-d{margin-top:7px; font-size:12px; line-height:1.55; color:var(--muted)}
 
@@ -126,7 +127,7 @@
   .band{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:16px 18px}
   .band-t{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; margin-bottom:13px}
   .band-n{font-family:'Syne',sans-serif; font-weight:800; font-size:14px; letter-spacing:-.015em}
-  .band-s{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); letter-spacing:.03em}
+  .band-s{font-family:'Caveat',cursive; font-size:10px; color:var(--faint); letter-spacing:.03em; font-size:16px; letter-spacing:0}
   .bg3{display:grid; grid-template-columns:repeat(3,1fr); gap:9px}
   .bg6{display:grid; grid-template-columns:repeat(6,1fr); gap:9px}
   .bc{border:1px solid var(--border); border-radius:10px; padding:11px 12px; background:rgba(196,98,45,.028)}
@@ -134,10 +135,10 @@
   .bc-d{margin-top:5px; font-size:11px; line-height:1.45; color:var(--muted)}
   .flow{display:flex; align-items:center; justify-content:center; gap:9px; padding:11px 0; color:var(--faint)}
   .flow::before,.flow::after{content:''; height:1px; width:48px; background:var(--border2)}
-  .flow span{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase}
+  .flow span{font-family:'Inter',sans-serif; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; letter-spacing:.1em}
   .lanes{display:grid; grid-template-columns:repeat(5,1fr); gap:9px}
   .ln{background:var(--paper); border:1px solid var(--border); border-top:2px solid var(--la,var(--rust)); border-radius:10px; padding:13px 13px}
-  .ln-k{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--la,var(--rust))}
+  .ln-k{font-family:'Inter',sans-serif; font-size:9px; letter-spacing:.06em; text-transform:uppercase; color:var(--la,var(--rust)); font-weight:700; letter-spacing:.1em}
   .ln-n{font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:700; margin-top:5px}
   .ln-d{margin-top:7px; font-size:10.5px; line-height:1.5; color:var(--muted)}
 
@@ -146,7 +147,7 @@
   .build{margin-top:18px; background:var(--paper); border:1px solid var(--border); border-radius:20px; overflow:hidden}
   .b-head{padding:28px 32px 24px}
   .b-top{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px}
-  .b-no{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--rust)}
+  .b-no{font-family:'Inter',sans-serif; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--rust); font-weight:700; letter-spacing:.1em}
   .b-where{font-family:'Caveat',cursive; font-size:16px; color:var(--muted)}
   .b-where b{color:var(--black); font-weight:700}
   .b-h{font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(20px,2.7vw,26px); letter-spacing:-.02em; max-width:24ch}
@@ -169,7 +170,7 @@
   .suite{margin:0 32px 24px; border:1px solid var(--border); border-radius:12px; overflow:hidden}
   .su-h{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:11px 18px; background:rgba(20,20,20,.025); border-bottom:1px solid var(--border)}
   .su-t{font-family:'Syne',sans-serif; font-weight:700; font-size:13px; letter-spacing:-.01em}
-  .su-m{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); letter-spacing:.04em}
+  .su-m{font-family:'Inter',sans-serif; font-size:10px; color:var(--faint); letter-spacing:.04em; font-variant-numeric:tabular-nums}
   .su-r{display:grid; grid-template-columns:1fr 220px 92px 78px; gap:14px; align-items:center; padding:10px 18px; border-bottom:1px solid var(--border)}
   .su-r:last-child{border-bottom:none}
   .su-r.on{background:rgba(196,98,45,.05)}
@@ -177,9 +178,9 @@
   .su-r.off .su-n{font-weight:400; color:var(--faint)}
   .su-d{font-size:11.5px; line-height:1.45; color:var(--muted)}
   .su-r.off .su-d{color:var(--faint)}
-  .su-p{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); text-align:right}
+  .su-p{font-family:'Inter',sans-serif; font-size:11px; color:var(--muted); text-align:right; font-variant-numeric:tabular-nums}
   .su-r.off .su-p{color:var(--faint)}
-  .st{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.05em; text-transform:uppercase; padding:3px 9px; border-radius:100px; text-align:center; white-space:nowrap; display:block}
+  .st{font-family:'Inter',sans-serif; font-size:9.5px; letter-spacing:.05em; text-transform:uppercase; padding:3px 9px; border-radius:100px; text-align:center; white-space:nowrap; display:block; font-weight:600}
   .st.b{background:var(--green-lt); color:var(--green); border:1px solid var(--green-md)}
   .st.q{background:rgba(20,20,20,.03); color:var(--faint); border:1px solid var(--border2)}
   .st.this{background:var(--rust-lt); color:var(--rust); border:1px solid var(--rust-md); font-weight:700}
@@ -222,12 +223,12 @@
   .qk.x{background:var(--rust-lt); color:var(--rust); border:1px solid var(--rust-md)}
   .qt{font-size:11.5px; line-height:1.4; color:var(--muted)}
   .qi.f .qt{color:var(--black)}
-  .qt i{display:block; font-style:normal; font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--faint); margin-top:3px}
+  .qt i{display:block; font-style:normal; font-family:'Inter',sans-serif; font-size:9px; color:var(--faint); margin-top:3px; font-variant-numeric:tabular-nums}
   .qi.f .qt i{color:var(--rust)}
   .qa-f{margin-top:12px; padding:10px 13px; border:1px solid var(--rust-md); background:var(--rust-lt); border-radius:8px; font-size:11.5px; line-height:1.55; color:var(--muted)}
   .qa-f b{color:var(--black); font-weight:600}
 
-  .bell{font-family:'JetBrains Mono',monospace; font-size:9.5px; padding:4px 10px; border-radius:100px; border:1px solid var(--rust-md); background:var(--rust-lt); color:var(--rust)}
+  .bell{font-family:'Inter',sans-serif; font-size:9.5px; padding:4px 10px; border-radius:100px; border:1px solid var(--rust-md); background:var(--rust-lt); color:var(--rust); font-weight:600}
 
   /* ── FOOT STRIP ── */
   .b-foot{display:grid; grid-template-columns:auto 1fr auto; gap:24px; align-items:center; padding:18px 32px; border-top:1px solid var(--border); background:rgba(20,20,20,.015)}
@@ -253,7 +254,7 @@
   /* ── RULES STRIP ── */
   .prin{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:22px}
   .pc{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:20px}
-  .pc-n{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--rust); letter-spacing:.06em}
+  .pc-n{font-family:'Syne',sans-serif; font-size:10px; color:var(--rust); letter-spacing:.06em; font-weight:800; letter-spacing:.02em}
   .pc-h{font-family:'Syne',sans-serif; font-weight:700; font-size:14px; letter-spacing:-.01em; margin-top:9px; line-height:1.25}
   .pc-d{margin-top:8px; font-size:12px; line-height:1.55; color:var(--muted)}
 
@@ -322,7 +323,7 @@
   /* ── ANATOMY ── */
   .anat{background:var(--paper); border:1px solid var(--border); border-radius:22px; overflow:hidden}
   .anat-head{padding:30px 34px 26px; border-bottom:1px solid var(--border)}
-  .anat-tag{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--rust)}
+  .anat-tag{font-family:'Inter',sans-serif; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--rust); font-weight:700; letter-spacing:.1em}
   .anat-h{font-family:'Syne',sans-serif; font-weight:800; font-size:25px; letter-spacing:-.015em; margin-top:9px}
   .anat-p{margin-top:12px; max-width:600px; font-size:14.5px; line-height:1.62; color:rgba(20,20,20,0.6)}
   .anat-body{display:grid; grid-template-columns:1fr 1fr}
@@ -330,7 +331,7 @@
   .anat-col + .anat-col{border-left:1px solid var(--border)}
   .step{display:flex; gap:14px; padding:13px 0; border-bottom:1px dashed var(--border)}
   .step:last-child{border-bottom:none}
-  .step-n{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; color:var(--rust); padding-top:2px; flex-shrink:0}
+  .step-n{font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--rust); padding-top:2px; flex-shrink:0; font-weight:800; letter-spacing:.02em}
   .step-t{font-family:'Syne',sans-serif; font-weight:700; font-size:14px; letter-spacing:-.01em}
   .step-d{margin-top:4px; font-size:12.5px; line-height:1.55; color:var(--muted)}
   .step-d code{font-family:'JetBrains Mono',monospace; font-size:11.5px; background:var(--rust-lt); color:var(--rust); padding:1px 5px; border-radius:4px}
@@ -358,21 +359,21 @@
   .cta-h em{font-style:normal; color:var(--rust)}
   .cta-sub{font-size:15px; color:var(--muted); margin:20px auto 36px; max-width:620px; line-height:1.65; text-align:center}
   .cta-b{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
-  .cta-credits{margin-top:52px; font-size:12px; color:var(--faint); text-align:center; font-family:'JetBrains Mono',monospace; line-height:1.9}
+  .cta-credits{margin-top:52px; font-size:12px; color:var(--faint); text-align:center; font-family:'Inter',sans-serif; line-height:1.9}
   .cta-credits a{color:var(--muted); border-bottom:1px solid var(--border2)}
   .cta-credits a:hover{color:var(--rust); border-color:var(--rust)}
   @media(max-width:560px){ .cta{padding:52px 0 46px} .cta-credits{margin-top:40px} }
   .stack{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
   .schip{background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:18px 18px 16px; transition:border-color .2s, transform .2s}
   .schip:hover{border-color:var(--rust-md); transform:translateY(-2px)}
-  .schip-k{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--rust); margin-bottom:9px}
+  .schip-k{font-family:'Inter',sans-serif; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--rust); margin-bottom:9px; font-weight:700; letter-spacing:.1em}
   .schip-n{font-family:'Syne',sans-serif; font-weight:700; font-size:15px; letter-spacing:-.01em}
   .schip-d{margin-top:7px; font-size:12.5px; line-height:1.5; color:var(--muted)}
   .stable{background:var(--paper); border:1px solid var(--border); border-radius:18px; overflow:hidden}
   .srow{display:grid; grid-template-columns:210px 1fr 190px; gap:20px; padding:15px 24px; border-bottom:1px solid var(--border); align-items:center}
   .srow:last-child{border-bottom:none}
   .srow.head{background:rgba(20,20,20,0.02)}
-  .srow.head div{font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+  .srow.head div{font-family:'Inter',sans-serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); font-weight:700; letter-spacing:.1em}
   .s-cmd{font-family:'JetBrains Mono',monospace; font-size:12.5px; font-weight:500; color:var(--rust)}
   .s-what{font-size:13.5px; line-height:1.5; color:rgba(20,20,20,0.7)}
   .s-repl{font-size:12.5px; color:var(--muted); font-family:'Caveat',cursive; font-size:15px}
@@ -381,7 +382,7 @@
   .velo-line::before{content:''; position:absolute; left:0; right:0; top:7px; height:2px; background:var(--border2)}
   .vnode{flex:1; position:relative; padding-right:12px}
   .vdot{width:16px; height:16px; border-radius:50%; background:var(--cream); border:3px solid var(--rust); position:relative; z-index:1}
-  .vn-n{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); margin-top:12px; letter-spacing:.05em}
+  .vn-n{font-family:'Syne',sans-serif; font-size:10px; color:var(--faint); margin-top:12px; letter-spacing:.05em; font-weight:800; letter-spacing:.02em}
   .vn-t{font-family:'Syne',sans-serif; font-weight:700; font-size:13px; line-height:1.25; margin-top:5px; letter-spacing:-.01em}
   .velo-foot{margin-top:26px; padding-top:20px; border-top:1px solid var(--border); font-size:14px; color:var(--muted); line-height:1.6}
   .velo-foot b{color:var(--black); font-weight:600}
@@ -419,7 +420,7 @@
 
   <!-- ══ HERO ══ -->
   <header class="hero">
-    <div class="eyebrow">AI Growth Engineer &middot; Claude Code + MCP &middot; Solo build</div>
+    <div class="h-tags"><span class="h-tag">AI Growth Engineer</span><span class="h-tag">Claude Code + MCP</span><span class="h-tag gray">Solo build</span></div>
     <h1 class="h1">I don't use AI tools.<br><b>I build them.</b></h1>
     <p class="lede">Marketer by trade, engineer by necessity. <b>Six years in B2B SaaS marketing. One year building the systems.</b> Five of them are below — SEO, paid, content, reporting and design. Each runs against live client accounts and real budgets, and every screenshot is a real run.</p>
     <div class="hb">
