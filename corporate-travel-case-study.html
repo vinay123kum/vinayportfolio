@@ -31,6 +31,13 @@
   .h-meta{font-size:13px;color:var(--faint);margin-top:16px;letter-spacing:.02em}
 
   .body-wrap{max-width:760px;margin:0 auto;padding-inline:32px}
+  .shot-fig{width:min(1180px,calc(100vw - 40px));position:relative;left:50%;transform:translateX(-50%);margin:44px 0 12px}
+  .shot-fig a{display:block;border-radius:14px;overflow:hidden;border:1px solid rgba(20,20,20,.1);box-shadow:0 18px 40px -24px rgba(20,20,20,.35);background:#fff}
+  .shot-fig img{display:block;width:100%;height:auto}
+  .shot-fig figcaption{max-width:760px;margin:14px auto 0;padding-inline:32px;font-size:13px;line-height:1.65;color:rgba(20,20,20,.55)}
+  .shot-fig figcaption b{color:#141414;font-weight:600}
+  .shot-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#C4622D;border:1.5px solid rgba(196,98,45,.3);background:rgba(196,98,45,.06);border-radius:100px;padding:3px 10px;margin-right:8px;vertical-align:1px}
+
   .div{height:1px;background:var(--line);margin:72px 0}
   .slabel{font-family:'Caveat',cursive;font-size:18px;font-weight:600;color:var(--rust);display:flex;align-items:center;gap:10px;margin-bottom:20px}
   .slabel::before{content:'';width:18px;height:2px;background:var(--rust);flex-shrink:0}
@@ -361,6 +368,11 @@
     <div class="stat-row"><div class="stat-row-label">Ad spend</div><div class="stat-row-n" style="color:var(--rust)">−18%</div><div class="stat-row-note">while all of the above went up</div></div>
     <div class="stat-row"><div class="stat-row-label">Cost per acquisition</div><div class="stat-row-n">−88%</div><div class="stat-row-note">per sign-up</div></div>
   </div>
+
+  <figure class="shot-fig">
+    <a href="images/itilite-google-ads-sept-recreation.webp" target="_blank" rel="noopener"><img src="images/itilite-google-ads-sept-recreation.webp" alt="Recreated Google Ads campaigns view for September: 4 enabled Search campaigns, 12 paused, 17 conversions" loading="lazy" width="1920" height="1200"></a>
+    <figcaption><span class="shot-tag">Recreation</span><b>The account in September, rebuilt by hand.</b> My agreement with the client doesn't allow screenshots of their live Google Ads account, so this view was recreated to show how the account was set up by the end: four Search campaigns carrying the spend, twelve from the old structure paused. Conversions match the case study (17 qualified opportunities); campaign-level spend, clicks and budgets are illustrative.</figcaption>
+  </figure>
 
   <div class="math">
     <b>How the cost figures are derived.</b> Client spend is indexed, with May set to 100 and September at 82 after the 18% cut.<br><br>
