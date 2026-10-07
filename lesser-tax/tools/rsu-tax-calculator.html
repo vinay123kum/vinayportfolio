@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSU Tax Calculator (US) | Lesser DIY</title>
+<meta name="description" content="What you owe when RSUs vest and when you sell - the under-withholding gap at 22%, the zero cost basis your broker reports, and the Form 8949 adjustment that stops you paying tax twice.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--cream:#faf8f0;--white:#fff;--hero:#e8f5f3;--tint:#f0f7f6;--green:#034f46;--green-dk:#023d35;--ink:#1a1a1a;--body:#374151;--sec:#4b5563;--muted:#6b7280;--bd-strong:#c8deda;--bd:#e0e8e5;--bd-light:#f0f0f0;--ok:#059669;--ok-bg:#ecfdf5;--ok-bd:#a7f3d0;--warn:#92400e;--warn-bg:#fffbeb;--warn-bd:#fcd34d;--err:#dc2626;--shadow:0 1px 2px rgba(3,79,70,.05),0 8px 24px -18px rgba(3,79,70,.25);--font:"Plus Jakarta Sans","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--body);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+a{color:var(--green)}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px 72px}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:22px 0 14px;border-bottom:1px solid var(--bd)}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.brand span{color:var(--green)}
+.brand em{font-style:normal;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);background:var(--hero);padding:3px 8px;border-radius:100px;margin-left:7px;vertical-align:2px}
+.top a.back{font-size:13px;font-weight:700;text-decoration:none}
+.intro{padding:30px 0 4px}
+.eyebrow{display:inline-block;background:var(--hero);color:var(--green);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(28px,4.4vw,32px);line-height:1.15}
+h1 em{font-style:normal;color:var(--green)}
+.sub{font-size:16px;margin:14px 0 0;max-width:64ch}
+.sub b{color:var(--ink);font-weight:700}
+.btn{background:var(--green);color:#fff;border:0;border-radius:100px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--font)}
+.btn:hover{background:var(--green-dk)}
+.ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:100px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);text-decoration:none;display:inline-block}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+input,select{font-family:var(--font);font-size:15px;padding:11px 12px;border:1px solid var(--bd-strong);border-radius:10px;background:var(--white);color:var(--ink)}
+.panel{background:var(--white);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--shadow);padding:24px;margin-top:22px}
+.panel.hl{border-top:3px solid var(--green)}
+.panel h2{font-size:20px;margin-bottom:6px}
+.panel .note-s{font-size:14px;margin:0 0 18px}
+.panel .note-s b{color:var(--ink);font-weight:700}
+.fld label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.fld input,.fld select{width:100%}
+.fld .help{font-size:12px;color:var(--muted);margin-top:6px;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px}
+.note{margin-top:16px;padding:13px 16px;border-left:3px solid var(--warn-bd);background:var(--warn-bg);font-size:14px;border-radius:0 10px 10px 0}
+.note b{color:var(--ink);font-weight:700}
+.note.good{border-left-color:var(--ok-bd);background:var(--ok-bg)}
+.note.red{border-left-color:var(--err);background:#fff6f6}
+details.more{margin-top:16px;background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:12px 16px}
+details.more summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--green)}
+details.more ul{margin:10px 0 2px;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:7px}
+details.more b{color:var(--ink);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:6px}
+th{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec);text-align:left;padding:10px 8px;border-bottom:1px solid var(--bd)}
+td{padding:10px 8px;border-bottom:1px solid var(--bd-light)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);white-space:nowrap}
+td small{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}
+tr.tot td{border-top:2px solid var(--bd-strong);border-bottom:0;font-weight:800;color:var(--ink);font-size:15.5px;padding-top:13px}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin-top:20px}
+.big div{background:var(--white);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.big .k{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--sec)}
+.big .v{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.03em;margin-top:4px;font-variant-numeric:tabular-nums}
+.big .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.cta{margin-top:22px;padding:22px;border-radius:16px;background:var(--hero);border:1px solid var(--bd-strong)}
+.cta h3{font-size:20px}.cta p{margin:6px 0 16px;font-size:14px}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.disc{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--bd);padding-top:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="brand" href="../index.html">Lesser<span>.</span><em>DIY</em></a>
+  <a class="back" href="../index.html">&larr; All Lesser DIY tools</a>
+</div>
+
+<div class="intro">
+  <span class="eyebrow">Equity compensation</span>
+  <h1>Your <em>RSUs</em> are taxed twice unless you fix one box</h1>
+  <p class="sub">RSUs are taxed as salary the day they vest. Your employer usually withholds a flat <b>22%</b> &mdash; which is not enough if you earn well. Then your broker reports a <b>cost basis of zero</b> when you sell, so the IRS taxes the same money again. This works out both.</p>
+</div>
+
+<div class="panel hl">
+  <h2>1. The vest</h2>
+  <p class="note-s">From your vest confirmation. Use the shares that vested, before any were sold to cover tax.</p>
+  <div class="grid">
+    <div class="fld">
+      <label for="sh">Shares vested</label>
+      <input id="sh" type="number" inputmode="decimal" min="0" step="any" placeholder="200">
+    </div>
+    <div class="fld">
+      <label for="vd">Vest date</label>
+      <input id="vd" type="date">
+    </div>
+    <div class="fld">
+      <label for="vp">Share price on the vest date</label>
+      <input id="vp" type="number" inputmode="decimal" min="0" step="any" placeholder="150.00">
+      <span class="help">This is your income, and your real basis.</span>
+    </div>
+    <div class="fld">
+      <label for="wh">Withholding rate your employer used</label>
+      <select id="wh">
+        <option value="22" selected>22% &mdash; the standard flat rate</option>
+        <option value="37">37% &mdash; over $1M of supplemental pay</option>
+        <option value="0">None &mdash; I paid the tax separately</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>2. The sale</h2>
+  <p class="note-s">Leave blank if you are still holding &mdash; the vest tax applies either way.</p>
+  <div class="grid">
+    <div class="fld">
+      <label for="sd">Sale date</label>
+      <input id="sd" type="date">
+    </div>
+    <div class="fld">
+      <label for="sp">Sale price per share</label>
+      <input id="sp" type="number" inputmode="decimal" min="0" step="any" placeholder="175.00">
+    </div>
+    <div class="fld">
+      <label for="ssh">Shares sold</label>
+      <input id="ssh" type="number" inputmode="decimal" min="0" step="any" placeholder="200">
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>3. Your rates</h2>
+  <div class="grid">
+    <div class="fld">
+      <label for="ord">Your marginal income tax rate</label>
+      <select id="ord">
+        <option value="22">22%</option><option value="24" selected>24%</option>
+        <option value="32">32%</option><option value="35">35%</option><option value="37">37%</option>
+      </select>
+      <span class="help">What your salary already puts you in.</span>
+    </div>
+    <div class="fld">
+      <label for="ltcg">Long-term capital gains rate</label>
+      <select id="ltcg"><option value="0">0%</option><option value="15" selected>15%</option><option value="20">20%</option></select>
+    </div>
+    <div class="fld">
+      <label for="state">State tax rate (optional)</label>
+      <input id="state" type="number" inputmode="decimal" min="0" max="15" step="any" placeholder="0">
+      <span class="help">0 for TX, WA, FL, NV, TN, SD, WY, AK.</span>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:22px"><button class="btn" id="go">Work out the tax</button></div>
+<div id="out"></div>
+
+<p class="disc">General guidance only, not tax or legal advice. Covers US-resident taxation of RSUs settled in shares. It does not model FICA on the vest, the 3.8% net investment income tax, AMT, section 83(b) elections, multiple vest tranches in one calculation, dual-status or nonresident years, or Indian tax where you are also resident there. Nothing you type leaves this browser.</p>
+
+</div>
+<script>
+/* --- CONFIG ------------------------------------------------ */
+const BOOKING_URL = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL  = "https://lesser.tax";
+/* ----------------------------------------------------------- */
+
+const $ = s => document.querySelector(s);
+const SRC = new URLSearchParams(location.search).get("src") || "tool-rsu";
+const KEY = "lesser_rsu_v1";
+const F = ["sh","vd","vp","wh","sd","sp","ssh","ord","ltcg","state"];
+
+const money = v => (v < 0 ? "-$" : "$") + Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const num = id => parseFloat($("#"+id).value) || 0;
+const dt  = id => $("#"+id).value ? new Date($("#"+id).value + "T00:00:00") : null;
+
+function save(){ const o={}; F.forEach(f=>o[f]=$("#"+f).value); try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){} }
+function load(){ try{ const o=JSON.parse(localStorage.getItem(KEY))||{}; F.forEach(f=>{ if(o[f]) $("#"+f).value=o[f]; }); }catch(e){} }
+function addYears(d,k){ const x=new Date(d.getTime()); x.setFullYear(x.getFullYear()+k); return x; }
+
+function run(){
+  const sh = num("sh"), vp = num("vp"), whR = num("wh")/100;
+  const vD = dt("vd"), sD = dt("sd");
+  const ordR = num("ord")/100, ltR = num("ltcg")/100, stR = num("state")/100;
+  const sp = num("sp"), ssh = num("ssh") || sh;
+
+  if (!sh || !vp || !vD){
+    $("#out").innerHTML = '<div class="note" style="margin-top:22px"><b>Fill in the vest first.</b> Shares, vest date and the share price on that date.</div>';
+    return;
+  }
+
+  /* --- The vest: ordinary income at fair market value ------------------- */
+  const vestIncome = sh * vp;
+  const withheld = vestIncome * whR;
+  const vestTaxDue = vestIncome * (ordR + stR);
+  const gap = vestTaxDue - withheld;
+
+  /* --- The sale: gain measured from the vest-date price ----------------- */
+  const sold = !!(sD && sp && ssh);
+  let proceeds = 0, trueBasis = 0, gain = 0, longTerm = false, capTax = 0;
+  if (sold){
+    proceeds = ssh * sp;
+    trueBasis = ssh * vp;          /* real basis = FMV already taxed at vest */
+    gain = proceeds - trueBasis;
+    longTerm = sD > addYears(vD, 1);
+    capTax = gain > 0 ? gain * ((longTerm ? ltR : ordR) + stR) : 0;
+  }
+
+  /* --- The zero-basis trap --------------------------------------------- */
+  const doubleTaxed = sold ? trueBasis : 0;
+  const overpay = sold ? doubleTaxed * ((longTerm ? ltR : ordR) + stR) : 0;
+
+  const vestTable =
+    '<table><tbody>' +
+    '<tr><td>Income on vest<small>' + sh + ' shares at ' + money(vp) + ', taxed as salary</small></td><td class="n">' + money(vestIncome) + '</td></tr>' +
+    '<tr><td>Tax actually due<small>' + (num("ord") + num("state")) + '% at your rate</small></td><td class="n">' + money(vestTaxDue) + '</td></tr>' +
+    '<tr><td>Withheld by your employer<small>' + (whR ? num("wh") + '% flat supplemental rate' : 'nothing withheld') + '</small></td><td class="n">-' + money(withheld) + '</td></tr>' +
+    '<tr class="tot"><td>' + (gap > 0 ? "Still owed at filing" : "Over-withheld") + '</td><td class="n" style="color:' + (gap > 0 ? "var(--err)" : "var(--ok)") + '">' + money(Math.abs(gap)) + '</td></tr>' +
+    '</tbody></table>';
+
+  const saleTable = sold
+    ? '<table style="margin-top:20px"><tbody>' +
+      '<tr><td>Sale proceeds<small>' + ssh + ' shares at ' + money(sp) + '</small></td><td class="n">' + money(proceeds) + '</td></tr>' +
+      '<tr><td>Correct cost basis<small>vest-day value, already taxed as salary</small></td><td class="n">-' + money(trueBasis) + '</td></tr>' +
+      '<tr class="tot"><td>' + (longTerm ? "Long-term" : "Short-term") + ' capital gain</td><td class="n">' + money(gain) + '</td></tr>' +
+      (gain > 0 ? '<tr><td>Tax on the gain<small>' + ((longTerm ? num("ltcg") : num("ord")) + num("state")) + '%</small></td><td class="n">' + money(capTax) + '</td></tr>' : '') +
+      '</tbody></table>'
+    : '<div class="note good" style="margin-top:18px"><b>You are still holding.</b> The vest tax above is due whether or not you sell. When you do sell, your gain is measured from ' + money(vp) + ' a share &mdash; not from zero. Hold past <b>' + addYears(vD,1).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"}) + '</b> and the gain qualifies for the lower long-term rate.</div>';
+
+  const gapNote = gap > 0
+    ? '<div class="note red"><b>Your employer under-withheld by ' + money(gap) + '.</b> The flat ' + num("wh") + '% supplemental rate is below your actual marginal rate, so the shortfall shows up as a bill when you file &mdash; and if it is large enough, an underpayment penalty on top.<br><br>The fix is to raise withholding on your W-4 or make a quarterly estimated payment. This is the single most common April surprise for people with RSUs.</div>'
+    : (whR ? '<div class="note good"><b>Withholding covered the vest tax</b>, with ' + money(-gap) + ' to spare.</div>' : "");
+
+  const basisBlock = sold
+    ? '<div class="panel"><h2>The zero-basis trap</h2>' +
+      '<p class="note-s">This is the one that quietly costs people thousands, year after year.</p>' +
+      '<table><tbody>' +
+      '<tr><td>Basis your broker reports on Form 1099-B<small>very often zero for RSUs</small></td><td class="n">' + money(0) + '</td></tr>' +
+      '<tr><td>Basis that is actually correct<small>the vest-day value already in your W-2</small></td><td class="n">' + money(trueBasis) + '</td></tr>' +
+      '<tr class="tot"><td>Income at risk of being taxed twice</td><td class="n">' + money(doubleTaxed) + '</td></tr>' +
+      '</tbody></table>' +
+      '<div class="note red"><b>File what the broker reported and you pay roughly ' + money(overpay) + ' of tax you do not owe.</b> That ' + money(trueBasis) + ' was already taxed as salary on your W-2 the day the shares vested. Reporting a zero basis taxes it a second time as capital gain.<br><br>The fix is to correct the basis on <b>Form 8949</b> with adjustment code B. Your broker will not do it for you, and most software will not catch it unless you tell it to.</div></div>'
+    : "";
+
+  const totalTax = vestTaxDue + capTax;
+  const big =
+    '<div class="big">' +
+    '<div><div class="k">Taxed as salary</div><div class="v">' + money(vestIncome) + '</div><div class="s">on the vest date</div></div>' +
+    '<div><div class="k">' + (gap > 0 ? "Still to pay" : "Over-withheld") + '</div><div class="v" style="color:' + (gap > 0 ? "var(--err)" : "var(--ok)") + '">' + money(Math.abs(gap)) + '</div><div class="s">' + (gap > 0 ? "at filing" : "refundable") + '</div></div>' +
+    (sold ? '<div><div class="k">Capital gain</div><div class="v">' + money(gain) + '</div><div class="s">' + (longTerm ? "long-term" : "short-term") + '</div></div>' : '') +
+    (sold ? '<div><div class="k">Double-tax risk</div><div class="v" style="color:var(--err)">' + money(overpay) + '</div><div class="s">if basis not fixed</div></div>' : '') +
+    '</div>';
+
+  $("#out").innerHTML =
+    big +
+    '<div class="panel"><h2>What happens at vest</h2>' +
+    '<p class="note-s">RSUs become taxable the moment they vest, whether you sell or not.</p>' +
+    vestTable + gapNote + saleTable +
+    '<details class="more"><summary>What this does not cover</summary><ul>' +
+    '<li><b>FICA on the vest.</b> Social Security and Medicare also apply to RSU income, on top of the rates here.</li>' +
+    '<li><b>Multiple tranches.</b> Each vest date has its own price and its own one-year clock. Run them separately.</li>' +
+    '<li><b>Sell-to-cover.</b> If shares were sold immediately to pay tax, that sale itself is reportable &mdash; usually at a tiny gain or loss.</li>' +
+    '<li><b>Moving countries.</b> Vesting while resident in India, or leaving the US mid-vest, splits the income between two tax systems.</li>' +
+    '<li><b>Net investment income tax</b> of 3.8% can apply at higher incomes.</li>' +
+    '</ul></details></div>' +
+    basisBlock +
+    '<div class="cta"><h3>Check your last three returns</h3>' +
+    '<p>If you have sold RSUs before, the same zero-basis error is probably sitting in those returns too. An amended return can get that money back &mdash; and the window does not stay open forever. Sign up and you get straight on a call with a CPA.</p>' +
+    '<div class="cta-row"><a class="btn" href="' + SIGNUP_URL + '?src=' + encodeURIComponent(SRC) + '">Sign up and talk to a CPA</a>' +
+    (BOOKING_URL.indexOf("REPLACE") > -1 ? "" : '<a class="ghost" href="' + BOOKING_URL + '?src=' + encodeURIComponent(SRC) + '">Book 15 minutes</a>') +
+    '</div></div>';
+
+  $("#out").scrollIntoView({ behavior:"smooth", block:"start" });
+  save();
+}
+F.forEach(f => $("#"+f).addEventListener("input", save));
+$("#go").addEventListener("click", run);
+load();
+</script>
+</body>
+</html>

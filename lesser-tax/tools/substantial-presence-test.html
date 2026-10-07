@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Substantial Presence Test Calculator | Lesser</title>
+<meta name="description" content="Count your US days the way the IRS does - the 31-day test, the 1/3 and 1/6 carryover, and exempt days on F-1 or J-1 - and find out whether you file Form 1040 or Form 1040-NR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --cream:#faf8f0; --white:#ffffff; --hero:#e8f5f3; --tint:#f0f7f6;
+  --green:#034f46; --green-dk:#023d35; --green-mid:#056b5e;
+  --ink:#1a1a1a; --body:#374151; --sec:#4b5563; --muted:#6b7280;
+  --bd-strong:#c8deda; --bd:#e0e8e5; --bd-light:#f0f0f0;
+  --ok:#059669; --ok-bg:#ecfdf5; --ok-bd:#a7f3d0;
+  --warn:#92400e; --warn-bg:#fffbeb; --warn-bd:#fcd34d;
+  --err:#dc2626;
+  --shadow:0 1px 2px rgba(3,79,70,.05), 0 8px 24px -18px rgba(3,79,70,.25);
+  --font:"Plus Jakarta Sans","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--body);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+a{color:var(--green)}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px 72px}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:22px 0 14px;border-bottom:1px solid var(--bd)}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.brand span{color:var(--green)}
+.top a{font-size:13px;font-weight:700;text-decoration:none}
+.intro{padding:30px 0 4px}
+.eyebrow{display:inline-block;background:var(--hero);color:var(--green);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(28px,4.4vw,32px);line-height:1.15}
+h1 em{font-style:normal;color:var(--green)}
+.sub{font-size:16px;color:var(--body);margin:14px 0 0;max-width:62ch}
+.sub b{color:var(--ink);font-weight:700}
+.btn{background:var(--green);color:#fff;border:0;border-radius:100px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s;font-family:var(--font)}
+.btn:hover{background:var(--green-dk)}
+.ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:100px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);text-decoration:none;display:inline-block}
+.ghost:hover{background:rgba(3,79,70,.05)}
+button:focus-visible,.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+input,select{font-family:var(--font);font-size:15px;padding:11px 12px;border:1px solid var(--bd-strong);border-radius:10px;background:var(--white);color:var(--ink)}
+.panel{background:var(--white);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--shadow);padding:24px;margin-top:22px}
+.panel.hl{border-top:3px solid var(--green)}
+.panel h2{font-size:20px;margin-bottom:6px}
+.panel .note-s{font-size:14px;color:var(--body);margin:0 0 18px}
+.panel .note-s b{color:var(--ink);font-weight:700}
+.fld label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.fld input,.fld select{width:100%}
+.fld .help{font-size:12px;color:var(--muted);margin-top:6px;display:block}
+.setup{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.yr{display:grid;grid-template-columns:110px 1fr 120px;gap:14px;align-items:end;padding:14px 0;border-bottom:1px solid var(--bd-light)}
+.yr:last-child{border-bottom:0}
+.yr .y{font-size:17px;font-weight:800;color:var(--ink);padding-bottom:11px}
+.yr .y small{display:block;font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:2px}
+.yr .mul{padding-bottom:13px;font-size:13px;color:var(--muted);font-weight:700}
+@media(max-width:640px){.yr{grid-template-columns:1fr 1fr;gap:10px}.yr .y{grid-column:1/-1;padding-bottom:0}}
+.note{margin-top:14px;padding:13px 16px;border-left:3px solid var(--warn-bd);background:var(--warn-bg);font-size:14px;color:var(--body);border-radius:0 10px 10px 0}
+.note b{color:var(--ink);font-weight:700}
+details.more{margin-top:16px;background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:12px 16px}
+details.more summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--green)}
+details.more ul{margin:10px 0 2px;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:7px}
+details.more b{color:var(--ink);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:6px}
+th{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec);text-align:left;padding:10px 8px;border-bottom:1px solid var(--bd)}
+td{padding:9px 8px;border-bottom:1px solid var(--bd-light)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);white-space:nowrap}
+tr.tot td{border-top:2px solid var(--bd-strong);border-bottom:0;font-weight:800;color:var(--ink);font-size:15px;padding-top:12px}
+.verdict{margin-top:22px;border-radius:16px;padding:22px;border:1px solid transparent}
+.verdict.res{background:var(--ok-bg);border-color:var(--ok-bd)}
+.verdict.non{background:var(--hero);border-color:var(--bd-strong)}
+.verdict h3{font-size:22px;line-height:1.3;margin-top:4px}
+.verdict p{margin:10px 0 0;font-size:14.5px;line-height:1.6;color:var(--body)}
+.verdict p b{color:var(--ink)}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.pill{background:var(--white);border:1px solid var(--bd-strong);border-radius:100px;padding:6px 14px;font-size:12.5px;font-weight:700;color:var(--green)}
+.pill.bad{color:var(--err);border-color:#f0cfcf}
+.cta{margin-top:22px;padding:22px;border-radius:16px;background:var(--hero);border:1px solid var(--bd-strong)}
+.cta h3{font-size:20px}
+.cta p{margin:6px 0 16px;font-size:14px}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.disc{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--bd);padding-top:14px}
+.hide{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="brand" href="../index.html" style="text-decoration:none">Lesser<span>.</span><em style="font-style:normal;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);background:var(--hero);padding:3px 8px;border-radius:100px;margin-left:7px;vertical-align:2px">DIY</em></a>
+  <a href="../index.html">&larr; All Lesser DIY tools</a>
+</div>
+
+<div class="intro">
+  <span class="eyebrow">Day counting</span>
+  <h1>The <em>183-day</em> test, counted properly</h1>
+  <p class="sub">The IRS does not simply count the days you were here. It adds <b>all</b> of this year's days, <b>a third</b> of last year's and <b>a sixth</b> of the year before &mdash; and it ignores days you were on a student or trainee visa. Get it wrong and you file the wrong return.</p>
+</div>
+
+<div class="panel hl">
+  <h2>1. Your days in the US</h2>
+  <p class="note-s">Count every day you were <b>physically present</b> in the United States, including partial days. Travel days count.</p>
+
+  <div class="setup" style="margin-bottom:4px;max-width:330px">
+    <div class="fld">
+      <label for="ty">Tax year you're working out</label>
+      <select id="ty">
+        <option value="2026" selected>2026 (filing in 2027)</option>
+        <option value="2025">2025 (filing in 2026)</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="years"></div>
+</div>
+
+<div class="panel">
+  <h2>2. Your visa status</h2>
+  <p class="note-s">Days on certain visas are <b>exempt</b> &mdash; they do not count at all. This is the step most calculators skip.</p>
+  <div class="setup">
+    <div class="fld">
+      <label for="st">Were you on any of these during these years?</label>
+      <select id="st">
+        <option value="none" selected>No &mdash; H-1B, L-1, green card, or other</option>
+        <option value="student">Yes &mdash; F-1, J-1, M-1 or Q student</option>
+        <option value="teacher">Yes &mdash; J-1 or Q teacher / trainee</option>
+      </select>
+    </div>
+    <div class="fld hide" id="fyWrap">
+      <label for="fy">First calendar year you held that status in the US</label>
+      <input id="fy" type="number" inputmode="numeric" placeholder="e.g. 2021" min="1980" max="2030">
+      <span class="help" id="fyHelp"></span>
+    </div>
+  </div>
+  <div class="note hide" id="exNote"></div>
+</div>
+
+<div style="margin-top:22px"><button class="btn" id="go">Count my days</button></div>
+
+<div id="out"></div>
+
+<p class="disc">General guidance only, not tax or legal advice. The substantial presence test has exceptions this tool does not cover &mdash; the closer connection exception, treaty tie-breaker rules, days you could not leave for a medical condition that arose in the US, and days as a regular commuter from Canada or Mexico. Nothing you type leaves this browser.</p>
+
+</div>
+
+<script>
+/* --- CONFIG ------------------------------------------------ */
+const BOOKING_URL = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL  = "https://lesser.tax";
+/* ----------------------------------------------------------- */
+
+const $ = s => document.querySelector(s);
+const SRC = new URLSearchParams(location.search).get("src") || "tool-spt";
+const KEY = "lesser_spt_v1";
+
+const ty = $("#ty"), st = $("#st"), fy = $("#fy"), years = $("#years");
+
+/* Exempt-year allowances.
+   Student on F/J/M/Q: 5 calendar years, counted over a lifetime.
+   Teacher or trainee on J/Q: 2 years out of the preceding 6. */
+const ALLOW = { student: 5, teacher: 2 };
+
+function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+function save(){
+  const o = { ty: ty.value, st: st.value, fy: fy.value };
+  [0,1,2].forEach(i => { const el = $("#d"+i); o["d"+i] = el ? el.value : ""; });
+  try { localStorage.setItem(KEY, JSON.stringify(o)); } catch(e){}
+}
+
+function drawYears(){
+  const y = +ty.value, s = load();
+  const rows = [
+    [y,   "Current year",   "counts in full"],
+    [y-1, "Prior year",     "counts as 1/3"],
+    [y-2, "Two years back", "counts as 1/6"]
+  ];
+  years.innerHTML = rows.map(function(r, i){
+    return '<div class="yr">' +
+      '<div class="y">' + r[0] + '<small>' + r[1] + '</small></div>' +
+      '<div class="fld"><label for="d' + i + '">Days present in the US</label>' +
+      '<input id="d' + i + '" type="number" inputmode="numeric" min="0" max="366" placeholder="0" value="' + (s["d"+i] || "") + '"></div>' +
+      '<div class="mul">' + r[2] + '</div></div>';
+  }).join("");
+  years.querySelectorAll("input").forEach(el => el.addEventListener("input", save));
+}
+
+function syncStatus(){
+  const on = st.value !== "none";
+  $("#fyWrap").classList.toggle("hide", !on);
+  $("#exNote").classList.toggle("hide", !on);
+  if (on){
+    $("#fyHelp").textContent = st.value === "student"
+      ? "Any part of a calendar year counts as a whole year."
+      : "Counted across the previous six years.";
+    $("#exNote").innerHTML = st.value === "student"
+      ? "<b>Students are exempt for five calendar years.</b> During those years your days do not count towards the 183-day test at all &mdash; but you still have to file <b>Form 8843</b> each year to claim it. Miss that form and the IRS can count the days anyway."
+      : "<b>Teachers and trainees are exempt for two years out of the previous six.</b> Form 8843 is still required for each exempt year.";
+  }
+  save();
+}
+
+function exemptYears(){
+  if (st.value === "none") return new Set();
+  const first = parseInt(fy.value, 10);
+  if (!first) return new Set();
+  const out = new Set();
+  for (let i = 0; i < ALLOW[st.value]; i++) out.add(first + i);
+  return out;
+}
+
+const fmt = n => (Math.round(n * 100) / 100).toLocaleString("en-US");
+
+function run(){
+  const y = +ty.value, ex = exemptYears();
+  const W = [1, 1/3, 1/6], MUL = ["&times; 1", "&times; 1/3", "&times; 1/6"];
+  const rows = [];
+  let weighted = 0, curDays = 0, anyEntered = false;
+
+  for (let i = 0; i < 3; i++){
+    const yr = y - i;
+    const raw = Math.max(0, Math.min(366, parseInt($("#d"+i).value, 10) || 0));
+    if ($("#d"+i).value !== "") anyEntered = true;
+    const isEx = ex.has(yr);
+    const counted = isEx ? 0 : raw;
+    const w = counted * W[i];
+    if (i === 0) curDays = counted;
+    weighted += w;
+    rows.push({ yr: yr, raw: raw, isEx: isEx, counted: counted, w: w, mul: MUL[i] });
+  }
+
+  if (!anyEntered){
+    $("#out").innerHTML = '<div class="note" style="margin-top:22px"><b>Enter your days first.</b> Put the number of days you were physically in the US for each year above.</div>';
+    return;
+  }
+
+  const pass31 = curDays >= 31;
+  const pass183 = weighted >= 183;
+  const resident = pass31 && pass183;
+  const allExempt = ex.size > 0 && rows.every(r => r.isEx || r.raw === 0);
+
+  const table =
+    '<table><thead><tr><th>Year</th><th>Days present</th><th>Counted</th><th style="text-align:right">Weighted</th></tr></thead><tbody>' +
+    rows.map(r => '<tr><td><b style="color:var(--ink)">' + r.yr + '</b></td><td>' + r.raw + '</td><td>' +
+      (r.isEx ? '<span style="color:var(--green);font-weight:700">exempt &mdash; 0</span>' : r.counted + ' ' + r.mul) +
+      '</td><td class="n">' + fmt(r.w) + '</td></tr>').join("") +
+    '<tr class="tot"><td colspan="3">Total for the substantial presence test</td><td class="n">' + fmt(weighted) + '</td></tr>' +
+    '</tbody></table>' +
+    '<div class="pills">' +
+      '<span class="pill' + (pass31 ? '' : ' bad') + '">31-day test: ' + (pass31 ? 'met' : 'not met') + ' (' + curDays + ' days in ' + y + ')</span>' +
+      '<span class="pill' + (pass183 ? '' : ' bad') + '">183-day test: ' + (pass183 ? 'met' : 'not met') + ' (' + fmt(weighted) + ')</span>' +
+    '</div>';
+
+  let cls, head, body;
+  if (allExempt){
+    cls = "non";
+    head = "Nonresident alien &mdash; your days are exempt";
+    body = "Every year you entered falls inside your exempt period, so none of those days count towards the substantial presence test. You file <b>Form 1040-NR</b>." +
+           "<br><br><b>You must still file Form 8843</b> for each exempt year, even with no income at all. That form is what preserves the exemption &mdash; without it the IRS can count the days and treat you as a resident.";
+  } else if (resident){
+    cls = "res";
+    head = "Resident alien for " + y + " &mdash; file Form 1040";
+    body = "You met both tests, so for tax purposes you are treated like a US resident. You file <b>Form 1040</b> and report your <b>worldwide income</b> &mdash; including interest on Indian savings and NRO accounts, rent from property in India, and capital gains there." +
+           "<br><br>This is also the year foreign-account reporting starts to matter: <b>FBAR</b> if your Indian accounts together passed $10,000 on any day of the year, and possibly <b>Form 8938</b> on the return itself.";
+  } else {
+    cls = "non";
+    head = "Nonresident alien for " + y + " &mdash; file Form 1040-NR";
+    body = !pass31
+      ? "You were present fewer than 31 days in " + y + ", so the substantial presence test cannot be met regardless of earlier years. You file <b>Form 1040-NR</b> and report only US-source income."
+      : "Your weighted total is <b>" + fmt(weighted) + "</b>, short of the 183 needed. You file <b>Form 1040-NR</b> and report only US-source income &mdash; not your Indian income.";
+    if (weighted >= 150 && weighted < 183)
+      body += "<br><br><b>You are close to the line.</b> A short trip to the US before the end of the year could tip you into resident status for the whole year. Worth planning deliberately rather than finding out in April.";
+  }
+
+  const extras =
+    '<details class="more"><summary>Things that can change this answer</summary><ul>' +
+    '<li><b>The year you arrive or leave</b> is often a <b>dual-status</b> year &mdash; nonresident for part of it, resident for the rest, with two sets of rules on one return.</li>' +
+    '<li><b>First-year choice.</b> If you just missed the test this year but will meet it next year, you may be able to elect resident status for part of this year.</li>' +
+    '<li><b>Married filing jointly.</b> A nonresident married to a US resident or citizen can elect to be treated as a resident for the whole year &mdash; often a lower bill, but it puts worldwide income on the return.</li>' +
+    '<li><b>Closer connection exception.</b> Fewer than 183 actual days this year plus a stronger tie to India can keep you nonresident even when the weighted maths says otherwise.</li>' +
+    '<li><b>Treaty tie-breaker.</b> The India&ndash;US treaty can decide residency where both countries claim you.</li>' +
+    '</ul></details>';
+
+  $("#out").innerHTML =
+    '<div class="panel"><h2>How the IRS counts it</h2>' +
+    '<p class="note-s">All of this year, a third of last year, a sixth of the year before. 183 is the line.</p>' + table + '</div>' +
+    '<div class="verdict ' + cls + '"><span class="label">Your result for ' + y + '</span>' +
+    '<h3>' + head + '</h3><p>' + body + '</p>' + extras + '</div>' +
+    '<div class="cta"><h3>Not sure this is your whole picture?</h3>' +
+    '<p>Arrival years, a spouse on H-4, Indian accounts and property, or a status change mid-year all shift the answer. Sign up and you get straight on a call with a CPA who does this every day.</p>' +
+    '<div class="cta-row">' +
+    '<a class="btn" href="' + SIGNUP_URL + '?src=' + encodeURIComponent(SRC) + '">Sign up and talk to a CPA</a>' +
+    (BOOKING_URL.indexOf('REPLACE') > -1 ? '' : '<a class="ghost" href="' + BOOKING_URL + '?src=' + encodeURIComponent(SRC) + '">Book 15 minutes</a>') +
+    '</div></div>';
+
+  $("#out").scrollIntoView({ behavior: "smooth", block: "start" });
+  save();
+}
+
+ty.addEventListener("change", function(){ drawYears(); save(); });
+st.addEventListener("change", syncStatus);
+fy.addEventListener("input", save);
+$("#go").addEventListener("click", run);
+
+(function init(){
+  const s = load();
+  if (s.ty) ty.value = s.ty;
+  drawYears();
+  if (s.st) st.value = s.st;
+  if (s.fy) fy.value = s.fy;
+  syncStatus();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form 8938 Threshold Checker (FATCA) | Lesser DIY</title>
+<meta name="description" content="FBAR is not the only one. Check whether your Indian accounts, PPF, EPF and mutual funds also cross the Form 8938 FATCA threshold - which is different, and depends on where you live.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../assets/tool.css">
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="brand" href="../index.html">Lesser<span>.</span><em>DIY</em></a>
+  <a class="back" href="../index.html">&larr; All Lesser DIY tools</a>
+</div>
+
+<div class="intro">
+  <span class="eyebrow">FATCA</span>
+  <h1>FBAR is not the only one. There's also <em>Form 8938</em></h1>
+  <p class="sub">Two forms, two agencies, two sets of rules, same Indian accounts. FBAR goes to FinCEN at $10,000. <b>Form 8938 goes to the IRS with your tax return</b>, and its threshold depends on your filing status and whether you live in the US or abroad. Most people file one and never hear about the other.</p>
+</div>
+
+<div class="panel hl">
+  <h2>1. Your situation</h2>
+  <div class="grid">
+    <div class="fld">
+      <label for="fs">Filing status</label>
+      <select id="fs">
+        <option value="single" selected>Single, or married filing separately</option>
+        <option value="mfj">Married filing jointly</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label for="where">Where do you live?</label>
+      <select id="where">
+        <option value="us" selected>In the United States</option>
+        <option value="abroad">Abroad &mdash; India or elsewhere</option>
+      </select>
+      <span class="help">Living abroad raises the threshold a long way.</span>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>2. Your foreign assets</h2>
+  <p class="note-s">In US dollars. Tick everything you hold, then give the two totals below.</p>
+  <div style="margin-bottom:6px">
+    <div class="chk"><input type="checkbox" id="c1" checked><label for="c1"><b>Bank accounts in India</b><small>NRE, NRO, FCNR, savings, fixed deposits</small></label></div>
+    <div class="chk"><input type="checkbox" id="c2"><label for="c2"><b>Mutual funds and demat holdings</b><small>also PFICs &mdash; a separate problem</small></label></div>
+    <div class="chk"><input type="checkbox" id="c3"><label for="c3"><b>PPF and EPF</b><small>counted here even though they feel like pensions</small></label></div>
+    <div class="chk"><input type="checkbox" id="c4"><label for="c4"><b>Life insurance or ULIP with a cash value</b><small>the surrender value is the number</small></label></div>
+    <div class="chk"><input type="checkbox" id="c5"><label for="c5"><b>Shares in an Indian company held directly</b></label></div>
+    <div class="chk"><input type="checkbox" id="c6"><label for="c6"><b>Property in India</b><small>held in your own name &mdash; does <em>not</em> count</small></label></div>
+  </div>
+  <div class="grid" style="margin-top:14px">
+    <div class="fld">
+      <label for="year">Total value on the last day of the year</label>
+      <input id="year" type="number" inputmode="numeric" min="0" step="any" placeholder="0">
+      <span class="help">31 December.</span>
+    </div>
+    <div class="fld">
+      <label for="peak">Highest total at any point in the year</label>
+      <input id="peak" type="number" inputmode="numeric" min="0" step="any" placeholder="0">
+      <span class="help">Even for a single day.</span>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:22px"><button class="btn" id="go">Check both thresholds</button></div>
+<div id="out"></div>
+
+<p class="disc">General guidance only, not tax or legal advice. Form 8938 thresholds shown are those published by the IRS for specified foreign financial assets. Whether an asset is a "specified foreign financial asset" can be genuinely arguable in some cases, and the treatment of Indian provident funds in particular is not settled. Foreign real estate held directly is excluded, but an interest in an entity that holds it is not. Nothing you type leaves this browser.</p>
+
+</div>
+<script>
+/* --- CONFIG ------------------------------------------------ */
+const BOOKING_URL = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL  = "https://lesser.tax";
+const FBAR_TOOL   = "fbar-prep-sheet.html";
+const PFIC_TOOL   = "pfic-checker.html";
+/* Form 8938 thresholds, IRS. Either limb triggers the filing. FBAR is a flat
+   $10,000 aggregate at any point, regardless of status or where you live. */
+const T8938 = {
+  us:     { single: { year: 50000,  peak: 75000  }, mfj: { year: 100000, peak: 150000 } },
+  abroad: { single: { year: 200000, peak: 300000 }, mfj: { year: 400000, peak: 600000 } }
+};
+const FBAR_LIMIT = 10000;
+/* ----------------------------------------------------------- */
+
+const $ = s => document.querySelector(s);
+const SRC = new URLSearchParams(location.search).get("src") || "tool-8938";
+const KEY = "lesser_8938_v1";
+const F = ["fs","where","year","peak"];
+const CH = ["c1","c2","c3","c4","c5","c6"];
+const money = v => "$" + Math.round(v).toLocaleString("en-US");
+const num = id => parseFloat($("#"+id).value) || 0;
+
+function save(){
+  const o={}; F.forEach(f=>o[f]=$("#"+f).value); CH.forEach(c=>o[c]=$("#"+c).checked);
+  try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){}
+}
+function load(){
+  try{ const o=JSON.parse(localStorage.getItem(KEY))||{};
+    F.forEach(f=>{ if(o[f]) $("#"+f).value=o[f]; });
+    CH.forEach(c=>{ if(typeof o[c]==="boolean") $("#"+c).checked=o[c]; });
+  }catch(e){}
+}
+
+function run(){
+  const fs = $("#fs").value, where = $("#where").value;
+  const yearV = num("year"), peakV = num("peak");
+  const t = T8938[where][fs];
+
+  if (!$("#year").value && !$("#peak").value){
+    $("#out").innerHTML = '<div class="note" style="margin-top:22px"><b>Enter your totals first.</b> Year-end value and the highest point during the year.</div>';
+    return;
+  }
+
+  const hitYear = yearV >= t.year, hitPeak = peakV >= t.peak;
+  const need8938 = hitYear || hitPeak;
+  const needFBAR = peakV >= FBAR_LIMIT;
+  const hasFunds = $("#c2").checked, hasProp = $("#c6").checked;
+
+  const table =
+    '<table><thead><tr><th>Form</th><th>Test</th><th style="text-align:right">Threshold</th><th style="text-align:right">You</th><th style="text-align:right">Crossed</th></tr></thead><tbody>' +
+    '<tr><td rowspan="2"><b>Form 8938</b><small>IRS, with your return</small></td><td>Value on 31 December</td>' +
+    '<td class="n">' + money(t.year) + '</td><td class="n">' + money(yearV) + '</td>' +
+    '<td class="n"><span style="color:' + (hitYear ? "var(--err)" : "var(--muted)") + ';font-weight:800">' + (hitYear ? "YES" : "no") + '</span></td></tr>' +
+    '<tr><td>Highest at any point</td><td class="n">' + money(t.peak) + '</td><td class="n">' + money(peakV) + '</td>' +
+    '<td class="n"><span style="color:' + (hitPeak ? "var(--err)" : "var(--muted)") + ';font-weight:800">' + (hitPeak ? "YES" : "no") + '</span></td></tr>' +
+    '<tr><td><b>FBAR</b><small>FinCEN, separate filing</small></td><td>Highest at any point</td>' +
+    '<td class="n">' + money(FBAR_LIMIT) + '</td><td class="n">' + money(peakV) + '</td>' +
+    '<td class="n"><span style="color:' + (needFBAR ? "var(--err)" : "var(--muted)") + ';font-weight:800">' + (needFBAR ? "YES" : "no") + '</span></td></tr>' +
+    '</tbody></table>';
+
+  let head, cls, body;
+  if (need8938 && needFBAR){
+    cls = "red"; head = "You need to file both";
+    body = "Your Indian assets cross the Form 8938 threshold <b>and</b> the FBAR threshold. These are two separate filings to two separate agencies &mdash; Form 8938 goes to the IRS attached to your tax return, FBAR goes to FinCEN through the BSA e-filing system. Filing one does not satisfy the other, and most people only ever hear about FBAR.";
+  } else if (needFBAR){
+    cls = "exposed"; head = "FBAR yes, Form 8938 no";
+    body = "You are above the $10,000 FBAR threshold but below the Form 8938 limits for your situation. <b>File the FBAR.</b> Keep an eye on 8938 &mdash; a good year in the markets, or a property sale landing in your NRO account, can take you over without you noticing.";
+  } else if (need8938){
+    cls = "red"; head = "Form 8938 required";
+    body = "You cross the Form 8938 threshold. Check the FBAR position carefully too &mdash; its $10,000 limit is much lower, and it is unusual to need 8938 without also needing FBAR.";
+  } else {
+    cls = "clear"; head = "Neither form needed this year";
+    body = "You are below both thresholds. Keep the figures &mdash; both tests look at the <b>highest</b> point in the year, so a single large transfer that passes through and leaves again can still trigger a filing.";
+  }
+
+  const big =
+    '<div class="big">' +
+    '<div><div class="k">Form 8938</div><div class="v" style="color:' + (need8938 ? "var(--err)" : "var(--ok)") + '">' + (need8938 ? "Required" : "Not yet") + '</div><div class="s">' + money(t.year) + ' / ' + money(t.peak) + '</div></div>' +
+    '<div><div class="k">FBAR</div><div class="v" style="color:' + (needFBAR ? "var(--err)" : "var(--ok)") + '">' + (needFBAR ? "Required" : "Not yet") + '</div><div class="s">' + money(FBAR_LIMIT) + ' threshold</div></div>' +
+    '<div><div class="k">Headroom to 8938</div><div class="v">' + money(Math.max(0, t.peak - peakV)) + '</div><div class="s">on the peak test</div></div>' +
+    '</div>';
+
+  const notes =
+    (hasProp ? '<div class="note good"><b>Property in India does not count here.</b> Real estate held directly in your own name is not a specified foreign financial asset, so leave it out of both totals. But if you hold it through a company or an LLP, your interest in that entity <em>does</em> count.</div>' : "") +
+    (hasFunds ? '<div class="note"><b>Mutual funds bring a third problem.</b> Indian funds are PFICs, which means a separate Form 8621 for each fund, every year &mdash; on top of 8938 and FBAR. <a href="' + PFIC_TOOL + '">Check your PFIC exposure &rarr;</a></div>' : "") +
+    ($("#c3").checked ? '<div class="note"><b>PPF and EPF are the arguable ones.</b> They feel like pensions, but they are generally reported, and the treatment of Indian provident funds is not fully settled. If they make up most of your balance, this is worth a professional view rather than a guess.</div>' : "") +
+    (needFBAR ? '<div class="note"><b>Different forms, different deadlines and different penalties.</b> <a href="' + FBAR_TOOL + '">Work out your FBAR figures &rarr;</a></div>' : "");
+
+  $("#out").innerHTML =
+    '<div class="verdict ' + cls + '"><span class="label">Your position</span><h3>' + head + '</h3><p>' + body + '</p></div>' +
+    big +
+    '<div class="panel"><h2>Both tests, side by side</h2>' +
+    '<p class="note-s">Form 8938 has two limbs and either one triggers it. FBAR has one, and it is much lower.</p>' +
+    table + notes +
+    '<details class="more"><summary>The differences that catch people out</summary><ul>' +
+    '<li><b>Where they go.</b> Form 8938 attaches to your tax return. FBAR is filed separately with FinCEN. Your tax software may do one and not the other.</li>' +
+    '<li><b>Living abroad changes everything.</b> Move to India and the 8938 threshold jumps from $50,000 to $200,000. The FBAR threshold does not move at all.</li>' +
+    '<li><b>Joint accounts.</b> An account you hold with a parent is generally reportable in full, not at your share.</li>' +
+    '<li><b>Signature authority.</b> Being able to operate a parent’s account can trigger FBAR even when none of the money is yours.</li>' +
+    '<li><b>Penalties are severe on both</b>, and non-willful is not a safe assumption once you knew the form existed.</li>' +
+    '</ul></details></div>' +
+    '<div class="cta"><h3>' + (need8938 || needFBAR ? "Missed these in earlier years?" : "Keep the figures for next year") + '</h3>' +
+    '<p>' + (need8938 || needFBAR
+      ? "There are catch-up routes, and which one fits depends on what else was missed and whether any income went unreported. Getting that choice right matters more than filing quickly. Sign up and you get straight on a call with a CPA."
+      : "Thresholds are crossed quietly &mdash; a property sale, a gift from parents, a good year in the markets. Worth a check each year.") + '</p>' +
+    '<div class="cta-row"><a class="btn" href="' + SIGNUP_URL + '?src=' + encodeURIComponent(SRC) + '">Sign up and talk to a CPA</a>' +
+    (BOOKING_URL.indexOf("REPLACE") > -1 ? "" : '<a class="ghost" href="' + BOOKING_URL + '?src=' + encodeURIComponent(SRC) + '">Book 15 minutes</a>') +
+    '</div></div>';
+
+  $("#out").scrollIntoView({ behavior:"smooth", block:"start" });
+  save();
+}
+F.concat(CH).forEach(f => $("#"+f).addEventListener("input", save));
+$("#go").addEventListener("click", run);
+load();
+</script>
+</body>
+</html>

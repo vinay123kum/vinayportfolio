@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PFIC / Form 8621 Checker - Indian mutual funds | Lesser DIY</title>
+<meta name="description" content="Indian mutual funds are PFICs. Work out how many Form 8621s you owe, which tax regime applies, and what the default section 1291 rules will cost you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--cream:#faf8f0;--white:#fff;--hero:#e8f5f3;--tint:#f0f7f6;--green:#034f46;--green-dk:#023d35;--ink:#1a1a1a;--body:#374151;--sec:#4b5563;--muted:#6b7280;--bd-strong:#c8deda;--bd:#e0e8e5;--bd-light:#f0f0f0;--ok:#059669;--ok-bg:#ecfdf5;--ok-bd:#a7f3d0;--warn:#92400e;--warn-bg:#fffbeb;--warn-bd:#fcd34d;--err:#dc2626;--shadow:0 1px 2px rgba(3,79,70,.05),0 8px 24px -18px rgba(3,79,70,.25);--font:"Plus Jakarta Sans","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--body);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+a{color:var(--green)}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 72px}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:22px 0 14px;border-bottom:1px solid var(--bd)}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.brand span{color:var(--green)}
+.brand em{font-style:normal;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);background:var(--hero);padding:3px 8px;border-radius:100px;margin-left:7px;vertical-align:2px}
+.top a.back{font-size:13px;font-weight:700;text-decoration:none}
+.intro{padding:30px 0 4px}
+.eyebrow{display:inline-block;background:var(--hero);color:var(--green);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(28px,4.4vw,32px);line-height:1.15}
+h1 em{font-style:normal;color:var(--green)}
+.sub{font-size:16px;margin:14px 0 0;max-width:63ch}
+.sub b{color:var(--ink);font-weight:700}
+.btn{background:var(--green);color:#fff;border:0;border-radius:100px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--font)}
+.btn:hover{background:var(--green-dk)}
+.ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:100px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);text-decoration:none;display:inline-block}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+input,select{font-family:var(--font);font-size:15px;padding:11px 12px;border:1px solid var(--bd-strong);border-radius:10px;background:var(--white);color:var(--ink)}
+.panel{background:var(--white);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--shadow);padding:24px;margin-top:22px}
+.panel.hl{border-top:3px solid var(--green)}
+.panel h2{font-size:20px;margin-bottom:6px}
+.panel .note-s{font-size:14px;margin:0 0 18px}
+.panel .note-s b{color:var(--ink);font-weight:700}
+.fld label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.fld input,.fld select{width:100%}
+.fld .help{font-size:12px;color:var(--muted);margin-top:6px;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:16px}
+.note{margin-top:16px;padding:13px 16px;border-left:3px solid var(--warn-bd);background:var(--warn-bg);font-size:14px;border-radius:0 10px 10px 0}
+.note b{color:var(--ink);font-weight:700}
+.note.good{border-left-color:var(--ok-bd);background:var(--ok-bg)}
+.note.red{border-left-color:var(--err);background:#fff6f6}
+details.more{margin-top:16px;background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:12px 16px}
+details.more summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--green)}
+details.more ul{margin:10px 0 2px;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:7px}
+details.more b{color:var(--ink);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:6px}
+th{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec);text-align:left;padding:10px 8px;border-bottom:1px solid var(--bd)}
+td{padding:10px 8px;border-bottom:1px solid var(--bd-light)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);white-space:nowrap}
+td small{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}
+tr.tot td{border-top:2px solid var(--bd-strong);border-bottom:0;font-weight:800;color:var(--ink);font-size:15.5px;padding-top:13px}
+.verdict{margin-top:22px;border-radius:16px;padding:22px;border:1px solid transparent}
+.verdict.clear{background:var(--ok-bg);border-color:var(--ok-bd)}
+.verdict.exposed{background:var(--warn-bg);border-color:var(--warn-bd)}
+.verdict h3{font-size:23px;line-height:1.3;margin-top:4px}
+.verdict p{margin:10px 0 0;font-size:14.5px;line-height:1.6}
+.verdict p b{color:var(--ink)}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin-top:20px}
+.big div{background:var(--white);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.big .k{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--sec)}
+.big .v{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.03em;margin-top:4px;font-variant-numeric:tabular-nums}
+.big .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.cta{margin-top:22px;padding:22px;border-radius:16px;background:var(--hero);border:1px solid var(--bd-strong)}
+.cta h3{font-size:20px}.cta p{margin:6px 0 16px;font-size:14px}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.disc{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--bd);padding-top:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="brand" href="../index.html">Lesser<span>.</span><em>DIY</em></a>
+  <a class="back" href="../index.html">&larr; All Lesser DIY tools</a>
+</div>
+
+<div class="intro">
+  <span class="eyebrow">Indian mutual funds</span>
+  <h1>Your SIP in India is a <em>PFIC</em></h1>
+  <p class="sub">Every Indian mutual fund you hold is, to the IRS, a Passive Foreign Investment Company. That means <b>a separate Form 8621 for each fund, every year</b>, and a default tax regime built to punish deferral. Most people find out years in. This tells you where you stand.</p>
+</div>
+
+<div class="panel hl">
+  <h2>Your holdings</h2>
+  <p class="note-s">Count each <b>fund</b> separately, not each SIP instalment. Three SIPs into one fund is one PFIC; three different funds is three.</p>
+  <div class="grid">
+    <div class="fld">
+      <label for="funds">How many different Indian funds do you hold?</label>
+      <input id="funds" type="number" inputmode="numeric" min="0" max="200" placeholder="4">
+      <span class="help">Mutual funds, ULIPs, index funds, ETFs listed in India.</span>
+    </div>
+    <div class="fld">
+      <label for="val">Total value today (USD)</label>
+      <input id="val" type="number" inputmode="numeric" min="0" step="any" placeholder="25000">
+    </div>
+    <div class="fld">
+      <label for="yrs">Years you have held them</label>
+      <input id="yrs" type="number" inputmode="numeric" min="0" max="40" placeholder="6">
+      <span class="help">Since you first became a US taxpayer.</span>
+    </div>
+    <div class="fld">
+      <label for="filed">Have you filed Form 8621 before?</label>
+      <select id="filed">
+        <option value="no" selected>No &mdash; I did not know about it</option>
+        <option value="some">Some years, not all</option>
+        <option value="yes">Yes, every year</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label for="qef">Does your fund house give you a US PFIC Annual Information Statement?</label>
+      <select id="qef">
+        <option value="no" selected>No, or I have never heard of one</option>
+        <option value="yes">Yes, I receive one</option>
+      </select>
+      <span class="help">Indian AMCs almost never issue these.</span>
+    </div>
+    <div class="fld">
+      <label for="sold">Did you sell or redeem any units this year?</label>
+      <select id="sold">
+        <option value="no" selected>No</option>
+        <option value="yes">Yes</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:22px"><button class="btn" id="go">Check my exposure</button></div>
+<div id="out"></div>
+
+<p class="disc">General guidance only, not tax or legal advice. This is an exposure check, not a computation of tax. The section 1291 calculation depends on your full holding history, each year's distributions and the top tax rate in each of those years, and produces a figure only a preparer with your records can give you. Form 8621 filing thresholds and exceptions exist and are not applied here. Nothing you type leaves this browser.</p>
+
+</div>
+<script>
+/* --- CONFIG ------------------------------------------------ */
+const BOOKING_URL = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL  = "https://lesser.tax";
+const FBAR_TOOL   = "fbar-prep-sheet.html";
+/* ----------------------------------------------------------- */
+
+const $ = s => document.querySelector(s);
+const SRC = new URLSearchParams(location.search).get("src") || "tool-pfic";
+const KEY = "lesser_pfic_v1";
+const F = ["funds","val","yrs","filed","qef","sold"];
+const money = v => "$" + Math.round(v).toLocaleString("en-US");
+const num = id => parseFloat($("#"+id).value) || 0;
+
+function save(){ const o={}; F.forEach(f=>o[f]=$("#"+f).value); try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){} }
+function load(){ try{ const o=JSON.parse(localStorage.getItem(KEY))||{}; F.forEach(f=>{ if(o[f]) $("#"+f).value=o[f]; }); }catch(e){} }
+
+function run(){
+  const funds = num("funds"), val = num("val"), yrs = num("yrs");
+  const filed = $("#filed").value, qef = $("#qef").value === "yes", sold = $("#sold").value === "yes";
+
+  if (!$("#funds").value){
+    $("#out").innerHTML = '<div class="note" style="margin-top:22px"><b>Enter how many funds you hold.</b></div>';
+    return;
+  }
+
+  if (funds === 0){
+    $("#out").innerHTML =
+      '<div class="verdict clear"><span class="label">Your position</span><h3>No PFIC exposure</h3>' +
+      '<p>No Indian funds means no Form 8621. Worth knowing for the future: if you ever start an SIP in India while you are a US taxpayer, you create this problem from the first instalment.</p>' +
+      '<p style="margin-top:14px">Your Indian bank accounts are a separate question. <a href="' + FBAR_TOOL + '">Check the FBAR threshold &rarr;</a></p></div>';
+    return;
+  }
+
+  /* Each PFIC needs its own Form 8621, each year it is held. */
+  const formsPerYear = funds;
+  const backYears = filed === "no" ? yrs : filed === "some" ? Math.ceil(yrs / 2) : 0;
+  const backForms = formsPerYear * backYears;
+
+  /* Regime. QEF needs an annual information statement the fund must provide;
+     Indian AMCs rarely do. Without QEF or a mark-to-market election, the
+     punitive default of section 1291 applies. */
+  const regime = qef ? "QEF available" : "Section 1291 (default)";
+
+  const bigBlock =
+    '<div class="big">' +
+    '<div><div class="k">Forms per year</div><div class="v">' + formsPerYear + '</div><div class="s">one per fund</div></div>' +
+    '<div><div class="k">Regime</div><div class="v" style="font-size:19px;color:' + (qef ? "var(--green)" : "var(--err)") + '">' + (qef ? "QEF" : "1291") + '</div><div class="s">' + (qef ? "the good one" : "the punitive default") + '</div></div>' +
+    (backForms ? '<div><div class="k">Back forms owed</div><div class="v" style="color:var(--err)">' + backForms + '</div><div class="s">' + backYears + ' years unfiled</div></div>' : '') +
+    '<div><div class="k">Value exposed</div><div class="v">' + money(val) + '</div><div class="s">across ' + funds + ' fund' + (funds === 1 ? "" : "s") + '</div></div>' +
+    '</div>';
+
+  const table =
+    '<table><tbody>' +
+    '<tr><td>Funds held<small>each is a separate PFIC</small></td><td class="n">' + funds + '</td></tr>' +
+    '<tr><td>Form 8621 filings per tax year<small>one per fund, every year you hold it</small></td><td class="n">' + formsPerYear + '</td></tr>' +
+    '<tr><td>Years held<small>while a US taxpayer</small></td><td class="n">' + yrs + '</td></tr>' +
+    '<tr class="tot"><td>Total forms across the whole period</td><td class="n">' + (formsPerYear * Math.max(yrs, 1)) + '</td></tr>' +
+    '</tbody></table>';
+
+  const regimeNote = qef
+    ? '<div class="note good"><b>You have what you need for a QEF election.</b> That is unusual and worth protecting. A Qualified Electing Fund election taxes you each year on your share of the fund’s income, which is far better than the default &mdash; you keep capital gain character and avoid the interest charge. The election has to be made properly and on time, and it is not retroactive.</div>'
+    : '<div class="note red"><b>You are in the section 1291 regime, which is the one built to hurt.</b> Without an annual PFIC information statement from your fund house, a QEF election is not available &mdash; and Indian AMCs almost never issue one.<br><br>Under 1291, when you redeem or take a large distribution, the gain is spread back across every day you held the fund. The part allocated to earlier years is taxed at the <b>highest ordinary rate in force that year</b> &mdash; not your rate, the top rate &mdash; and then an <b>interest charge</b> runs on that deferred tax from each year’s filing deadline to today. Long holdings can lose a startling share of the gain.</div>';
+
+  const backNote = backForms
+    ? '<div class="note"><b>' + backForms + ' Form 8621 filings look to be outstanding</b> across roughly ' + backYears + ' years. There is a consequence most people miss: <b>an unfiled Form 8621 can hold the statute of limitations open on your entire return</b>, not just the PFIC part. The IRS can keep looking at those years indefinitely.<br><br>There are catch-up routes, and which one fits depends on whether anything else was missed. This is the point to get a professional involved rather than filing something and hoping.</div>'
+    : '<div class="note good"><b>Your filings are up to date.</b> Keep them that way &mdash; one missed year can reopen the whole return.</div>';
+
+  const soldNote = sold
+    ? '<div class="note red"><b>You redeemed units this year, so the 1291 calculation is live now.</b> This is the year the deferred tax and interest charge actually land. Do not let software estimate it &mdash; the numbers depend on your purchase history fund by fund.</div>'
+    : "";
+
+  const verdict =
+    '<div class="verdict exposed"><span class="label">Your position</span>' +
+    '<h3>' + funds + ' PFIC' + (funds === 1 ? "" : "s") + ', ' + formsPerYear + ' form' + (formsPerYear === 1 ? "" : "s") + ' a year</h3>' +
+    '<p>Indian mutual funds, ULIPs and India-listed ETFs are all PFICs to the IRS. The reporting is per fund, per year, for as long as you hold them &mdash; and the default tax treatment is deliberately worse than holding the same money almost anywhere else.</p>' +
+    (regime === "Section 1291 (default)" ? '<p><b>Hard truth:</b> for most people in this position the right answer is to stop adding to Indian funds while you are a US taxpayer, and plan an exit deliberately rather than redeeming in a panic.</p>' : '') +
+    '</div>';
+
+  $("#out").innerHTML =
+    verdict + bigBlock +
+    '<div class="panel"><h2>What you owe the IRS in paperwork</h2>' +
+    '<p class="note-s">The reporting burden is the part people underestimate.</p>' +
+    table + regimeNote + backNote + soldNote +
+    '<details class="more"><summary>Things people get wrong about PFICs</summary><ul>' +
+    '<li><b>"I did not sell, so there is nothing to report."</b> Form 8621 is a reporting form. It is generally due for each fund each year you hold it, sale or no sale.</li>' +
+    '<li><b>"It is a small amount."</b> Thresholds and exceptions exist, but the per-fund, per-year structure means several small SIPs create more work than one large holding.</li>' +
+    '<li><b>"My Indian CA handles it."</b> Form 8621 is a US form. An Indian CA has no reason to know it exists.</li>' +
+    '<li><b>Mark-to-market</b> is sometimes available for marketable stock and taxes annual gains as ordinary income without a sale. It is better than 1291 but worse than QEF.</li>' +
+    '<li><b>FBAR and Form 8938 are separate.</b> The same holdings often trigger all three, and they have different thresholds. <a href="' + FBAR_TOOL + '">Check FBAR &rarr;</a></li>' +
+    '</ul></details></div>' +
+    '<div class="cta"><h3>This one genuinely needs a professional</h3>' +
+    '<p>The 1291 computation depends on every purchase and distribution across every year you have held each fund. There is no shortcut and no software that does it properly from a summary. Sign up and you get straight on a call with a CPA who has done it before.</p>' +
+    '<div class="cta-row"><a class="btn" href="' + SIGNUP_URL + '?src=' + encodeURIComponent(SRC) + '">Sign up and talk to a CPA</a>' +
+    (BOOKING_URL.indexOf("REPLACE") > -1 ? "" : '<a class="ghost" href="' + BOOKING_URL + '?src=' + encodeURIComponent(SRC) + '">Book 15 minutes</a>') +
+    '</div></div>';
+
+  $("#out").scrollIntoView({ behavior:"smooth", block:"start" });
+  save();
+}
+F.forEach(f => $("#"+f).addEventListener("input", save));
+$("#go").addEventListener("click", run);
+load();
+</script>
+</body>
+</html>

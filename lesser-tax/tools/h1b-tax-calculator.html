@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>H-1B Tax Calculator | Lesser</title>
+<meta name="description" content="Federal income tax, Social Security, Medicare and state tax on an H-1B salary - with the FICA rules that actually apply to visa holders, and what your take-home works out to.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --cream:#faf8f0; --white:#ffffff; --hero:#e8f5f3; --tint:#f0f7f6;
+  --green:#034f46; --green-dk:#023d35;
+  --ink:#1a1a1a; --body:#374151; --sec:#4b5563; --muted:#6b7280;
+  --bd-strong:#c8deda; --bd:#e0e8e5; --bd-light:#f0f0f0;
+  --ok:#059669; --ok-bg:#ecfdf5; --ok-bd:#a7f3d0;
+  --warn:#92400e; --warn-bg:#fffbeb; --warn-bd:#fcd34d;
+  --err:#dc2626;
+  --shadow:0 1px 2px rgba(3,79,70,.05), 0 8px 24px -18px rgba(3,79,70,.25);
+  --font:"Plus Jakarta Sans","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--body);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+a{color:var(--green)}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px 72px}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:22px 0 14px;border-bottom:1px solid var(--bd)}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.brand span{color:var(--green)}
+.top a{font-size:13px;font-weight:700;text-decoration:none}
+.intro{padding:30px 0 4px}
+.eyebrow{display:inline-block;background:var(--hero);color:var(--green);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(28px,4.4vw,32px);line-height:1.15}
+h1 em{font-style:normal;color:var(--green)}
+.sub{font-size:16px;color:var(--body);margin:14px 0 0;max-width:64ch}
+.sub b{color:var(--ink);font-weight:700}
+.btn{background:var(--green);color:#fff;border:0;border-radius:100px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--font)}
+.btn:hover{background:var(--green-dk)}
+.ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:100px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);text-decoration:none;display:inline-block}
+.ghost:hover{background:rgba(3,79,70,.05)}
+button:focus-visible,.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+input,select{font-family:var(--font);font-size:15px;padding:11px 12px;border:1px solid var(--bd-strong);border-radius:10px;background:var(--white);color:var(--ink)}
+.panel{background:var(--white);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--shadow);padding:24px;margin-top:22px}
+.panel.hl{border-top:3px solid var(--green)}
+.panel h2{font-size:20px;margin-bottom:6px}
+.panel .note-s{font-size:14px;color:var(--body);margin:0 0 18px}
+.panel .note-s b{color:var(--ink);font-weight:700}
+.fld label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.fld input,.fld select{width:100%}
+.fld .help{font-size:12px;color:var(--muted);margin-top:6px;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px}
+.note{margin-top:16px;padding:13px 16px;border-left:3px solid var(--warn-bd);background:var(--warn-bg);font-size:14px;color:var(--body);border-radius:0 10px 10px 0}
+.note b{color:var(--ink);font-weight:700}
+.note.good{border-left-color:var(--ok-bd);background:var(--ok-bg)}
+details.more{margin-top:16px;background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:12px 16px}
+details.more summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--green)}
+details.more ul{margin:10px 0 2px;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:7px}
+details.more b{color:var(--ink);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:6px}
+th{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec);text-align:left;padding:10px 8px;border-bottom:1px solid var(--bd)}
+td{padding:10px 8px;border-bottom:1px solid var(--bd-light)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);white-space:nowrap}
+td small{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}
+tr.tot td{border-top:2px solid var(--bd-strong);border-bottom:0;font-weight:800;color:var(--ink);font-size:15.5px;padding-top:13px}
+tr.sub2 td{background:var(--tint)}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:14px;margin-top:22px}
+.big div{background:var(--white);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.big .k{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--sec)}
+.big .v{font-size:25px;font-weight:800;color:var(--ink);letter-spacing:-.03em;margin-top:4px;font-variant-numeric:tabular-nums}
+.big .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.cta{margin-top:22px;padding:22px;border-radius:16px;background:var(--hero);border:1px solid var(--bd-strong)}
+.cta h3{font-size:20px}
+.cta p{margin:6px 0 16px;font-size:14px}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.disc{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--bd);padding-top:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="brand" href="../index.html" style="text-decoration:none">Lesser<span>.</span><em style="font-style:normal;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);background:var(--hero);padding:3px 8px;border-radius:100px;margin-left:7px;vertical-align:2px">DIY</em></a>
+  <a href="../index.html">&larr; All Lesser DIY tools</a>
+</div>
+
+<div class="intro">
+  <span class="eyebrow">2026 tax year</span>
+  <h1>What an <em>H-1B</em> salary really takes home</h1>
+  <p class="sub">Federal income tax, Social Security, Medicare and state tax, worked out with the 2026 brackets. Including the part most calculators get wrong for visa holders: <b>H-1B wages are subject to FICA from day one</b>, whatever your residency status.</p>
+</div>
+
+<div class="panel hl">
+  <h2>Your numbers</h2>
+  <p class="note-s">Base salary plus anything else on your W-2 &mdash; bonus, RSU vesting, ESPP discount.</p>
+  <div class="grid">
+    <div class="fld">
+      <label for="sal">Gross annual salary (USD)</label>
+      <input id="sal" type="number" inputmode="numeric" min="0" step="any" placeholder="150000">
+    </div>
+    <div class="fld">
+      <label for="extra">Bonus, RSUs and other W-2 income</label>
+      <input id="extra" type="number" inputmode="numeric" min="0" step="any" placeholder="0">
+      <span class="help">Vested RSUs count as salary.</span>
+    </div>
+    <div class="fld">
+      <label for="fs">Filing status</label>
+      <select id="fs">
+        <option value="single" selected>Single</option>
+        <option value="mfj">Married filing jointly</option>
+        <option value="mfs">Married filing separately</option>
+      </select>
+      <span class="help" id="fsHelp"></span>
+    </div>
+    <div class="fld">
+      <label for="k401">401(k) contribution</label>
+      <input id="k401" type="number" inputmode="numeric" min="0" step="any" placeholder="0">
+      <span class="help">Pre-tax. Cuts income tax, not FICA.</span>
+    </div>
+    <div class="fld">
+      <label for="state">State tax rate (%)</label>
+      <input id="state" type="number" inputmode="decimal" min="0" max="15" step="any" placeholder="0">
+      <span class="help">0 for TX, WA, FL, NV, TN, SD, WY, AK.</span>
+    </div>
+    <div class="fld">
+      <label for="res">Tax residency for 2026</label>
+      <select id="res">
+        <option value="res" selected>Resident alien (met the day-count test)</option>
+        <option value="nr">Nonresident alien (first year, or few days here)</option>
+      </select>
+      <span class="help"><a href="substantial-presence-test.html">Not sure? Count your days &rarr;</a></span>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:22px"><button class="btn" id="go">Work out my take-home</button></div>
+
+<div id="out"></div>
+
+<p class="disc">General guidance only, not tax or legal advice. Uses the 2026 federal brackets, standard deduction and Social Security wage base published by the IRS in Revenue Procedure 2025-32 and by the Social Security Administration. State tax is applied as a flat rate you enter, which is an approximation &mdash; most states have their own brackets, deductions and credits. Itemised deductions, tax credits, the India&ndash;US treaty, dual-status years and the 3.8% net investment income tax are not modelled. Nothing you type leaves this browser.</p>
+
+</div>
+
+<script>
+/* --- CONFIG ------------------------------------------------ */
+const BOOKING_URL = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL  = "https://lesser.tax";
+/* ----------------------------------------------------------- */
+
+/* 2026 figures. Federal brackets and standard deduction: IRS Rev. Proc. 2025-32.
+   Social Security wage base: SSA. Update this block each autumn when the new
+   revenue procedure lands. */
+const YEAR = 2026;
+const BRACKETS = {
+  single: [[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[640600,.35],[Infinity,.37]],
+  mfj:    [[24800,.10],[100800,.12],[211400,.22],[403550,.24],[512450,.32],[768700,.35],[Infinity,.37]],
+  mfs:    [[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[384350,.35],[Infinity,.37]]
+};
+const STD = { single: 16100, mfj: 32200, mfs: 16100 };
+const SS_WAGE_BASE = 184500, SS_RATE = .062;
+const MEDICARE_RATE = .0145, ADDL_MEDICARE_RATE = .009;
+const ADDL_MEDICARE_THRESHOLD = { single: 200000, mfj: 250000, mfs: 125000 };
+
+const $ = s => document.querySelector(s);
+const SRC = new URLSearchParams(location.search).get("src") || "tool-h1b";
+const KEY = "lesser_h1b_v1";
+const FIELDS = ["sal","extra","fs","k401","state","res"];
+
+const money = n => "$" + Math.round(n).toLocaleString("en-US");
+const pct = n => (Math.round(n * 10) / 10) + "%";
+const num = id => parseFloat($("#"+id).value) || 0;
+
+function save(){
+  const o = {};
+  FIELDS.forEach(f => o[f] = $("#"+f).value);
+  try { localStorage.setItem(KEY, JSON.stringify(o)); } catch(e){}
+}
+function load(){
+  try {
+    const o = JSON.parse(localStorage.getItem(KEY)) || {};
+    FIELDS.forEach(f => { if (o[f]) $("#"+f).value = o[f]; });
+  } catch(e){}
+}
+
+function fedTax(taxable, status){
+  const bands = BRACKETS[status];
+  let tax = 0, prev = 0;
+  const detail = [];
+  for (let i = 0; i < bands.length; i++){
+    const cap = bands[i][0], rate = bands[i][1];
+    if (taxable <= prev) break;
+    const slice = Math.min(taxable, cap) - prev;
+    if (slice > 0){
+      tax += slice * rate;
+      detail.push({ rate: rate, amount: slice, tax: slice * rate });
+    }
+    prev = cap;
+  }
+  return { tax: tax, detail: detail };
+}
+
+function syncHelp(){
+  const nr = $("#res").value === "nr";
+  $("#fsHelp").textContent = nr
+    ? "Nonresidents generally cannot file jointly."
+    : "";
+}
+
+function run(){
+  const status = $("#fs").value;
+  const nonres = $("#res").value === "nr";
+  const gross = num("sal") + num("extra");
+  const k401 = Math.min(num("k401"), gross);
+  const stRate = num("state") / 100;
+
+  if (!gross){
+    $("#out").innerHTML = '<div class="note" style="margin-top:22px"><b>Enter your salary first.</b></div>';
+    return;
+  }
+
+  /* Nonresident aliens filing Form 1040-NR cannot take the standard deduction.
+     Indian students and business apprentices can under Article 21(2) of the
+     India-US treaty, but that does not apply to H-1B workers. */
+  const std = nonres ? 0 : STD[status];
+  const taxable = Math.max(0, gross - k401 - std);
+  const fed = fedTax(taxable, status);
+
+  /* FICA. H-1B wages are covered from day one - there is no student exemption. */
+  const ssWages = Math.min(gross, SS_WAGE_BASE);
+  const ss = ssWages * SS_RATE;
+  const medicare = gross * MEDICARE_RATE;
+  const addlBase = Math.max(0, gross - ADDL_MEDICARE_THRESHOLD[status]);
+  const addlMedicare = addlBase * ADDL_MEDICARE_RATE;
+  const fica = ss + medicare + addlMedicare;
+
+  const stateTax = taxable * stRate;
+  const totalTax = fed.tax + fica + stateTax;
+  const net = gross - k401 - totalTax;
+  const effective = (totalTax / gross) * 100;
+  const marginal = fed.detail.length ? fed.detail[fed.detail.length - 1].rate * 100 : 0;
+
+  const bandRows = fed.detail.map(d =>
+    '<tr class="sub2"><td style="padding-left:22px">' + Math.round(d.rate * 100) + '% on ' + money(d.amount) + '</td><td class="n">' + money(d.tax) + '</td></tr>'
+  ).join("");
+
+  const table =
+    '<table><tbody>' +
+    '<tr><td>Gross income<small>salary plus bonus and RSUs</small></td><td class="n">' + money(gross) + '</td></tr>' +
+    (k401 ? '<tr><td>Less 401(k)<small>pre-tax, reduces income tax only</small></td><td class="n">-' + money(k401) + '</td></tr>' : '') +
+    (std ? '<tr><td>Less standard deduction<small>' + YEAR + ', ' + (status === "mfj" ? "married filing jointly" : status === "mfs" ? "married filing separately" : "single") + '</small></td><td class="n">-' + money(std) + '</td></tr>'
+         : '<tr><td>Standard deduction<small>not available on Form 1040-NR</small></td><td class="n">' + money(0) + '</td></tr>') +
+    '<tr class="tot"><td>Taxable income</td><td class="n">' + money(taxable) + '</td></tr>' +
+    '</tbody></table>' +
+
+    '<table style="margin-top:22px"><thead><tr><th>What you pay</th><th style="text-align:right">Amount</th></tr></thead><tbody>' +
+    '<tr><td><b style="color:var(--ink)">Federal income tax</b></td><td class="n">' + money(fed.tax) + '</td></tr>' +
+    bandRows +
+    '<tr><td><b style="color:var(--ink)">Social Security</b><small>6.2% on the first ' + money(SS_WAGE_BASE) + '</small></td><td class="n">' + money(ss) + '</td></tr>' +
+    '<tr><td><b style="color:var(--ink)">Medicare</b><small>1.45%, no cap</small></td><td class="n">' + money(medicare) + '</td></tr>' +
+    (addlMedicare > 0 ? '<tr><td><b style="color:var(--ink)">Additional Medicare</b><small>0.9% above ' + money(ADDL_MEDICARE_THRESHOLD[status]) + '</small></td><td class="n">' + money(addlMedicare) + '</td></tr>' : '') +
+    (stateTax > 0 ? '<tr><td><b style="color:var(--ink)">State income tax</b><small>' + num("state") + '% flat approximation</small></td><td class="n">' + money(stateTax) + '</td></tr>'
+                  : '<tr><td><b style="color:var(--ink)">State income tax</b><small>none entered</small></td><td class="n">' + money(0) + '</td></tr>') +
+    '<tr class="tot"><td>Total tax</td><td class="n">' + money(totalTax) + '</td></tr>' +
+    '</tbody></table>';
+
+  const big =
+    '<div class="big">' +
+    '<div><div class="k">Take-home</div><div class="v" style="color:var(--green)">' + money(net) + '</div><div class="s">' + money(net / 12) + ' a month</div></div>' +
+    '<div><div class="k">Total tax</div><div class="v">' + money(totalTax) + '</div><div class="s">income tax + FICA + state</div></div>' +
+    '<div><div class="k">Effective rate</div><div class="v">' + pct(effective) + '</div><div class="s">of gross income</div></div>' +
+    '<div><div class="k">Marginal rate</div><div class="v">' + Math.round(marginal) + '%</div><div class="s">on your next dollar</div></div>' +
+    '</div>';
+
+  const ficaNote = nonres
+    ? '<div class="note"><b>H-1B wages pay FICA from day one.</b> Unlike F-1 students on OPT, there is no exemption for H-1B holders &mdash; it applies whether you are a resident or nonresident alien, and from your very first paycheck. If you moved from F-1 to H-1B this year, FICA should have started on the day your H-1B status began, not before.<br><br>You are also filing as a <b>nonresident</b>, which means <b>no standard deduction</b> &mdash; that alone adds roughly ' + money(STD[status] * marginal / 100) + ' to your bill compared with a resident on the same salary.</div>'
+    : '<div class="note"><b>H-1B wages pay FICA from day one.</b> There is no exemption for H-1B holders at any point, unlike F-1 students on OPT. If you switched from F-1 to H-1B during the year, check that your employer did not withhold FICA on your OPT wages before the switch &mdash; if they did, that money is refundable.</div>';
+
+  const extras =
+    '<details class="more"><summary>What this does not include</summary><ul>' +
+    '<li><b>Tax credits.</b> Child tax credit, dependent care and education credits all reduce the bill and are not modelled here.</li>' +
+    '<li><b>Itemised deductions.</b> Mortgage interest, state tax paid and charitable giving can beat the standard deduction.</li>' +
+    '<li><b>Indian income.</b> As a resident alien you must report worldwide income &mdash; NRO interest, rent on property in India, capital gains there &mdash; with foreign tax credit relief for Indian tax already paid.</li>' +
+    '<li><b>Your spouse on H-4.</b> Filing jointly usually lowers the total bill, but it brings their income onto the return too.</li>' +
+    '<li><b>Dual-status years.</b> The year you arrive is often part nonresident, part resident, with two sets of rules on one return.</li>' +
+    '<li><b>State tax properly.</b> California, New York and New Jersey have their own brackets and credits. The flat rate here is a rough guide, not a filing figure.</li>' +
+    '</ul></details>';
+
+  $("#out").innerHTML =
+    big +
+    '<div class="panel"><h2>Where it goes</h2><p class="note-s">' + YEAR + ' federal brackets, Social Security wage base ' + money(SS_WAGE_BASE) + '.</p>' +
+    table + ficaNote + extras + '</div>' +
+    '<div class="cta"><h3>This is the simple version of your return</h3>' +
+    '<p>Add RSUs, a spouse on H-4, accounts and property back in India, or an arrival year, and the real number moves a long way from this one. Sign up and you get straight on a call with a CPA who files these every day.</p>' +
+    '<div class="cta-row">' +
+    '<a class="btn" href="' + SIGNUP_URL + '?src=' + encodeURIComponent(SRC) + '">Sign up and talk to a CPA</a>' +
+    (BOOKING_URL.indexOf('REPLACE') > -1 ? '' : '<a class="ghost" href="' + BOOKING_URL + '?src=' + encodeURIComponent(SRC) + '">Book 15 minutes</a>') +
+    '</div></div>';
+
+  $("#out").scrollIntoView({ behavior: "smooth", block: "start" });
+  save();
+}
+
+FIELDS.forEach(f => $("#"+f).addEventListener("input", save));
+$("#res").addEventListener("change", syncHelp);
+$("#go").addEventListener("click", run);
+load();
+syncHelp();
+</script>
+</body>
+</html>

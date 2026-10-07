@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Missed Your FBAR? Find Your Fix | Lesser</title>
+<meta name="description" content="Missed filing FBAR for your Indian bank accounts? Answer a few questions and see which IRS route fits your situation: the simple late-filing route or the Streamlined procedures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --cream:#faf8f0; --white:#ffffff; --hero:#e8f5f3; --tint:#f0f7f6;
+  --green:#034f46; --green-dk:#023d35; --green-deep:#011f1a; --green-mid:#056b5e;
+  --ink:#1a1a1a; --body:#374151; --sec:#4b5563; --muted:#6b7280;
+  --bd-strong:#c8deda; --bd:#e0e8e5; --bd-light:#f0f0f0;
+  --ok:#059669; --ok-bg:#ecfdf5; --ok-bd:#a7f3d0;
+  --warn:#92400e; --warn-bg:#fffbeb; --warn-bd:#fcd34d;
+  --err:#dc2626;
+  --shadow:0 1px 2px rgba(3,79,70,.05), 0 8px 24px -18px rgba(3,79,70,.25);
+  --font:"Plus Jakarta Sans","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--body);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+a{color:var(--green)}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 72px}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:22px 0 14px;border-bottom:1px solid var(--bd)}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.brand span{color:var(--green)}
+.intro{padding:30px 0 4px}
+.eyebrow{display:inline-block;background:var(--hero);color:var(--green);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(28px,4.4vw,32px);line-height:1.15}
+h1 em{font-style:normal;color:var(--green)}
+.sub{font-size:16px;color:var(--body);margin:14px 0 0;max-width:62ch}
+.sub b{color:var(--ink);font-weight:700}
+/* buttons */
+button,.btn{font-family:var(--font)}
+.btn{background:var(--green);color:#fff;border:0;border-radius:100px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
+.btn:hover{background:var(--green-dk)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:100px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.ghost:hover{background:rgba(3,79,70,.05)}
+.mini{background:transparent;border:1.5px solid var(--bd-strong);color:var(--muted);border-radius:100px;font-size:12px;font-weight:700;padding:7px 14px;cursor:pointer;font-family:var(--font)}
+.mini:hover{border-color:var(--err);color:var(--err)}
+button:focus-visible,.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,label:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+/* inputs */
+input,select{font-family:var(--font);font-size:15px;padding:11px 12px;border:1px solid var(--bd-strong);border-radius:10px;background:var(--white);color:var(--ink)}
+input:focus-visible,select:focus-visible{outline:2px solid var(--green);outline-offset:1px}
+/* cards */
+.card,.panel,.quiz{background:var(--white);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--shadow)}
+.note{margin-top:14px;padding:13px 16px;border-left:3px solid var(--warn-bd);background:var(--warn-bg);font-size:14px;color:var(--body);border-radius:0 10px 10px 0}
+.note b{color:var(--ink);font-weight:700}
+.note.red{border-left-color:var(--err);background:#fff}
+details.more{margin-top:14px;background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:12px 16px}
+details.more summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--green)}
+details.more ul{margin:10px 0 2px;padding-left:18px;font-size:14px;color:var(--body);display:flex;flex-direction:column;gap:4px}
+details.more ul b{color:var(--ink);font-weight:700}
+.msg{font-size:13px;margin:8px 0 0;min-height:1em}
+.msg.ok{color:var(--ok);font-weight:700}
+.msg.bad{color:var(--err);font-weight:700}
+.disc{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--bd);padding-top:14px}
+/* cta block */
+.cta{margin-top:22px;padding:22px;border-radius:16px;background:var(--hero);border:1px solid var(--bd-strong)}
+.cta h3{font-size:20px}
+.cta p{margin:6px 0 16px;font-size:14px;color:var(--body)}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap}
+form.mail{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+form.mail input{flex:1;min-width:200px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* intro routes */
+.routes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.route{background:var(--white);border:1px solid var(--bd);border-radius:16px;padding:16px 18px;border-left:3px solid var(--green)}
+.route.b{border-left-color:var(--warn-bd)}
+.route .label{display:block;margin-bottom:6px}
+.route.a .label{color:var(--green)}
+.route.b .label{color:var(--warn)}
+.route p{margin:0;font-size:14px;color:var(--body);line-height:1.5}
+.route p b{color:var(--ink);font-weight:700}
+/* quiz */
+.quiz{padding:26px 26px 22px;margin-top:24px}
+.progress{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.bar{flex:1;height:6px;background:var(--bd);border-radius:100px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);width:0;transition:width .25s}
+.q h2{font-size:22px;line-height:1.3;margin-bottom:8px}
+.hint{font-size:14px;color:var(--body);margin:0 0 16px;line-height:1.55}
+.hint b{color:var(--ink);font-weight:700}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--bd-strong);border-radius:12px;padding:14px 16px;cursor:pointer;background:var(--white);transition:border-color .12s,background .12s}
+.opt:hover{border-color:var(--green);background:var(--tint)}
+.opt input{margin:3px 0 0;accent-color:var(--green);width:17px;height:17px;flex:none;padding:0;border-radius:0}
+.opt:has(input:checked){border-color:var(--green);background:var(--hero)}
+.opt span{font-size:15px;line-height:1.45;color:var(--ink);font-weight:500}
+.opt span small{display:block;font-size:12px;color:var(--muted);margin-top:3px;font-weight:600}
+.years{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.years .opt{align-items:center}
+.years .opt small{color:var(--warn)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.err{color:var(--err);font-size:13px;margin:10px 0 0;min-height:1em;font-weight:600}
+/* result */
+.result{display:none}
+.verdict{border-radius:16px;padding:22px 24px;margin-bottom:18px;border:1px solid transparent}
+.verdict .label{display:block;margin-bottom:8px}
+.verdict h2{font-size:24px;line-height:1.25}
+.verdict p{margin:10px 0 0;font-size:15px;line-height:1.55;color:var(--body)}
+.v-a{background:var(--ok-bg);border-color:var(--ok-bd)}   .v-a .label{color:var(--ok)}
+.v-b{background:var(--warn-bg);border-color:var(--warn-bd)} .v-b .label{color:var(--warn)}
+.v-c{background:var(--white);border-color:var(--err);border-left-width:3px} .v-c .label{color:var(--err)}
+.v-d{background:var(--tint);border-color:var(--bd-strong)}  .v-d .label{color:var(--green)}
+.blk{margin-top:20px}
+.blk h3{font-size:18px;margin-bottom:8px}
+.blk ul,.blk ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;font-size:15px;color:var(--body)}
+.blk ul b,.blk ol b{color:var(--ink);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:12px;font-weight:700;background:var(--tint);border:1px solid var(--bd-strong);border-radius:100px;padding:5px 12px;color:var(--ink);font-variant-numeric:tabular-nums}
+.est{margin-top:16px;padding:16px;border:1px solid var(--bd-strong);border-radius:12px;background:var(--tint)}
+.est label{font-size:13px;font-weight:700;display:block;margin-bottom:8px;color:var(--ink)}
+.est-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.est input{width:200px;max-width:100%}
+.est output{font-weight:800;font-size:16px;color:var(--warn);font-variant-numeric:tabular-nums}
+.restart{margin-top:18px}
+@media (max-width:560px){.routes{grid-template-columns:1fr}.quiz{padding:20px 18px}.nav button{flex:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span class="brand">Lesser<span>.</span></span>
+    <span class="label">Free tool · 2 minutes</span>
+  </div>
+
+  <div class="intro">
+    <span class="eyebrow">For Indians in the US</span>
+    <h1>Missed your FBAR?<br><em>Find the right fix.</em></h1>
+    <p class="sub">If you forgot to report your Indian bank accounts in past years, the IRS has <b>two different ways</b> to fix it. They are not interchangeable, and picking the wrong one can cost you penalties the right one would have avoided.</p>
+    <div class="routes">
+      <div class="route a"><span class="label">Route A · Late FBAR filing</span><p>You <b>reported the income</b> from those accounts on your US returns and only missed the FBAR form. Usually <b>no penalty</b>.</p></div>
+      <div class="route b"><span class="label">Route B · Streamlined</span><p>You <b>also didn't report</b> some of that income. Amended returns, 6 years of FBARs, and often a penalty.</p></div>
+    </div>
+  </div>
+
+  <div class="quiz" id="quiz">
+    <div class="progress"><span class="label" id="stepLabel">Question 1</span><div class="bar"><i id="barFill"></i></div></div>
+    <div id="qBox" aria-live="polite"></div>
+    <p class="err" id="err" role="alert"></p>
+    <div class="nav">
+      <button class="ghost" id="backBtn" type="button">← Back</button>
+      <button class="btn" id="nextBtn" type="button">Next →</button>
+    </div>
+  </div>
+
+  <div class="quiz result" id="result" aria-live="polite"></div>
+
+  <p class="disc">General guidance only, not tax or legal advice. This tool doesn't know your full situation, and only the IRS decides whether you qualify for a program. If you're unsure whether your mistake was willful, or the IRS has contacted you, speak to a qualified professional before filing anything. Your answers stay in your browser unless you choose to email yourself the result.</p>
+</div>
+
+<script>
+/* ─── CONFIG ─────────────────────────────────────────────── */
+const BOOKING_URL   = "https://calendly.com/REPLACE-lesser/15min"; // free 15-min call
+const SIGNUP_URL    = "https://lesser.tax";
+const CTA_URL       = BOOKING_URL.indexOf("REPLACE") > -1 ? SIGNUP_URL : BOOKING_URL;
+const LEAD_ENDPOINT = "";                 // webhook URL; leave "" to fall back to mailto
+const OWNER_EMAIL   = "hello@lesser.tax";
+/* ────────────────────────────────────────────────────────── */
+
+const SRC = new URLSearchParams(location.search).get("src") || "tool-fbar-fix";
+
+/* FBAR for year Y is due 15 Oct of Y+1 (automatic extension). Returns are treated the same way here. */
+const today = new Date();
+function dueDate(y){ return new Date(y + 1, 9, 15, 23, 59); }            // 15 Oct, Y+1
+const thisYear = today.getFullYear();
+const YEARS = [];
+for (let y = thisYear - 7; y <= thisYear - 1; y++) YEARS.push(y);
+const isLate = y => today > dueDate(y);
+const passed = YEARS.filter(isLate);                                         // years whose deadline has passed
+const fbarPeriod = passed.slice(-6);                                          // 6 most recent past-due FBAR years
+const returnPeriod = passed.slice(-3);                                        // 3 most recent past-due return years
+
+/* ─── QUESTIONS ─── */
+const Q = {
+  usperson: {
+    title: "Were you a US tax resident in the years you're worried about?",
+    hint: "That means a <b>US citizen</b>, a <b>green card holder</b>, or someone who passed the <b>substantial presence test</b>. Most people on an H-1B or L-1 pass it from their first full year here.",
+    opts: [["yes","Yes"],["no","No, I was a non-resident"],["unsure","Not sure"]]
+  },
+  over10k: {
+    title: "Did your accounts outside the US add up to more than $10,000 at any point in those years?",
+    hint: "Add up <b>every</b> foreign account, using the <b>highest</b> balance each one reached during the year, not the year-end figure. $10,000 is roughly ₹8–9 lakh.",
+    more: ["NRE, NRO and FCNR accounts","Savings accounts and fixed deposits","PPF","Demat accounts and Indian mutual funds","ULIPs and life insurance with a cash value","Joint accounts with parents — the <b>full</b> balance counts","Accounts you can sign on, even if the money isn't yours"],
+    opts: [["yes","Yes"],["no","No, always below $10,000 combined"],["unsure","Not sure"]]
+  },
+  years: {
+    title: "Which years did you not file an FBAR for?",
+    hint: "Tick every year you think you missed. You can change this later.",
+    multi: true
+  },
+  contacted: {
+    title: "Has the IRS contacted you about FBARs, or are you under an IRS examination or investigation?",
+    hint: "This includes a letter about your foreign accounts or an audit of any of these years.",
+    opts: [["no","No"],["yes","Yes"]]
+  },
+  filed: {
+    title: "Did you file a US tax return for each of those years?",
+    hint: "Your regular Form 1040, filed on time or with an extension.",
+    opts: [["yes","Yes, every year"],["some","Some years, not all"],["no","No"]]
+  },
+  income: {
+    title: "On those US returns, did you report all the income from your Indian accounts?",
+    hint: "That means interest, dividends, rent and gains. <b>NRE interest is tax-free in India but taxable in the US.</b> If you left it off your US return, choose \"No\" or \"Not sure\".",
+    opts: [["all","Yes, all of it"],["some","Some of it"],["none","No"],["unsure","Not sure"]]
+  },
+  willful: {
+    title: "Why were the FBARs missed?",
+    hint: "Be honest here. The Streamlined route requires you to sign a statement that the mistake wasn't deliberate.",
+    opts: [["nonwillful","I didn't know I had to, or it was an honest mistake"],["willful","I knew about it and chose not to file"],["unsure","I'm not sure how to answer this"]]
+  },
+  residence: {
+    title: "Where do you live now?",
+    hint: "This decides which version of the Streamlined procedures applies.",
+    opts: [["us","In the US"],["abroad","Outside the US"]]
+  }
+};
+
+const A = {};                 // answers
+let path = ["usperson"];      // visited questions
+let pos = 0;
+
+/* next question given current answers, or a result code */
+function nextFrom(id){
+  const a = A[id];
+  switch(id){
+    case "usperson":  return a === "no" ? "R_notus" : "over10k";
+    case "over10k":   return a === "no" ? "R_under" : a === "unsure" ? "R_check" : "years";
+    case "years":     return "contacted";
+    case "contacted": return a === "yes" ? "R_contacted" : "filed";
+    case "filed":     return "income";
+    case "income":    return "willful";
+    case "willful":
+      if (a === "willful") return "R_willful";
+      if (A.income === "all" && A.filed === "yes") return "R_A";
+      if (a === "unsure") return "R_unsureWillful";
+      return "residence";
+    case "residence":
+      if (a === "abroad") return "R_B_foreign";
+      return A.filed === "yes" ? "R_B_domestic" : "R_nonfiler";
+  }
+}
+
+const ORDER = ["usperson","over10k","years","contacted","filed","income","willful","residence"];
+
+function render(){
+  const id = path[pos];
+  const q = Q[id];
+  const box = document.getElementById("qBox");
+  document.getElementById("err").textContent = "";
+  document.getElementById("stepLabel").textContent = "Question " + (pos + 1);
+  document.getElementById("barFill").style.width = Math.round((ORDER.indexOf(id)) / ORDER.length * 100) + "%";
+  document.getElementById("backBtn").style.visibility = pos === 0 ? "hidden" : "visible";
+
+  let html = `<div class="q"><h2 id="qTitle" tabindex="-1">${q.title}</h2><p class="hint">${q.hint}</p>`;
+  if (q.more) html += `<details class="more"><summary>What counts toward the $10,000?</summary><ul>${q.more.map(m=>`<li>${m}</li>`).join("")}</ul></details>`;
+  if (q.multi){
+    html += `<div class="years" role="group" aria-labelledby="qTitle">` + YEARS.map(y => {
+      const late = isLate(y);
+      const checked = (A.years||[]).includes(y) ? "checked" : "";
+      const note = late ? "" : `<small>Not late yet — due 15 Oct ${y+1}</small>`;
+      return `<label class="opt"><input type="checkbox" name="yr" value="${y}" ${checked}><span>${y}${note}</span></label>`;
+    }).join("") + `</div>`;
+  } else {
+    html += `<div class="opts" role="radiogroup" aria-labelledby="qTitle">` + q.opts.map(([v,t]) =>
+      `<label class="opt"><input type="radio" name="opt" value="${v}" ${A[id]===v?"checked":""}><span>${t}</span></label>`
+    ).join("") + `</div>`;
+  }
+  html += `</div>`;
+  box.innerHTML = html;
+}
+
+function readAnswer(){
+  const id = path[pos];
+  if (Q[id].multi){
+    const ys = [...document.querySelectorAll('input[name="yr"]:checked')].map(i => +i.value);
+    if (!ys.length) return "Tick at least one year.";
+    A.years = ys.sort();
+    return null;
+  }
+  const c = document.querySelector('input[name="opt"]:checked');
+  if (!c) return "Choose one answer to continue.";
+  A[id] = c.value;
+  return null;
+}
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  const e = readAnswer();
+  if (e){ document.getElementById("err").textContent = e; return; }
+  const nxt = nextFrom(path[pos]);
+  path = path.slice(0, pos + 1);
+  if (nxt.startsWith("R_")) { showResult(nxt); return; }
+  path.push(nxt); pos++; render();
+  document.getElementById("qTitle").focus();
+});
+document.getElementById("backBtn").addEventListener("click", () => {
+  if (pos > 0){ pos--; render(); document.getElementById("qTitle").focus(); }
+});
+
+/* ─── RESULTS ─── */
+const chips = arr => `<div class="chips">${arr.map(y=>`<span class="chip">${y}</span>`).join("")}</div>`;
+function missedLate(){ return (A.years||[]).filter(isLate); }
+function missedNotYet(){ return (A.years||[]).filter(y => !isLate(y)); }
+function notYetNote(){
+  const n = missedNotYet();
+  if (!n.length) return "";
+  return `<div class="note"><b>Good news on ${n.join(", ")}:</b> that FBAR isn't late yet. It's due <b>15 October ${n[0]+1}</b>. File it on time and it's simply an on-time filing.</div>`;
+}
+
+const RESULTS = {
+  R_A: () => ({
+    cls:"v-a", tag:"Likely Route A", h:"Late FBAR filing, usually without a penalty",
+    p:"Because you reported all the income from these accounts on returns you filed, you likely fit the IRS <b>Delinquent FBAR Submission Procedures</b>. This is the simpler route.",
+    body:`
+      <div class="blk"><h3>What you'd file</h3><ul>
+        <li>A late FBAR (FinCEN Form 114) for each missed year, filed online through FinCEN's BSA E-Filing System</li>
+        <li>On each one, select the reason for filing late and include a short statement explaining why</li>
+        <li>No amended tax returns, because the income was already reported</li></ul></div>
+      ${missedLate().length ? `<div class="blk"><h3>Years to file late</h3>${chips(missedLate())}</div>` : ""}
+      ${notYetNote()}
+      <div class="note"><b>Before you file:</b> confirm the IRS hasn't contacted you about these years, and double-check the income really was all reported, including NRE interest. If any was missed, this becomes Route B.</div>`,
+    cta:"Want someone to check before you file?", ctaP:"A 15-minute call is enough to confirm you're really a Route A case. It's free."
+  }),
+  R_B_domestic: () => ({
+    cls:"v-b", tag:"Likely Route B", h:"Streamlined procedures (US resident)",
+    p:"Because some income from these accounts wasn't reported, the simple late-filing route likely doesn't apply. You probably fit the IRS <b>Streamlined Domestic Offshore Procedures</b>.",
+    body:`
+      <div class="blk"><h3>What it usually involves</h3><ul>
+        <li><b>Amended returns (Form 1040-X)</b> for the 3 most recent years: ${returnPeriod.join(", ")}</li>
+        <li><b>FBARs</b> for the 6 most recent years: ${fbarPeriod.join(", ")}</li>
+        <li>A signed statement that the mistake wasn't deliberate (Form 14654)</li>
+        <li>Paying the tax you owe, plus interest</li>
+        <li>A one-time penalty of <b>5%</b> of the highest year-end total of the foreign assets involved</li></ul></div>
+      <div class="est"><label for="bal">Rough penalty estimate: highest year-end total across your Indian accounts (USD)</label>
+        <div class="est-row"><input id="bal" type="number" min="0" inputmode="numeric" placeholder="e.g. 40000"><output id="balOut">5% ≈ —</output></div></div>
+      ${A.income === "unsure" ? `<div class="note"><b>You weren't sure about the income.</b> If it turns out everything was reported, you may qualify for Route A instead, which usually has no penalty. Worth checking before choosing.</div>` : ""}
+      ${notYetNote()}
+      <div class="note"><b>Get help with this one.</b> The certification is a legal statement, and the amended returns have to be right. This is the route where a professional pays for themselves.</div>`,
+    cta:"This one is worth a conversation", ctaP:"Book a free 15-minute call. We'll confirm the route, the years involved, and what it's likely to cost."
+  }),
+  R_B_foreign: () => ({
+    cls:"v-b", tag:"Likely Route B", h:"Streamlined procedures (living outside the US)",
+    p:"Because some income wasn't reported and you now live outside the US, you likely fit the IRS <b>Streamlined Foreign Offshore Procedures</b>.",
+    body:`
+      <div class="blk"><h3>What it usually involves</h3><ul>
+        <li><b>Tax returns</b> (original or amended) for the 3 most recent years: ${returnPeriod.join(", ")}</li>
+        <li><b>FBARs</b> for the 6 most recent years: ${fbarPeriod.join(", ")}</li>
+        <li>A signed statement that the mistake wasn't deliberate (Form 14653)</li>
+        <li>Paying the tax you owe, plus interest</li>
+        <li><b>No</b> 5% penalty for those who meet the non-residency test</li></ul></div>
+      <div class="note"><b>The residency test is strict.</b> You generally need to have been outside the US for at least 330 days in one of the three years. Confirm this before relying on it.</div>`,
+    cta:"Confirm you qualify", ctaP:"The non-residency test decides whether there's a penalty. A free 15-minute call can settle it."
+  }),
+  R_nonfiler: () => ({
+    cls:"v-c", tag:"Needs a professional", h:"Missing tax returns change the route",
+    p:"The Streamlined Domestic route generally requires that you <b>filed</b> your US returns for those years. Because some weren't filed, the route depends on details this tool can't judge.",
+    body:`<div class="blk"><h3>What to do</h3><ul><li>Don't file late FBARs on their own yet</li><li>Gather the years you didn't file and the account balances for each</li><li>Speak to a professional about the right order to file things in</li></ul></div>`,
+    cta:"Talk it through first", ctaP:"A free 15-minute call will tell you which route fits and what to file first."
+  }),
+  R_contacted: () => ({
+    cls:"v-c", tag:"Stop here", h:"Speak to a professional before filing anything",
+    p:"If the IRS has already contacted you about your accounts or is examining your returns, <b>neither self-fix route is generally available</b>. Filing on your own now could make things harder.",
+    body:`<div class="blk"><h3>What to do</h3><ul><li>Don't file anything yet</li><li>Keep every IRS letter</li><li>Speak to a CPA or tax attorney who handles international cases</li></ul></div>`,
+    cta:"Get advice before you act", ctaP:"Book a free 15-minute call and we'll tell you what to do next, or who you should be speaking to."
+  }),
+  R_willful: () => ({
+    cls:"v-c", tag:"Stop here", h:"Talk to a tax attorney first",
+    p:"The Streamlined procedures require you to certify that the mistake wasn't deliberate. If it was, <b>that route isn't open to you</b>, and the options are different.",
+    body:`<div class="blk"><h3>What to do</h3><ul><li>Don't sign any certification</li><li>Speak to a tax attorney. Conversations with an attorney are generally privileged</li></ul></div>`,
+    cta:"Not sure where to start?", ctaP:"A free call can point you to the right kind of help."
+  }),
+  R_unsureWillful: () => ({
+    cls:"v-c", tag:"Needs a professional", h:"Get advice before signing anything",
+    p:"You're likely heading toward the Streamlined route, which requires signing a statement that the mistake wasn't deliberate. <b>If you're not sure how to answer that, don't sign it yet.</b>",
+    body:`<div class="blk"><h3>What to do</h3><ul><li>Write down what you knew about FBAR and when you learned it</li><li>Talk it through with a professional before choosing a route</li></ul></div>`,
+    cta:"Talk it through", ctaP:"A free 15-minute call is usually enough to work out which side of the line you're on."
+  }),
+  R_notus: () => ({
+    cls:"v-d", tag:"Probably not required", h:"You may not have needed to file FBAR",
+    p:"FBAR applies to US persons. If you were a non-resident for those years, you likely didn't have to file.",
+    body:`<div class="note"><b>Double-check your status.</b> Many people on H-1B or L-1 become US tax residents in their first full year here without realising it.</div>`,
+    cta:"Not sure about your status?", ctaP:"A free 15-minute call will settle it."
+  }),
+  R_under: () => ({
+    cls:"v-d", tag:"Probably not required", h:"You may not have needed to file FBAR",
+    p:"FBAR is only required when your foreign accounts <b>added together</b> went over $10,000 at any point in the year.",
+    body:`<div class="note"><b>People often undercount.</b> Joint accounts with parents count at their full balance, and so do PPF, demat, mutual funds and cash-value insurance. Use the highest balance each account reached, not the year-end figure.</div>`,
+    cta:"Want a second check?", ctaP:"A free 15-minute call can confirm it."
+  }),
+  R_check: () => ({
+    cls:"v-d", tag:"Check first", h:"First, find out whether you crossed $10,000",
+    p:"You need the <b>highest balance</b> each foreign account reached in each year, added together.",
+    body:`<div class="blk"><h3>How to check</h3><ol>
+      <li>List every account from the \"what counts\" list: NRE, NRO, FDs, PPF, demat, mutual funds, joint accounts with parents</li>
+      <li>For each one, find the highest balance during the year from bank statements</li>
+      <li>Convert to dollars using the US Treasury's official exchange rate for 31 December of that year</li>
+      <li>Add them up. Over $10,000 in any year means FBAR was required that year</li></ol></div>`,
+    cta:"Rather have someone do this?", ctaP:"Book a free 15-minute call and we'll walk through it with you."
+  })
+};
+
+function showResult(code){
+  const r = RESULTS[code]();
+  const el = document.getElementById("result");
+  el.innerHTML = `
+    <div class="verdict ${r.cls}"><span class="label">${r.tag}</span><h2 tabindex="-1" id="rTitle">${r.h}</h2><p>${r.p}</p></div>
+    ${r.body}
+    <div class="cta"><h3>${r.cta}</h3><p>${r.ctaP}</p>
+      <div class="cta-row"><a class="btn" href="${CTA_URL}${CTA_URL.includes("?")?"&":"?"}src=${encodeURIComponent(SRC)}&result=${code}" target="_blank" rel="noopener">Book a free 15-min call →</a></div>
+      <form class="mail" id="mailForm" novalidate><input type="email" id="mail" placeholder="Email me this result" aria-label="Your email" autocomplete="email"><button class="ghost" type="submit">Send</button></form>
+      <p class="msg" id="msg" role="status"></p>
+    </div>
+    <button class="ghost restart" id="restart" type="button">↺ Start again</button>`;
+  document.getElementById("quiz").style.display = "none";
+  el.style.display = "block";
+  document.getElementById("rTitle").focus();
+
+  const bal = document.getElementById("bal");
+  if (bal) bal.addEventListener("input", () => {
+    const v = parseFloat(bal.value);
+    document.getElementById("balOut").textContent = v > 0 ? "5% ≈ $" + Math.round(v * 0.05).toLocaleString() : "5% ≈ —";
+  });
+
+  document.getElementById("restart").addEventListener("click", () => {
+    for (const k in A) delete A[k];
+    path = ["usperson"]; pos = 0;
+    el.style.display = "none"; document.getElementById("quiz").style.display = "block";
+    render(); document.getElementById("qTitle").focus();
+  });
+
+  document.getElementById("mailForm").addEventListener("submit", async ev => {
+    ev.preventDefault();
+    const email = document.getElementById("mail").value.trim();
+    const msg = document.getElementById("msg");
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.className="msg bad"; msg.textContent="That email doesn't look right. Check it and try again."; return; }
+    const payload = { email, result: code, headline: r.h, years: A.years || [], answers: {...A}, source: SRC, tool: "missed-fbar-fix-finder" };
+    if (!LEAD_ENDPOINT){
+      location.href = "mailto:" + OWNER_EMAIL + "?subject=" + encodeURIComponent("My FBAR fix finder result") + "&body=" + encodeURIComponent(JSON.stringify(payload, null, 2));
+      msg.className="msg ok"; msg.textContent="Opening your email app…"; return;
+    }
+    try{
+      await fetch(LEAD_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(payload)});
+      msg.className="msg ok"; msg.textContent="Sent. Check your inbox in a few minutes.";
+    }catch(err){
+      msg.className="msg bad"; msg.textContent="That didn't send. Email " + OWNER_EMAIL + " and we'll help.";
+    }
+  });
+}
+
+render();
+</script>
+</body>
+</html>

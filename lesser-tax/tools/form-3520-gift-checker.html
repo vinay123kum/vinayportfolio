@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Form 3520 Gift Checker - money from parents in India | Lesser DIY</title>
+<meta name="description" content="Parents sent you money from India? Over $100,000 in a year and you must file Form 3520. No tax is due on the gift - but the penalty for not reporting it starts at $10,000.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../assets/tool.css">
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="brand" href="../index.html">Lesser<span>.</span><em>DIY</em></a>
+  <a class="back" href="../index.html">&larr; All Lesser DIY tools</a>
+</div>
+
+<div class="intro">
+  <span class="eyebrow">Gifts &amp; inheritance</span>
+  <h1>Money from home can cost you <em>$10,000</em> in penalties</h1>
+  <p class="sub">Your parents help with a house deposit. You inherit a share of a flat. <b>None of it is taxable income</b> &mdash; the US does not tax gifts in the recipient's hands. But cross $100,000 in a year and you have to <b>report</b> it on Form 3520, and the penalty for staying quiet starts at $10,000 and climbs to a quarter of the gift.</p>
+</div>
+
+<div class="panel hl">
+  <h2>What you received this year</h2>
+  <p class="note-s">Total across the whole tax year, converted to US dollars. Count money, property, shares &mdash; anything of value.</p>
+  <div class="grid">
+    <div class="fld">
+      <label for="fam">From parents, relatives or other individuals abroad</label>
+      <input id="fam" type="number" inputmode="numeric" min="0" step="any" placeholder="0">
+      <span class="help">Including anything from a foreign estate (an inheritance).</span>
+    </div>
+    <div class="fld">
+      <label for="corp">From a foreign company, trust or partnership</label>
+      <input id="corp" type="number" inputmode="numeric" min="0" step="any" placeholder="0">
+      <span class="help">A much lower threshold applies here.</span>
+    </div>
+    <div class="fld">
+      <label for="yr">Tax year</label>
+      <select id="yr"><option value="2026" selected>2026</option><option value="2025">2025</option></select>
+    </div>
+    <div class="fld">
+      <label for="related">Did more than one person give you money?</label>
+      <select id="related">
+        <option value="no" selected>No, just one person</option>
+        <option value="yes">Yes &mdash; e.g. both parents, or parents and an uncle</option>
+      </select>
+      <span class="help">Gifts from related people are added together.</span>
+    </div>
+    <div class="fld">
+      <label for="acct">Did any of it pass through an account in your name in India?</label>
+      <select id="acct">
+        <option value="no" selected>No</option>
+        <option value="yes">Yes &mdash; an NRE or NRO account</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label for="trust">Did you receive anything from a foreign trust?</label>
+      <select id="trust">
+        <option value="no" selected>No</option>
+        <option value="yes">Yes, or I am not sure</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:22px"><button class="btn" id="go">Check if I have to file</button></div>
+<div id="out"></div>
+
+<p class="disc">General guidance only, not tax or legal advice. Form 3520 also covers transactions with foreign trusts, which have their own rules not modelled here, and a separate Form 3520-A may be required. The $100,000 threshold applies to gifts from nonresident alien individuals and foreign estates and is set by statute. The threshold for gifts from foreign corporations and partnerships is adjusted for inflation each year. Nothing you type leaves this browser.</p>
+
+</div>
+<script>
+/* --- CONFIG ------------------------------------------------ */
+const BOOKING_URL = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL  = "https://lesser.tax";
+const FBAR_TOOL   = "fbar-prep-sheet.html";
+/* 2026 figures. The $100,000 limit for gifts from a nonresident alien individual or
+   foreign estate is statutory and not indexed. The corporate/partnership limit is
+   inflation-adjusted annually; 2026 = $20,573. Penalty: IRC 6039F, 5% of the gift per
+   month to a 25% cap, with a $10,000 minimum. */
+const LIMIT_IND  = 100000;
+const LIMIT_CORP = { 2026: 20573, 2025: 19570 };
+const PEN_MIN = 10000, PEN_RATE = 0.05, PEN_CAP = 0.25;
+/* ----------------------------------------------------------- */
+
+const $ = s => document.querySelector(s);
+const SRC = new URLSearchParams(location.search).get("src") || "tool-3520";
+const KEY = "lesser_3520_v1";
+const F = ["fam","corp","yr","related","acct","trust"];
+const money = v => "$" + Math.round(v).toLocaleString("en-US");
+const num = id => parseFloat($("#"+id).value) || 0;
+
+function save(){ const o={}; F.forEach(f=>o[f]=$("#"+f).value); try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){} }
+function load(){ try{ const o=JSON.parse(localStorage.getItem(KEY))||{}; F.forEach(f=>{ if(o[f]) $("#"+f).value=o[f]; }); }catch(e){} }
+
+function run(){
+  const fam = num("fam"), corp = num("corp"), yr = $("#yr").value;
+  const limitCorp = LIMIT_CORP[yr] || LIMIT_CORP[2026];
+  const trust = $("#trust").value === "yes";
+  const acct = $("#acct").value === "yes";
+
+  if (!$("#fam").value && !$("#corp").value){
+    $("#out").innerHTML = '<div class="note" style="margin-top:22px"><b>Enter an amount first.</b> Put 0 if you received nothing from that source.</div>';
+    return;
+  }
+
+  const overInd = fam > LIMIT_IND;
+  const overCorp = corp > limitCorp;
+  const mustFile = overInd || overCorp || trust;
+  const reportable = (overInd ? fam : 0) + (overCorp ? corp : 0);
+
+  const pen = reportable ? Math.max(PEN_MIN, Math.min(reportable * PEN_CAP, reportable * PEN_RATE * 6)) : PEN_MIN;
+  const penMax = reportable ? reportable * PEN_CAP : PEN_MIN;
+
+  const table =
+    '<table><thead><tr><th>Source</th><th style="text-align:right">You received</th><th style="text-align:right">Threshold</th><th style="text-align:right">Over?</th></tr></thead><tbody>' +
+    '<tr><td><b>Individuals or a foreign estate</b><small>parents, relatives, inheritance</small></td>' +
+    '<td class="n">' + money(fam) + '</td><td class="n">' + money(LIMIT_IND) + '</td>' +
+    '<td class="n"><span style="color:' + (overInd ? "var(--err)" : "var(--muted)") + ';font-weight:800">' + (overInd ? "YES" : "no") + '</span></td></tr>' +
+    '<tr><td><b>Foreign company or partnership</b><small>' + yr + ', inflation-adjusted</small></td>' +
+    '<td class="n">' + money(corp) + '</td><td class="n">' + money(limitCorp) + '</td>' +
+    '<td class="n"><span style="color:' + (overCorp ? "var(--err)" : "var(--muted)") + ';font-weight:800">' + (overCorp ? "YES" : "no") + '</span></td></tr>' +
+    '</tbody></table>';
+
+  const aggNote = $("#related").value === "yes"
+    ? '<div class="note"><b>Gifts from related people are added together.</b> If both your parents sent money, or your parents and an uncle did, those amounts combine against the one $100,000 limit. Two gifts of $60,000 each is $120,000 &mdash; over the line, even though neither gift was.</div>'
+    : "";
+
+  const acctNote = acct
+    ? '<div class="note"><b>The money sat in an Indian account in your name.</b> That is a separate reporting question from the gift itself &mdash; an NRE or NRO account counts towards the $10,000 FBAR threshold, even if the money was only there briefly. <a href="' + FBAR_TOOL + '">Check the FBAR threshold &rarr;</a></div>'
+    : "";
+
+  let verdict, big;
+  if (mustFile){
+    verdict =
+      '<div class="verdict red"><span class="label">Your position</span>' +
+      '<h3>You need to file Form 3520</h3>' +
+      '<p>' + (trust && !overInd && !overCorp
+        ? "Anything received from a <b>foreign trust</b> triggers Form 3520 regardless of amount, and the definition of a trust is broader than people expect &mdash; some Indian arrangements qualify without being called trusts."
+        : "You crossed the reporting threshold, so Form 3520 is due with your tax return, including extensions.") +
+      '</p>' +
+      '<p><b>You do not owe tax on the gift.</b> The US does not tax gifts in the hands of the person receiving them. This is an information return &mdash; the whole obligation is telling the IRS it happened.</p></div>';
+    big =
+      '<div class="big">' +
+      '<div><div class="k">Reportable</div><div class="v">' + money(reportable || fam + corp) + '</div><div class="s">this tax year</div></div>' +
+      '<div><div class="k">Tax owed on it</div><div class="v" style="color:var(--ok)">$0</div><div class="s">gifts are not income</div></div>' +
+      '<div><div class="k">Minimum penalty</div><div class="v" style="color:var(--err)">' + money(PEN_MIN) + '</div><div class="s">if you do not file</div></div>' +
+      '<div><div class="k">Maximum penalty</div><div class="v" style="color:var(--err)">' + money(penMax) + '</div><div class="s">25% of the gift</div></div>' +
+      '</div>';
+  } else {
+    verdict =
+      '<div class="verdict clear"><span class="label">Your position</span>' +
+      '<h3>No Form 3520 needed this year</h3>' +
+      '<p>You are under both thresholds, so there is nothing to report on Form 3520 for ' + yr + '.</p>' +
+      '<p><b>Watch the timing.</b> The limit is per tax year, not per transfer. If your parents are planning to send more before 31 December, a transfer that tips the year over $100,000 brings the filing requirement with it &mdash; and splitting it across two calendar years is often all it takes to avoid the paperwork entirely.</p></div>';
+    big =
+      '<div class="big">' +
+      '<div><div class="k">Received</div><div class="v">' + money(fam + corp) + '</div><div class="s">this tax year</div></div>' +
+      '<div><div class="k">Headroom left</div><div class="v" style="color:var(--ok)">' + money(Math.max(0, LIMIT_IND - fam)) + '</div><div class="s">before you must file</div></div>' +
+      '</div>';
+  }
+
+  const penaltyBlock = mustFile
+    ? '<div class="note red"><b>The penalty is why this matters.</b> Under IRC 6039F it is <b>5% of the gift for each month</b> it goes unreported, capped at 25%, with a minimum of $10,000. On ' + money(reportable || fam + corp) + ' that is up to <b>' + money(penMax) + '</b> &mdash; for paperwork on money that was never taxable in the first place.<br><br>The penalty can be abated for reasonable cause, but you have to ask, and you have to have a reason.</div>'
+    : "";
+
+  $("#out").innerHTML =
+    verdict + big +
+    '<div class="panel"><h2>Against the thresholds</h2>' +
+    '<p class="note-s">Two different limits, and people usually only know about one.</p>' +
+    table + aggNote + acctNote + penaltyBlock +
+    '<details class="more"><summary>What counts, and what people get wrong</summary><ul>' +
+    '<li><b>It is not income.</b> You pay no US tax on a gift or inheritance from abroad. Reporting it changes nothing about your tax bill.</li>' +
+    '<li><b>Property counts, not just money.</b> A share of a flat, jewellery, shares in an Indian company &mdash; value it in dollars on the day you received it.</li>' +
+    '<li><b>Each gift over $5,000 is listed separately</b> on the form once you cross the threshold.</li>' +
+    '<li><b>It follows your tax return deadline</b>, including extensions &mdash; but it is filed separately, to a different address.</li>' +
+    '<li><b>Inheritance from a parent who has died</b> is a gift from a foreign estate, and the same $100,000 limit applies.</li>' +
+    '<li><b>A loan from family is not a gift</b> &mdash; but it has to look like a real loan, with terms and repayments, or the IRS will treat it as one.</li>' +
+    '</ul></details></div>' +
+    '<div class="cta"><h3>' + (mustFile ? "Filed late, or never filed?" : "Planning a large transfer?") + '</h3>' +
+    '<p>' + (mustFile
+      ? "Missed years can often be fixed with a reasonable cause statement rather than a penalty, but how you approach it matters a great deal. Sign up and you get straight on a call with a CPA."
+      : "Timing a transfer across two tax years, or structuring it as a loan, can keep you under the threshold entirely. Worth a conversation before the money moves, not after.") + '</p>' +
+    '<div class="cta-row"><a class="btn" href="' + SIGNUP_URL + '?src=' + encodeURIComponent(SRC) + '">Sign up and talk to a CPA</a>' +
+    (BOOKING_URL.indexOf("REPLACE") > -1 ? "" : '<a class="ghost" href="' + BOOKING_URL + '?src=' + encodeURIComponent(SRC) + '">Book 15 minutes</a>') +
+    '</div></div>';
+
+  $("#out").scrollIntoView({ behavior:"smooth", block:"start" });
+  save();
+}
+F.forEach(f => $("#"+f).addEventListener("input", save));
+$("#go").addEventListener("click", run);
+load();
+</script>
+</body>
+</html>

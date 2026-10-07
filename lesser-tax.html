@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vinay Kumar — Lesser Tax | A DIY tool suite that earns the lead</title>
+<meta name="description" content="Eleven free tax calculators built for Indians filing US taxes. Research, positioning, build and verification — a lead-generation engine that costs nothing per click and compounds."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rust:#C4622D; --rust-lt:rgba(196,98,45,0.1); --rust-md:rgba(196,98,45,0.22);
+    --black:#141414; --cream:#FAF8F4; --paper:#FFFFFF;
+    --border:rgba(20,20,20,0.08); --border2:rgba(20,20,20,0.14);
+    --muted:rgba(20,20,20,0.45); --faint:rgba(20,20,20,0.3);
+    --green:#16a34a; --green-lt:rgba(22,163,74,.09); --green-md:rgba(22,163,74,.26);
+    --amber:#B45309; --ink:#17150F;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--black); -webkit-font-smoothing:antialiased; overflow-x:hidden; -webkit-text-size-adjust:100%}
+  body::after{content:''; position:fixed; inset:0; opacity:.03; pointer-events:none; z-index:100;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:128px}
+  ::-webkit-scrollbar{width:2px}
+  ::-webkit-scrollbar-thumb{background:var(--rust)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1000px; margin:0 auto; padding:0 32px}
+  :focus-visible{outline:2px solid var(--rust); outline-offset:3px; border-radius:4px}
+
+  .top{display:flex; align-items:center; justify-content:space-between; padding:26px 0 0}
+  .back{font-family:'Caveat',cursive; font-size:17px; font-weight:600; color:var(--faint); transition:color .2s}
+  .back:hover{color:var(--rust)}
+  .top-tag{font-family:'Caveat',cursive; font-size:16px; color:var(--faint)}
+
+  .hero{padding:54px 0 32px; display:flex; flex-direction:column; align-items:center; text-align:center}
+  .h-tags{display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:28px}
+  .h-tag{font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:5px 14px; border-radius:100px; color:var(--rust); border:1.5px solid rgba(196,98,45,0.3); background:rgba(196,98,45,0.06)}
+  .h-tag.gray{color:rgba(20,20,20,0.4); border-color:rgba(20,20,20,0.15); background:transparent}
+  .h1{font-family:'Playfair Display',serif; font-style:italic; font-weight:700; font-size:clamp(36px,5.6vw,62px); line-height:1.05; letter-spacing:-.01em; max-width:19ch; margin:0 auto}
+  .h1 b{font-family:'Syne',sans-serif; font-style:normal; font-weight:800; color:var(--rust)}
+  .lede{margin:22px auto 0; max-width:640px; font-size:17px; line-height:1.62; color:rgba(20,20,20,0.62)}
+  .lede b{color:var(--black); font-weight:600}
+  .hb{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:26px}
+  .btn{display:inline-flex; align-items:center; gap:7px; padding:12px 23px; border-radius:100px; font-size:13px; font-weight:700; transition:.2s; border:1px solid transparent}
+  .btn-f{background:var(--rust); color:#fff}
+  .btn-f:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(196,98,45,.3)}
+  .btn-l{border-color:var(--border2); color:var(--muted)}
+  .btn-l:hover{color:var(--black); border-color:rgba(20,20,20,.35)}
+
+  .ribbon{display:flex; flex-wrap:wrap; margin-top:38px; width:100%; text-align:left; background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  .stat{flex:1 1 0; min-width:140px; padding:20px 22px; border-right:1px solid var(--border)}
+  .stat:last-child{border-right:none}
+  .stat-n{font-family:'Syne',sans-serif; font-weight:800; font-size:26px; line-height:1; font-variant-numeric:tabular-nums}
+  .stat-n .u{font-size:13px; color:var(--muted); font-weight:700}
+  .stat-l{font-family:'Caveat',cursive; font-size:15px; color:var(--muted); margin-top:8px; line-height:1.3}
+
+  .slabel{font-family:'Caveat',cursive; font-size:17px; font-weight:600; color:var(--rust); display:flex; align-items:center; gap:10px; margin:58px 0 18px}
+  .slabel::before{content:''; width:18px; height:2px; background:var(--rust)}
+  .sh{font-family:'Syne',sans-serif; font-weight:800; font-size:clamp(22px,3.1vw,30px); letter-spacing:-.02em; max-width:26ch}
+  .sintro{max-width:680px; font-size:15px; line-height:1.68; color:rgba(20,20,20,0.55); margin-top:13px}
+  .sintro b{color:var(--black); font-weight:600}
+  .sintro + .sintro{margin-top:13px}
+
+  .jdq{margin-top:22px; padding:18px 26px; background:var(--paper); border:1px solid var(--border); border-left:3px solid var(--rust); border-radius:0 14px 14px 0; font-family:'Playfair Display',serif; font-style:italic; font-size:16px; line-height:1.55; color:rgba(20,20,20,.72)}
+  .jdq cite{display:block; margin-top:10px; font-family:'JetBrains Mono',monospace; font-style:normal; font-size:10.5px; letter-spacing:.05em; color:var(--faint)}
+
+  /* tools */
+  .tools{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px}
+  .tc{display:block; background:var(--paper); border:1px solid var(--border); border-radius:14px; padding:18px 20px; transition:.2s}
+  .tc:hover{transform:translateY(-3px); box-shadow:0 12px 30px rgba(20,20,20,.07); border-color:var(--rust-md)}
+  .tc-h{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:9px}
+  .tc-k{font-family:'Syne',sans-serif; font-weight:800; font-size:14.5px; letter-spacing:-.015em}
+  .vd{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:100px; white-space:nowrap}
+  .vd.own{background:var(--green-lt); color:var(--green); border:1px solid var(--green-md)}
+  .vd.use{background:var(--rust-lt); color:var(--rust); border:1px solid var(--rust-md)}
+  .tc-d{font-size:12.5px; line-height:1.6; color:var(--muted)}
+  .tc-d b{color:var(--black); font-weight:600}
+  .tc-go{display:block; margin-top:11px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--rust)}
+
+  /* two-col compare */
+  .gapg{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px}
+  .gc{background:var(--paper); border:1px solid var(--border); border-radius:16px; overflow:hidden}
+  .gc.yes{border-color:var(--green-md)}
+  .gc-h{padding:13px 20px; border-bottom:1px solid var(--border); font-family:'Syne',sans-serif; font-weight:800; font-size:14px; letter-spacing:-.015em}
+  .gc.yes .gc-h{background:var(--green-lt); color:var(--green)}
+  .gc.no .gc-h{background:rgba(20,20,20,.025); color:var(--muted)}
+  .gc-l{list-style:none; padding:14px 20px 16px}
+  .gc-l li{position:relative; padding-left:16px; font-size:12.5px; line-height:1.6; color:var(--muted); margin-bottom:10px}
+  .gc-l li:last-child{margin-bottom:0}
+  .gc-l li::before{content:''; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; background:var(--green)}
+  .gc.no .gc-l li::before{background:var(--border2)}
+  .gc-l li b{color:var(--black); font-weight:600}
+  .gnote{margin-top:14px; padding:16px 22px; background:var(--paper); border:1px solid var(--rust-md); border-radius:14px; font-size:13.5px; line-height:1.68; color:var(--muted)}
+  .gnote b{color:var(--black); font-weight:600}
+
+  /* process lanes */
+  .lanes{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px}
+  .ln{background:var(--paper); border:1px solid var(--border); border-top:2px solid var(--rust); border-radius:12px; padding:15px 15px}
+  .ln-n{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+  .ln-t{font-family:'Syne',sans-serif; font-weight:800; font-size:13.5px; letter-spacing:-.015em; margin-top:7px}
+  .ln-d{margin-top:7px; font-size:12px; line-height:1.55; color:var(--muted)}
+
+  table{width:100%; border-collapse:collapse; margin-top:16px; background:var(--paper); border:1px solid var(--border); border-radius:14px; overflow:hidden; font-size:13px}
+  th{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); text-align:left; padding:12px 16px; border-bottom:1px solid var(--border); background:rgba(20,20,20,.02)}
+  td{padding:11px 16px; border-bottom:1px solid var(--border); color:var(--muted); line-height:1.55}
+  tr:last-child td{border-bottom:none}
+  td b{color:var(--black); font-weight:600}
+  .tw{overflow-x:auto; border-radius:14px}
+
+  .foot{margin-top:70px; padding:28px 0 60px; border-top:1px solid var(--border); font-size:12px; line-height:1.7; color:var(--faint)}
+  .foot a{color:var(--rust); font-weight:600}
+
+  @media(max-width:760px){
+    .tools,.gapg{grid-template-columns:1fr}
+    .lanes{grid-template-columns:repeat(2,1fr)}
+    .wrap{padding:0 20px}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important; scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <a class="back" href="ai-builds.html">&larr; back to builds</a>
+    <span class="top-tag">Lesser Tax &middot; 2026</span>
+  </div>
+
+  <div class="hero">
+    <div class="h-tags">
+      <span class="h-tag">Growth engineering</span>
+      <span class="h-tag">SEO / lead gen</span>
+      <span class="h-tag gray">11 tools shipped</span>
+      <span class="h-tag gray">Claude Code</span>
+    </div>
+    <h1 class="h1">A free tool suite that <b>earns</b> the lead instead of buying it</h1>
+    <p class="lede">Lesser does flat-fee US tax filing for Indians living in America. Paid acquisition was expensive and nearly impossible to attribute. So I built <b>eleven free calculators</b> that answer the questions this audience is already searching for &mdash; each one ending with a route to a CPA.</p>
+    <div class="hb">
+      <a class="btn btn-f" href="lesser-tax/index.html">Open the live suite &rarr;</a>
+      <a class="btn btn-l" href="lesser-tax/tools/tax-roadmap.html">Try a tool</a>
+    </div>
+
+    <div class="ribbon">
+      <div class="stat"><div class="stat-n">11</div><div class="stat-l">tools built &amp; verified</div></div>
+      <div class="stat"><div class="stat-n">2.3<span class="u">k/mo</span></div><div class="stat-l">searches targeted</div></div>
+      <div class="stat"><div class="stat-n">13</div><div class="stat-l">competitors researched</div></div>
+      <div class="stat"><div class="stat-n">$0</div><div class="stat-l">cost per click</div></div>
+    </div>
+  </div>
+
+  <div class="slabel">the problem</div>
+  <h2 class="sh">Ads to this audience were expensive and unattributable</h2>
+  <p class="sintro">A Meta campaign to 29,000 contacts produced no identifiable registrations &mdash; when I checked the first 25 sign-ups against the owned lists, 23 were already on them. We were paying to reach people we already had.</p>
+  <p class="sintro">Meanwhile the actual buyer was doing something far more useful: searching <b>"substantial presence test calculator"</b> at 11pm, trying to work out which US tax return they owe. Not browsing. Stuck, mid-decision, and about to hand money to whoever answered first.</p>
+
+  <div class="jdq">
+    The tools do not interrupt anyone. They answer the exact question someone is already asking, for free, and then show them what the hard version of that question looks like.
+    <cite>THE PREMISE</cite>
+  </div>
+
+  <div class="slabel">the positioning call</div>
+  <h2 class="sh">Everyone else builds India-side. I built the mirror.</h2>
+  <p class="sintro">I researched thirteen competitor tool sites. Belong, SBNRI, iNRI, Savetaxs and the rest all build <b>India-side</b> calculators &mdash; GIFT City funds, FD rates, Indian residential status, rupee-dollar. That space is saturated and the traffic is poorly qualified for a US filing service.</p>
+  <p class="sintro">The gap was the <b>US side</b>: what the IRS expects from someone who moved from India. Same person, opposite end of the problem, almost nobody serving it.</p>
+
+  <div class="gapg">
+    <div class="gc yes">
+      <div class="gc-h">Built &mdash; US side</div>
+      <ul class="gc-l">
+        <li><b>Residency.</b> Which return you owe, and the exempt years every other calculator skips</li>
+        <li><b>Equity.</b> RSU and ESPP, including the wrong cost basis brokers report</li>
+        <li><b>Foreign accounts.</b> FBAR, FATCA, PFIC, gifts from parents</li>
+        <li><b>Moving back.</b> The RNOR window, which is worth real money if planned</li>
+      </ul>
+    </div>
+    <div class="gc no">
+      <div class="gc-h">Deliberately skipped</div>
+      <ul class="gc-l">
+        <li><b>HRA, 80C, 80D, indexation.</b> Commodity India calculators a hundred sites already rank for</li>
+        <li><b>Rental depreciation.</b> 1,730 searches a month &mdash; the single highest on the list</li>
+        <li>Mostly US-born landlords with no India connection. Great for a traffic chart, worthless for pipeline</li>
+        <li><b>Volume was never the metric.</b> Qualified intent was</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="gnote">
+    <b>The call I had to defend:</b> turning down the highest-volume keyword on the research list. A rental depreciation calculator would have roughly doubled the suite's traffic and contributed nothing to revenue. Picking the 210/mo tool over the 1,730/mo one only makes sense if you are measuring the right thing.
+  </div>
+
+  <div class="slabel">the eleven</div>
+  <h2 class="sh">Every one works. Click any of them.</h2>
+  <p class="sintro">Self-contained HTML, no backend, nothing leaves the visitor's browser &mdash; which matters when you are asking someone to type their bank balances in.</p>
+
+  <div class="tools">
+    <a class="tc" href="lesser-tax/tools/tax-roadmap.html">
+      <div class="tc-h"><span class="tc-k">Which forms apply to me?</span><span class="vd own">front door</span></div>
+      <div class="tc-d">Sixteen ticks about your life returns the forms you probably owe &mdash; <b>each linking to the tool that answers it</b>. The entry point for everything else.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/substantial-presence-test.html">
+      <div class="tc-h"><span class="tc-k">Substantial presence test</span><span class="vd use">720/mo</span></div>
+      <div class="tc-d">Counts US days the IRS way &mdash; all of this year, a third of last, a sixth of the year before &mdash; and handles <b>exempt F-1 and J-1 years</b>, which other calculators ignore.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/rnor-calculator.html">
+      <div class="tc-h"><span class="tc-k">RNOR calculator</span><span class="vd use">480/mo</span></div>
+      <div class="tc-d">Moving back to India. Runs Sections 6(1), 6(1A) and 6(6), then projects <b>how many years of tax-free foreign income</b> are left.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/rsu-tax-calculator.html">
+      <div class="tc-h"><span class="tc-k">RSU tax calculator</span><span class="vd use">390/mo</span></div>
+      <div class="tc-d">Tax at vest, the <b>22% under-withholding gap</b>, and the zero cost basis brokers report that taxes the same money twice.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/espp-tax-calculator.html">
+      <div class="tc-h"><span class="tc-k">ESPP tax calculator</span><span class="vd own">unique</span></div>
+      <div class="tc-d">Qualifying vs disqualifying disposition, salary vs capital gain, and the corrected basis for Form 8949. <b>No competitor does the US side of this.</b></div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/h1b-tax-calculator.html">
+      <div class="tc-h"><span class="tc-k">H-1B tax calculator</span><span class="vd use">210/mo</span></div>
+      <div class="tc-d">2026 brackets, Social Security, Medicare and state tax &mdash; with the <b>FICA rules that actually apply to visa holders</b>, which generic salary calculators get wrong.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/form-8938-checker.html">
+      <div class="tc-h"><span class="tc-k">Form 8938 checker</span><span class="vd use">320/mo</span></div>
+      <div class="tc-d">FBAR is not the only one. Four threshold sets depending on filing status and whether you live in the US or abroad.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/form-3520-gift-checker.html">
+      <div class="tc-h"><span class="tc-k">Form 3520 gift checker</span><span class="vd use">210/mo</span></div>
+      <div class="tc-d">Parents sent money from India? Over $100,000 and it must be reported. <b>No tax is due</b> &mdash; but silence costs $10,000 minimum.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/pfic-checker.html">
+      <div class="tc-h"><span class="tc-k">PFIC / Form 8621 checker</span><span class="vd use">70/mo</span></div>
+      <div class="tc-d">Your SIP in India is a PFIC. One form per fund per year, and an unfiled one can <b>hold the statute of limitations open on your whole return</b>.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/fbar-prep-sheet.html">
+      <div class="tc-h"><span class="tc-k">FBAR prep sheet</span><span class="vd use">30/mo</span></div>
+      <div class="tc-d">Each Indian account converted at the Treasury year-end rate, the $10,000 aggregate check, and the exact figures for FinCEN Form 114.</div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/tools/missed-fbar-fix-finder.html">
+      <div class="tc-h"><span class="tc-k">Missed FBAR fix finder</span><span class="vd own">unique</span></div>
+      <div class="tc-d">You should have filed and didn't. Nine questions routing to the right IRS catch-up procedure. <b>No competitor has built this.</b></div>
+      <span class="tc-go">Open tool &rarr;</span></a>
+
+    <a class="tc" href="lesser-tax/index.html">
+      <div class="tc-h"><span class="tc-k">The hub</span><span class="vd own">all 20</span></div>
+      <div class="tc-d">Search, category filters, and the nine still on the roadmap. Generated from a single registry file.</div>
+      <span class="tc-go">Open hub &rarr;</span></a>
+  </div>
+
+  <div class="slabel">how it was built</div>
+  <h2 class="sh">Research first, then keyword data, then code</h2>
+
+  <div class="lanes">
+    <div class="ln"><div class="ln-n">01</div><div class="ln-t">Mine the demand</div><div class="ln-d">6,576 autocomplete queries scraped, then re-ranked against Google Keyword Planner. Found people search <b>form names</b>, not concepts &mdash; "form 8621" at 4,400 vs "pfic indian mutual funds" at 20.</div></div>
+    <div class="ln"><div class="ln-n">02</div><div class="ln-t">Map the field</div><div class="ln-d">13 competitor sites researched. Five rendered only in JavaScript and had to be driven in a headless browser to read at all.</div></div>
+    <div class="ln"><div class="ln-n">03</div><div class="ln-t">Verify every figure</div><div class="ln-d">Brackets and thresholds pulled from IRS Rev. Proc. 2025-32, the SSA and Treasury in-session. <b>Nothing quoted from memory.</b></div></div>
+    <div class="ln"><div class="ln-n">04</div><div class="ln-t">Test, don't assume</div><div class="ln-d">Every tool driven through Playwright case by case. The $150k H-1B case checked by hand to the dollar: $36,209.</div></div>
+  </div>
+
+  <div class="slabel">built to grow</div>
+  <h2 class="sh">A project, not a pile of pages</h2>
+  <p class="sintro">Nine more tools are mapped. Adding one is an entry in <code>tools.json</code> plus a build command &mdash; the hub regenerates itself with the new card, category, search terms and status.</p>
+
+  <div class="tw">
+  <table>
+    <tr><th>Decision</th><th>Why</th></tr>
+    <tr><td><b>One registry file drives the hub</b></td><td>Tool twelve costs minutes, not a redesign. Categories, search and roadmap states all derive from it.</td></tr>
+    <tr><td><b>Self-contained HTML, no backend</b></td><td>Hosts anywhere, opens from disk, and a visitor's bank balances never leave their machine &mdash; which is the trust argument, not a technical one.</td></tr>
+    <tr><td><b>Tax constants in one block per tool</b></td><td>Named sources, refreshed each autumn when the IRS revenue procedure lands. No hunting through code.</td></tr>
+    <tr><td><b>Per-tool <code>?src=</code> attribution</b></td><td>The original failure was not knowing which spend produced clients. Every CTA carries its tool's tag.</td></tr>
+    <tr><td><b>Plain HTML, not a JS framework</b></td><td>Five competitor calculators could not be read by an automated fetch. If a scraper can't read them, neither can an AI crawler.</td></tr>
+  </table>
+  </div>
+
+  <div class="gnote">
+    <b>Status:</b> the suite is built, tested and running. It is pending sign-off from the client's CPA before it goes live on their own domain &mdash; tools that tell someone their tax residency need a licensed professional to confirm the rules, not just verified arithmetic. Shown here as a build, not as tax advice.
+  </div>
+
+  <div class="foot wrap" style="padding-left:0;padding-right:0;max-width:none">
+    These tools were built for Lesser Tax and give general guidance only &mdash; not tax or legal advice. Figures come from IRS Revenue Procedure 2025-32, the Social Security Administration and Treasury Reporting Rates of Exchange. Each tool states what it does not cover. Nothing typed into them is transmitted anywhere.
+    <br><br>
+    <a href="ai-builds.html">&larr; More builds</a> &nbsp;&middot;&nbsp; <a href="index.html">Home</a>
+  </div>
+</div>
+
+</body>
+</html>

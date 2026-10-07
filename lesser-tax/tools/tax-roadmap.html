@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which US tax forms apply to me? | Lesser DIY</title>
+<meta name="description" content="Tick what applies to your life and get the list of US tax forms you probably owe - 1040 or 1040-NR, FBAR, 8938, 8621, 3520, 8949 - with the tool for each.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../assets/tool.css">
+<style>
+.secq{margin-top:22px}
+.secq h3{font-size:16px;margin-bottom:2px}
+.secq p.q{font-size:13.5px;color:var(--muted);margin-bottom:6px}
+.form{background:var(--white);border:1px solid var(--bd);border-left:4px solid var(--green);border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:var(--shadow)}
+.form.maybe{border-left-color:var(--warn-bd)}
+.form h4{margin:0;font-size:16.5px;color:var(--ink);font-weight:800;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.form h4 em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--hero);color:var(--green);border-radius:100px;padding:2px 9px}
+.form h4 em.m{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-bd)}
+.form p{font-size:14px;margin-top:7px;color:var(--sec)}
+.form .why{font-size:13px;color:var(--muted);margin-top:8px;font-style:italic}
+.form a.t{display:inline-block;margin-top:11px;font-size:13.5px;font-weight:700;text-decoration:none}
+.count{font-size:13px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="brand" href="../index.html">Lesser<span>.</span><em>DIY</em></a>
+  <a class="back" href="../index.html">&larr; All Lesser DIY tools</a>
+</div>
+
+<div class="intro">
+  <span class="eyebrow">Start here</span>
+  <h1>Which forms do <em>you</em> actually owe?</h1>
+  <p class="sub">Most people with one foot in each country are not worried about the tax. They are worried about the form nobody told them existed. Tick what is true of your life and get the list &mdash; <b>with the tool for each one</b>.</p>
+</div>
+
+<div class="panel hl">
+  <h2>Your life, in sixteen ticks</h2>
+  <p class="note-s">Nothing is sent anywhere. Tick what applies.</p>
+
+  <div class="secq">
+    <h3>Status</h3>
+    <p class="q">Where you are, and on what.</p>
+    <div class="chk"><input type="checkbox" id="q_visa"><label for="q_visa"><b>I am in the US on a visa</b><small>H-1B, L-1, F-1, J-1, H-4</small></label></div>
+    <div class="chk"><input type="checkbox" id="q_gc"><label for="q_gc"><b>I have a green card or US citizenship</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_new"><label for="q_new"><b>This is my first or second year in the US</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_back"><label for="q_back"><b>I am moving back to India, or already have</b></label></div>
+  </div>
+
+  <div class="secq">
+    <h3>Money in India</h3>
+    <p class="q">Anything you hold back home.</p>
+    <div class="chk"><input type="checkbox" id="q_bank"><label for="q_bank"><b>I have bank accounts in India</b><small>NRE, NRO, FCNR, savings, fixed deposits</small></label></div>
+    <div class="chk"><input type="checkbox" id="q_10k"><label for="q_10k"><b>Those accounts together passed $10,000 at some point</b><small>even for one day</small></label></div>
+    <div class="chk"><input type="checkbox" id="q_funds"><label for="q_funds"><b>I hold Indian mutual funds, ULIPs or an SIP</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_ppf"><label for="q_ppf"><b>I have PPF, EPF or NPS</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_prop"><label for="q_prop"><b>I own property in India</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_sold"><label for="q_sold"><b>I sold property or shares in India this year</b></label></div>
+  </div>
+
+  <div class="secq">
+    <h3>Money here</h3>
+    <p class="q">US pay and equity.</p>
+    <div class="chk"><input type="checkbox" id="q_rsu"><label for="q_rsu"><b>I have RSUs that vested</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_espp"><label for="q_espp"><b>I bought or sold ESPP shares</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_1099"><label for="q_1099"><b>I did contract work on a 1099</b></label></div>
+  </div>
+
+  <div class="secq">
+    <h3>Family</h3>
+    <p class="q">Money that moved between generations.</p>
+    <div class="chk"><input type="checkbox" id="q_gift"><label for="q_gift"><b>My parents or relatives sent me money from India</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_inherit"><label for="q_inherit"><b>I inherited money or property in India</b></label></div>
+    <div class="chk"><input type="checkbox" id="q_tds"><label for="q_tds"><b>Tax was deducted in India on my income there</b><small>TDS on rent, interest or a property sale</small></label></div>
+  </div>
+</div>
+
+<div style="margin-top:22px"><button class="btn" id="go">Show my forms</button></div>
+<div id="out"></div>
+
+<p class="disc">General guidance only, not tax or legal advice. This is a prompt list, not a filing requirement determination &mdash; every form here has thresholds, exceptions and definitions this tool does not apply. Use it to know what to ask about, then confirm each one properly. Nothing you tick leaves this browser.</p>
+
+</div>
+<script>
+/* --- CONFIG ------------------------------------------------ */
+const BOOKING_URL = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL  = "https://lesser.tax";
+/* ----------------------------------------------------------- */
+
+const $ = s => document.querySelector(s);
+const SRC = new URLSearchParams(location.search).get("src") || "tool-roadmap";
+const KEY = "lesser_roadmap_v1";
+const Q = ["q_visa","q_gc","q_new","q_back","q_bank","q_10k","q_funds","q_ppf","q_prop","q_sold",
+           "q_rsu","q_espp","q_1099","q_gift","q_inherit","q_tds"];
+const on = id => $("#"+id).checked;
+
+function save(){ const o={}; Q.forEach(q=>o[q]=on(q)); try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){} }
+function load(){ try{ const o=JSON.parse(localStorage.getItem(KEY))||{}; Q.forEach(q=>{ if(typeof o[q]==="boolean") $("#"+q).checked=o[q]; }); }catch(e){} }
+
+/* Each rule: when it fires, what it is, why, how certain, and which tool answers it. */
+const RULES = [
+  { id:"1040", when:()=>on("q_gc")||on("q_visa"), sure:true,
+    name:"Form 1040 or 1040-NR", tag:"Your return",
+    desc:"Which one depends on the substantial presence test, not on your visa. Get this wrong and everything downstream is wrong too.",
+    why:()=> on("q_new") ? "Your first years are exactly when this is hardest - an arrival year is often dual-status."
+                         : "You are living and earning in the US.",
+    tool:"substantial-presence-test.html", toolName:"Count my days" },
+
+  { id:"fbar", when:()=>on("q_10k")||(on("q_bank")&&on("q_prop")), sure:()=>on("q_10k"),
+    name:"FinCEN Form 114 (FBAR)", tag:"Foreign accounts",
+    desc:"Filed separately from your tax return, with FinCEN. The $10,000 limit is the combined high point across every Indian account, on any single day.",
+    why:()=> on("q_10k") ? "You said your accounts passed $10,000." : "You have Indian accounts and property - balances move around a sale.",
+    tool:"fbar-prep-sheet.html", toolName:"Work out my figures" },
+
+  { id:"8938", when:()=>on("q_bank")||on("q_funds")||on("q_ppf"), sure:false,
+    name:"Form 8938 (FATCA)", tag:"Foreign assets",
+    desc:"Different agency, different thresholds, same accounts. Attaches to your tax return. Many people file FBAR for years without knowing this one exists.",
+    why:()=>"You hold financial assets in India.",
+    tool:"form-8938-checker.html", toolName:"Check the threshold" },
+
+  { id:"8621", when:()=>on("q_funds"), sure:true,
+    name:"Form 8621 (PFIC)", tag:"Indian mutual funds",
+    desc:"One form per fund, every year you hold it. The default tax regime is punitive by design. This is the single most expensive surprise on this list.",
+    why:()=>"Indian mutual funds, ULIPs and SIPs are PFICs to the IRS.",
+    tool:"pfic-checker.html", toolName:"Check my exposure" },
+
+  { id:"3520", when:()=>on("q_gift")||on("q_inherit"), sure:false,
+    name:"Form 3520", tag:"Gifts from abroad",
+    desc:"No tax is due on a gift or inheritance from abroad. But above $100,000 in a year it must be reported, and the penalty for silence starts at $10,000.",
+    why:()=> on("q_inherit") ? "An inheritance from India is a gift from a foreign estate." : "Money came to you from family abroad.",
+    tool:"form-3520-gift-checker.html", toolName:"Check the threshold" },
+
+  { id:"8949", when:()=>on("q_rsu")||on("q_espp"), sure:true,
+    name:"Form 8949 with a basis adjustment", tag:"Equity",
+    desc:"Your broker almost certainly reports the wrong cost basis on RSU and ESPP sales. Filing what they sent taxes the same income twice.",
+    why:()=> on("q_rsu")&&on("q_espp") ? "You have both RSUs and ESPP - both have the same basis problem."
+           : on("q_rsu") ? "RSU income is already in your W-2; the 1099-B usually shows zero basis."
+                         : "The ESPP discount is already in your W-2; the 1099-B usually ignores it.",
+    tool: ()=> on("q_rsu") ? "rsu-tax-calculator.html" : "espp-tax-calculator.html",
+    toolName:"Work out the real basis" },
+
+  { id:"1116", when:()=>on("q_tds")||on("q_sold")||(on("q_prop")&&on("q_gc")), sure:false,
+    name:"Form 1116 (foreign tax credit)", tag:"Double tax",
+    desc:"Tax paid in India can offset US tax on the same income. Without this form you pay twice on money you only earned once.",
+    why:()=> on("q_tds") ? "TDS was already deducted in India." : "Indian income or a sale there is taxable in both countries.",
+    tool:null, toolName:null },
+
+  { id:"se", when:()=>on("q_1099"), sure:true,
+    name:"Schedule C and Schedule SE", tag:"Contracting",
+    desc:"1099 income carries self-employment tax on top of income tax, and usually quarterly estimated payments. Check your visa permits the work at all.",
+    why:()=>"You were paid on a 1099 rather than a W-2.",
+    tool:null, toolName:null },
+
+  { id:"rnor", when:()=>on("q_back"), sure:true,
+    name:"India: your RNOR window", tag:"Moving back",
+    desc:"Not a US form, but the biggest number on this page. For two or three years after you return, your US income can stay outside the Indian tax net - if you plan around it.",
+    why:()=>"You are moving back, or already have.",
+    tool:"rnor-calculator.html", toolName:"Check my window" },
+
+  { id:"sched", when:()=>on("q_back")&&(on("q_rsu")||on("q_bank")||on("q_gc")), sure:false,
+    name:"India: Schedule FA", tag:"Moving back",
+    desc:"Once you are ordinarily resident in India you must disclose every foreign asset - US bank accounts, brokerage, RSUs, 401(k). Penalties for omission are severe.",
+    why:()=>"You will hold US assets after becoming resident in India.",
+    tool:null, toolName:null }
+];
+
+function run(){
+  const fired = RULES.filter(r => r.when());
+  const any = Q.some(on);
+
+  if (!any){
+    $("#out").innerHTML = '<div class="note" style="margin-top:22px"><b>Tick at least one box.</b> The list is built from what you tell it.</div>';
+    return;
+  }
+  if (!fired.length){
+    $("#out").innerHTML =
+      '<div class="verdict clear" style="margin-top:22px"><span class="label">Your list</span>' +
+      '<h3>Nothing obvious from what you ticked</h3>' +
+      '<p>That does not mean nothing applies &mdash; it means none of the common triggers fired. If you have any money, property or family money in India, it is worth a conversation.</p></div>';
+    return;
+  }
+
+  const certain = fired.filter(r => (typeof r.sure === "function" ? r.sure() : r.sure)).length;
+
+  const cards = fired.map(r => {
+    const sure = typeof r.sure === "function" ? r.sure() : r.sure;
+    const tool = typeof r.tool === "function" ? r.tool() : r.tool;
+    return '<div class="form' + (sure ? "" : " maybe") + '">' +
+      '<h4>' + r.name + ' <em class="' + (sure ? "" : "m") + '">' + (sure ? r.tag : "check " + r.tag.toLowerCase()) + '</em></h4>' +
+      '<p>' + r.desc + '</p>' +
+      '<p class="why">Why this came up: ' + r.why() + '</p>' +
+      (tool ? '<a class="t" href="' + tool + '?src=' + encodeURIComponent(SRC) + '">' + r.toolName + ' &rarr;</a>' : '') +
+      '</div>';
+  }).join("");
+
+  const big =
+    '<div class="big">' +
+    '<div><div class="k">Things to handle</div><div class="v">' + fired.length + '</div><div class="s">from your answers</div></div>' +
+    '<div><div class="k">Almost certain</div><div class="v" style="color:var(--err)">' + certain + '</div><div class="s">these apply to you</div></div>' +
+    '<div><div class="k">Worth checking</div><div class="v" style="color:var(--warn)">' + (fired.length - certain) + '</div><div class="s">depends on amounts</div></div>' +
+    '</div>';
+
+  $("#out").innerHTML =
+    '<div class="verdict exposed"><span class="label">Your list</span>' +
+    '<h3>' + fired.length + ' thing' + (fired.length === 1 ? "" : "s") + ' to deal with</h3>' +
+    '<p>Green means it almost certainly applies. Amber means it depends on amounts you should check. <b>None of this means you owe more tax</b> &mdash; most of these are reporting forms, and the cost of ignoring them is penalties, not tax.</p></div>' +
+    big +
+    '<div class="panel"><h2>What applies to you</h2>' +
+    '<p class="note-s">Each one links to the tool that answers it.</p>' +
+    cards +
+    '<details class="more"><summary>Why there are so many</summary><ul>' +
+    '<li><b>The US taxes its residents on worldwide income.</b> Once you are a resident for tax purposes, India does not become someone else’s problem &mdash; it becomes part of your US return.</li>' +
+    '<li><b>Most of these are information returns.</b> They report things, they do not tax them. The penalties exist to make sure you report.</li>' +
+    '<li><b>Nothing talks to anything else.</b> FBAR goes to FinCEN, 8938 to the IRS, 8621 per fund, 3520 to a different address. Filing one tells the others nothing.</li>' +
+    '<li><b>Software rarely catches these.</b> Mainstream US tax software is built for people whose money is all in one country.</li>' +
+    '</ul></details></div>' +
+    '<div class="cta"><h3>This is the list. The return is the work.</h3>' +
+    '<p>Each of these has thresholds and exceptions, and they interact &mdash; the same Indian mutual fund can appear on three different forms. Sign up and you get straight on a call with a CPA who will tell you which ones actually apply to you.</p>' +
+    '<div class="cta-row"><a class="btn" href="' + SIGNUP_URL + '?src=' + encodeURIComponent(SRC) + '">Sign up and talk to a CPA</a>' +
+    (BOOKING_URL.indexOf("REPLACE") > -1 ? "" : '<a class="ghost" href="' + BOOKING_URL + '?src=' + encodeURIComponent(SRC) + '">Book 15 minutes</a>') +
+    '</div></div>';
+
+  $("#out").scrollIntoView({ behavior:"smooth", block:"start" });
+  save();
+}
+Q.forEach(q => $("#"+q).addEventListener("change", save));
+$("#go").addEventListener("click", run);
+load();
+</script>
+</body>
+</html>

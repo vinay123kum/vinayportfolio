@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FBAR Prep Sheet for Indian Accounts | Lesser</title>
+<meta name="description" content="Work out the maximum value of each Indian account in dollars, check whether you crossed the $10,000 FBAR threshold, and get the exact numbers to type into FinCEN Form 114.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --cream:#faf8f0; --white:#ffffff; --hero:#e8f5f3; --tint:#f0f7f6;
+  --green:#034f46; --green-dk:#023d35; --green-deep:#011f1a; --green-mid:#056b5e;
+  --ink:#1a1a1a; --body:#374151; --sec:#4b5563; --muted:#6b7280;
+  --bd-strong:#c8deda; --bd:#e0e8e5; --bd-light:#f0f0f0;
+  --ok:#059669; --ok-bg:#ecfdf5; --ok-bd:#a7f3d0;
+  --warn:#92400e; --warn-bg:#fffbeb; --warn-bd:#fcd34d;
+  --err:#dc2626;
+  --shadow:0 1px 2px rgba(3,79,70,.05), 0 8px 24px -18px rgba(3,79,70,.25);
+  --font:"Plus Jakarta Sans","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--body);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+a{color:var(--green)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px 72px}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:22px 0 14px;border-bottom:1px solid var(--bd)}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.brand span{color:var(--green)}
+.intro{padding:30px 0 4px}
+.eyebrow{display:inline-block;background:var(--hero);color:var(--green);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(28px,4.4vw,32px);line-height:1.15}
+h1 em{font-style:normal;color:var(--green)}
+.sub{font-size:16px;color:var(--body);margin:14px 0 0;max-width:62ch}
+.sub b{color:var(--ink);font-weight:700}
+/* buttons */
+button,.btn{font-family:var(--font)}
+.btn{background:var(--green);color:#fff;border:0;border-radius:100px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;transition:background .15s}
+.btn:hover{background:var(--green-dk)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:100px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.ghost:hover{background:rgba(3,79,70,.05)}
+.mini{background:transparent;border:1.5px solid var(--bd-strong);color:var(--muted);border-radius:100px;font-size:12px;font-weight:700;padding:7px 14px;cursor:pointer;font-family:var(--font)}
+.mini:hover{border-color:var(--err);color:var(--err)}
+button:focus-visible,.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,label:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+/* inputs */
+input,select{font-family:var(--font);font-size:15px;padding:11px 12px;border:1px solid var(--bd-strong);border-radius:10px;background:var(--white);color:var(--ink)}
+input:focus-visible,select:focus-visible{outline:2px solid var(--green);outline-offset:1px}
+/* cards */
+.card,.panel,.quiz{background:var(--white);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--shadow)}
+.note{margin-top:14px;padding:13px 16px;border-left:3px solid var(--warn-bd);background:var(--warn-bg);font-size:14px;color:var(--body);border-radius:0 10px 10px 0}
+.note b{color:var(--ink);font-weight:700}
+.note.red{border-left-color:var(--err);background:#fff}
+details.more{margin-top:14px;background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:12px 16px}
+details.more summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--green)}
+details.more ul{margin:10px 0 2px;padding-left:18px;font-size:14px;color:var(--body);display:flex;flex-direction:column;gap:4px}
+details.more ul b{color:var(--ink);font-weight:700}
+.msg{font-size:13px;margin:8px 0 0;min-height:1em}
+.msg.ok{color:var(--ok);font-weight:700}
+.msg.bad{color:var(--err);font-weight:700}
+.disc{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--bd);padding-top:14px}
+/* cta block */
+.cta{margin-top:22px;padding:22px;border-radius:16px;background:var(--hero);border:1px solid var(--bd-strong)}
+.cta h3{font-size:20px}
+.cta p{margin:6px 0 16px;font-size:14px;color:var(--body)}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap}
+form.mail{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+form.mail input{flex:1;min-width:200px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.panel{padding:24px;margin-top:22px}
+.panel.hl{border-top:3px solid var(--green)}
+.panel h2{font-size:20px;margin-bottom:6px}
+.panel .note-s{font-size:14px;color:var(--body);margin:0 0 18px}
+.panel .note-s b{color:var(--ink);font-weight:700}
+.setup{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.fld label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.fld input,.fld select{width:100%}
+.fld .help{font-size:12px;color:var(--muted);margin-top:6px;display:block}
+/* table */
+.tblwrap{overflow-x:auto;margin-top:4px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:14px}
+th{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec);text-align:left;padding:10px 8px;border-bottom:1px solid var(--bd);white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid var(--bd-light);vertical-align:middle}
+td input,td select{width:100%;font-size:14px;padding:9px 10px;border-radius:10px}
+td.usd{font-weight:800;white-space:nowrap;text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+td.act{text-align:right}
+.rowbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+/* verdict */
+.verdict{margin-top:20px;border-radius:16px;padding:20px 22px;border:1px solid transparent}
+.verdict .label{display:block;margin-bottom:6px}
+.verdict h3{font-size:21px;line-height:1.3}
+.verdict p{margin:9px 0 0;font-size:14px;line-height:1.55;color:var(--body)}
+.v-yes{background:var(--warn-bg);border-color:var(--warn-bd)} .v-yes .label{color:var(--warn)}
+.v-no{background:var(--ok-bg);border-color:var(--ok-bd)}     .v-no .label{color:var(--ok)}
+.v-idle{background:var(--tint);border:1px dashed var(--bd-strong)} .v-idle .label{color:var(--sec)}
+.totrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.tot{background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:12px 16px;min-width:150px}
+.tot .label{display:block;margin-bottom:4px}
+.tot .n{font-size:24px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.tot .n.s{color:var(--warn)} .tot .n.g{color:var(--ok)}
+/* output */
+.out{font-size:13px;line-height:1.75;background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:16px;white-space:pre;overflow-x:auto;margin-top:6px;color:var(--ink);font-variant-numeric:tabular-nums}
+.deadline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px}
+.pill{font-size:12px;font-weight:700;background:var(--white);border:1px solid var(--bd-strong);border-radius:100px;padding:7px 14px;color:var(--ink)}
+.pill b{color:var(--green)}
+@media (max-width:640px){.panel{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span class="brand">Lesser<span>.</span></span>
+    <span class="label">Free tool · nothing leaves your browser</span>
+  </div>
+
+  <div class="intro">
+    <span class="eyebrow" id="eyebrow">FBAR deadline</span>
+    <h1>Your Indian accounts,<br><em>ready for Form 114.</em></h1>
+    <p class="sub">Add each account and its <b>highest balance</b> during the year. This works out the dollar value the way FinCEN wants it, tells you whether you crossed <b>$10,000</b>, and gives you the exact numbers to type into the form.</p>
+    <div class="deadline" id="deadline"></div>
+  </div>
+
+  <!-- SETUP -->
+  <div class="panel">
+    <h2>1. The year and the rate</h2>
+    <p class="note-s">FBAR uses <b>one rate for the whole year</b>: the US Treasury's rate for <b>31 December</b> of that year. Not the rate on the day your balance peaked, and not your bank's rate.</p>
+    <div class="setup">
+      <div class="fld">
+        <label for="year">Calendar year</label>
+        <select id="year"></select>
+      </div>
+      <div class="fld">
+        <label for="rate">Treasury rate (rupees per $1)</label>
+        <input id="rate" type="number" step="0.0001" min="0.0001" inputmode="decimal">
+        <span class="help" id="rateHelp"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCOUNTS -->
+  <div class="panel hl">
+    <h2>2. Your accounts</h2>
+    <p class="note-s">One row per account. Use the <b>highest balance it reached at any point</b> in the year, not the closing balance.</p>
+    <div class="tblwrap">
+      <table>
+        <thead><tr>
+          <th style="min-width:150px">Type</th>
+          <th style="min-width:150px">Bank / institution</th>
+          <th style="min-width:170px">Whose account</th>
+          <th style="min-width:140px">Highest balance</th>
+          <th style="min-width:90px">Currency</th>
+          <th style="min-width:110px;text-align:right">Max value</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="rowbtns">
+      <button class="btn" id="addRow" type="button">+ Add account</button>
+      <button class="ghost" id="loadEg" type="button">Fill an example</button>
+      <button class="ghost" id="clearAll" type="button">Clear all</button>
+    </div>
+
+    <details class="more">
+      <summary>Which accounts count?</summary>
+      <ul>
+        <li><b>NRE, NRO and FCNR</b> accounts — yes, including NRE even though it's tax-free in India</li>
+        <li><b>Savings accounts and fixed deposits</b> — yes</li>
+        <li><b>PPF</b> — yes</li>
+        <li><b>Demat accounts and Indian mutual funds</b> — yes</li>
+        <li><b>ULIPs and life insurance with a cash value</b> — yes</li>
+        <li><b>Joint accounts with parents</b> — yes, and you report the <b>full</b> balance, not your share</li>
+        <li><b>Accounts you can sign on but don't own</b> — yes, reported differently (signature authority)</li>
+        <li><b>Indian real estate held directly</b> — no, property itself isn't a financial account</li>
+      </ul>
+    </details>
+
+    <div class="verdict v-idle" id="verdict"><span class="label">Result</span><h3>Add an account to see where you stand</h3></div>
+    <div class="totrow" id="totals"></div>
+    <div id="flags"></div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="panel" id="outPanel" style="display:none">
+    <h2>3. What to type into Form 114</h2>
+    <p class="note-s">FinCEN rounds <b>up</b> to the next whole dollar, so these figures are already rounded. File free at the <a href="https://bsaefiling.fincen.treas.gov/" target="_blank" rel="noopener">BSA E-Filing System</a>.</p>
+    <div class="out" id="out"></div>
+    <div class="rowbtns">
+      <button class="ghost" id="copyBtn" type="button">Copy to clipboard</button>
+      <button class="ghost" id="csvBtn" type="button">Download CSV</button>
+    </div>
+    <p class="msg" id="copyMsg" role="status"></p>
+  </div>
+
+  <div class="cta" id="cta" style="display:none">
+    <h3>Want us to file it for you?</h3>
+    <p>We do this every day for Indians in the US. If you've missed earlier years, there's a penalty-free route for most people — that's worth a conversation before you file anything.</p>
+    <a class="btn" id="bookBtn" href="#" target="_blank" rel="noopener">Book a free 15-min call →</a>
+    <form class="mail" id="mailForm" novalidate>
+      <input type="email" id="mail" placeholder="Email me this sheet" aria-label="Your email" autocomplete="email">
+      <button class="ghost" type="submit">Send</button>
+    </form>
+    <p class="msg" id="msg" role="status"></p>
+  </div>
+
+  <p class="disc">General guidance only, not tax or legal advice. Rates change every year — always check the figure against the <a href="https://fiscal.treasury.gov/resources/reporting-rates-exchange" target="_blank" rel="noopener">Treasury Reporting Rates of Exchange</a> before filing. Your entries stay in this browser and are never sent anywhere unless you choose to email them to yourself.</p>
+</div>
+
+<script>
+/* ─── CONFIG ─────────────────────────────────────────────── */
+const BOOKING_URL   = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL    = "https://lesser.tax";
+const CTA_URL       = BOOKING_URL.indexOf("REPLACE") > -1 ? SIGNUP_URL : BOOKING_URL;
+const LEAD_ENDPOINT = "";                    // webhook; "" falls back to mailto
+const OWNER_EMAIL   = "hello@lesser.tax";
+const FIX_FINDER_URL = "missed-fbar-fix-finder.html";
+/* Verified Treasury year-end rates (rupees per USD). Add new years as Treasury publishes them. */
+const RATES = { 2025: 89.8540 };
+/* ────────────────────────────────────────────────────────── */
+
+const SRC = new URLSearchParams(location.search).get("src") || "tool-fbar-prep";
+const KEY = "lesser_fbar_prep_v1";
+const TYPES = ["NRE account","NRO account","FCNR account","Savings account","Fixed deposit","PPF","Demat account","Mutual funds","ULIP / insurance","EPF","Other"];
+const OWNERS = [["own","Mine only"],["joint_spouse","Joint with spouse"],["joint_other","Joint with parent / someone else"],["signature","I can sign, not my money"]];
+
+const today = new Date();
+const thisYear = today.getFullYear();
+const YEARS = []; for (let y = thisYear - 1; y >= thisYear - 6; y--) YEARS.push(y);
+const dueDate = y => new Date(y + 1, 9, 15, 23, 59);
+const fmt = n => "$" + Math.round(n).toLocaleString();
+
+let state = { year: YEARS[0], rate: null, rows: [] };
+try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s && s.rows) state = s; } catch(e){}
+
+const $ = id => document.getElementById(id);
+
+/* setup controls */
+const ySel = $("year");
+YEARS.forEach(y => { const o = document.createElement("option"); o.value = y; o.textContent = y; ySel.appendChild(o); });
+ySel.value = state.year;
+function rateFor(y){ return RATES[y] ?? null; }
+function applyRateUI(){
+  const known = rateFor(state.year);
+  $("rateHelp").innerHTML = known
+    ? `Treasury rate for 31 Dec ${state.year}. <a href="https://fiscal.treasury.gov/resources/reporting-rates-exchange" target="_blank" rel="noopener">Verify</a>`
+    : `<b>We don't have the ${state.year} rate built in.</b> Look it up on the <a href="https://fiscal.treasury.gov/resources/reporting-rates-exchange" target="_blank" rel="noopener">Treasury page</a> and type it here.`;
+}
+if (state.rate == null) state.rate = rateFor(state.year);
+$("rate").value = state.rate ?? "";
+applyRateUI();
+ySel.addEventListener("change", () => {
+  state.year = +ySel.value;
+  state.rate = rateFor(state.year);
+  $("rate").value = state.rate ?? "";
+  applyRateUI(); save(); recalc();
+});
+$("rate").addEventListener("input", () => { state.rate = parseFloat($("rate").value) || null; save(); recalc(); });
+
+/* deadline strip */
+(function deadline(){
+  const y = state.year, due = dueDate(y);
+  const days = Math.ceil((due - today) / 86400000);
+  const el = $("deadline");
+  if (days >= 0){
+    $("eyebrow").textContent = `FBAR ${y} · due 15 Oct ${y+1}`;
+    el.innerHTML = `<span class="pill">FBAR for <b>${y}</b></span><span class="pill">Due <b>15 Oct ${y+1}</b></span><span class="pill"><b>${days}</b> days left</span><span class="pill">Filing is free</span>`;
+  } else {
+    $("eyebrow").textContent = `FBAR ${y} · deadline passed`;
+    el.innerHTML = `<span class="pill">FBAR for <b>${y}</b></span><span class="pill">Deadline passed <b>15 Oct ${y+1}</b></span><span class="pill"><a href="${FIX_FINDER_URL}">Missed it? Find your fix →</a></span>`;
+  }
+})();
+
+/* rows */
+function blank(){ return { type:"NRE account", bank:"", owner:"own", amt:"", cur:"INR" }; }
+function rowHTML(r, i){
+  return `<tr data-i="${i}">
+    <td><select data-f="type">${TYPES.map(t=>`<option ${t===r.type?"selected":""}>${t}</option>`).join("")}</select></td>
+    <td><input data-f="bank" value="${r.bank.replace(/"/g,"&quot;")}" placeholder="e.g. HDFC"></td>
+    <td><select data-f="owner">${OWNERS.map(([v,t])=>`<option value="${v}" ${v===r.owner?"selected":""}>${t}</option>`).join("")}</select></td>
+    <td><input data-f="amt" type="number" min="0" inputmode="decimal" value="${r.amt}" placeholder="highest balance"></td>
+    <td><select data-f="cur"><option ${r.cur==="INR"?"selected":""}>INR</option><option ${r.cur==="USD"?"selected":""}>USD</option></select></td>
+    <td class="usd" data-usd>—</td>
+    <td class="act"><button class="mini" data-del title="Remove">Remove</button></td>
+  </tr>`;
+}
+function draw(){
+  $("rows").innerHTML = state.rows.map(rowHTML).join("");
+  recalc();
+}
+$("rows").addEventListener("input", e => {
+  const tr = e.target.closest("tr"); if (!tr) return;
+  state.rows[+tr.dataset.i][e.target.dataset.f] = e.target.value;
+  save(); recalc();
+});
+$("rows").addEventListener("change", e => {
+  const tr = e.target.closest("tr"); if (!tr) return;
+  state.rows[+tr.dataset.i][e.target.dataset.f] = e.target.value;
+  save(); recalc();
+});
+$("rows").addEventListener("click", e => {
+  if (!e.target.matches("[data-del]")) return;
+  state.rows.splice(+e.target.closest("tr").dataset.i, 1);
+  save(); draw();
+});
+$("addRow").addEventListener("click", () => { state.rows.push(blank()); save(); draw();
+  const last = $("rows").querySelector("tr:last-child input[data-f='bank']"); if (last) last.focus(); });
+$("clearAll").addEventListener("click", () => { state.rows = []; save(); draw(); });
+$("loadEg").addEventListener("click", () => {
+  state.rows = [
+    { type:"NRE account", bank:"HDFC", owner:"own", amt:"400000", cur:"INR" },
+    { type:"Fixed deposit", bank:"SBI", owner:"own", amt:"300000", cur:"INR" },
+    { type:"Savings account", bank:"ICICI", owner:"joint_other", amt:"500000", cur:"INR" }
+  ];
+  save(); draw();
+});
+
+function usdOf(r){
+  const amt = parseFloat(r.amt); if (!(amt > 0)) return null;
+  if (r.cur === "USD") return Math.ceil(amt);
+  if (!(state.rate > 0)) return null;
+  return Math.ceil(amt / state.rate);          // FinCEN: round up to the next whole dollar
+}
+
+function recalc(){
+  let total = 0, filled = 0;
+  [...$("rows").children].forEach(tr => {
+    const r = state.rows[+tr.dataset.i];
+    const v = usdOf(r);
+    tr.querySelector("[data-usd]").textContent = v == null ? "—" : fmt(v);
+    if (v != null){ total += v; filled++; }
+  });
+
+  const v = $("verdict"), t = $("totals"), f = $("flags");
+  if (!filled){
+    v.className = "verdict v-idle";
+    v.innerHTML = `<span class="label">Result</span><h3>Add an account to see where you stand</h3>`;
+    t.innerHTML = ""; f.innerHTML = "";
+    $("outPanel").style.display = "none"; $("cta").style.display = "none";
+    return;
+  }
+
+  const over = total > 10000;
+  v.className = "verdict " + (over ? "v-yes" : "v-no");
+  v.innerHTML = over
+    ? `<span class="label">You need to file</span><h3>Your accounts add up to ${fmt(total)} — over the $10,000 line</h3>
+       <p>You have to file an FBAR for ${state.year}, listing <b>every</b> account below, even the small ones. Filing is free and there's no tax to pay on it.</p>`
+    : `<span class="label">Probably not required</span><h3>Your accounts add up to ${fmt(total)} — under $10,000</h3>
+       <p>On these numbers, FBAR isn't required for ${state.year}. Double-check you've included every account, and used the <b>highest</b> balance each one reached, not the closing balance.</p>`;
+
+  t.innerHTML = `
+    <div class="tot"><span class="label">Accounts</span><span class="n">${filled}</span></div>
+    <div class="tot"><span class="label">Combined max value</span><span class="n ${over?"s":"g"}">${fmt(total)}</span></div>
+    <div class="tot"><span class="label">Threshold</span><span class="n">$10,000</span></div>`;
+
+  const notes = [];
+  if (state.rows.some(r => r.owner === "joint_other" && usdOf(r) != null))
+    notes.push(`<div class="note"><b>Joint accounts count in full.</b> If you're a joint holder on a parent's account, you report the entire balance, not your share. It's included above at full value.</div>`);
+  if (state.rows.some(r => r.owner === "signature" && usdOf(r) != null))
+    notes.push(`<div class="note"><b>Signature authority is reported separately.</b> Accounts you can sign on but don't own go in their own part of the form, and they still count toward the $10,000.</div>`);
+  if (state.rows.some(r => r.owner === "joint_spouse" && usdOf(r) != null))
+    notes.push(`<div class="note"><b>Joint with your spouse:</b> in some cases one spouse can file for both using Form 114a. Worth checking rather than assuming.</div>`);
+  if (over && total > 50000)
+    notes.push(`<div class="note red"><b>Over $50,000 — Form 8938 may apply too.</b> That's a different form with different thresholds, filed with your tax return. FBAR alone may not be enough.</div>`);
+  f.innerHTML = notes.join("");
+
+  buildOut(total, over);
+  $("outPanel").style.display = over ? "block" : "none";
+  $("cta").style.display = over ? "block" : "none";
+  $("bookBtn").href = CTA_URL + (CTA_URL.includes("?") ? "&" : "?") + "src=" + encodeURIComponent(SRC);
+}
+
+function ownerLabel(v){ return (OWNERS.find(o => o[0] === v) || ["","—"])[1]; }
+function buildOut(total, over){
+  const lines = [];
+  lines.push(`FBAR ${state.year} — maximum account values`);
+  lines.push(`Treasury rate used: ${state.rate} rupees per $1 (31 Dec ${state.year})`);
+  lines.push("");
+  state.rows.forEach((r, i) => {
+    const v = usdOf(r); if (v == null) return;
+    lines.push(`${i+1}. ${r.type}${r.bank ? " — " + r.bank : ""}`);
+    lines.push(`   Max value: ${fmt(v)}   |   ${ownerLabel(r.owner)}   |   entered: ${r.amt} ${r.cur}`);
+  });
+  lines.push("");
+  lines.push(`Combined maximum value: ${fmt(total)}`);
+  lines.push(over ? `Over $10,000 — FBAR required for ${state.year}.` : `Under $10,000 — FBAR not required on these figures.`);
+  $("out").textContent = lines.join("\n");
+}
+
+$("copyBtn").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText($("out").textContent); $("copyMsg").className="msg ok"; $("copyMsg").textContent="Copied."; }
+  catch(e){ $("copyMsg").className="msg bad"; $("copyMsg").textContent="Couldn't copy — select the text above instead."; }
+});
+$("csvBtn").addEventListener("click", () => {
+  const head = ["Account type","Bank","Whose account","Entered amount","Currency","Max value USD"];
+  const rows = state.rows.filter(r => usdOf(r) != null)
+    .map(r => [r.type, r.bank, ownerLabel(r.owner), r.amt, r.cur, usdOf(r)]);
+  const csv = [head, ...rows].map(a => a.map(x => `"${String(x).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const url = URL.createObjectURL(new Blob([csv], {type:"text/csv"}));
+  const a = document.createElement("a"); a.href = url; a.download = `fbar-${state.year}-max-values.csv`; a.click();
+  URL.revokeObjectURL(url);
+  $("copyMsg").className="msg ok"; $("copyMsg").textContent="CSV downloaded.";
+});
+
+$("mailForm").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const email = $("mail").value.trim(), msg = $("msg");
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.className="msg bad"; msg.textContent="That email doesn't look right."; return; }
+  const payload = { email, year: state.year, rate: state.rate, sheet: $("out").textContent, source: SRC, tool: "fbar-prep-sheet" };
+  if (!LEAD_ENDPOINT){
+    location.href = "mailto:" + OWNER_EMAIL + "?subject=" + encodeURIComponent(`My FBAR ${state.year} prep sheet`) + "&body=" + encodeURIComponent($("out").textContent);
+    msg.className="msg ok"; msg.textContent="Opening your email app…"; return;
+  }
+  try { await fetch(LEAD_ENDPOINT, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(payload)});
+    msg.className="msg ok"; msg.textContent="Sent. Check your inbox."; }
+  catch(e){ msg.className="msg bad"; msg.textContent="That didn't send. Email " + OWNER_EMAIL + " instead."; }
+});
+
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+if (!state.rows.length) state.rows = [blank()];
+draw();
+</script>
+</body>
+</html>

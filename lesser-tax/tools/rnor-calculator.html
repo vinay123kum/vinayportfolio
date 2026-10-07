@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RNOR Calculator - moving back to India | Lesser DIY</title>
+<meta name="description" content="Work out whether you are NRI, RNOR or Resident when you move back to India - the 182-day test, the 729-day rule and the 9-out-of-10 test - and how long your foreign income stays untaxed in India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{--cream:#faf8f0;--white:#fff;--hero:#e8f5f3;--tint:#f0f7f6;--green:#034f46;--green-dk:#023d35;--ink:#1a1a1a;--body:#374151;--sec:#4b5563;--muted:#6b7280;--bd-strong:#c8deda;--bd:#e0e8e5;--bd-light:#f0f0f0;--ok:#059669;--ok-bg:#ecfdf5;--ok-bd:#a7f3d0;--warn:#92400e;--warn-bg:#fffbeb;--warn-bd:#fcd34d;--err:#dc2626;--shadow:0 1px 2px rgba(3,79,70,.05),0 8px 24px -18px rgba(3,79,70,.25);--font:"Plus Jakarta Sans","Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--body);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:800;letter-spacing:-.03em;text-wrap:balance}
+a{color:var(--green)}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 72px}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:22px 0 14px;border-bottom:1px solid var(--bd)}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.brand span{color:var(--green)}
+.brand em{font-style:normal;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);background:var(--hero);padding:3px 8px;border-radius:100px;margin-left:7px;vertical-align:2px}
+.top a.back{font-size:13px;font-weight:700;text-decoration:none}
+.intro{padding:30px 0 4px}
+.eyebrow{display:inline-block;background:var(--hero);color:var(--green);padding:6px 14px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+h1{font-size:clamp(28px,4.4vw,32px);line-height:1.15}
+h1 em{font-style:normal;color:var(--green)}
+.sub{font-size:16px;margin:14px 0 0;max-width:63ch}
+.sub b{color:var(--ink);font-weight:700}
+.btn{background:var(--green);color:#fff;border:0;border-radius:100px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;font-family:var(--font)}
+.btn:hover{background:var(--green-dk)}
+.ghost{background:transparent;color:var(--green);border:1.5px solid var(--green);border-radius:100px;padding:12px 26px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);text-decoration:none;display:inline-block}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+input,select{font-family:var(--font);font-size:15px;padding:11px 12px;border:1px solid var(--bd-strong);border-radius:10px;background:var(--white);color:var(--ink)}
+.panel{background:var(--white);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--shadow);padding:24px;margin-top:22px}
+.panel.hl{border-top:3px solid var(--green)}
+.panel h2{font-size:20px;margin-bottom:6px}
+.panel .note-s{font-size:14px;margin:0 0 18px}
+.panel .note-s b{color:var(--ink);font-weight:700}
+.fld label{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.fld input,.fld select{width:100%}
+.fld .help{font-size:12px;color:var(--muted);margin-top:6px;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:16px}
+.note{margin-top:16px;padding:13px 16px;border-left:3px solid var(--warn-bd);background:var(--warn-bg);font-size:14px;border-radius:0 10px 10px 0}
+.note b{color:var(--ink);font-weight:700}
+.note.good{border-left-color:var(--ok-bd);background:var(--ok-bg)}
+details.more{margin-top:16px;background:var(--tint);border:1px solid var(--bd);border-radius:12px;padding:12px 16px}
+details.more summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--green)}
+details.more ul{margin:10px 0 2px;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:7px}
+details.more b{color:var(--ink);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:6px}
+th{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sec);text-align:left;padding:10px 8px;border-bottom:1px solid var(--bd)}
+td{padding:10px 8px;border-bottom:1px solid var(--bd-light)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink);white-space:nowrap}
+td small{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-top:2px}
+.yes{color:var(--ok);font-weight:800}.no{color:var(--muted);font-weight:800}
+.verdict{margin-top:22px;border-radius:16px;padding:22px;border:1px solid transparent}
+.verdict.rnor{background:var(--ok-bg);border-color:var(--ok-bd)}
+.verdict.nri{background:var(--hero);border-color:var(--bd-strong)}
+.verdict.ror{background:var(--warn-bg);border-color:var(--warn-bd)}
+.verdict h3{font-size:23px;line-height:1.3;margin-top:4px}
+.verdict p{margin:10px 0 0;font-size:14.5px;line-height:1.6}
+.verdict p b{color:var(--ink)}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:20px}
+.big div{background:var(--white);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.big .k{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--sec)}
+.big .v{font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-.03em;margin-top:4px}
+.big .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.cta{margin-top:22px;padding:22px;border-radius:16px;background:var(--hero);border:1px solid var(--bd-strong)}
+.cta h3{font-size:20px}.cta p{margin:6px 0 16px;font-size:14px}
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.disc{margin-top:32px;font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--bd);padding-top:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <a class="brand" href="../index.html">Lesser<span>.</span><em>DIY</em></a>
+  <a class="back" href="../index.html">&larr; All Lesser DIY tools</a>
+</div>
+
+<div class="intro">
+  <span class="eyebrow">Moving back to India</span>
+  <h1>How long your <em>RNOR</em> window lasts</h1>
+  <p class="sub">When you move back, India does not tax you as a full resident straight away. For two or three years you can be <b>Resident but Not Ordinarily Resident</b> &mdash; and in that window your foreign income, including your US salary, 401(k) and capital gains, generally stays outside the Indian net. Most people waste it because nobody told them it existed.</p>
+</div>
+
+<div class="panel hl">
+  <h2>1. This financial year</h2>
+  <p class="note-s">India's financial year runs <b>1 April to 31 March</b>. Count days you were physically in India.</p>
+  <div class="grid">
+    <div class="fld">
+      <label for="fy">Financial year</label>
+      <select id="fy">
+        <option value="2026-27" selected>FY 2026-27</option>
+        <option value="2025-26">FY 2025-26</option>
+        <option value="2027-28">FY 2027-28</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label for="d0">Days in India this financial year</label>
+      <input id="d0" type="number" inputmode="numeric" min="0" max="366" placeholder="0">
+    </div>
+    <div class="fld">
+      <label for="d4">Days in India over the 4 years before this one</label>
+      <input id="d4" type="number" inputmode="numeric" min="0" max="1461" placeholder="0">
+      <span class="help">Total across all four, not per year.</span>
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>2. Your history</h2>
+  <p class="note-s">These two tests decide whether you get the RNOR window.</p>
+  <div class="grid">
+    <div class="fld">
+      <label for="d7">Days in India over the 7 years before this one</label>
+      <input id="d7" type="number" inputmode="numeric" min="0" max="2557" placeholder="0">
+      <span class="help">729 or fewer and you qualify.</span>
+    </div>
+    <div class="fld">
+      <label for="nr10">Years you were a non-resident, out of the last 10</label>
+      <input id="nr10" type="number" inputmode="numeric" min="0" max="10" placeholder="0">
+      <span class="help">9 or more and you qualify.</span>
+    </div>
+    <div class="fld">
+      <label for="cit">Citizenship</label>
+      <select id="cit">
+        <option value="in" selected>Indian citizen or OCI / PIO</option>
+        <option value="other">Neither</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label for="inc">Your India-source income this year</label>
+      <select id="inc">
+        <option value="low" selected>Under &#8377;15 lakh</option>
+        <option value="high">&#8377;15 lakh or more</option>
+      </select>
+      <span class="help">India income only, not your US salary.</span>
+    </div>
+    <div class="fld">
+      <label for="visit">Were you in India on a visit, or living there?</label>
+      <select id="visit">
+        <option value="visit" selected>Visiting &mdash; still based abroad</option>
+        <option value="live">Living there &mdash; I have moved back</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label for="liable">Do you pay tax in another country?</label>
+      <select id="liable">
+        <option value="yes" selected>Yes &mdash; the US or elsewhere</option>
+        <option value="no">No &mdash; nowhere at all</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:22px"><button class="btn" id="go">Work out my status</button></div>
+<div id="out"></div>
+
+<p class="disc">General guidance only, not tax or legal advice. Applies sections 6(1), 6(1A) and 6(6) of the Income-tax Act, 1961 as amended. It does not cover crew of Indian ships, the exact date your residential status changes mid-year, or treaty tie-breaker relief where both India and the US claim you. Nothing you type leaves this browser.</p>
+
+</div>
+<script>
+/* --- CONFIG ------------------------------------------------ */
+const BOOKING_URL = "https://calendly.com/REPLACE-lesser/15min";
+const SIGNUP_URL  = "https://lesser.tax";
+/* ----------------------------------------------------------- */
+
+const $ = s => document.querySelector(s);
+const SRC = new URLSearchParams(location.search).get("src") || "tool-rnor";
+const KEY = "lesser_rnor_v1";
+const F = ["fy","d0","d4","d7","nr10","cit","inc","visit","liable"];
+const n = id => parseInt($("#"+id).value, 10) || 0;
+
+function save(){ const o={}; F.forEach(f=>o[f]=$("#"+f).value); try{localStorage.setItem(KEY,JSON.stringify(o));}catch(e){} }
+function load(){ try{ const o=JSON.parse(localStorage.getItem(KEY))||{}; F.forEach(f=>{ if(o[f]) $("#"+f).value=o[f]; }); }catch(e){} }
+
+function run(){
+  const d0 = n("d0"), d4 = n("d4"), d7 = n("d7"), nr10 = n("nr10");
+  const indian = $("#cit").value === "in";
+  const highInc = $("#inc").value === "high";
+  const visiting = $("#visit").value === "visit";
+  const taxedElsewhere = $("#liable").value === "yes";
+
+  if (!$("#d0").value){
+    $("#out").innerHTML = '<div class="note" style="margin-top:22px"><b>Enter your days in India first.</b></div>';
+    return;
+  }
+
+  /* --- Section 6(1): are you Resident at all? ---------------------------
+     (a) 182 days or more in India this year, OR
+     (b) 60 days or more this year AND 365 days or more in the 4 prior years.
+     The 60-day limb is relaxed for Indian citizens and PIOs visiting India:
+     182 days normally, or 120 days where India income exceeds Rs 15 lakh. */
+  let secondLimbDays = 60;
+  let limbNote = "60 days";
+  if (indian && visiting){
+    secondLimbDays = highInc ? 120 : 182;
+    limbNote = highInc ? "120 days (Indian citizen visiting, India income over &#8377;15 lakh)"
+                       : "182 days (Indian citizen visiting India)";
+  }
+
+  const testA = d0 >= 182;
+  const testB = d0 >= secondLimbDays && d4 >= 365;
+  let resident = testA || testB;
+
+  /* --- Section 6(1A): deemed resident ----------------------------------
+     An Indian citizen with India income over Rs 15 lakh who is not liable to
+     tax in any other country is deemed resident, and is RNOR by 6(6)(d). */
+  const deemed = indian && highInc && !taxedElsewhere && !resident;
+  if (deemed) resident = true;
+
+  /* --- Section 6(6): if Resident, are you Ordinarily Resident? ---------- */
+  const test9of10 = nr10 >= 9;
+  const test729 = d7 <= 729;
+  const by120 = indian && visiting && highInc && d0 >= 120 && d0 < 182;
+  const rnor = resident && (test9of10 || test729 || by120 || deemed);
+
+  let status, cls;
+  if (!resident){ status = "Non-Resident (NRI)"; cls = "nri"; }
+  else if (rnor){ status = "Resident but Not Ordinarily Resident (RNOR)"; cls = "rnor"; }
+  else { status = "Resident and Ordinarily Resident (ROR)"; cls = "ror"; }
+
+  /* Years of RNOR left: the 729-day test is what usually ends it. Each full
+     year back in India adds ~365 days to the rolling 7-year count. */
+  let yearsLeft = 0;
+  if (rnor){
+    let d = d7, nr = nr10, y = 0;
+    while (y < 4 && (nr >= 9 || d <= 729)){ y++; d += 365; nr = Math.max(0, nr - 1); }
+    yearsLeft = y;
+  }
+
+  const row = (label, sub, ok, detail) =>
+    '<tr><td><b style="color:var(--ink)">' + label + '</b><small>' + sub + '</small></td>' +
+    '<td class="n">' + detail + '</td>' +
+    '<td class="n"><span class="' + (ok ? "yes" : "no") + '">' + (ok ? "YES" : "no") + '</span></td></tr>';
+
+  const table =
+    '<table><thead><tr><th>Test</th><th style="text-align:right">Your figure</th><th style="text-align:right">Met</th></tr></thead><tbody>' +
+    row("182 days this year", "Section 6(1)(a)", testA, d0 + " days") +
+    row("Second limb", "Section 6(1)(c) &mdash; " + limbNote + " + 365 days over 4 years", testB, d0 + " / " + d4) +
+    (deemed ? row("Deemed resident", "Section 6(1A) &mdash; Indian citizen, over &#8377;15 lakh, taxed nowhere", true, "applies") : "") +
+    '</tbody></table>' +
+    (resident ?
+      '<table style="margin-top:20px"><thead><tr><th>Then: ordinarily resident?</th><th style="text-align:right">Your figure</th><th style="text-align:right">Met</th></tr></thead><tbody>' +
+      row("Non-resident 9 of the last 10 years", "Section 6(6)(a)", test9of10, nr10 + " of 10") +
+      row("729 days or fewer over 7 years", "Section 6(6)(b)", test729, d7 + " days") +
+      (by120 ? row("120-day rule", "Section 6(6)(c)", true, d0 + " days") : "") +
+      '</tbody></table>' : "");
+
+  let body, extra = "";
+  if (!resident){
+    body = "You are a <b>non-resident</b> of India this year. Only your <b>India-source income</b> is taxable here &mdash; rent on Indian property, interest on NRO accounts, capital gains on Indian assets. Your US salary and investments are not taxable in India at all." +
+           "<br><br>Your NRE and FCNR interest stays exempt while you hold this status.";
+    extra = '<div class="note"><b>Plan the year you return.</b> If you land in India before October, you will likely cross 182 days in that same financial year and become resident immediately. Returning after October usually keeps you non-resident for one more year, which can be worth a great deal.</div>';
+  } else if (rnor){
+    body = "You are <b>RNOR</b>. This is the good window. Your <b>foreign income is not taxable in India</b> &mdash; US salary earned abroad, 401(k) and IRA growth, US capital gains, rental income abroad. Only India-source income and anything from a business controlled from India is taxed here." +
+           "<br><br>You still file an Indian return, and you still file your US return if you remain a US person. RNOR affects India, not the IRS.";
+    extra = '<div class="note good"><b>This is a planning window, not just a status.</b> Realising US capital gains, converting a traditional 401(k) to Roth, or selling US property while RNOR can keep those gains outside the Indian tax net entirely. Once you become ROR, your worldwide income is taxable in India and you are relying on the treaty and foreign tax credits instead.</div>';
+  } else {
+    body = "You are <b>ordinarily resident</b> in India. Your <b>worldwide income is taxable here</b> &mdash; US salary, 401(k) distributions, US capital gains, rent on property abroad, all of it." +
+           "<br><br>You must also report foreign assets in <b>Schedule FA</b> of your Indian return. That includes US bank accounts, brokerage accounts, RSUs and 401(k) balances. Penalties for leaving it out are severe.";
+    extra = '<div class="note"><b>If you still hold a green card or US citizenship, you are now filing in both countries on the same income.</b> The India&ndash;US treaty and foreign tax credits stop you paying twice, but only if both returns are prepared together. This is the point where doing it yourself usually stops being worth it.</div>';
+  }
+
+  const big = rnor
+    ? '<div class="big">' +
+      '<div><div class="k">Status</div><div class="v" style="color:var(--green)">RNOR</div><div class="s">this financial year</div></div>' +
+      '<div><div class="k">Window left</div><div class="v">' + yearsLeft + ' year' + (yearsLeft === 1 ? "" : "s") + '</div><div class="s">including this one</div></div>' +
+      '<div><div class="k">Foreign income</div><div class="v" style="color:var(--green)">Untaxed</div><div class="s">in India</div></div>' +
+      '</div>'
+    : "";
+
+  $("#out").innerHTML =
+    '<div class="verdict ' + cls + '"><span class="label">Your Indian status</span><h3>' + status + '</h3><p>' + body + '</p></div>' +
+    big +
+    '<div class="panel"><h2>How the law got there</h2><p class="note-s">Section 6 runs two gates: first whether you are resident, then whether you are <em>ordinarily</em> resident.</p>' +
+    table + extra +
+    '<details class="more"><summary>What this does not cover</summary><ul>' +
+    '<li><b>The US side.</b> A green card or US citizenship means you keep filing with the IRS on worldwide income, whatever India calls you.</li>' +
+    '<li><b>Treaty tie-breaker.</b> Where both countries treat you as resident, the India&ndash;US treaty decides, using permanent home, centre of vital interests, then habitual abode.</li>' +
+    '<li><b>Schedule FA.</b> Once ROR you must disclose every foreign asset on your Indian return.</li>' +
+    '<li><b>NRE and FCNR accounts.</b> The interest exemption ends when you become resident. Convert them to resident accounts at the right time.</li>' +
+    '<li><b>Exact split-year dates.</b> India does not have a formal dual-status year the way the US does.</li>' +
+    '</ul></details></div>' +
+    '<div class="cta"><h3>The RNOR window is worth planning, not discovering</h3>' +
+    '<p>Two or three years where US gains stay outside Indian tax is the single biggest lever most returnees have &mdash; and it closes quietly. Sign up and you get straight on a call with a CPA who handles both sides.</p>' +
+    '<div class="cta-row"><a class="btn" href="' + SIGNUP_URL + '?src=' + encodeURIComponent(SRC) + '">Sign up and talk to a CPA</a>' +
+    (BOOKING_URL.indexOf("REPLACE") > -1 ? "" : '<a class="ghost" href="' + BOOKING_URL + '?src=' + encodeURIComponent(SRC) + '">Book 15 minutes</a>') +
+    '</div></div>';
+
+  $("#out").scrollIntoView({ behavior: "smooth", block: "start" });
+  save();
+}
+F.forEach(f => $("#"+f).addEventListener("input", save));
+$("#go").addEventListener("click", run);
+load();
+</script>
+</body>
+</html>
