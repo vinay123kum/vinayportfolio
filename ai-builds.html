@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Vinay Kumar — AI Growth Engineer | Systems I built and run</title>
-<meta name="description" content="Five marketing systems built and running against live client accounts: an SEO scoring platform, a Google Ads agent, a 24-account media dashboard, a content pipeline and a design pack. Built solo in Claude Code with MCP."/>
+<meta name="description" content="Six marketing systems built and running against live client accounts: an SEO scoring platform, a Google Ads agent, a 24-account media dashboard, a content pipeline, a design pack and an ABM landing page engine. Built solo in Claude Code with MCP."/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23C4622D'/><text x='16' y='24' text-anchor='middle' font-family='Arial Black,sans-serif' font-weight='900' font-size='22' fill='white'>V</text></svg>"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -422,7 +422,7 @@
   <header class="hero">
     <div class="h-tags"><span class="h-tag">AI Growth Engineer</span><span class="h-tag">Claude Code + MCP</span><span class="h-tag gray">Solo build</span></div>
     <h1 class="h1">I don't use AI tools.<br><b>I build them.</b></h1>
-    <p class="lede">Marketer by trade, engineer by necessity. <b>Six years in B2B SaaS marketing. One year building the systems.</b> Five of them are below — SEO, paid, content, reporting and design. Each runs against live client accounts and real budgets, and every screenshot is a real run.</p>
+    <p class="lede">Marketer by trade, engineer by necessity. <b>Six years in B2B SaaS marketing. One year building the systems.</b> Six of them are below — SEO, paid, content, reporting and design. Each runs against live client accounts and real budgets, and every screenshot is a real run.</p>
     <div class="hb">
       <a href="#builds" class="btn btn-f">See the builds &darr;</a>
       <a href="index.html" class="btn btn-l">Case studies</a>
@@ -966,6 +966,42 @@
     </div>
   </div>
 
+  <!-- ══════ 06 · ABM LANDING PAGE ENGINE ══════ -->
+  <div class="build">
+    <div class="b-head">
+      <div class="b-top">
+        <div class="b-no">Build 06 &middot; ABM &amp; Outbound</div>
+        <div class="b-where">at <b>Revv Growth</b></div>
+      </div>
+      <h3 class="b-h">100+ landing pages, each built from the prospect&rsquo;s own data</h3>
+      <p class="b-p">The thought-leadership campaign does the first job: it gets the target accounts to engage. The second job is what usually breaks — everyone who engaged gets the same deck. So I built the page layer instead: <b>one Webflow template, then a page per account</b>, carrying that company&rsquo;s own AEO and SEO picture rather than ours. Outreach links to their URL, not a brochure.</p>
+      <p class="b-p">The engine behind it is four parts. <b>Ahrefs</b> pulls the organic and AEO data for each target domain, a <b>Google Sheet</b> holds one row per company as the reviewable source of truth, <b>n8n</b> runs the logic end to end, and the <b>Webflow MCP server</b> writes the CMS item and publishes the page. One run turns a list of engaged accounts into 100+ live, personalized pages.</p>
+      <ul class="b-l">
+        <li><b>Their data, not our pitch</b>Every page opens on that company&rsquo;s own visibility gap, pulled against their domain. The service is the same; the evidence is theirs.</li>
+        <li><b>The sheet is the gate</b>A human reads the rows before a run. Anything thin or wrong gets fixed in the sheet, not after 100 pages are live.</li>
+        <li><b>Incomplete rows don&rsquo;t publish</b>n8n validates before it writes. A missing field stops that page instead of shipping a template with a hole in it.</li>
+        <li><b>One layout, 100+ variants</b>The template carries the design; the data carries the personalization. Changing the layout changes every page, not one at a time.</li>
+      </ul>
+    </div>
+
+    <div class="shot">
+      <div class="shot-bar">
+        <span class="sdot" style="background:#ff5f57"></span><span class="sdot" style="background:#febc2e"></span><span class="sdot" style="background:#28c840"></span>
+        <span class="shot-u">abm page engine &middot; ahrefs &rarr; sheets &rarr; n8n &rarr; webflow mcp</span>
+      </div>
+      <img class="shot-img" src="images/abm-page-engine.png" alt="The ABM landing page engine: Ahrefs pulls SEO and AEO data per domain into a Google Sheet, n8n validates and maps each row, and the Webflow MCP server publishes a personalized landing page per target account."/>
+      <div class="shot-cap"><span>One run, one page per engaged account &mdash; company names blurred</span><span>example output shown in the design work</span></div>
+    </div>
+
+    <div class="lens" style="margin:0 32px 24px"><b>The lens</b>Personalization usually dies on volume — it is easy for ten accounts and impossible for a hundred. Moving the personal part into data, and leaving the design in one template, is what makes the hundredth page as specific as the first.</div>
+
+    <div class="b-foot">
+      <div class="delta"><span class="d-b">One page per prospect, by hand</span><span class="d-arw">&rarr;</span><span class="d-a">100+ pages, one run</span></div>
+      <div class="tags"><span class="tg">Webflow MCP</span><span class="tg">n8n</span><span class="tg">Ahrefs API</span><span class="tg">Google Sheets</span><span class="tg">Validation gate</span></div>
+      <div class="repl"><b>replaced</b>the generic follow-up deck every engaged account used to get</div>
+    </div>
+  </div>
+
   <!-- ══ RULES ══ -->
   <div class="slabel">How I decide what to trust</div>
   <h2 class="sh">Four rules every build above is held to</h2>
@@ -993,13 +1029,14 @@
   <!-- ══ VELOCITY ══ -->
   <div class="slabel">Velocity</div>
   <div class="velo">
-    <div class="anat-h" style="font-size:22px">Five systems. One person. No engineering team.</div>
+    <div class="anat-h" style="font-size:22px">Six systems. One person. No engineering team.</div>
     <div class="velo-line">
       <div class="vnode"><div class="vdot"></div><div class="vn-n">01</div><div class="vn-t">SEO / AEO platform</div></div>
       <div class="vnode"><div class="vdot"></div><div class="vn-n">02</div><div class="vn-t">Google Ads agent</div></div>
       <div class="vnode"><div class="vdot"></div><div class="vn-n">03</div><div class="vn-t">Content pipeline</div></div>
       <div class="vnode"><div class="vdot"></div><div class="vn-n">04</div><div class="vn-t">Live dashboards</div></div>
       <div class="vnode"><div class="vdot"></div><div class="vn-n">05</div><div class="vn-t">Design pack</div></div>
+      <div class="vnode"><div class="vdot"></div><div class="vn-n">06</div><div class="vn-t">ABM page engine</div></div>
     </div>
     <p class="velo-foot">Every one shipped while running paid campaigns full-time, on a personal machine, with no engineering support. <b>The build isn't the side project — it's how the job gets done.</b></p>
   </div>
