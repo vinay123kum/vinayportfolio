@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Identity Security Content Audit · 300 URLs | RevvGrowth</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0a0512;
+    color: #fff;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    line-height: 1.55;
+  }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+  ::selection { background: rgba(78,27,182,0.45); color: #fff; }
+  a { color: inherit; }
+  /* client name withheld */
+  .rdct { display:inline-block; filter: blur(0.3em); -webkit-filter: blur(0.3em); user-select: none; pointer-events: none; }
+</style>
+</head>
+<body>
+
+<!-- Fixed orb glows -->
+<div style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden">
+  <div style="position:absolute;width:700px;height:700px;border-radius:50%;filter:blur(100px);background:#4e1bb6;opacity:0.35;top:-200px;left:-180px"></div>
+  <div style="position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(90px);background:#cb1d98;opacity:0.18;top:30%;right:-200px"></div>
+  <div style="position:absolute;width:600px;height:600px;border-radius:50%;filter:blur(110px);background:#4e1bb6;opacity:0.15;bottom:-200px;left:40%"></div>
+</div>
+
+<!-- Grid underlay -->
+<div style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.3;background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:48px 48px"></div>
+
+<!-- NAV -->
+<nav style="position:sticky;top:0;z-index:100;padding:12px 24px;margin-bottom:-20px">
+  <div style="max-width:1200px;margin:0 auto;background:linear-gradient(135deg,#0d0816 0%,#1a0a32 50%,#0d0816 100%);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:0 28px;height:60px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 32px rgba(0,0,0,0.5)">
+    <img src="data:image/png;base64,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" alt="RevvGrowth" style="height:36px;width:auto;display:block">
+    <a href="https://cal.id/karthick-revvgrowth/book-a-meeting" style="display:inline-flex;align-items:center;font-family:'Inter',sans-serif;font-weight:700;font-size:14px;color:#fff;background:#FF4FA8;padding:10px 22px;border-radius:8px;text-decoration:none;box-shadow:0 4px 14px rgba(203,29,152,0.4)">Book a 15-Min Call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="position:relative;z-index:1;padding:100px 48px 80px;text-align:center;overflow:hidden">
+  <!-- dashed motif circles -->
+  <div style="position:absolute;top:48px;right:12%;width:180px;height:180px;border:1.5px dashed rgba(78,27,182,0.28);border-radius:50%;pointer-events:none"></div>
+  <div style="position:absolute;bottom:32px;left:8%;width:110px;height:110px;border:1.5px dashed rgba(78,27,182,0.2);border-radius:50%;pointer-events:none"></div>
+
+  <!-- Eyebrow -->
+  <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(78,27,182,0.25);border:1px solid rgba(183,159,231,0.4);border-radius:999px;padding:7px 18px;margin-bottom:28px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#b79fe7">Personalized Audit — <span class="rdct">Veza</span></span>
+  </div>
+
+  <!-- H1 -->
+  <h1 style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(36px,5.5vw,62px);letter-spacing:-0.02em;line-height:1.05;color:#fff;max-width:860px;margin:0 auto 24px;text-wrap:pretty">
+    <span class="rdct">Veza</span> Has 9+ Clusters<br>Where <span style="color:#b79fe7">Its Own Articles Fight Each Other</span>
+  </h1>
+
+  <!-- Sub -->
+  <p style="font-size:clamp(16px,1.4vw,19px);color:rgba(255,255,255,0.62);max-width:620px;margin:0 auto 48px;line-height:1.65;text-wrap:pretty">
+    We analyzed 300 URLs across <span class="rdct">Veza</span>'s blog. The identity security category is crowded — and structural issues in how the content is organized are limiting how much of that traffic turns into pipeline.
+  </p>
+
+  <!-- Stats row -->
+  <div style="display:flex;justify-content:center;margin:0 auto 44px;max-width:560px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:20px;backdrop-filter:blur(22px) saturate(140%);overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08)">
+    <div style="flex:1;padding:28px 20px;border-right:1px solid rgba(255,255,255,0.08);text-align:center">
+      <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:40px;letter-spacing:-0.03em;color:#ef4444;line-height:1;margin-bottom:8px">15/100</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);line-height:1.5">AI Visibility Score</div>
+    </div>
+    <div style="flex:1;padding:28px 20px;border-right:1px solid rgba(255,255,255,0.08);text-align:center">
+      <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:40px;letter-spacing:-0.03em;color:#fff;line-height:1;margin-bottom:8px">300</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);line-height:1.5">URLs Published<br>Still losing authority</div>
+    </div>
+    <div style="flex:1;padding:28px 20px;text-align:center">
+      <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:40px;letter-spacing:-0.03em;color:#2dd4bf;line-height:1;margin-bottom:8px">6</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);line-height:1.5">Quick Fixes<br>Start this week</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <a href="https://cal.id/karthick-revvgrowth/book-a-meeting" style="display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-weight:700;font-size:17px;color:#fff;background:#4e1bb6;padding:18px 32px;border-radius:6px;text-decoration:none;box-shadow:0 12px 32px rgba(78,27,182,0.55);margin-bottom:14px;transition:background 0.2s">See Exactly What's Wrong →</a>
+  <div style="font-size:13px;color:rgba(255,255,255,0.35);font-style:italic">We spent 4 hours analyzing <span class="rdct">Veza.com</span> so you don't have to guess.</div>
+</section>
+
+<!-- TRUSTED BY -->
+<div style="position:relative;z-index:1;padding:60px 48px 64px;border-top:1px solid rgba(255,255,255,0.07);text-align:center">
+  <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.01em;color:#8158e1;margin-bottom:10px">Trusted by</div>
+  <div style="font-size:15px;font-weight:500;color:rgba(255,255,255,0.72);margin-bottom:52px">Businesses that scaled smarter with us</div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:52px;flex-wrap:wrap;max-width:1200px;margin:0 auto">
+
+    <!-- DATAWEAVE -->
+    <div style="display:flex;align-items:center;gap:9px;opacity:0.82">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="2" cy="2" r="1.5" fill="white"></circle>
+        <circle cx="8" cy="2" r="1.5" fill="white"></circle>
+        <circle cx="14" cy="2" r="1.5" fill="white" opacity="0.4"></circle>
+        <circle cx="20" cy="2" r="1.5" fill="white"></circle>
+        <circle cx="2" cy="8" r="1.5" fill="white" opacity="0.35"></circle>
+        <circle cx="8" cy="8" r="1.5" fill="white"></circle>
+        <circle cx="14" cy="8" r="1.5" fill="white"></circle>
+        <circle cx="20" cy="8" r="1.5" fill="white" opacity="0.4"></circle>
+        <circle cx="2" cy="14" r="1.5" fill="white"></circle>
+        <circle cx="8" cy="14" r="1.5" fill="white" opacity="0.35"></circle>
+        <circle cx="14" cy="14" r="1.5" fill="white"></circle>
+        <circle cx="20" cy="14" r="1.5" fill="white"></circle>
+        <circle cx="2" cy="20" r="1.5" fill="white" opacity="0.35"></circle>
+        <circle cx="8" cy="20" r="1.5" fill="white"></circle>
+        <circle cx="14" cy="20" r="1.5" fill="white" opacity="0.35"></circle>
+        <circle cx="20" cy="20" r="1.5" fill="white"></circle>
+      </svg>
+      <span style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.06em;color:#fff;text-transform:uppercase">DATAWEAVE</span>
+    </div>
+
+    <!-- HASURA -->
+    <div style="display:flex;align-items:center;gap:9px;opacity:0.82">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="13" cy="13" r="11.5" stroke="white" stroke-width="1.5" fill="none"></circle>
+        <circle cx="13" cy="10" r="3.2" fill="white"></circle>
+        <path d="M6.5 22.5 C6.5 17.5 19.5 17.5 19.5 22.5" fill="white"></path>
+      </svg>
+      <span style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.06em;color:#fff;text-transform:uppercase">HASURA</span>
+    </div>
+
+    <!-- Atlan -->
+    <div style="display:flex;align-items:center;gap:9px;opacity:0.82">
+      <div style="width:26px;height:26px;border:1.5px solid rgba(255,255,255,0.85);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#fff">a</div>
+      <span style="font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:#fff">Atlan</span>
+    </div>
+
+    <!-- leadsquared -->
+    <div style="display:flex;align-items:center;gap:9px;opacity:0.82">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="22" height="22" rx="3" fill="white"></rect>
+        <path d="M5 16 L11 6 L17 16" stroke="#0a0512" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span style="font-family:'Inter',sans-serif;font-weight:600;font-size:15px;color:#fff">leadsquared</span>
+    </div>
+
+    <!-- HYPERVERGE -->
+    <div style="display:flex;align-items:center;gap:9px;opacity:0.82">
+      <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="0" width="5" height="22" rx="1" fill="white"></rect>
+        <rect x="21" y="0" width="5" height="22" rx="1" fill="white"></rect>
+        <rect x="5" y="9" width="16" height="4" rx="1" fill="white"></rect>
+        <rect x="8.5" y="0" width="2" height="22" rx="0.5" fill="white" opacity="0.45"></rect>
+        <rect x="15.5" y="0" width="2" height="22" rx="0.5" fill="white" opacity="0.45"></rect>
+      </svg>
+      <span style="font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.06em;color:#fff;text-transform:uppercase">HYPERVERGE</span>
+    </div>
+
+    <!-- Vymo -->
+    <div style="display:flex;align-items:center;gap:9px;opacity:0.82">
+      <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.75" y="0.75" width="24.5" height="20.5" rx="4.5" stroke="white" stroke-width="1.5" fill="none"></rect>
+        <path d="M7 7 L13 15 L19 7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:#fff">Vymo</span>
+    </div>
+
+    <!-- Insent.ai -->
+    <div style="display:flex;align-items:center;gap:9px;opacity:0.82">
+      <svg width="15" height="22" viewBox="0 0 15 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.5 0 L0 13 H6.5 L5.5 22 L15 9 H8.5 Z" fill="white"></path>
+      </svg>
+      <span style="font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:#fff">Insent.ai</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- AI VISIBILITY -->
+<section style="position:relative;z-index:1;padding:80px 48px;border-top:1px solid rgba(255,255,255,0.07)">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#b79fe7;margin-bottom:10px">AI Visibility Audit</div>
+    <h2 style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(26px,3vw,40px);letter-spacing:-0.02em;line-height:1.08;color:#fff;margin-bottom:12px"><span class="rdct">Veza</span> is barely visible<br>where buyers now search</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.6);max-width:600px;margin-bottom:44px;text-wrap:pretty">When an identity security leader asks ChatGPT or Perplexity "best identity governance platform" or "ISPM vs IGA", SailPoint and Saviynt show up. <span class="rdct">Veza</span> scores 15/100 — and mentions are already declining.</p>
+
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start">
+      <!-- Gauge card -->
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:28px 24px;backdrop-filter:blur(22px) saturate(140%);box-shadow:0 16px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.07);position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.06),transparent 40%);pointer-events:none;border-radius:inherit"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:20px">AI Visibility Score</div>
+        <!-- SVG Gauge -->
+        <div style="position:relative;width:150px;height:85px;margin:0 auto 12px">
+          <svg viewBox="0 0 160 88" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+            <path d="M 14 84 A 66 66 0 0 1 146 84" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="14" stroke-linecap="round"></path>
+            <path d="M 14 84 A 66 66 0 0 1 146 84" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="207" stroke-dashoffset="176"></path>
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ef4444"></stop>
+                <stop offset="100%" stop-color="#f97316"></stop>
+              </linearGradient>
+            </defs>
+            <line x1="80" y1="84" x2="21" y2="70" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"></line>
+            <circle cx="80" cy="84" r="5" fill="#ef4444"></circle>
+          </svg>
+          <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);text-align:center">
+            <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.03em;color:#ef4444;line-height:1">15</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.35)">/100</div>
+          </div>
+        </div>
+        <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:22px;color:#fff;text-align:center;margin-bottom:10px">Low</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;text-align:center">Rarely mentioned in LLM outputs compared to competitors. <span style="color:#b79fe7">SailPoint, Saviynt, and Okta</span> dominate AI responses for identity governance queries.</div>
+      </div>
+
+      <!-- Trend card -->
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:28px;backdrop-filter:blur(22px) saturate(140%);box-shadow:0 16px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.07);position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.06),transparent 40%);pointer-events:none;border-radius:inherit"></div>
+        <div style="display:flex;gap:36px;margin-bottom:28px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,0.55)"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#6638d2"></span>Mentions</div>
+            <div style="display:flex;align-items:baseline;gap:8px;font-family:'Inter',sans-serif;font-weight:700;font-size:26px;letter-spacing:-0.02em;color:#b79fe7">122 <span style="font-size:13px;color:#ef4444;font-weight:500">-3.2%</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,0.55)"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2dd4bf"></span>Citations</div>
+            <div style="display:flex;align-items:baseline;gap:8px;font-family:'Inter',sans-serif;font-weight:700;font-size:26px;letter-spacing:-0.02em;color:#b79fe7">475 <span style="font-size:13px;color:#ef4444;font-weight:500">-0.2%</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,0.55)"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#8158e1"></span>Cited Pages</div>
+            <div style="display:flex;align-items:baseline;gap:8px;font-family:'Inter',sans-serif;font-weight:700;font-size:26px;letter-spacing:-0.02em;color:#b79fe7">230 <span style="font-size:13px;color:#2dd4bf;font-weight:500">+3.6%</span></div>
+          </div>
+        </div>
+        <div style="position:relative;margin-left:36px">
+          <div style="position:absolute;left:-36px;top:0;bottom:24px;display:flex;flex-direction:column;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3)">
+            <span>800</span><span>600</span><span>400</span><span>200</span><span>0</span>
+          </div>
+          <div style="height:150px;border-bottom:1px solid rgba(255,255,255,0.08);border-left:1px solid rgba(255,255,255,0.08);position:relative;margin-bottom:8px">
+            <svg viewBox="0 0 560 140" preserveAspectRatio="none" style="width:100%;height:100%;overflow:visible">
+              <line x1="0" y1="35" x2="560" y2="35" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+              <line x1="0" y1="70" x2="560" y2="70" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+              <line x1="0" y1="105" x2="560" y2="105" stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+              <!-- Citations (teal) — Feb~600, dips Mar~550, rises Apr~610, declines to Jul~475 -->
+              <polyline points="0,35 112,44 224,33 336,44 448,56 560,57" fill="none" stroke="#2dd4bf" stroke-width="2.5" stroke-linejoin="round"></polyline>
+              <!-- Cited Pages (purple) — flat ~218-230, gently rising -->
+              <polyline points="0,102 112,102 224,102 336,101 448,100 560,100" fill="none" stroke="#8158e1" stroke-width="2" stroke-linejoin="round"></polyline>
+              <!-- Mentions (blue) — steady decline from ~215 to 122 -->
+              <polyline points="0,102 112,105 224,108 336,112 448,116 560,119" fill="none" stroke="#6638d2" stroke-width="2" stroke-linejoin="round"></polyline>
+            </svg>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3)">
+            <span>Feb 2026</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul 2026</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT AUDIT -->
+<section style="position:relative;z-index:1;padding:80px 48px;border-top:1px solid rgba(255,255,255,0.07)">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#b79fe7;margin-bottom:10px">Content Audit · 300 URLs</div>
+    <h2 style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(26px,3vw,40px);letter-spacing:-0.02em;line-height:1.08;color:#fff;margin-bottom:12px">Your content is working<br>against itself</h2>
+    <p style="font-size:16px;color:rgba(255,255,255,0.6);max-width:600px;margin-bottom:44px;text-wrap:pretty"><span class="rdct">Veza</span> has strong topical coverage for identity security core, AI/agentic identity, and non-human identity (NHI) — but the architecture is broken. Here's what we found across 300 URLs.</p>
+
+    <!-- Issue cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px">
+      <!-- Critical -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #ef4444;border-radius:16px;padding:24px;backdrop-filter:blur(12px)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#ef4444;margin-bottom:12px">Cannibalized Clusters</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:38px;letter-spacing:-0.03em;color:#ef4444;line-height:1;margin-bottom:12px">9+</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;text-wrap:pretty">Topics with 3+ competing articles fighting for the same queries. "Least Privilege" alone has 12 articles — including 2 near-duplicate slugs — competing for the same SERP position.</div>
+      </div>
+      <!-- Warning -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #f59e0b;border-radius:16px;padding:24px;backdrop-filter:blur(12px)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#f59e0b;margin-bottom:12px">Authority Dilution</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:38px;letter-spacing:-0.03em;color:#f59e0b;line-height:1;margin-bottom:12px">71</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;text-wrap:pretty">Product update changelogs (27), PR/exec announcements (20), event recaps (11), podcast episodes (7), and newsletter reposts (6) on /blog/ — 23.7% of URLs with zero evergreen search value.</div>
+      </div>
+      <!-- Opportunity -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-left:3px solid #4e1bb6;border-radius:16px;padding:24px;backdrop-filter:blur(12px)">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#b79fe7;margin-bottom:12px">Critical Content Gap</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:38px;letter-spacing:-0.03em;color:#b79fe7;line-height:1;margin-bottom:12px">8 <span style="font-size:15px;font-weight:600;color:rgba(183,159,231,0.7)">category queries unowned</span></div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;text-wrap:pretty">ISPM, IVIP, PAM, NHI, compliance, Zero Trust — <span class="rdct">Veza</span> has articles touching all of them, but the #1 query buyers type, "ISPM vs IGA vs PAM vs CIEM," doesn't have an answer on the site at all. <span class="rdct">Veza</span>'s own market position is more contested by its own scattered content than by competitors.</div>
+      </div>
+    </div>
+
+    <!-- Wins box -->
+    <div style="background:linear-gradient(135deg,rgba(78,27,182,0.18),rgba(78,27,182,0.06));border:1px solid rgba(183,159,231,0.2);border-radius:20px;padding:32px;margin-bottom:24px">
+      <div style="display:flex;align-items:center;gap:14px;font-family:'Inter',sans-serif;font-weight:700;font-size:18px;color:#fff;margin-bottom:24px">
+        <div style="width:36px;height:36px;background:#4e1bb6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:0 6px 14px rgba(78,27,182,0.5)">🚀</div>
+        The Wins You Can Get from RevvGrowth
+      </div>
+      <!-- Win 1 -->
+      <div style="display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-top:1px solid rgba(255,255,255,0.05)">
+        <div style="color:#b79fe7;font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px">→</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65">
+          <strong style="color:#fff;display:block;margin-bottom:5px;font-size:15px">Fix the 12-article "Least Privilege" pileup, starting with the 2 near-duplicate slugs</strong>
+          <code>the-principle-of-least-privilege-explained</code> and its "-2" variant are directly competing for the same query. A 301 redirect plus consolidation into one authoritative hub concentrates all ranking signal instead of splitting it across 12 pages.
+        </div>
+      </div>
+      <!-- Win 2 -->
+      <div style="display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-top:1px solid rgba(255,255,255,0.05)">
+        <div style="color:#b79fe7;font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px">→</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65">
+          <strong style="color:#fff;display:block;margin-bottom:5px;font-size:15px">Build the Non-Human Identity (NHI) hub as a parent for 14 existing articles</strong>
+          NHI is the hottest emerging cluster in identity security and <span class="rdct">Veza</span> already has 14 articles written — but no canonical hub. A structured hub with FAQ schema would become the default AI citation for every "non-human identity" and "machine identity" query, anchoring all 14 spokes.
+        </div>
+      </div>
+      <!-- Win 3 -->
+      <div style="display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-top:1px solid rgba(255,255,255,0.05)">
+        <div style="color:#b79fe7;font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px">→</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65">
+          <strong style="color:#fff;display:block;margin-bottom:5px;font-size:15px">Build the "ISPM vs IGA vs PAM vs CIEM" comparison — the #1 query buyers type</strong>
+          There is no single, table-driven comparison of the four categories that AI Overviews can cite as the authoritative answer. <span class="rdct">Veza</span> sells directly into this confusion and currently owns zero share of the comparison query.
+        </div>
+      </div>
+      <!-- Win 4 -->
+      <div style="display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-top:1px solid rgba(255,255,255,0.05)">
+        <div style="color:#b79fe7;font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px">→</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.65">
+          <strong style="color:#fff;display:block;margin-bottom:5px;font-size:15px">Consolidate the ServiceNow, Snowflake, and CrowdStrike integration clusters into 3 authority pages</strong>
+          4 ServiceNow articles, 6 Snowflake articles, and 3 CrowdStrike articles each compete against themselves for the same "<span class="rdct">Veza</span> + [platform]" queries. Merging each cluster into one definitive integration page turns scattered signal into rankable authority.
+        </div>
+      </div>
+    </div>
+
+    <!-- Things done well -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:28px;margin-bottom:40px">
+      <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:#fff;margin-bottom:20px">✓ You're Doing These Things Well</div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+        <div style="color:#2dd4bf;flex-shrink:0;margin-top:1px;font-size:15px">✓</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6"><strong style="color:#fff">Identity Security Core is 76% of the blog (229 articles).</strong> That's the deepest on-topic foundation of any identity vendor we've audited — the raw material for category dominance is already there.</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+        <div style="color:#2dd4bf;flex-shrink:0;margin-top:1px;font-size:15px">✓</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6"><strong style="color:#fff">AI / Agentic Identity cluster already has 21 articles.</strong> <span class="rdct">Veza</span> has a genuine head start on the fastest-growing subcategory in identity security — more coverage than most competitors.</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+        <div style="color:#2dd4bf;flex-shrink:0;margin-top:1px;font-size:15px">✓</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6"><strong style="color:#fff">Non-Human Identity content is already written (14 articles).</strong> The raw material for a category-defining NHI hub exists — a parent page with FAQ schema is the only missing piece.</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0">
+        <div style="color:#2dd4bf;flex-shrink:0;margin-top:1px;font-size:15px">✓</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.6);line-height:1.6"><strong style="color:#fff">Compliance coverage spans PCI DSS, SOX, SOC 2, NIST, CMMC, and DORA.</strong> 11 articles across every major framework — broader regulatory coverage than most identity vendors, just missing a hub to tie it together.</div>
+      </div>
+    </div>
+
+    <!-- Teaser section -->
+    <div style="background:linear-gradient(135deg,rgba(239,68,68,0.07),rgba(10,5,18,0));border:1px solid rgba(239,68,68,0.18);border-radius:20px;padding:40px;margin-bottom:20px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(239,68,68,0.8);margin-bottom:16px">What We Found Across 300 URLs</div>
+      <h3 style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(18px,2.5vw,26px);letter-spacing:-0.02em;color:#fff;line-height:1.2;margin-bottom:14px;text-wrap:pretty">The full picture is more detailed than this page shows — and that's the point</h3>
+      <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:1.7;max-width:680px;margin-bottom:32px;text-wrap:pretty">We've mapped every cannibalized cluster, every stale page, and every missing content type across <span class="rdct">Veza</span>'s full blog. The call is where we walk through exactly which pages to fix first and what to build next.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(239,68,68,0.14);border-radius:14px;padding:24px">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.03em;color:#ef4444;line-height:1;margin-bottom:10px">9+</div>
+          <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:8px">Keyword clusters where articles compete against each other</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6">Least Privilege, AI/Agentic Identity, NHI, ISPM, ServiceNow, Snowflake — every major topic has 3–21 articles splitting authority.</div>
+          <div style="margin-top:16px;font-size:12px;font-weight:600;color:rgba(239,68,68,0.7)">Full cluster map in the call →</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(245,158,11,0.14);border-radius:14px;padding:24px">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.03em;color:#f59e0b;line-height:1;margin-bottom:10px">71</div>
+          <div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:8px">Pages actively hurting <span class="rdct">Veza</span>'s topical authority</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.6">Product changelogs, PR announcements, event recaps — Google uses content co-occurrence to judge expertise. These pull the signal in the wrong direction.</div>
+          <div style="margin-top:16px;font-size:12px;font-weight:600;color:rgba(245,158,11,0.7)">We'll show you which ones →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Locked CTA -->
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(183,159,231,0.2);border-radius:20px;padding:48px;text-align:center;backdrop-filter:blur(22px)">
+      <div style="font-size:32px;margin-bottom:14px">🔒</div>
+      <h3 style="font-family:'Inter',sans-serif;font-weight:700;font-size:24px;letter-spacing:-0.01em;color:#fff;margin-bottom:12px">The full audit is ready for you</h3>
+      <p style="font-size:16px;color:rgba(255,255,255,0.6);max-width:460px;margin:0 auto 28px;line-height:1.65;text-wrap:pretty">We've prioritized every fix by impact and effort. The call is 15 minutes — you leave with a clear action list whether we work together or not.</p>
+      <a href="https://cal.id/karthick-revvgrowth/book-a-meeting" style="display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-weight:700;font-size:17px;color:#fff;background:#4e1bb6;padding:18px 36px;border-radius:6px;text-decoration:none;box-shadow:0 12px 32px rgba(78,27,182,0.55)">Get the Full Audit in a 15-Min Call →</a>
+      <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:16px;font-style:italic">Free. No commitment. No pitch.</div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CASE STUDY -->
+<section style="position:relative;z-index:1;padding:80px 48px;border-top:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02)">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:48px">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#b79fe7;margin-bottom:10px">This Isn't Theory — We've Done It Before</div>
+      <h2 style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(26px,3vw,40px);letter-spacing:-0.02em;line-height:1.08;color:#fff;margin-bottom:14px">Atlan Had the Same Problems.<br>Here's What Happened.</h2>
+      <p style="font-size:16px;color:rgba(255,255,255,0.55);max-width:500px;margin:0 auto;text-wrap:pretty">Organic wasn't converting. AI search was a blind spot. Content wasn't scaling. We turned it into 5–7 MQLs a day — the same playbook applies to <span class="rdct">Veza</span>'s identity security category.</p>
+    </div>
+
+    <!-- Results banner -->
+    <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(183,159,231,0.2);border-radius:20px;padding:32px;margin-bottom:32px;backdrop-filter:blur(22px);box-shadow:0 16px 32px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.07)">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;letter-spacing:0.1em;color:#b79fe7;margin-bottom:24px">RevvGrowth × Atlan</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden">
+        <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);text-align:center">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.03em;color:#b79fe7;line-height:1;margin-bottom:8px">7.5×</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.4">Organic Traffic Growth in 11 Mo</div>
+        </div>
+        <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);text-align:center">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.03em;color:#b79fe7;line-height:1;margin-bottom:8px">80+</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.4">AI Overview Appearances</div>
+        </div>
+        <div style="padding:20px 16px;border-right:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);text-align:center">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.03em;color:#b79fe7;line-height:1;margin-bottom:8px">5–7</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.4">MQLs Generated Per Day</div>
+        </div>
+        <div style="padding:20px 16px;background:rgba(255,255,255,0.03);text-align:center">
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.03em;color:#b79fe7;line-height:1;margin-bottom:8px">10×</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.4">Content Visibility Across AI + Search</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem / Solution -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:20px">The Problem</div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+          <div style="font-size:18px;flex-shrink:0">📉</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Organic Wasn't Generating Pipeline</div><div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55">Content existed but wasn't converting. MQLs from organic were practically zero.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+          <div style="font-size:18px;flex-shrink:0">👻</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Invisible Where Buyers Research</div><div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55">Not showing up in AI Overviews, ChatGPT, or Perplexity. Buyers found competitors instead.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0">
+          <div style="font-size:18px;flex-shrink:0">🚫</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Content Cannibalization</div><div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55">Multiple articles competing for the same queries — exactly what <span class="rdct">Veza</span> has now.</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:20px">What We Did</div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+          <div style="font-size:18px;flex-shrink:0">🔬</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Deep SERP + AI Audit</div><div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55">Mapped snippet structures, AI Overview triggers, and competitor content gaps.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07)">
+          <div style="font-size:18px;flex-shrink:0">⚙️</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">Hub Consolidation + 301 Architecture</div><div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55">Merged competing articles, redirected authority to canonical hubs.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;padding:14px 0">
+          <div style="font-size:18px;flex-shrink:0">🤖</div>
+          <div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px">GEO for LLM Visibility</div><div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55">FAQ schema, entity optimization, structured content for ChatGPT and Perplexity citations.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MQL Chart -->
+    <div style="background:#0f0a1e;border:1px solid rgba(183,159,231,0.18);border-radius:20px;padding:36px;margin-bottom:32px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px">
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.02em;color:#fff">0 → 210 MQLs/Month</div>
+        <div style="background:linear-gradient(135deg,#4e1bb6,#cb1d98);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:7px 14px;border-radius:999px">100% Organic</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:flex-end;height:160px;margin-bottom:32px">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">4</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:2%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M1</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">11</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:5%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M2</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">23</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:11%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M3</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">37</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:18%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M4</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">51</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:24%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M5</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">73</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:35%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M6</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">91</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:43%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M7</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">119</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:57%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M8</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">148</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:70%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M9</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#8158e1">183</div><div style="width:100%;background:linear-gradient(to top,#3a1293,#8158e1);border-radius:4px 4px 0 0;height:87%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M10</div></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end"><div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#fff">210</div><div style="width:100%;background:linear-gradient(to top,#4e1bb6,#cb1d98);border-radius:4px 4px 0 0;height:100%"></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.3);margin-top:4px">M11</div></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-around;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:28px 32px;gap:24px">
+        <div style="text-align:center">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#8158e1;margin-bottom:8px">Monthly MQLs</div>
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:48px;letter-spacing:-0.04em;color:#b79fe7;line-height:1;margin-bottom:6px">150–210</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.4)">Qualified leads per month</div>
+        </div>
+        <div style="font-size:20px;color:#8158e1;background:rgba(78,27,182,0.2);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">=</div>
+        <div style="text-align:center">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:#8158e1;margin-bottom:8px">Daily MQLs</div>
+          <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:48px;letter-spacing:-0.04em;color:#b79fe7;line-height:1;margin-bottom:6px">5–7</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.4)">Every single day, on autopilot</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results at a glance -->
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#b79fe7;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid rgba(183,159,231,0.15)">Results at a Glance</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(183,159,231,0.15);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:26px">📈</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:#b79fe7">17K → 128K</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">Organic Traffic in 11 Months</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(183,159,231,0.15);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:26px">💰</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:#b79fe7">5–7/Day</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">MQLs From Organic Alone</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(183,159,231,0.15);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:26px">🤖</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:#b79fe7">80+</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">AI Overview Appearances</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(183,159,231,0.15);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:26px">🚀</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:#b79fe7">10×</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">Content Visibility Across Platforms</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(183,159,231,0.15);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:26px">📝</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:#b79fe7">130+</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">Blogs Published Per Month</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(183,159,231,0.15);border-radius:16px;padding:28px 20px;display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:26px">🎯</div>
+        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:#2dd4bf">$0</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">Paid Media — 100% Organic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta" style="position:relative;z-index:1;padding:100px 48px;border-top:1px solid rgba(255,255,255,0.07);text-align:center;overflow:hidden">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at 50% 50%,rgba(78,27,182,0.22),transparent);pointer-events:none"></div>
+  <!-- dashed motif -->
+  <div style="position:absolute;top:50%;left:10%;transform:translateY(-50%);width:260px;height:260px;border:1.5px dashed rgba(78,27,182,0.2);border-radius:50%;pointer-events:none"></div>
+  <div style="position:absolute;top:50%;right:8%;transform:translateY(-50%);width:180px;height:180px;border:1.5px dashed rgba(78,27,182,0.15);border-radius:50%;pointer-events:none"></div>
+  <div style="position:relative;z-index:1">
+    <h2 style="font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(28px,4.5vw,52px);letter-spacing:-0.02em;line-height:1.05;color:#fff;margin-bottom:18px">Atlan Got 5–7 MQLs a Day.<br><span style="color:#b79fe7"><span class="rdct">Veza</span> Can Too.</span></h2>
+    <p style="font-size:17px;color:rgba(255,255,255,0.58);max-width:460px;margin:0 auto 36px;line-height:1.65;text-wrap:pretty">Speak directly with Karthick Raajha, CEO of RevvGrowth, and get a tailored game-plan in under 15 minutes.</p>
+    <a href="https://cal.id/karthick-revvgrowth/book-a-meeting" style="display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-weight:700;font-size:18px;color:#fff;background:#4e1bb6;padding:20px 40px;border-radius:6px;text-decoration:none;box-shadow:0 14px 40px rgba(78,27,182,0.6)">Book a 15-Min Call →</a>
+    <div style="font-size:13px;color:rgba(255,255,255,0.3);margin-top:24px;font-style:italic">We spent 4 hours putting this audit together for <span class="rdct">Veza</span> because we know we can help. — The RevvGrowth Team</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div style="position:relative;z-index:1;padding:72px 48px;border-top:1px solid rgba(255,255,255,0.07);max-width:820px;margin:0 auto">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#b79fe7;text-align:center;margin-bottom:32px">Frequently Asked Questions</div>
+
+  <div data-faq-item="true" data-open="true" style="border-bottom:1px solid rgba(255,255,255,0.08);padding:20px 0">
+    <div data-faq-q="true" style="font-size:15px;font-weight:600;color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none">
+      Why do 12 articles on "least privilege" — including 2 near-duplicate slugs — hurt <span class="rdct">Veza</span>?
+      <span data-faq-icon="true" style="color:#b79fe7;font-size:20px;flex-shrink:0;transition:transform 0.3s;transform:rotate(45deg)">+</span>
+    </div>
+    <div data-faq-a="true" style="font-size:14px;color:rgba(255,255,255,0.58);line-height:1.7;max-height:300px;overflow:hidden;margin-top:12px;transition:max-height 0.35s ease,margin 0.3s">Google allocates ranking authority to domains, not pages. When 12 <span class="rdct">Veza</span> pages target the same query — two of them nearly identical slugs — Google splits its crawl attention and link equity across all of them, and the near-duplicate pair actively signals crawl confusion. None of the 12 accumulates enough authority to rank #1. A single consolidated hub page receives 100% of the signal and has a far better shot at dominating the SERP for one of the most fundamental queries in identity security.</div>
+  </div>
+
+  <div data-faq-item="true" data-open="false" style="border-bottom:1px solid rgba(255,255,255,0.08);padding:20px 0">
+    <div data-faq-q="true" style="font-size:15px;font-weight:600;color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none">
+      What happens to the traffic on the pages that get redirected?
+      <span data-faq-icon="true" style="color:#b79fe7;font-size:20px;flex-shrink:0;transition:transform 0.3s">+</span>
+    </div>
+    <div data-faq-a="true" style="font-size:14px;color:rgba(255,255,255,0.58);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.35s ease,margin 0.3s">A 301 redirect passes approximately 90–99% of the original page's link equity to the destination. You don't lose the traffic — you concentrate it. The destination hub page gets stronger, the redirected pages no longer split authority, and Google quickly recrawls and reassigns rankings to the canonical winner.</div>
+  </div>
+
+  <div data-faq-item="true" data-open="false" style="border-bottom:1px solid rgba(255,255,255,0.08);padding:20px 0">
+    <div data-faq-q="true" style="font-size:15px;font-weight:600;color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none">
+      How fast can <span class="rdct">Veza</span> move from a 15/100 to a 50+ AI visibility score?
+      <span data-faq-icon="true" style="color:#b79fe7;font-size:20px;flex-shrink:0;transition:transform 0.3s">+</span>
+    </div>
+    <div data-faq-a="true" style="font-size:14px;color:rgba(255,255,255,0.58);line-height:1.7;max-height:0;overflow:hidden;transition:max-height 0.35s ease,margin 0.3s">The technical fixes (301 redirects on the duplicate slugs, noindexing product-update changelogs and PR pages) can be done in a week and Google typically processes them within 2–4 weeks. Hub page consolidations — like the NHI and ISPM-vs-IGA pages — start showing ranking improvements within 6–10 weeks. AI visibility improvements typically follow 6–12 weeks after consolidation as LLMs recrawl and re-rank citations. A full content health upgrade typically takes one quarter to reflect meaningfully in both search rankings and AI visibility scores.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="position:relative;z-index:1;padding:28px 48px;border-top:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+  <img src="data:image/png;base64,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" alt="RevvGrowth" style="height:30px;width:auto;display:block;opacity:0.6">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:0.04em"><span class="rdct">Veza</span> Audit · 300 URLs · Zero scraping required</div>
+</footer>
+
+<script>
+  // FAQ accordion — pure vanilla, zero dependencies, fully guarded
+  (function () {
+    function initFAQ() {
+      var qs = document.querySelectorAll('[data-faq-q]');
+      if (!qs || !qs.length) return;
+      qs.forEach(function (q) {
+        q.addEventListener('click', function () {
+          var item = q.closest('[data-faq-item]');
+          if (!item) return;
+          var answer = item.querySelector('[data-faq-a]');
+          var icon = item.querySelector('[data-faq-icon]');
+          if (!answer) return;
+          var isOpen = item.getAttribute('data-open') === 'true';
+          item.setAttribute('data-open', isOpen ? 'false' : 'true');
+          if (isOpen) {
+            answer.style.maxHeight = '0';
+            answer.style.marginTop = '0';
+            if (icon) icon.style.transform = 'rotate(0deg)';
+          } else {
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+            answer.style.marginTop = '12px';
+            if (icon) icon.style.transform = 'rotate(45deg)';
+          }
+        });
+      });
+    }
+    try {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initFAQ);
+      } else { initFAQ(); }
+    } catch (e) {}
+  })();
+</script>
+</body>
+</html>
